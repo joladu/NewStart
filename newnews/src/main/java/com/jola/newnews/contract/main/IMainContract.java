@@ -15,6 +15,8 @@ public interface IMainContract {
 
     interface IMainPresenter extends IBasePresenter<IMainView>{
         void checkVersion(String currentVersion);
+        void setNightModeState(boolean b);
+        void setCurrentItem(int index);
     }
 
 }

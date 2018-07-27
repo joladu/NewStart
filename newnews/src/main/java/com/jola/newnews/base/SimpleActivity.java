@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -13,6 +12,7 @@ import com.jola.newnews.util.LogUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by lenovo on 2018/7/17
@@ -21,7 +21,7 @@ import butterknife.Unbinder;
  * ButterKnife 绑定和解绑
  */
 
-public abstract class SimpleActivity extends AppCompatActivity{
+public abstract class SimpleActivity extends SupportActivity {
 
     public static final String TAG = "SimpleActivity";
 

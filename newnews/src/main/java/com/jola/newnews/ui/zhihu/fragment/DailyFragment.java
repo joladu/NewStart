@@ -42,7 +42,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements IDail
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_daily;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements IDail
         stateMain();
         mList = dailyListBean.getStories();
         mTomorrowDateStr = String.valueOf(Integer.valueOf(dailyListBean.getDate()) + 1);
-
+        mAdapter.addDailyDate(dailyListBean);
     }
 
 }

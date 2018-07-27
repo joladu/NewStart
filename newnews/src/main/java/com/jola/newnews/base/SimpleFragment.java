@@ -4,19 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Created by lenovo on 2018/7/23.
  */
 
-public abstract class SimpleFragment extends Fragment {
+public abstract class SimpleFragment extends SupportFragment {
 
     protected View mView;
     protected Activity mActivity;

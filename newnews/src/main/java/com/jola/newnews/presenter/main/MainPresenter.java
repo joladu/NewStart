@@ -96,16 +96,15 @@ public class MainPresenter extends RxPresenter<IMainContract.IMainView> implemen
         );
     }
 
+    @Override
+    public void setNightModeState(boolean b) {
 
+    }
 
+    @Override
+    public void setCurrentItem(int index) {
 
-
-
-
-
-
-
-
+    }
 
 
 }

@@ -3,11 +3,11 @@ package com.jola.newnews.ui.zhihu.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +15,7 @@ import com.jola.newnews.R;
 import com.jola.newnews.component.ImageLoader;
 import com.jola.newnews.mode.bean.DailyListBean;
 import com.jola.newnews.widget.SquareImageView;
+import com.jola.newnews.widget.ZhihuDiffCallback;
 
 import java.util.List;
 
@@ -49,6 +50,16 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.mContext = mContext;
         this.mList = mList;
         mInflater = LayoutInflater.from(mContext);
+    }
+
+    public void addDailyDate(DailyListBean info) {
+        currentTitle = "今日热闻";
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ZhihuDiffCallback(mList, info.getStories()), true);
+        mList = info.getStories();
+        mTopList = info.getTop_stories();
+//        isBefore = false;
+        diffResult.dispatchUpdatesTo(this);
+//        notifyDataSetChanged();
     }
 
     @Override
@@ -110,7 +121,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return null == mList ? 0 :mList.size();
     }
 
     public static class TopViewHolder extends RecyclerView.ViewHolder{

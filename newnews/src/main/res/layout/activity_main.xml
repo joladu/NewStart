@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            >
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -18,9 +23,15 @@
 
                 <include layout="@layout/view_toolbar"/>
 
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/view_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_layout_container_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -29,9 +40,14 @@
         </LinearLayout>
 
         <android.support.design.widget.NavigationView
-            android:layout_width="wrap_content"
+            android:id="@+id/navigation_view_main"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity = "start"
+            android:background="@color/drawer_item_bg_n"
+            app:menu="@menu/drawer_menu"
+            app:itemBackground="@drawable/drawer_item_bg"
+            app:headerLayout="@layout/view_drawer_header"
             />
 
 

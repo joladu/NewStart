@@ -12,4 +12,8 @@
     <color name="news_unread">#000000</color>
     <color name="news_read">#898989</color>
 
+    <color name="drawer_item_bg_n">#fffff9</color>
+    <color name="drawer_header_text">#2c2c2c</color>
+    <color name="drawer_item_bg_p">#e8e8e8</color>
+
 </resources>
