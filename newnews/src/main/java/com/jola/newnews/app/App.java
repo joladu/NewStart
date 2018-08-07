@@ -11,6 +11,8 @@ import com.jola.newnews.di.module.HttpModule;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.realm.Realm;
+
 /**
  * Created by lenovo on 2018/7/17.
  */
@@ -38,6 +40,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+//
+        Realm.init(getApplicationContext());
+
     }
 
 

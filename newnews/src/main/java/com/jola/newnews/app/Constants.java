@@ -34,6 +34,12 @@ public class Constants {
 
     public static final int TYPE_ABOUT = 112;
 
+    //================= PREFERENCE ====================
+
+    public static final String SP_NIGHT_MODE = "night_mode";
+
+    public static final String SP_CURRENT_ITEM = "current_item";
+
 
     //================= PATH ====================
 

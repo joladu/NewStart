@@ -4,7 +4,9 @@ import com.jola.newnews.app.App;
 import com.jola.newnews.di.module.AppModule;
 import com.jola.newnews.di.module.HttpModule;
 import com.jola.newnews.mode.DataManage;
+import com.jola.newnews.mode.db.RealmHelper;
 import com.jola.newnews.mode.http.RetrofitHelper;
+import com.jola.newnews.mode.prefs.PreferenceHelperImpl;
 
 import javax.inject.Singleton;
 
@@ -23,5 +25,11 @@ public interface AppComponent {
     DataManage getDataManage();
 
     RetrofitHelper getRetrofitHelper();
+
+    RealmHelper getRealmHelper();
+
+    PreferenceHelperImpl getPreferenceHelperImpl();
+
+
 
 }

@@ -17,6 +17,7 @@ public interface IMainContract {
         void checkVersion(String currentVersion);
         void setNightModeState(boolean b);
         void setCurrentItem(int index);
+        int getCurrentItem();
     }
 
 }
