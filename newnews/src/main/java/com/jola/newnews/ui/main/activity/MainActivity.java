@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainCo
 
     @BindView(R.id.drawer_layout_main)
     DrawerLayout mDrawableLayout;
-    @BindView(R.id.tool_bar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.navigation_view_main)
     NavigationView mNavigationView;
@@ -64,9 +64,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainCo
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (null == savedInstanceState){
-//            mPresenter
+            mPresenter.setNightModeState(false);
         }else{
-
+            showFragment = mPresenter.getCurrentItem();
+            hideFragment = Constants.TYPE_ZHIHU;
+            showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
+            mNavigationView.getMenu().findItem(R.id.drawer_zhihu).setChecked(false);
+            mToolbar.setTitle(mNavigationView.getMenu().findItem(getCurrentItem(showFragment)).getTitle().toString());
+            hideFragment = showFragment;
         }
     }
 
@@ -76,7 +81,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainCo
     @Override
     protected void initEventAndData() {
 //        LogUtil.logInteresting("MainActivity presenter inited :"+mPresenter.toString());
-        setToolbar(mToolbar,"nfc手持机");
+        setToolbar(mToolbar,"知乎日报");
 
         mZhiHuMainFragment = new ZhiHuMainFragment();
         mGankFragment = new ZhiHuMainFragment();
@@ -171,6 +176,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainCo
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(true);
         mMaterialSearchView.setMenuItem(item);
+        mSearchMenuItem = item;
         return true;
     }
 
@@ -199,6 +205,29 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainCo
                 return mAboutFragment;
         }
         return mZhiHuMainFragment;
+    }
+
+
+    private int getCurrentItem(int item) {
+        switch (item) {
+            case Constants.TYPE_ZHIHU:
+                return R.id.drawer_zhihu;
+            case Constants.TYPE_GANK:
+                return R.id.drawer_gank;
+            case Constants.TYPE_WECHAT:
+                return R.id.drawer_wechat;
+            case Constants.TYPE_GOLD:
+                return R.id.drawer_gold;
+            case Constants.TYPE_VTEX:
+                return R.id.drawer_vtex;
+            case Constants.TYPE_LIKE:
+                return R.id.drawer_like;
+            case Constants.TYPE_SETTING:
+                return R.id.drawer_setting;
+            case Constants.TYPE_ABOUT:
+                return R.id.drawer_about;
+        }
+        return R.id.drawer_zhihu;
     }
 
 

@@ -2,8 +2,12 @@ package com.jola.newnews.di.module;
 
 import com.jola.newnews.app.App;
 import com.jola.newnews.mode.DataManage;
+import com.jola.newnews.mode.db.IDBHelper;
+import com.jola.newnews.mode.db.RealmHelper;
 import com.jola.newnews.mode.http.IHttpHelper;
 import com.jola.newnews.mode.http.RetrofitHelper;
+import com.jola.newnews.mode.prefs.IPreferenceHelper;
+import com.jola.newnews.mode.prefs.PreferenceHelperImpl;
 
 import javax.inject.Singleton;
 
@@ -34,8 +38,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataManage provideDataManage(IHttpHelper iHttpHelper){
-        return new DataManage(iHttpHelper);
+    DataManage provideDataManage(IHttpHelper iHttpHelper, IDBHelper idbHelper,IPreferenceHelper iPreferenceHelper){
+        return new DataManage(iHttpHelper,idbHelper,iPreferenceHelper);
     }
 
 //    *******************end  对内提供
@@ -46,6 +50,18 @@ public class AppModule {
     @Singleton
     IHttpHelper provideIHttpHelper(RetrofitHelper retrofitHelper){
         return retrofitHelper;
+    }
+
+    @Provides
+    @Singleton
+    IDBHelper provideIDBHelper(RealmHelper realmHelper){
+        return realmHelper;
+    }
+
+    @Provides
+    @Singleton
+    IPreferenceHelper provideIPreferenceHelper(PreferenceHelperImpl preferenceHelper){
+        return preferenceHelper;
     }
 
 

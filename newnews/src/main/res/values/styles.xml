@@ -11,6 +11,9 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">true</item>
 
+        //ActionBarDrawerToggle设置颜色
+        <item name="colorControlNormal">@android:color/white</item>
+
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -19,6 +22,7 @@
 
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
 </resources>

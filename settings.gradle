@@ -1,1 +1,1 @@
-include ':app', ':newnews'
+include ':app', ':newnews', ':onlineedu', ':playerbase', ':ijkplayer'
