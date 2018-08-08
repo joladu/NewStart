@@ -58,10 +58,18 @@ public class DataUtils {
 
     public static List<VideoBean> getVideoList() {
         List<VideoBean> videoList = new ArrayList<>();
+
+//        http://www.hkstv.tv/index/live.html
+//        http://tv.cctv.com/live/
+
+//      http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8
+
+//        https://mov.bn.netease.com/open-movie/nos/mp4/2016/06/22/SBP8G92E3_hd.mp4
+
         videoList.add(new VideoBean(
                 "你欠缺的也许并不是能力",
                 "http://open-image.nosdn.127.net/image/snapshot_movie/2016/11/b/a/c36e048e284c459686133e66a79e2eba.jpg",
-                "https://mov.bn.netease.com/open-movie/nos/mp4/2016/06/22/SBP8G92E3_hd.mp4"));
+                "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"));
 
         videoList.add(new VideoBean(
                 "坚持与放弃",

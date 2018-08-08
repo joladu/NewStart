@@ -149,6 +149,7 @@ public class VideoViewActivity extends AppCompatActivity implements OnPlayerEven
     private DataSource generatorDataSource(long id){
         DataSource dataSource = new DataSource();
         dataSource.setId(id);
+//        dataSource.setData("http://www.hkstv.tv/index/live.html");
         return dataSource;
     }
 
