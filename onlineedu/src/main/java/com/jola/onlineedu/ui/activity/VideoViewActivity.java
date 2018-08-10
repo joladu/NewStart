@@ -3,7 +3,6 @@ package com.jola.onlineedu.ui.activity;
 import android.Manifest;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,10 +16,10 @@ import android.widget.Toast;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
-import com.jola.onlineedu.cover.ControllerCover;
-import com.jola.onlineedu.play.DataInter;
-import com.jola.onlineedu.play.MonitorDataProvider;
-import com.jola.onlineedu.play.ReceiverGroupManager;
+import com.jola.onlineedu.video.cover.ControllerCover;
+import com.jola.onlineedu.video.play.DataInter;
+import com.jola.onlineedu.video.play.MonitorDataProvider;
+import com.jola.onlineedu.video.play.ReceiverGroupManager;
 import com.jola.onlineedu.util.PUtil;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.config.PlayerConfig;
@@ -135,6 +134,8 @@ public class VideoViewActivity extends AppCompatActivity implements OnPlayerEven
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_HAS_NEXT, true);
         mVideoView.setReceiverGroup(mReceiverGroup);
 
+
+//        现获取视频播放地址信息，然后封装到DataProvider中，供播放器使用
         //设置数据提供者 MonitorDataProvider
         MonitorDataProvider dataProvider = new MonitorDataProvider();
         mVideoView.setDataProvider(dataProvider);

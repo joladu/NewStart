@@ -1,20 +1,20 @@
-package com.jola.onlineedu.play;
+package com.jola.onlineedu.video.play;
 
 import android.content.Context;
 
-import com.jola.onlineedu.cover.CompleteCover;
-import com.jola.onlineedu.cover.ControllerCover;
-import com.jola.onlineedu.cover.ErrorCover;
-import com.jola.onlineedu.cover.GestureCover;
-import com.jola.onlineedu.cover.LoadingCover;
+import com.jola.onlineedu.video.cover.CompleteCover;
+import com.jola.onlineedu.video.cover.ControllerCover;
+import com.jola.onlineedu.video.cover.ErrorCover;
+import com.jola.onlineedu.video.cover.GestureCover;
+import com.jola.onlineedu.video.cover.LoadingCover;
 import com.kk.taurus.playerbase.receiver.GroupValue;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 
-import static com.jola.onlineedu.play.DataInter.ReceiverKey.KEY_COMPLETE_COVER;
-import static com.jola.onlineedu.play.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
-import static com.jola.onlineedu.play.DataInter.ReceiverKey.KEY_ERROR_COVER;
-import static com.jola.onlineedu.play.DataInter.ReceiverKey.KEY_GESTURE_COVER;
-import static com.jola.onlineedu.play.DataInter.ReceiverKey.KEY_LOADING_COVER;
+import static com.jola.onlineedu.video.play.DataInter.ReceiverKey.KEY_COMPLETE_COVER;
+import static com.jola.onlineedu.video.play.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
+import static com.jola.onlineedu.video.play.DataInter.ReceiverKey.KEY_ERROR_COVER;
+import static com.jola.onlineedu.video.play.DataInter.ReceiverKey.KEY_GESTURE_COVER;
+import static com.jola.onlineedu.video.play.DataInter.ReceiverKey.KEY_LOADING_COVER;
 
 
 

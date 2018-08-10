@@ -1,4 +1,4 @@
-package com.jola.onlineedu.cover;
+package com.jola.onlineedu.video.cover;
 
 import android.content.Context;
 import android.os.Bundle;

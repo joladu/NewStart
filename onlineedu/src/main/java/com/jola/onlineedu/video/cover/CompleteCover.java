@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.jola.onlineedu.cover;
+package com.jola.onlineedu.video.cover;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.play.DataInter;
+import com.jola.onlineedu.video.play.DataInter;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
 import com.kk.taurus.playerbase.receiver.BaseCover;
 import com.kk.taurus.playerbase.receiver.ICover;

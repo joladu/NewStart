@@ -1,4 +1,4 @@
-package com.jola.onlineedu.beans;
+package com.jola.onlineedu.video.beans;
 
 import java.io.Serializable;
 

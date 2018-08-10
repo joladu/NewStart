@@ -53,7 +53,7 @@ public abstract class SimpleActivity extends SupportActivity {
         setContentView(getLayout());
         mUnbinder = ButterKnife.bind(this);
         mContext = this;
-//        视图创建后 要完成Presenter 与 View 的关联，如果等到在子类的onCreate()方法中再去关联时，本方法中的initEventAndData() 如果使用Presenter 会导致报NullPointException
+//       如果是使用mvp结构，在 onViewCreated()方法中 要完成Presenter 与 View 的关联，如果等到在子类的onCreate()方法中再去关联时，本方法中的initEventAndData() 如果使用Presenter 会导致报NullPointException
         onViewCreated();
         App.getInstance().addActivity(this);
         initEventAndData();

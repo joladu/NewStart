@@ -1,4 +1,4 @@
-package com.jola.onlineedu.cover;
+package com.jola.onlineedu.video.cover;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,7 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.play.DataInter;
+import com.jola.onlineedu.video.play.DataInter;
 import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.BundlePool;
 import com.kk.taurus.playerbase.event.EventKey;

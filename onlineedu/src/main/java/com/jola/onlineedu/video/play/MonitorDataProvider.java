@@ -1,11 +1,11 @@
-package com.jola.onlineedu.play;
+package com.jola.onlineedu.video.play;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.jola.onlineedu.beans.VideoBean;
+import com.jola.onlineedu.video.beans.VideoBean;
 import com.jola.onlineedu.util.DataUtils;
 import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.BundlePool;
@@ -36,6 +36,10 @@ public class MonitorDataProvider extends BaseDataProvider {
         }
     };
 
+    /**
+     * 调用此方法 提供数据源
+     * @param sourceData
+     */
     @Override
     public void handleSourceData(DataSource sourceData) {
         this.mDataSource = sourceData;
@@ -54,6 +58,7 @@ public class MonitorDataProvider extends BaseDataProvider {
             mDataSource.setTitle(bean.getDisplayName());
             Bundle bundle = BundlePool.obtain();
             bundle.putSerializable(EventKey.SERIALIZABLE_DATA, mDataSource);
+            //真正调用此方法将数据源提供给播放器
             onProviderMediaDataSuccess(bundle);
         }
     };

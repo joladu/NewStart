@@ -1,4 +1,4 @@
-package com.jola.onlineedu.play;
+package com.jola.onlineedu.video.play;
 
 import com.kk.taurus.playerbase.assist.InterEvent;
 import com.kk.taurus.playerbase.assist.InterKey;

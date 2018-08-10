@@ -2,7 +2,7 @@ package com.jola.onlineedu.util;
 
 
 import com.jiajunhui.xapp.medialoader.bean.VideoItem;
-import com.jola.onlineedu.beans.VideoBean;
+import com.jola.onlineedu.video.beans.VideoBean;
 
 import java.util.ArrayList;
 import java.util.List;

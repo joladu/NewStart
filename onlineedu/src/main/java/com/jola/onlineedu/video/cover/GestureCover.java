@@ -1,4 +1,4 @@
-package com.jola.onlineedu.cover;
+package com.jola.onlineedu.video.cover;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.play.DataInter;
+import com.jola.onlineedu.video.play.DataInter;
 import com.kk.taurus.playerbase.event.BundlePool;
 import com.kk.taurus.playerbase.event.EventKey;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;

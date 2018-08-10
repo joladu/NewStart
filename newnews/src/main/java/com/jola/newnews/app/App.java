@@ -66,5 +66,15 @@ public class App extends Application {
         }
     }
 
+    public void exitApp(){
+        if (null != mAllActivitiesSet){
+            synchronized (mAllActivitiesSet){
+                for (Activity activity : mAllActivitiesSet){
+                    activity.finish();
+                }
+            }
+        }
+    }
+
 
 }
