@@ -35,4 +35,14 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     public void insertNewsId(int id) {
         mDBHelper.insertNewsId(id);
     }
+
+    @Override
+    public boolean getNightModeState() {
+        return mPreferenceHelper.getNightModeState();
+    }
+
+    @Override
+    public void setNightModeState(boolean state) {
+        mPreferenceHelper.setNightModeState(state);
+    }
 }

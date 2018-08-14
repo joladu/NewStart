@@ -1,5 +1,7 @@
 package com.jola.onlineedu.app;
 
+import android.os.Environment;
+
 import java.io.File;
 
 /**
@@ -7,6 +9,22 @@ import java.io.File;
  */
 
 public class Constants {
+
+    //================= PATH ====================
+
+    public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
+
+    public static final String PATH_CACHE = PATH_DATA + "/NetCache";
+
+    public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "onlineedu" + File.separator + "imgs";
+
+
+
+
+    //================= PREFERENCE ====================
+
+
+
 
     //================= TYPE ====================
 
@@ -34,17 +52,11 @@ public class Constants {
 
     public static final int TYPE_ABOUT = 112;
 
-    //================= PREFERENCE ====================
 
-    public static final String SP_NIGHT_MODE = "night_mode";
 
     public static final String SP_CURRENT_ITEM = "current_item";
 
 
-    //================= PATH ====================
 
-    public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
-
-    public static final String PATH_CACHE = PATH_DATA + "/NetCache";
 
 }

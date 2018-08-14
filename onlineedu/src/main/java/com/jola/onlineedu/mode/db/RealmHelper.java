@@ -2,6 +2,8 @@ package com.jola.onlineedu.mode.db;
 
 import com.jola.onlineedu.mode.bean.ReadStateBean;
 
+import javax.inject.Inject;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -15,6 +17,7 @@ public class RealmHelper implements DBHelper {
 
     private Realm mRealm;
 
+    @Inject
     public RealmHelper() {
         mRealm = Realm.getInstance(new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()

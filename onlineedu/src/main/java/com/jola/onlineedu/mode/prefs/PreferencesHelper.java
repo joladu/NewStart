@@ -6,4 +6,7 @@ package com.jola.onlineedu.mode.prefs;
 
 public interface PreferencesHelper {
 
+    boolean getNightModeState();
+
+    void setNightModeState(boolean state);
 }
