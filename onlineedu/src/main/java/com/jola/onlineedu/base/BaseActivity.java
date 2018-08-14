@@ -1,19 +1,16 @@
 package com.jola.onlineedu.base;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.util.AttributeSet;
-import android.view.View;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.ViewGroup;
+
+import com.jola.onlineedu.util.SnackbarUtil;
 
 /**
  * Created by lenovo on 2018/8/10
  * 基于SimpleActivity ，注入Presenter extends IBasePresenter
  */
 
-public abstract class BaseActivity<T extends IBasePresenter> extends SimpleActivity implements IBaseView{
+public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivity implements BaseView{
 
 
     protected T mPresenter;
@@ -40,12 +37,24 @@ public abstract class BaseActivity<T extends IBasePresenter> extends SimpleActiv
     }
 
     @Override
-    public void stateErr() {
-
+    public void showErrorMsg(String msg) {
+        SnackbarUtil.show(((ViewGroup) findViewById(android.R.id.content)).getChildAt(0), msg);
     }
 
     @Override
-    public void stateLoading() {
+    public void useNightMode(boolean isNight) {
+        if (isNight) {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        recreate();
+    }
+
+    @Override
+    public void stateError() {
 
     }
 
@@ -55,7 +64,12 @@ public abstract class BaseActivity<T extends IBasePresenter> extends SimpleActiv
     }
 
     @Override
-    public void showErrMsg(String errMsg) {
-        Snackbar.make(((ViewGroup) findViewById(android.R.id.content)).getChildAt(0), errMsg, Snackbar.LENGTH_LONG).show();
+    public void stateLoading() {
+
+    }
+
+    @Override
+    public void stateMain() {
+
     }
 }

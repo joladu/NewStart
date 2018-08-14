@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable;
  * 基于Rx 的Presenter
  */
 
-public class RxPresenter<T extends IBaseView> implements IBasePresenter<T>  {
+public class RxPresenter<T extends BaseView> implements BasePresenter<T>  {
 
     protected T mView;
     private CompositeDisposable mCompositeDisposable;
