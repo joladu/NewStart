@@ -27,7 +27,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements W
 
     @Override
     protected void initInject() {
-//        getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 
     @Override

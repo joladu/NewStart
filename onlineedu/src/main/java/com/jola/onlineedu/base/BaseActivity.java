@@ -3,7 +3,13 @@ package com.jola.onlineedu.base;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.ViewGroup;
 
+import com.jola.onlineedu.app.App;
+import com.jola.onlineedu.di.component.ActivityComponent;
+import com.jola.onlineedu.di.component.DaggerActivityComponent;
+import com.jola.onlineedu.di.module.ActivityModule;
 import com.jola.onlineedu.util.SnackbarUtil;
+
+import javax.inject.Inject;
 
 /**
  * Created by lenovo on 2018/8/10
@@ -13,9 +19,20 @@ import com.jola.onlineedu.util.SnackbarUtil;
 public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivity implements BaseView{
 
 
+    @Inject
     protected T mPresenter;
 
     protected abstract void initInject();
+
+    protected ActivityComponent getActivityComponent(){
+        return DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .appComponent(App.getAppComponent())
+                .build();
+    }
+
+
+
 
     @Override
     protected void onViewCreated() {

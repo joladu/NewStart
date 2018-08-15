@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Environment;
 
+import com.jola.onlineedu.di.component.AppComponent;
+import com.jola.onlineedu.di.component.DaggerAppComponent;
+import com.jola.onlineedu.di.module.AppModule;
+import com.jola.onlineedu.di.module.HttpModule;
 import com.kk.taurus.ijkplayer.IjkPlayer;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
@@ -35,6 +39,18 @@ public class App extends Application {
      * 是否忽略移动网络下播放警告
      */
     public static boolean ignoreMobile;
+
+    private static AppComponent appComponent;
+
+    public static AppComponent getAppComponent(){
+        if (null == appComponent){
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(instance))
+                    .httpModule(new HttpModule())
+                    .build();
+        }
+        return appComponent;
+    }
 
     private Set<Activity> mAllActivitySet;
 

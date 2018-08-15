@@ -1,10 +1,8 @@
 package com.jola.onlineedu.presenter;
 
-import android.util.Log;
-
-
 import com.jola.onlineedu.base.RxPresenter;
 import com.jola.onlineedu.contract.WelcomeContract;
+import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.util.RxUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -24,12 +22,12 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
 
     private static final int COUNT_DOWN_TIME = 2200;
 
-//    private DataManager mDataManager;
-//
-//    @Inject
-//    public WelcomePresenter(DataManager mDataManager) {
-//        this.mDataManager = mDataManager;
-//    }
+    private DataManager mDataManager;
+
+    @Inject
+    public WelcomePresenter(DataManager mDataManager) {
+        this.mDataManager = mDataManager;
+    }
 
     @Override
     public void getWelcomeData() {

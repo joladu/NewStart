@@ -5,7 +5,6 @@ import com.jola.onlineedu.di.module.AppModule;
 import com.jola.onlineedu.di.module.HttpModule;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.db.RealmHelper;
-import com.jola.onlineedu.mode.http.HttpHelper;
 import com.jola.onlineedu.mode.http.RetrofitHelper;
 import com.jola.onlineedu.mode.prefs.PreferencesHelperImpl;
 
