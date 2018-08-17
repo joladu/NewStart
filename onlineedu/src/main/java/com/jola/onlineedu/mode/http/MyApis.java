@@ -11,10 +11,15 @@ import retrofit2.http.Path;
  */
 
 public interface MyApis {
-    String HOST = "http://news-at.zhihu.com/api/4/";
-    /**
-     * 启动界面图片
-     */
-    @GET("start-image/{res}")
-    Flowable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
+
+//    String HOST = "http://news-at.zhihu.com/api/4/";
+    String HOST = "http://192.168.7.153:8080/AnXinPay/AXPay/";
+
+
+//    @GET("AXPay/testJola/{res}")
+//    Flowable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
+
+    @GET("testJola/")
+    Flowable<WelcomeBean> getWelcomeInfo();
+
 }

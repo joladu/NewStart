@@ -1,5 +1,7 @@
 package com.jola.onlineedu.di.component;
 
+import android.app.Activity;
+
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.di.module.FragmentModule;
 import com.jola.onlineedu.di.scope.FragmentScope;
@@ -13,4 +15,8 @@ import dagger.Component;
 @FragmentScope
 @Component(dependencies = AppComponent.class,modules = FragmentModule.class)
 public interface FragmentComponent {
+
+    Activity getActivity();
+
+//    void inject(DailyFragment dailyFragment);
 }

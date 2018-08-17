@@ -11,6 +11,7 @@ import io.reactivex.Flowable;
 
 public interface HttpHelper {
 
-    Flowable<WelcomeBean> fetchWelcomInfo(String res);
+//    Flowable<WelcomeBean> fetchWelcomeInfo(String res);
+    Flowable<WelcomeBean> fetchWelcomeInfo();
 
 }

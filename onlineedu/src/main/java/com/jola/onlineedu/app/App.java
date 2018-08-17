@@ -2,7 +2,6 @@ package com.jola.onlineedu.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.os.Environment;
 
 import com.jola.onlineedu.di.component.AppComponent;
 import com.jola.onlineedu.di.component.DaggerAppComponent;
@@ -14,9 +13,10 @@ import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
 import com.kk.taurus.playerbase.log.PLog;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+
+import io.realm.Realm;
 
 /**
  * Created by jola on 2018/8/7.
@@ -66,6 +66,14 @@ public class App extends Application {
         PLog.LOG_OPEN = true;
 
         initVideoPlay();
+
+        //初始化数据库
+        Realm.init(this);
+
+//        初始化Stetho
+//        Stetho.initializeWithDefaults(this);
+
+
     }
 
     private void initVideoPlay() {

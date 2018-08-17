@@ -27,8 +27,8 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
 
 
     @Override
-    public Flowable<WelcomeBean> fetchWelcomInfo(String res) {
-        return mHttpHelper.fetchWelcomInfo(res);
+    public Flowable<WelcomeBean> fetchWelcomeInfo() {
+        return mHttpHelper.fetchWelcomeInfo();
     }
 
     @Override

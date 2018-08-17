@@ -21,7 +21,7 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Flowable<WelcomeBean> fetchWelcomInfo(String res) {
-        return mMyApiService.getWelcomeInfo(res);
+    public Flowable<WelcomeBean> fetchWelcomeInfo() {
+        return mMyApiService.getWelcomeInfo();
     }
 }
