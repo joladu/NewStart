@@ -1,6 +1,6 @@
 package com.jola.onlineedu.presenter;
 
-import android.util.Log;
+
 
 import com.jola.onlineedu.base.RxPresenter;
 import com.jola.onlineedu.contract.WelcomeContract;

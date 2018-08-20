@@ -15,6 +15,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+
     }
 
     buildTypes {
@@ -24,6 +25,11 @@ android {
         }
     }
 
+}
+
+
+realm{
+    syncEnabled = true
 }
 
 
