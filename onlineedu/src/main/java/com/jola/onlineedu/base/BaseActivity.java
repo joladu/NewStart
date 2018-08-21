@@ -11,12 +11,16 @@ import com.jola.onlineedu.util.SnackbarUtil;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by lenovo on 2018/8/10
  * 基于SimpleActivity ，注入Presenter extends IBasePresenter
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivity implements BaseView{
+
 
 
     @Inject
@@ -30,6 +34,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
                 .appComponent(App.getAppComponent())
                 .build();
     }
+
+
+
 
 
 

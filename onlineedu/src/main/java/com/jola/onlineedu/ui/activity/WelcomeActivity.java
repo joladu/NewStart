@@ -16,9 +16,7 @@ import com.kk.taurus.playerbase.log.PLog;
 
 import butterknife.BindView;
 
-/**
- * Created by codeest on 16/8/15.
- */
+
 
 public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements WelcomeContract.View {
 
