@@ -89,4 +89,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
     public void stateMain() {
 
     }
+
+
 }

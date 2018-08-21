@@ -23,7 +23,7 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
 
     private static final String RES = "1080*1776";
 
-    private static final int COUNT_DOWN_TIME = 22000;
+    private static final int COUNT_DOWN_TIME = 2000;
 
     private DataManager mDataManager;
 
