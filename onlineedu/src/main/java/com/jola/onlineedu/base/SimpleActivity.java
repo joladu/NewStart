@@ -98,8 +98,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
                 ViewCompat.setFitsSystemWindows(mChildView, false);
                 ViewCompat.requestApplyInsets(mChildView);
             }
-
-
         }
 //        4.4-5.0方法：还没有API可以直接修改状态栏颜色，所以必须先将状态栏设置为透明，然后在布局中添加一个背景为期望色值的View来作为状态栏的填充。
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){

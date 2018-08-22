@@ -7,9 +7,6 @@ import android.graphics.Paint;
 
 import java.util.Random;
 
-/**
- * Created by lenovo on 2018/8/21.
- */
 
 public class CodeUtils {
 
