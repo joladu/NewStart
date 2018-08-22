@@ -47,7 +47,9 @@ public class HttpModule {
         return builder
                 .baseUrl(url)
                 .client(client)
+//                添加Rxjava 2 的编译支持
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                使用gson 将返回json 解析成对象
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

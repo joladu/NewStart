@@ -1,6 +1,5 @@
 package com.jola.onlineedu.presenter;
 
-import android.util.Log;
 
 import com.jola.onlineedu.base.RxPresenter;
 import com.jola.onlineedu.contract.WelcomeContract;
@@ -14,6 +13,9 @@ import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by codeest on 16/8/15.
@@ -23,7 +25,7 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
 
     private static final String RES = "1080*1776";
 
-    private static final int COUNT_DOWN_TIME = 22000;
+    private static final int COUNT_DOWN_TIME = 6000;
 
     private DataManager mDataManager;
 
@@ -34,6 +36,14 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
 
     @Override
     public void getWelcomeData() {
+
+//        RequestBody nameBody = RequestBody.create(MediaType.parse("text"), "name");
+//        RequestBody ageBody = RequestBody.create(MediaType.parse("text"), "age");
+//        RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), "filepath");
+//
+//        File filepath = new File("filepath");
+//        MultipartBody.Part.createFormData("file","test.text",file)
+//        MultipartBody.Part part = MultipartBody.Part.createFormData("file", "test.txt", fileBody);
 
 
 //        addSubscribe(mDataManager.fetchWelcomeInfo()
