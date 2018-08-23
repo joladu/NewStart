@@ -9,6 +9,8 @@ import com.jola.onlineedu.app.App;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by lenovo on 2018/8/10.
@@ -19,6 +21,21 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
     private Unbinder mUnbind;
     protected Activity mContext;
+
+    private CompositeDisposable mCompositeDisposable;
+
+    protected void addSubscribe(Disposable disposable){
+        if (null == mCompositeDisposable){
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(disposable);
+    }
+
+    protected void unSubscribe(){
+        if (null != mCompositeDisposable){
+            mCompositeDisposable.clear();
+        }
+    }
 
     protected abstract int getLayout();
 

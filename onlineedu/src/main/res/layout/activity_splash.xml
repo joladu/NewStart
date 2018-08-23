@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
+    <android.support.constraint.Guideline
+        android:id="@+id/head_logo_gl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/test_splash"/>
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+       app:layout_constraintGuide_percent="0.33"
+       />
 
-</FrameLayout>
+    <!--750*1334 高距离 438px / 1334 = -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/head_logo_gl"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/logo_splash_black_580x138"
+       />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/head_bottom_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/head_bottom_text"
+        android:textColor="#252C42"
+        android:textSize="16sp"
+        android:fontFamily="PingFangSC-Light"
+        android:text="在 线 教 育 技 术 服 务 提 供 商"
+        />
+
+</android.support.constraint.ConstraintLayout>

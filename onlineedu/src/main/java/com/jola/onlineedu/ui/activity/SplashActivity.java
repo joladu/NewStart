@@ -31,7 +31,7 @@ public class SplashActivity extends SimpleActivity {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) {
-                       startActivity(new Intent(SplashActivity.this,VideoViewActivity.class));
+                       startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                        SplashActivity.this.finish();
                     }
                 })

@@ -28,7 +28,7 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-        setToolBar(toolbar,"首页");
+//        setToolBar(toolbar,"首页");
 
 
 //        addSubscribe(Flowable.timer(COUNT_DOWN_TIME, TimeUnit.MILLISECONDS)
