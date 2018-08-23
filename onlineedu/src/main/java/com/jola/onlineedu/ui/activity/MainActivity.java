@@ -41,14 +41,14 @@ public class MainActivity extends SimpleActivity {
 //                })
 //        );
 
-        Flowable.timer(2000,TimeUnit.MILLISECONDS)
-                .compose(RxUtil.<Long>rxSchedulerHelper())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
-                    }
-                }).dispose();
+//        Flowable.timer(2000,TimeUnit.MILLISECONDS)
+//                .compose(RxUtil.<Long>rxSchedulerHelper())
+//                .subscribe(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(Long aLong) throws Exception {
+//                        startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
+//                    }
+//                }).dispose();
 
 
     }
