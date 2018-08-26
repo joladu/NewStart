@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
+import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
 
 import butterknife.ButterKnife;
@@ -23,6 +27,19 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected Activity mContext;
 
     private CompositeDisposable mCompositeDisposable;
+
+    protected void setToolBar(Toolbar toolBar,String title){
+        ((TextView)toolBar.findViewById(R.id.title_toolbar_tv)).setText(title);
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
 
     protected void addSubscribe(Disposable disposable){
         if (null == mCompositeDisposable){
@@ -59,5 +76,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
         super.onDestroy();
         App.getInstance().removeActivy(this);
         mUnbind.unbind();
+        unSubscribe();
     }
 }

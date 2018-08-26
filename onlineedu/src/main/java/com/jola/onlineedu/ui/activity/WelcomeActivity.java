@@ -14,7 +14,6 @@ import com.jola.onlineedu.contract.WelcomeContract;
 import com.jola.onlineedu.mode.bean.WelcomeBean;
 import com.jola.onlineedu.presenter.WelcomePresenter;
 import com.jola.onlineedu.util.CodeUtils;
-import com.kk.taurus.playerbase.log.PLog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -50,14 +49,14 @@ public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements W
 
         ivCodeRandom.setImageBitmap(CodeUtils.getInstance().createBitmap());
         String code = CodeUtils.getInstance().getCode();
-        PLog.eJola(Tag,"code:"+code);
+//        PLog.eJola(Tag,"code:"+code);
     }
 
     @OnClick(R.id.code_random_iv)
     void changeRandomCode(){
         ivCodeRandom.setImageBitmap(CodeUtils.getInstance().createBitmap());
         String code = CodeUtils.getInstance().getCode();
-        PLog.eJola(Tag,"code:"+code);
+//        PLog.eJola(Tag,"code:"+code);
     }
 
     @Override

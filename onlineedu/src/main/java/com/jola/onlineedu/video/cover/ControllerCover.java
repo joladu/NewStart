@@ -376,8 +376,18 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
         mSeekBar.setSecondaryProgress(secondProgress);
     }
 
+//    @Override
+//    public void onTimerUpdate(int curr, int duration) {
+//        if(!mTimerUpdateProgressEnable)
+//            return;
+//        if(mTimeFormat==null){
+//            mTimeFormat = TimeUtil.getFormat(duration);
+//        }
+//        updateUI(curr, duration);
+//    }
+
     @Override
-    public void onTimerUpdate(int curr, int duration) {
+    public void onTimerUpdate(int curr, int duration, int bufferPercentage) {
         if(!mTimerUpdateProgressEnable)
             return;
         if(mTimeFormat==null){
@@ -481,4 +491,6 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
     @Override
     public void onEndGesture() {
     }
+
+
 }

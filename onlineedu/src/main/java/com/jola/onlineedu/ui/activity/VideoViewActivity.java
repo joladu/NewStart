@@ -21,6 +21,7 @@ import com.jola.onlineedu.video.play.DataInter;
 import com.jola.onlineedu.video.play.MonitorDataProvider;
 import com.jola.onlineedu.video.play.ReceiverGroupManager;
 import com.jola.onlineedu.util.PUtil;
+
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.entity.DataSource;
@@ -35,10 +36,6 @@ import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
-
-/**
- * Created by Taurus on 2018/4/19.
- */
 
 public class VideoViewActivity extends AppCompatActivity implements OnPlayerEventListener {
 
@@ -209,10 +206,10 @@ public class VideoViewActivity extends AppCompatActivity implements OnPlayerEven
     }
 
     public void onDecoderChangeExoPlayer(View view){
-        int curr = mVideoView.getCurrentPosition();
-        if(mVideoView.switchDecoder(App.PLAN_ID_EXO)){
-            replay(curr);
-        }
+//        int curr = mVideoView.getCurrentPosition();
+//        if(mVideoView.switchDecoder(App.PLAN_ID_EXO)){
+//            replay(curr);
+//        }
     }
 
     public void removeControllerCover(View view){

@@ -8,8 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <!--沉浸式状态栏-->
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
 
         //ActionBarDrawerToggle设置颜色 ==》 返回键颜色
         <item name="colorControlNormal">@color/back_icon_gray</item>
@@ -19,6 +19,55 @@
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="VideoPlayStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--login activity style-->
+    <style name="LoginStyle" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
+    <!--login input edittext style-->
+    <style name="HintInputEditTextStyle">
+        <item name="android:background">@color/window_bg</item>
+        <item name="android:padding">@dimen/padding_input_login</item>
+        <item name="android:textColorHint">@color/hint_text_gray</item>
+        <item name="android:textSize">@dimen/hint_input_text_login</item>
+    </style>
+
+    <!--单页面按钮样式： 登陆 注册 按钮-->
+    <style name="BtnGreenSingleLine">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_btn_green_single</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/btn_single_text_size</item>
+    </style>
+
+    <!--注册页面 返回登录按钮-->
+    <style name="BtnBackGreen">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_btn_green_single</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/btn_single_text_size</item>
+    </style>
+
+    <!--ConmmonInputEditTextStyle :注册，找回密码等 输入框 et 样式-->
+    <style name="CommonInputEditTextStyle">
+        <item name="android:lines">1</item>
+        <item name="android:textSize">@dimen/hint_input_text_common</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">@dimen/padding_hint_input_common</item>
+        <item name="android:textColor">@color/hint_text_gray</item>
     </style>
 
     <!--确认 取消 弹框 样式-->

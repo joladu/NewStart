@@ -2,4 +2,15 @@
 <resources>
 
     <dimen name="title_text_size">20sp</dimen>
+
+    <dimen name="padding_input_login">8dp</dimen>
+    <dimen name="padding_btn_green_single">10dp</dimen>
+    <dimen name="hint_input_text_login">18sp</dimen>
+    <dimen name="hint_input_text_common">15sp</dimen>
+    <dimen name="padding_hint_input_common">10dp</dimen>
+    <dimen name="tip_text_size_no_password">13sp</dimen>
+    <dimen name="tip_text_size_register">12sp</dimen>
+    <dimen name="btn_single_text_size">16sp</dimen>
+
+
 </resources>

@@ -8,6 +8,7 @@
     android:id="@+id/toolbar_view"
     android:fitsSystemWindows="true"
     android:background="@color/window_bg"
+    app:navigationIcon="@drawable/back_navi_128x128"
     >
     <TextView
         android:id="@+id/title_toolbar_tv"

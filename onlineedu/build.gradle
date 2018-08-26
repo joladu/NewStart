@@ -23,6 +23,10 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 
@@ -99,14 +103,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 
     //    video decode
-    implementation project(':ijkplayer')
-    implementation project(':playerbase')
-
+//    implementation project(':ijkplayer')
+    implementation 'com.kk.taurus.playerbase:playerbase:3.3.1'
     //    media loader
     implementation 'com.jiajunhui.xapp.medialoader:medialoader:1.2.1'
 
     //    动态权限
     implementation 'com.lovedise:permissiongen:0.0.6'
-
-
 }

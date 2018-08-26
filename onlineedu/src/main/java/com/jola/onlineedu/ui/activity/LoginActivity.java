@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.util.ToastUtil;
 
 import butterknife.OnClick;
 
@@ -23,11 +24,22 @@ public class LoginActivity extends SimpleActivity {
 
     }
 
-
-
     @OnClick(R.id.tv_login)
     public void login(View view){
-        startActivity(new Intent(LoginActivity.this,VideoViewActivity.class));
+        ToastUtil.toastShort("登录");
+//        startActivity(new Intent(LoginActivity.this,VideoViewActivity.class));
+    }
+
+    @OnClick(R.id.tv_forget_password)
+    public void forgetPassword(View view){
+//        ToastUtil.shortShow("忘记密码");
+        startActivity(new Intent(LoginActivity.this,ForgetPasswordActivity.class));
+    }
+
+    @OnClick(R.id.tv_tip_register_green)
+    public void register(View view){
+//        ToastUtil.toastShort("注册");
+        startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
     }
 
 

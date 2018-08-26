@@ -7,7 +7,7 @@ import com.jola.onlineedu.di.component.AppComponent;
 import com.jola.onlineedu.di.component.DaggerAppComponent;
 import com.jola.onlineedu.di.module.AppModule;
 import com.jola.onlineedu.di.module.HttpModule;
-import com.kk.taurus.ijkplayer.IjkPlayer;
+//import com.kk.taurus.ijkplayer.IjkPlayer;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -31,7 +31,7 @@ public class App extends Application {
     /**
      * exo 解码备用
      */
-    public static final int PLAN_ID_EXO = 2;
+//    public static final int PLAN_ID_EXO = 2;
 
     private static App instance;
 
@@ -77,9 +77,9 @@ public class App extends Application {
     }
 
     private void initVideoPlay() {
-        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_IJK, IjkPlayer.class.getName(), "IjkPlayer"));
+//        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_IJK, IjkPlayer.class.getName(), "IjkPlayer"));
 //        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_EXO, ExoMediaPlayer.class.getName(), "ExoPlayer"));
-        PlayerConfig.setDefaultPlanId(PLAN_ID_IJK);
+//        PlayerConfig.setDefaultPlanId(PLAN_ID_IJK);
 
         //use default NetworkEventProducer.
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
