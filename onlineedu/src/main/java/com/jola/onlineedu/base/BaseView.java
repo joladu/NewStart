@@ -8,7 +8,7 @@ public interface BaseView {
 
     void showErrorMsg(String msg);
 
-    void useNightMode(boolean isNight);
+//    void useNightMode(boolean isNight);
 
     //=======  State  =======
     void stateError();

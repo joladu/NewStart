@@ -21,8 +21,6 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivity implements BaseView{
 
-
-
     @Inject
     protected T mPresenter;
 
@@ -34,12 +32,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
                 .appComponent(App.getAppComponent())
                 .build();
     }
-
-
-
-
-
-
 
     @Override
     protected void onViewCreated() {
@@ -65,17 +57,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
         SnackbarUtil.show(((ViewGroup) findViewById(android.R.id.content)).getChildAt(0), msg);
     }
 
-    @Override
-    public void useNightMode(boolean isNight) {
-        if (isNight) {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        recreate();
-    }
+//    @Override
+//    public void useNightMode(boolean isNight) {
+//        if (isNight) {
+//            AppCompatDelegate.setDefaultNightMode(
+//                    AppCompatDelegate.MODE_NIGHT_YES);
+//        } else {
+//            AppCompatDelegate.setDefaultNightMode(
+//                    AppCompatDelegate.MODE_NIGHT_NO);
+//        }
+//        recreate();
+//    }
 
     @Override
     public void stateError() {
