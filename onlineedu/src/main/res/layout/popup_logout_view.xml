@@ -2,26 +2,32 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/gray_bg_popup_window"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pop_layout"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:background="@color/window_bg"
-        android:padding="10dp"
+        android:background="@drawable/shape_radiu_white_bg"
+        android:layout_marginStart="@dimen/margin_content_to_border"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/cancel_btn"
         >
-        <Button
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:id="@+id/btn_choose_photo"
-            android:text="从相册选择照片"
-            android:textStyle="bold"
-            android:background="@null"
+            android:text="@string/tip_logout_text"
+            android:textColor="@color/gray_tip_logout"
+            android:textSize="@dimen/tip_logout_text"
+            android:gravity="center"
+            android:padding="10dp"
             />
 
         <View
@@ -31,25 +37,29 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:id="@+id/btn_take_photo"
-            android:text="拍照"
-            android:textStyle="bold"
-            android:background="@null"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#0faeaeae"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/cancel_btn"
-            android:text="取消"
+            android:text="@string/confirm_logout_text"
+            android:padding="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:background="@null"
             />
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel_btn"
+        android:text="@string/cancel_logout_text"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@drawable/shape_radiu_white_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_content_to_border"
+        android:layout_marginStart="@dimen/margin_content_to_border"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        />
+
 </RelativeLayout>

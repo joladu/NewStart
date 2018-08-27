@@ -15,10 +15,10 @@ import com.jola.onlineedu.R;
 
 /**
  * Created by lenovo on 2018/8/24.
- * 圆角弹出框
+ * 输入一行内容：修改昵称
  */
 
-public class DialogConfirmView extends Dialog {
+public class DialogInputOneConentView extends Dialog {
 
 
     /**
@@ -62,8 +62,8 @@ public class DialogConfirmView extends Dialog {
 
 
 
-    public DialogConfirmView(@NonNull Context context, String title, String message,
-                             String buttonLeftText, String buttonRightText) {
+    public DialogInputOneConentView(@NonNull Context context, String title, String message,
+                                    String buttonLeftText, String buttonRightText) {
         super(context, R.style.Confirm0rRefuseDialogStyel);
         this.context = context;
         this.title = title;
@@ -72,7 +72,7 @@ public class DialogConfirmView extends Dialog {
         this.buttonRightText = buttonRightText;
     }
 
-    public DialogConfirmView(@NonNull Context context, String title, String message, String buttonLeftText, String buttonRightText, ClickListenerInterface clickListenerInterface){
+    public DialogInputOneConentView(@NonNull Context context, String title, String message, String buttonLeftText, String buttonRightText, ClickListenerInterface clickListenerInterface){
         super(context,R.style.Confirm0rRefuseDialogStyel);
         this.context = context;
         this.title = title;

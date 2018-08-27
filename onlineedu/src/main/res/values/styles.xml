@@ -12,7 +12,7 @@
         <!--<item name="android:windowTranslucentStatus">true</item>-->
 
         //ActionBarDrawerToggle设置颜色 ==》 返回键颜色
-        <item name="colorControlNormal">@color/back_icon_gray</item>
+        <!--<item name="colorControlNormal">@color/back_icon_gray</item>-->
 
     </style>
 

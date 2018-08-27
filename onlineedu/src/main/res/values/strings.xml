@@ -22,5 +22,8 @@
     <string name="get_password">找回密码</string>
     <string name="btn_register">注册</string>
     <string name="btn_back_login">返回登录</string>
+    <string name="tip_logout_text">真的要退出吗？</string>
+    <string name="confirm_logout_text">确认</string>
+    <string name="cancel_logout_text">取消</string>
 
 </resources>
