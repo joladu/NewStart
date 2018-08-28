@@ -100,4 +100,14 @@ public abstract class RootSimpleActivity extends SimpleActivity implements BaseV
         }
     }
 
+    @Override
+    public void showErrorMsg(String msg) {
+
+    }
+
+    @Override
+    public void stateEmpty() {
+
+    }
+
 }

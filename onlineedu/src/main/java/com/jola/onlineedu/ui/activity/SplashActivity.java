@@ -33,8 +33,8 @@ public class SplashActivity extends SimpleActivity {
 //                .statusBarDarkFont(true, 0.2f)
 //                .init();
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        StatusBarUtil.setStatusBarBlack(this);
+//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//        StatusBarUtil.setStatusBarBlack(this);
 
         addSubscribe(Flowable.timer(2000, TimeUnit.MILLISECONDS)
                 .compose(RxUtil.<Long>rxSchedulerHelper())

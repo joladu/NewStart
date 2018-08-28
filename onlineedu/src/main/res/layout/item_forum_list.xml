@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/window_bg">
+
+    <TextView
+        android:id="@+id/tv_forum_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:gravity="center"
+        android:text="精华"
+        android:textColor="#000"
+        android:textSize="14sp"
+        android:background="@drawable/shape_rectangle_gray_bg"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_forum_tag"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:gravity="center"
+        android:text="每天观看直播节目，你们一般会评论什么，内容呢？"
+        android:textColor="@color/title_text"
+        android:textSize="14sp"
+        android:background="@drawable/shape_rectangle_gray_bg"
+        />
+
+</android.support.constraint.ConstraintLayout>

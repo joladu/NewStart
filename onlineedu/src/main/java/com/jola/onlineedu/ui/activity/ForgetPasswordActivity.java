@@ -43,7 +43,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
 //        ImmersionBar.with(this)
 //                .statusBarDarkFont(true, 0.2f)
 //                .init();
-        StatusBarUtil.setStatusBarBlack(this);
+//        StatusBarUtil.setStatusBarBlack(this);
 
         setToolBar(toolbar, "手机找回密码");
         iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());

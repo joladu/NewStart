@@ -8,46 +8,44 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--only full screen opaque can request screen orientation 全屏不透明-->
+    <style name="PortraitScreenStyle" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:screenOrientation">portrait</item>
+
+    </style>
+
     <!--6.0 以下无法设置状态栏颜色 用透明状态栏适配-->
     <!--<style name="BlackStatusBarStyle" parent="AppTheme">-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--<item name="android:windowTranslucentStatus">true</item>-->
     <!--</style>-->
 
     <!--默认状态栏（白色）-->
     <!--<style name="DefaultStatusBarWhite" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!--&lt;!&ndash;<item name="colorPrimaryDark">@color/colorPrimary</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="colorPrimaryDark">@color/colorPrimary</item>&ndash;&gt;-->
     <!--</style>-->
 
 
     <!--&lt;!&ndash;透明主题 白色背景: splash activity&ndash;&gt;-->
     <!--<style name="AppTheme.Transparent">-->
-        <!--<item name="android:windowBackground">@color/window_bg</item>-->
-        <!--<item name="android:windowIsTranslucent">false</item>-->
+    <!--<item name="android:windowBackground">@color/window_bg</item>-->
+    <!--<item name="android:windowIsTranslucent">false</item>-->
     <!--</style>-->
 
 
-
     <!--<style name="MainTheme" parent="AppTheme">-->
-        <!--<item name="android:windowBackground">@color/window_bg</item>-->
-        <!--<item name="android:windowIsTranslucent">false</item>-->
+    <!--<item name="android:windowBackground">@color/window_bg</item>-->
+    <!--<item name="android:windowIsTranslucent">false</item>-->
     <!--</style>-->
 
     <!-- Base application theme. -->
     <!--<style name="VideoPlayStyle" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
     <!--</style>-->
-
-    <!--only full screen opaque can request screen orientation 全屏不透明-->
-    <!--<style name="PortraitScreenStyle" parent="AppTheme">-->
-        <!--<item name="android:windowIsTranslucent">false</item>-->
-        <!--<item name="android:screenOrientation">portrait</item>-->
-    <!--</style>-->
-
-
 
 
     <!--login input edittext style-->

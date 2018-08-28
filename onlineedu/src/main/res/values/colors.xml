@@ -12,6 +12,9 @@
 
     <color name="gray_bg_popup_window">#bfbfbf</color>
     <color name="gray_tip_logout">#777777</color>
+    <color name="gray_light_bg_search">#F9F9F9 </color>
+    <color name="gray_hint_text_search">#C2C2C2</color>
+    <color name="gray_item_forum_type">#E9EEF2</color>
     <color name="black_title_popup_window">#000000</color>
     <color name="black_status_bar">#000000</color>
 

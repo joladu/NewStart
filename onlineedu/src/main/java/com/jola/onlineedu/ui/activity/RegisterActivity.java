@@ -42,7 +42,7 @@ public class RegisterActivity extends SimpleActivity {
 //        ImmersionBar.with(this)
 //                .statusBarDarkFont(true, 0.2f)
 //                .init();
-        StatusBarUtil.setStatusBarBlack(this);
+//        StatusBarUtil.setStatusBarBlack(this);
 
 
         setToolBar(toolbar, "注册");
