@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#fff</color>
-    <color name="colorPrimaryDark">#888888</color>
+    <color name="colorPrimaryDark">#FAFAFA</color>
     <color name="colorAccent">#ff0099E1</color>
 
     <color name="window_bg">#fff</color>
@@ -13,6 +13,7 @@
     <color name="gray_bg_popup_window">#bfbfbf</color>
     <color name="gray_tip_logout">#777777</color>
     <color name="black_title_popup_window">#000000</color>
+    <color name="black_status_bar">#000000</color>
 
     <color name="content_text">@android:color/darker_gray</color>
 

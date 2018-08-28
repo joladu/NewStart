@@ -6,35 +6,49 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
-        <!--沉浸式状态栏-->
+    <!--6.0 以下无法设置状态栏颜色 用透明状态栏适配-->
+    <!--<style name="BlackStatusBarStyle" parent="AppTheme">-->
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
+    <!--</style>-->
 
-        //ActionBarDrawerToggle设置颜色 ==》 返回键颜色
-        <!--<item name="colorControlNormal">@color/back_icon_gray</item>-->
+    <!--默认状态栏（白色）-->
+    <!--<style name="DefaultStatusBarWhite" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash;<item name="colorPrimaryDark">@color/colorPrimary</item>&ndash;&gt;-->
+    <!--</style>-->
 
-    </style>
 
-    <style name="MainTheme" parent="AppTheme">
-        <item name="android:windowBackground">@color/window_bg</item>
-        <item name="android:windowIsTranslucent">false</item>
-    </style>
+    <!--&lt;!&ndash;透明主题 白色背景: splash activity&ndash;&gt;-->
+    <!--<style name="AppTheme.Transparent">-->
+        <!--<item name="android:windowBackground">@color/window_bg</item>-->
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+    <!--</style>-->
+
+
+
+    <!--<style name="MainTheme" parent="AppTheme">-->
+        <!--<item name="android:windowBackground">@color/window_bg</item>-->
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+    <!--</style>-->
 
     <!-- Base application theme. -->
-    <style name="VideoPlayStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <!--<style name="VideoPlayStyle" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
 
-    <!--login activity style-->
-    <style name="LoginStyle" parent="AppTheme">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowTranslucentStatus">false</item>
-    </style>
+    <!--only full screen opaque can request screen orientation 全屏不透明-->
+    <!--<style name="PortraitScreenStyle" parent="AppTheme">-->
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <!--<item name="android:screenOrientation">portrait</item>-->
+    <!--</style>-->
+
+
+
 
     <!--login input edittext style-->
     <style name="HintInputEditTextStyle">

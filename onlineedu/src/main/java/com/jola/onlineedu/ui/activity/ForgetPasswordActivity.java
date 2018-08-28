@@ -10,6 +10,7 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.util.CodeUtils;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.StatusBarUtil;
 import com.jola.onlineedu.util.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -38,6 +39,12 @@ public class ForgetPasswordActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
+
+//        ImmersionBar.with(this)
+//                .statusBarDarkFont(true, 0.2f)
+//                .init();
+        StatusBarUtil.setStatusBarBlack(this);
+
         setToolBar(toolbar, "手机找回密码");
         iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
     }
@@ -73,6 +80,12 @@ public class ForgetPasswordActivity extends SimpleActivity {
                     }
                 }));
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        ImmersionBar.with(this).destroy();
+//        super.onDestroy();
+//    }
 
 
 

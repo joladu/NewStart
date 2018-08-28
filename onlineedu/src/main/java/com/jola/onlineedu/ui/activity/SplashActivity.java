@@ -1,10 +1,12 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Intent;
+import android.view.View;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.StatusBarUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +28,14 @@ public class SplashActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
+
+//        ImmersionBar.with(this)
+//                .statusBarDarkFont(true, 0.2f)
+//                .init();
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        StatusBarUtil.setStatusBarBlack(this);
+
         addSubscribe(Flowable.timer(2000, TimeUnit.MILLISECONDS)
                 .compose(RxUtil.<Long>rxSchedulerHelper())
                 .subscribe(new Consumer<Long>() {
@@ -37,4 +47,16 @@ public class SplashActivity extends SimpleActivity {
                 })
         );
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        ImmersionBar.with(this).destroy();
+//        super.onDestroy();
+//    }
+
+
+
+
+
+
 }

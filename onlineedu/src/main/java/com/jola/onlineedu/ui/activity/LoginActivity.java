@@ -1,12 +1,11 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.util.StatusBarUtil;
 import com.jola.onlineedu.util.ToastUtil;
 
 import butterknife.OnClick;
@@ -21,6 +20,12 @@ public class LoginActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
+//        ImmersionBar.with(this)
+//                .transparentBar()
+//                .init();
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        StatusBarUtil.setStatusBarBlack(this);
 
     }
 
@@ -43,4 +48,9 @@ public class LoginActivity extends SimpleActivity {
     }
 
 
+//    @Override
+//    protected void onDestroy() {
+//        ImmersionBar.with(this).destroy();
+//        super.onDestroy();
+//    }
 }
