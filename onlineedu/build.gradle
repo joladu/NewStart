@@ -86,6 +86,10 @@ dependencies {
 //    status bar
 //    implementation 'com.gyf.immersionbar:immersionbar:2.3.1'
 //    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+//    refresh layout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+
+//    circle image
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
 }

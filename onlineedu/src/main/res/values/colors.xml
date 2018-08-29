@@ -15,8 +15,12 @@
     <color name="gray_light_bg_search">#F9F9F9 </color>
     <color name="gray_hint_text_search">#C2C2C2</color>
     <color name="gray_item_forum_type">#E9EEF2</color>
+    <color name="gray_content_forum_text">#252D41</color>
+
     <color name="black_title_popup_window">#000000</color>
     <color name="black_status_bar">#000000</color>
+    <color name="black_forum_tag_text">#252C42</color>
+    <color name="author_name_text_color">#252D41 </color>
 
     <color name="content_text">@android:color/darker_gray</color>
 

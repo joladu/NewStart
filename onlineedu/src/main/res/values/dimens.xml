@@ -19,5 +19,8 @@
 
     <dimen name="hint_search_text_size">13sp</dimen>
 
+    <dimen name="forum_content_text_size">15sp</dimen>
+    <dimen name="forum_author_name_text_size">14sp</dimen>
+
 
 </resources>

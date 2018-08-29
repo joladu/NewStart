@@ -39,7 +39,8 @@
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.ForumListActivity"/>
+        <activity android:name=".ui.activity.ForumListActivity" />
+        <activity android:name=".ui.activity.ForumDetailActivity"/>
     </application>
 
 </manifest>

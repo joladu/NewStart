@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/window_bg"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <include
+            android:id="@+id/toolbar_view"
+            layout="@layout/view_toolbar" />
+
+        <View
+            android:id="@+id/view_divide_below_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/divide_line_gray"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />
+
+        <TextView
+            android:id="@+id/tv_title_forum"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_content_to_border"
+            android:layout_marginStart="@dimen/margin_content_to_border"
+            android:layout_marginTop="10dp"
+            android:text="每天观看直播节目，你们一般会评论什么，内容呢？"
+            android:textColor="@color/title_text"
+            android:textSize="@dimen/title_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_divide_below_toolbar" />
+
+        <View
+            android:id="@+id/view_divide_below_title"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/divide_line_gray"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_forum" />
+
+        <TextView
+            android:id="@+id/tv_forum_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_content_to_border"
+            android:layout_marginStart="@dimen/margin_content_to_border"
+            android:layout_marginTop="10dp"
+            android:text="目前我司做的你们可能听过的节目有《今晚80后脱口秀》《今夜百乐门》《吐槽大会》。别撇嘴，我知道质量参差不齐，会越来越好的。所以在这个阶段，没有有绝对话语权的主持人，写手与编导团队也都在摸索，所有段子、环节都要一起商量着来，生态还没有建立起来。等到我们把脱口秀在国内的生态建立起来（主语的“我们”意指我们公司笑果文化，这是我司野心我只能跟着这么说，我个人是不愿意说这么不要脸的话的）"
+            android:textColor="@color/gray_content_forum_text"
+            android:textSize="@dimen/forum_content_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/view_divide_below_title" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_head_img"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="@dimen/margin_content_to_border"
+            android:layout_marginTop="@dimen/margin_content_to_border"
+            android:src="@drawable/image_placeholder_loading"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_forum_content" />
+
+        <TextView
+            android:id="@+id/tv_name_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="陈华山"
+            android:textColor="@color/author_name_text_color"
+            android:textSize="@dimen/forum_author_name_text_size"
+            app:layout_constraintLeft_toRightOf="@+id/ci_head_img"
+            app:layout_constraintTop_toTopOf="@+id/ci_head_img" />
+
+        <TextView
+            android:id="@+id/tv_describe_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="发布版块：反馈    发布时间：2018-08-17"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_name_author"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_author" />
+
+        <TextView
+            android:id="@+id/tv_forum_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_content_to_border"
+            android:background="@drawable/shape_rectangle_gray_bg"
+            android:gravity="center"
+            android:text="精华"
+            android:textColor="#000"
+            android:textSize="11sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name_author" />
+
+        <View
+            android:id="@+id/view_divide_below_author"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/divide_line_gray"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ci_head_img" />
+
+        <TextView
+            android:id="@+id/tv_comment_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_content_to_border"
+            android:layout_marginTop="10dp"
+            android:text="课程评论"
+            android:textColor="@color/title_text"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_divide_below_author" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_content_to_border"
+            android:text="评论总数：9990"
+            android:textColor="@color/title_text"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_comment_project" />
+
+        <EditText
+            android:id="@+id/et_input_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_content_to_border"
+            android:layout_marginStart="@dimen/margin_content_to_border"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_rectangle_white_gray"
+            android:gravity="start"
+            android:hint="发表评论"
+            android:minHeight="60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comment_project" />
+
+        <TextView
+            android:id="@+id/tv_send_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_content_to_border"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:padding="5dp"
+            android:text="发送"
+            android:textColor="@color/window_bg"
+            android:textSize="20sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_input_comment" />
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_forum_comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/margin_content_to_border"
+            android:layout_marginEnd="@dimen/margin_content_to_border"
+            app:layout_constraintTop_toBottomOf="@+id/tv_send_comment"
+            >
+
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/view_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
