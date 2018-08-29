@@ -9,11 +9,10 @@
     </style>
 
     <!--only full screen opaque can request screen orientation 全屏不透明-->
-    <style name="PortraitScreenStyle" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:screenOrientation">portrait</item>
-
-    </style>
+    <!--<style name="PortraitScreenStyle" parent="AppTheme">-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:screenOrientation">portrait</item>-->
+    <!--</style>-->
 
     <!--6.0 以下无法设置状态栏颜色 用透明状态栏适配-->
     <!--<style name="BlackStatusBarStyle" parent="AppTheme">-->
