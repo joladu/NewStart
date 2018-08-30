@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
+import com.jola.onlineedu.di.component.ActivityComponent;
+import com.jola.onlineedu.di.component.DaggerActivityComponent;
+import com.jola.onlineedu.di.module.ActivityModule;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,6 +30,13 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected Activity mContext;
 
     private CompositeDisposable mCompositeDisposable;
+
+    protected ActivityComponent getActivityComponent(){
+        return DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .appComponent(App.getAppComponent())
+                .build();
+    }
 
     protected void setToolBar(Toolbar toolBar,String title){
         ((TextView)toolBar.findViewById(R.id.title_toolbar_tv)).setText(title);

@@ -29,7 +29,7 @@ public interface MyApis {
     Flowable<ResponseGetQiLiuBean> getQiLiuInfo();
 
     @POST("v1/code/vcode")
-    Flowable<ResponseSimpleResult> getMsgCheckCode();
+    Flowable<ResponseSimpleResult> getMsgCheckCode(@Field("mobile") String mobile);
 
     @POST("v1/user/login")
     Flowable<ResUserLogin> getUserLoginInfo(@Field("user_name") String userName,

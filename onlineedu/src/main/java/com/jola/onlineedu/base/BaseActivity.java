@@ -26,13 +26,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SimpleActivi
 
     protected abstract void initInject();
 
-    protected ActivityComponent getActivityComponent(){
-        return DaggerActivityComponent.builder()
-                .activityModule(new ActivityModule(this))
-                .appComponent(App.getAppComponent())
-                .build();
-    }
-
     @Override
     protected void onViewCreated() {
         super.onViewCreated();

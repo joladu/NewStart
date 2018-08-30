@@ -50,8 +50,8 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> fetchMsgCheckCode() {
-        return myApis.getMsgCheckCode();
+    public Flowable<ResponseSimpleResult> fetchMsgCheckCode(String mobilePhone) {
+        return myApis.getMsgCheckCode(mobilePhone);
     }
 
     @Override

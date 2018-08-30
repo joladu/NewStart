@@ -36,8 +36,8 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> fetchMsgCheckCode() {
-        return mMyApiService.getMsgCheckCode();
+    public Flowable<ResponseSimpleResult> fetchMsgCheckCode(String phoneNum) {
+        return mMyApiService.getMsgCheckCode(phoneNum);
     }
 
     @Override

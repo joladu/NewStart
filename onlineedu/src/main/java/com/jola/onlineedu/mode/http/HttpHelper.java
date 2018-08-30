@@ -19,7 +19,7 @@ public interface HttpHelper {
 
     Flowable<ResponseGetQiLiuBean> fetchQiLiuInfo();
 
-    Flowable<ResponseSimpleResult> fetchMsgCheckCode();
+    Flowable<ResponseSimpleResult> fetchMsgCheckCode(String mobilePhone);
 
     Flowable<ResUserLogin> fetchUserLoginInfo(String userName,String userPassword);
 
