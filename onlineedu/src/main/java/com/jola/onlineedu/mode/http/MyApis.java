@@ -1,6 +1,10 @@
 package com.jola.onlineedu.mode.http;
 
 import com.jola.onlineedu.mode.bean.WelcomeBean;
+import com.jola.onlineedu.mode.bean.response.ResUserLogin;
+import com.jola.onlineedu.mode.bean.response.ResUserRegister;
+import com.jola.onlineedu.mode.bean.response.ResponseGetQiLiuBean;
+import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
@@ -19,8 +23,30 @@ import retrofit2.http.Path;
 
 public interface MyApis {
 
-//    String HOST = "http://news-at.zhihu.com/api/4/";
-    String HOST = "http://192.168.7.153:8080/AnXinPay/AXPay/";
+    String HOST = "http://yunketang.dev.attackt.com/api/";
+
+    @GET("qiniu/settings")
+    Flowable<ResponseGetQiLiuBean> getQiLiuInfo();
+
+    @POST("v1/code/vcode")
+    Flowable<ResponseSimpleResult> getMsgCheckCode();
+
+    @POST("v1/user/login")
+    Flowable<ResUserLogin> getUserLoginInfo(@Field("user_name") String userName,
+                                            @Field("password") String userPassword);
+
+    @POST("v1/user/register")
+    Flowable<ResUserRegister> getUserRegisterInfo(@Field("user_name") String userName,
+                                                  @Field("mobile") String mobileNum,
+//                                                  短信验证码
+                                                  @Field("v_code") String checkCode,
+                                                  @Field("captcha_key") String imgCode,
+                                                  @Field("captcha") String captcha,
+                                                  @Field("password") String password,
+                                                  @Field("re_password") String passwordConfirm);
+
+
+
 
 
 //    @GET("AXPay/testJola/{res}")
@@ -45,7 +71,7 @@ public interface MyApis {
 //    @POST("/form")
 //    @Multipart
 //    Call<ResponseBody> testFileUpload1(@Part("name") RequestBody name, @Part("age") RequestBody age, @Part MultipartBody.Part file);
-    Flowable<ResponseBody> testFileUpload(@Part("name")RequestBody name, @Part("age") RequestBody age, @Part MultipartBody.Part file);
+//    Flowable<ResponseBody> testFileUpload(@Part("name")RequestBody name, @Part("age") RequestBody age, @Part MultipartBody.Part file);
 
 
 

@@ -10,6 +10,7 @@ import com.jola.onlineedu.di.component.DaggerAppComponent;
 import com.jola.onlineedu.di.module.AppModule;
 import com.jola.onlineedu.di.module.HttpModule;
 //import com.kk.taurus.ijkplayer.IjkPlayer;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -27,6 +28,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.realm.Realm;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * Created by jola on 2018/8/7.
@@ -34,24 +38,6 @@ import io.realm.Realm;
 
 public class App extends Application {
 
-//    static {
-//        //设置全局的Header构建器
-//        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
-//            @Override
-//            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-//                layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
-//                return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
-//            }
-//        });
-//        //设置全局的Footer构建器
-//        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
-//            @Override
-//            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
-//                //指定为经典Footer，默认是 BallPulseFooter
-//                return new ClassicsFooter(context).setDrawableSize(20);
-//            }
-//        });
-//    }
 
     /**
      * ijk 解码

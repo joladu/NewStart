@@ -15,6 +15,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,7 +35,6 @@ public class HttpModule {
     Retrofit.Builder provideRetrofitBuilder() {
         return new Retrofit.Builder();
     }
-
 
     @Singleton
     @Provides
@@ -68,6 +68,14 @@ public class HttpModule {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
+
+//                get方式添加token，在所有请求连接中添加token
+//                HttpUrl httpUrl = request.url().newBuilder()
+//                        .addQueryParameter("token", "token_value")
+//                        .build();
+//                Request requestHttpUrl = request.newBuilder().url(httpUrl).build();
+//                chain.proceed(requestHttpUrl);
+//
                 if (!SystemUtil.isNetworkConnected()) {
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
@@ -122,6 +130,7 @@ public class HttpModule {
     Retrofit provideMyRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         return createRetrofit(builder, client, MyApis.HOST);
     }
+
 
     @Singleton
     @Provides
