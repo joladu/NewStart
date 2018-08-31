@@ -36,12 +36,13 @@ public class CodeUtils {
     //Default Settings
 //    private static final int DEFAULT_CODE_LENGTH = 6;//验证码的长度  这里是6位
     private static final int DEFAULT_CODE_LENGTH = 4;//验证码的长度  这里是4位
+
     private static final int DEFAULT_FONT_SIZE = 70;//字体大小
     private static final int DEFAULT_LINE_NUMBER = 4;//多少条干扰线
-    private static final int BASE_PADDING_LEFT = 10; //左边距
-    private static final int RANGE_PADDING_LEFT = 15;//左边距范围值
+//    private static final int BASE_PADDING_LEFT = 10; //左边距
+//    private static final int RANGE_PADDING_LEFT = 15;//左边距范围值
     private static final int BASE_PADDING_TOP = 50;//上边距
-    private static final int RANGE_PADDING_TOP = 30;//上边距范围值
+//    private static final int RANGE_PADDING_TOP = 30;//上边距范围值
     private static final int DEFAULT_WIDTH = 130;//默认宽度.图片的总宽 130dp
     private static final int DEFAULT_HEIGHT = 32;//默认高度.图片的总高 32dp
     private static final int DEFAULT_COLOR = 0xDF;//默认背景颜色值
@@ -68,12 +69,12 @@ public class CodeUtils {
 
         canvas.drawColor(Color.rgb(DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR));
         Paint paint = new Paint();
-        paint.setTextSize(DEFAULT_FONT_SIZE);
+        paint.setTextSize(PUtil.dip2px(App.getInstance(),DEFAULT_FONT_SIZE));
 
         for (int i = 0; i < code.length(); i++) {
             randomTextStyle(paint);
 //            randomPadding();
-            canvas.drawText(code.charAt(i) + "", 10+mPaddingLeft*i, BASE_PADDING_TOP, paint);
+            canvas.drawText(code.charAt(i) + "", 10+mPaddingLeft*i, PUtil.dip2px(App.getInstance(),BASE_PADDING_TOP), paint);
         }
 
         //干扰线

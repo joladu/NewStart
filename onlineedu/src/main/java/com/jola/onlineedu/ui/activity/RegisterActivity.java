@@ -14,7 +14,6 @@ import com.jola.onlineedu.mode.bean.response.ResUserRegister;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.util.CodeUtils;
 import com.jola.onlineedu.util.RxUtil;
-import com.jola.onlineedu.util.StatusBarUtil;
 import com.jola.onlineedu.util.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -24,6 +23,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -49,6 +49,7 @@ public class RegisterActivity extends SimpleActivity {
     EditText et_input_password_again;
     @BindView(R.id.et_input_username)
     EditText et_input_username;
+    private Disposable disposableCountDown;
 
     @Override
     protected int getLayout() {
@@ -62,6 +63,30 @@ public class RegisterActivity extends SimpleActivity {
 
         setToolBar(toolbar, "注册");
         iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
+        initCountDownDisposable();
+    }
+
+    private void initCountDownDisposable() {
+        disposableCountDown = Flowable.interval(0, 1, TimeUnit.SECONDS)
+                .take(60)
+                .map(new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long aLong) throws Exception {
+                        return 60 - aLong;
+                    }
+                })
+                .compose(RxUtil.<Long>rxSchedulerHelper())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        tv_getCheckCode.setText(aLong + "s");
+                        if (aLong <= 1) {
+                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                            tv_getCheckCode.setEnabled(true);
+                            tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
+                        }
+                    }
+                });
     }
 
     @OnClick(R.id.iv_image_code)
@@ -84,12 +109,12 @@ public class RegisterActivity extends SimpleActivity {
         String userName = et_input_username.getText().toString();
         if (TextUtils.isEmpty(phoneNum) || TextUtils.isEmpty(imageCode) || TextUtils.isEmpty(msgCheckCode)
                 || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirm) || TextUtils.isEmpty(userName)){
-            ToastUtil.toastShort("请输入所有注册信息后，再注册！");
+            ToastUtil.toastShort(getString(R.string.tip_not_fill_all_content));
             return;
         }
         String realImageCode = CodeUtils.getInstance().getCode();
         if (!realImageCode.equals(imageCode)){
-            ToastUtil.toastShort("图形验证码错误！");
+            ToastUtil.toastShort(getString(R.string.tip_error_image_code));
             return;
         }
         if (!password.equals(passwordConfirm)){
@@ -122,45 +147,35 @@ public class RegisterActivity extends SimpleActivity {
             ToastUtil.toastShort("请输入11位数字手机号码！");
             return;
         }
-
         tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.divide_line_gray));
         tv_getCheckCode.setEnabled(false);
+        addSubscribe(disposableCountDown);
         addSubscribe(dataManager.fetchMsgCheckCode(phoneNum)
             .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
                         int error_code = responseSimpleResult.getError_code();
-                        if (error_code == 0){
+                        if (error_code == 0) {
                             ToastUtil.toastShort("获取验证码成功！");
                             tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.divide_line_gray));
                             tv_getCheckCode.setEnabled(false);
-                            addSubscribe(Flowable.interval(0,1, TimeUnit.SECONDS)
-                                    .take(60)
-                                    .map(new Function<Long, Long>() {
-                                        @Override
-                                        public Long apply(Long aLong) throws Exception {
-                                            return 60 - aLong;
-                                        }
-                                    })
-                                    .compose(RxUtil.<Long>rxSchedulerHelper())
-                                    .subscribe(new Consumer<Long>() {
-                                        @Override
-                                        public void accept(Long aLong) throws Exception {
-                                            tv_getCheckCode.setText(aLong+"s");
-                                            if (aLong <= 1){
-                                                tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                                                tv_getCheckCode.setEnabled(true);
-                                                tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
-                                            }
-                                        }
-                                    }));
-                        }else{
-                            ToastUtil.toastShort("获取验证码失败："+responseSimpleResult.getError_msg());
+                        } else {
+                            ToastUtil.toastShort("获取验证码失败：" + responseSimpleResult.getError_msg());
                             tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                             tv_getCheckCode.setEnabled(true);
                             tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
+                            removeDisposable(disposableCountDown);
                         }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtil.toastLong(getString(R.string.error_server_message));
+                        tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        tv_getCheckCode.setEnabled(true);
+                        tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
+                        removeDisposable(disposableCountDown);
                     }
                 })
         );

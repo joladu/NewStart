@@ -25,4 +25,6 @@ public interface HttpHelper {
 
     Flowable<ResUserRegister> fetchUserRegisterInfo(String userName,String mobileNum,String checkCode,String imageCode,String captcha,String password,String passwordConfirm);
 
+    Flowable<ResponseSimpleResult> fetchForgetPassword(String mobilePhone,String password,String msgCode,String captchaKey,String captcha);
+
 }

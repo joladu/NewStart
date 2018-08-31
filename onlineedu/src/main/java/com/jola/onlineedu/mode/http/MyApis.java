@@ -11,6 +11,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -29,13 +30,16 @@ public interface MyApis {
     Flowable<ResponseGetQiLiuBean> getQiLiuInfo();
 
     @POST("v1/code/vcode")
+    @FormUrlEncoded
     Flowable<ResponseSimpleResult> getMsgCheckCode(@Field("mobile") String mobile);
 
     @POST("v1/user/login")
+    @FormUrlEncoded
     Flowable<ResUserLogin> getUserLoginInfo(@Field("user_name") String userName,
                                             @Field("password") String userPassword);
 
     @POST("v1/user/register")
+    @FormUrlEncoded
     Flowable<ResUserRegister> getUserRegisterInfo(@Field("user_name") String userName,
                                                   @Field("mobile") String mobileNum,
 //                                                  短信验证码
@@ -44,6 +48,14 @@ public interface MyApis {
                                                   @Field("captcha") String captcha,
                                                   @Field("password") String password,
                                                   @Field("re_password") String passwordConfirm);
+
+    @FormUrlEncoded
+    @POST("v1/user/resetpwd")
+    Flowable<ResponseSimpleResult> getUserForgetPasswrod(@Field("mobile") String mobilePhone,
+                                                         @Field("v_code") String msgCode,
+                                                         @Field("captcha_key") String imageCodeKey,
+                                                         @Field("captcha") String imageCode,
+                                                         @Field("password") String password);
 
 
 

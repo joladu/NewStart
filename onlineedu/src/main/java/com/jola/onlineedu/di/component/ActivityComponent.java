@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.jola.onlineedu.di.module.ActivityModule;
 import com.jola.onlineedu.di.scope.ActivityScope;
+import com.jola.onlineedu.ui.activity.ForgetPasswordActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.RegisterActivity;
 import com.jola.onlineedu.ui.activity.WelcomeActivity;
@@ -21,4 +22,5 @@ public interface ActivityComponent {
     void inject(WelcomeActivity welcomeActivity);
     void inject(LoginActivity loginActivity);
     void inject(RegisterActivity registerActivity);
+    void inject(ForgetPasswordActivity forgetPasswordActivity);
 }

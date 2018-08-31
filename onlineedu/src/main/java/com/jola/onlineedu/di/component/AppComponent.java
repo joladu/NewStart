@@ -5,8 +5,6 @@ import com.jola.onlineedu.di.module.AppModule;
 import com.jola.onlineedu.di.module.HttpModule;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.db.RealmHelper;
-import com.jola.onlineedu.mode.http.MyApis;
-import com.jola.onlineedu.mode.http.RetrofitHelper;
 import com.jola.onlineedu.mode.prefs.PreferencesHelperImpl;
 
 import javax.inject.Singleton;
@@ -26,7 +24,7 @@ public interface AppComponent {
     DataManager getDataManager(); //数据中心
 
 
-    RetrofitHelper retrofitHelper();  //提供http的帮助类
+//    RetrofitHelper retrofitHelper();  //提供http的帮助类
 
     RealmHelper realmHelper();    //提供数据库帮助类
 

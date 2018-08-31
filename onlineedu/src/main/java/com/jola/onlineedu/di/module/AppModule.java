@@ -4,8 +4,7 @@ import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.db.DBHelper;
 import com.jola.onlineedu.mode.db.RealmHelper;
-import com.jola.onlineedu.mode.http.HttpHelper;
-import com.jola.onlineedu.mode.http.RetrofitHelper;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.mode.prefs.PreferencesHelper;
 import com.jola.onlineedu.mode.prefs.PreferencesHelperImpl;
 
@@ -32,11 +31,15 @@ public class AppModule {
         return application;
     }
 
-    @Provides
-    @Singleton
-    HttpHelper provideHttpHelper(RetrofitHelper retrofitHelper) {
-        return retrofitHelper;
-    }
+//    @Provides
+//    @Singleton
+//    HttpHelper provideHttpHelper(RetrofitHelper retrofitHelper) {
+//        return retrofitHelper;
+//    }
+
+//    @Provides
+//    @Singleton
+//    MyApis provideMyApis(MyApis myApis){return myApis;}
 
     @Provides
     @Singleton
@@ -52,7 +55,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(HttpHelper httpHelper, DBHelper DBHelper, PreferencesHelper preferencesHelper) {
-        return new DataManager(httpHelper, DBHelper, preferencesHelper);
+    DataManager provideDataManager(MyApis myApis, DBHelper DBHelper, PreferencesHelper preferencesHelper) {
+        return new DataManager(myApis, DBHelper, preferencesHelper);
     }
 }

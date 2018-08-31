@@ -19,21 +19,20 @@ import io.reactivex.Flowable;
 
 public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
 
-    HttpHelper mHttpHelper;
+//    HttpHelper mHttpHelper;
     DBHelper mDBHelper;
     PreferencesHelper mPreferenceHelper;
     MyApis myApis;
 
 
-    public DataManager(HttpHelper mHttpHelper, DBHelper mDBHelper, PreferencesHelper mPreferenceHelper) {
-        this.mHttpHelper = mHttpHelper;
-        this.mDBHelper = mDBHelper;
-        this.mPreferenceHelper = mPreferenceHelper;
-    }
+//    public DataManager(HttpHelper mHttpHelper, DBHelper mDBHelper, PreferencesHelper mPreferenceHelper) {
+//        this.mHttpHelper = mHttpHelper;
+//        this.mDBHelper = mDBHelper;
+//        this.mPreferenceHelper = mPreferenceHelper;
+//    }
 
-    public DataManager(MyApis myApis,HttpHelper mHttpHelper, DBHelper mDBHelper, PreferencesHelper mPreferenceHelper) {
+    public DataManager(MyApis myApis, DBHelper mDBHelper, PreferencesHelper mPreferenceHelper) {
         this.myApis = myApis;
-        this.mHttpHelper = mHttpHelper;
         this.mDBHelper = mDBHelper;
         this.mPreferenceHelper = mPreferenceHelper;
     }
@@ -41,7 +40,7 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
 
     @Override
     public Flowable<WelcomeBean> fetchWelcomeInfo() {
-        return mHttpHelper.fetchWelcomeInfo();
+        return myApis.getWelcomeInfo();
     }
 
     @Override
@@ -62,6 +61,11 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResUserRegister> fetchUserRegisterInfo(String userName, String mobileNum, String checkCode, String imageCode, String captcha, String password, String passwordConfirm) {
         return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,imageCode,captcha,password,passwordConfirm);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> fetchForgetPassword(String mobilePhone, String password, String msgCode, String captchaKey, String captcha) {
+        return myApis.getUserForgetPasswrod(mobilePhone,msgCode,captchaKey,captcha,password);
     }
 
     @Override

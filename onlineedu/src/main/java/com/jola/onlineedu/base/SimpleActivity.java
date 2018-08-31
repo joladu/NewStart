@@ -63,6 +63,11 @@ public abstract class SimpleActivity extends AppCompatActivity {
             mCompositeDisposable.clear();
         }
     }
+    protected void removeDisposable(Disposable disposable){
+        if (null != mCompositeDisposable){
+            mCompositeDisposable.remove(disposable);
+        }
+    }
 
     protected abstract int getLayout();
 
