@@ -49,27 +49,32 @@ public class LoginActivity extends SimpleActivity {
 
     @OnClick(R.id.tv_login)
     public void login(View view){
-//        ToastUtil.toastShort("登录");
-//        startActivity(new Intent(LoginActivity.this,VideoViewActivity.class));
-//
         String account = et_account.getText().toString();
         String password = et_password.getText().toString();
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)){
             ToastUtil.toastShort("请输入账号和密码后，再重试！");
             return;
         }
+        showLoadingDialog();
         addSubscribe(mDataManager.fetchUserLoginInfo(account,password)
             .compose(RxUtil.<ResUserLogin>rxSchedulerHelper())
             .subscribe(new Consumer<ResUserLogin>() {
                 @Override
-                public void accept(ResUserLogin resUserLogin) throws Exception {
+                public void accept(ResUserLogin resUserLogin) {
+                    hideLoadingDialog();
                     int error_code = resUserLogin.getError_code();
-                    if (error_code == 0){
+                    if (error_code == 0) {
                         ToastUtil.toastShort("登陆成功！");
-                        startActivity(new Intent(LoginActivity.this,ForumListActivity.class));
-                    }else{
+                        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
+                    } else {
                         ToastUtil.toastLong(resUserLogin.getError_msg());
                     }
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable){
+                    hideLoadingDialog();
+                    ToastUtil.toastLong(getString(R.string.error_server_message));
                 }
             }));
     }
@@ -86,10 +91,25 @@ public class LoginActivity extends SimpleActivity {
         startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
     }
 
+    @OnClick(R.id.iv_ali_login)
+    public void aliLogin(View view){
+        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
+    }
 
-//    @Override
-//    protected void onDestroy() {
-//        ImmersionBar.with(this).destroy();
-//        super.onDestroy();
-//    }
+    @OnClick(R.id.iv_qq_login)
+    public void qqLogin(View view){
+        startActivity(new Intent(LoginActivity.this, TestPoolActivity.class));
+    }
+
+    @OnClick(R.id.iv_weibo_login)
+    public void weiboLogin(View view){
+
+    }
+
+    @OnClick(R.id.iv_wechat_login)
+    public void wechatLogin(View view){
+
+    }
+
+
 }

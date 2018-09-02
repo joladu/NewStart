@@ -37,11 +37,11 @@ public class CodeUtils {
 //    private static final int DEFAULT_CODE_LENGTH = 6;//验证码的长度  这里是6位
     private static final int DEFAULT_CODE_LENGTH = 4;//验证码的长度  这里是4位
 
-    private static final int DEFAULT_FONT_SIZE = 70;//字体大小
+    private static final int DEFAULT_FONT_SIZE = 35;//字体大小
     private static final int DEFAULT_LINE_NUMBER = 4;//多少条干扰线
 //    private static final int BASE_PADDING_LEFT = 10; //左边距
 //    private static final int RANGE_PADDING_LEFT = 15;//左边距范围值
-    private static final int BASE_PADDING_TOP = 50;//上边距
+    private static final int BASE_PADDING_TOP = 25;//上边距
 //    private static final int RANGE_PADDING_TOP = 30;//上边距范围值
     private static final int DEFAULT_WIDTH = 130;//默认宽度.图片的总宽 130dp
     private static final int DEFAULT_HEIGHT = 32;//默认高度.图片的总高 32dp

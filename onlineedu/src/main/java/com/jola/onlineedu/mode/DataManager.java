@@ -74,6 +74,46 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public void setUserId(String userId) {
+        mPreferenceHelper.setUserId(userId);
+    }
+
+    @Override
+    public String getUserId() {
+        return mPreferenceHelper.getUserId();
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        mPreferenceHelper.setUserName(userName);
+    }
+
+    @Override
+    public String getUserName() {
+        return mPreferenceHelper.getUserName();
+    }
+
+    @Override
+    public void setUserPhone(String phone) {
+        mPreferenceHelper.setUserPhone(phone);
+    }
+
+    @Override
+    public String getUserPhone() {
+        return mPreferenceHelper.getUserPhone();
+    }
+
+    @Override
+    public void setUserToken(String userToken) {
+        mPreferenceHelper.setUserToken(userToken);
+    }
+
+    @Override
+    public String getUserToken() {
+        return mPreferenceHelper.getUserToken();
+    }
+
+    @Override
     public boolean getNightModeState() {
         return mPreferenceHelper.getNightModeState();
     }

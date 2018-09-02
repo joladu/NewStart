@@ -2,6 +2,7 @@ package com.jola.onlineedu.ui.activity;
 
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class RegisterActivity extends SimpleActivity {
 
     @Inject
     DataManager dataManager;
+
     @BindView(R.id.toolbar_view)
     Toolbar toolbar;
     @BindView(R.id.iv_image_code)
@@ -49,6 +51,7 @@ public class RegisterActivity extends SimpleActivity {
     EditText et_input_password_again;
     @BindView(R.id.et_input_username)
     EditText et_input_username;
+
     private Disposable disposableCountDown;
 
     @Override
@@ -63,31 +66,9 @@ public class RegisterActivity extends SimpleActivity {
 
         setToolBar(toolbar, "注册");
         iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
-        initCountDownDisposable();
     }
 
-    private void initCountDownDisposable() {
-        disposableCountDown = Flowable.interval(0, 1, TimeUnit.SECONDS)
-                .take(60)
-                .map(new Function<Long, Long>() {
-                    @Override
-                    public Long apply(Long aLong) throws Exception {
-                        return 60 - aLong;
-                    }
-                })
-                .compose(RxUtil.<Long>rxSchedulerHelper())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        tv_getCheckCode.setText(aLong + "s");
-                        if (aLong <= 1) {
-                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                            tv_getCheckCode.setEnabled(true);
-                            tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
-                        }
-                    }
-                });
-    }
+
 
     @OnClick(R.id.iv_image_code)
     public void refreshImageCode(View view){
@@ -121,20 +102,34 @@ public class RegisterActivity extends SimpleActivity {
             ToastUtil.toastShort("两次密码输入不一致！");
             return;
         }
+        showLoadingDialog();
         addSubscribe(dataManager.fetchUserRegisterInfo(userName,phoneNum,msgCheckCode,imageCode,imageCode,password,passwordConfirm)
             .compose(RxUtil.<ResUserRegister>rxSchedulerHelper())
                 .subscribe(new Consumer<ResUserRegister>() {
                     @Override
-                    public void accept(ResUserRegister resUserRegister) throws Exception {
+                    public void accept(ResUserRegister resUserRegister){
+                        hideLoadingDialog();
                         int error_code = resUserRegister.getError_code();
-                        if (error_code == 0){
+                        if (error_code == 0) {
                             ResUserRegister.DataBean data = resUserRegister.getData();
                             String token = data.getToken();
                             int user_id = data.getUser().getUser_id();
-                            ToastUtil.toastShort("注册成功："+"token:"+token+" ; user_id"+user_id);
-                        }else{
-                            ToastUtil.toastShort("注册失败："+resUserRegister.getError_msg());
+                            String realname = data.getUser().getRealname();
+                            String mobile = data.getUser().getMobile();
+                            dataManager.setUserId(user_id + "");
+                            dataManager.setUserToken(token);
+                            dataManager.setUserName(realname);
+                            dataManager.setUserPhone(mobile);
+                            ToastUtil.toastShort("注册成功：" + "token:" + token + " ; user_id" + user_id);
+                        } else {
+                            ToastUtil.toastShort("注册失败：" + resUserRegister.getError_msg());
                         }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable){
+                        hideLoadingDialog();
+                        ToastUtil.toastLong(getString(R.string.error_server_message));
                     }
                 })
         );
@@ -149,12 +144,34 @@ public class RegisterActivity extends SimpleActivity {
         }
         tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.divide_line_gray));
         tv_getCheckCode.setEnabled(false);
+
+        disposableCountDown = Flowable.interval(0, 1, TimeUnit.SECONDS)
+                .take(60)
+                .map(new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long aLong) throws Exception {
+                        return 60 - aLong;
+                    }
+                })
+                .compose(RxUtil.<Long>rxSchedulerHelper())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.e("jola","time:"+aLong+"s");
+                        tv_getCheckCode.setText(aLong + "s");
+                        if (aLong <= 1) {
+                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                            tv_getCheckCode.setEnabled(true);
+                            tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
+                        }
+                    }
+                });
         addSubscribe(disposableCountDown);
         addSubscribe(dataManager.fetchMsgCheckCode(phoneNum)
             .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
-                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                    public void accept(ResponseSimpleResult responseSimpleResult){
                         int error_code = responseSimpleResult.getError_code();
                         if (error_code == 0) {
                             ToastUtil.toastShort("获取验证码成功！");
@@ -180,12 +197,5 @@ public class RegisterActivity extends SimpleActivity {
                 })
         );
     }
-
-//    @Override
-//    protected void onDestroy() {
-//        ImmersionBar.with(this).destroy();
-//        super.onDestroy();
-//    }
-
 
 }

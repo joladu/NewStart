@@ -13,6 +13,7 @@ import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.di.component.ActivityComponent;
 import com.jola.onlineedu.di.component.DaggerActivityComponent;
 import com.jola.onlineedu.di.module.ActivityModule;
+import com.jola.onlineedu.widget.DialogLoadingView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -30,6 +31,19 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected Activity mContext;
 
     private CompositeDisposable mCompositeDisposable;
+    DialogLoadingView dialogLoadingView;
+
+    protected void showLoadingDialog(){
+        if (null == dialogLoadingView){
+            dialogLoadingView = new DialogLoadingView(this);
+        }
+        dialogLoadingView.show();
+    }
+    protected void hideLoadingDialog(){
+        if (null != dialogLoadingView){
+            dialogLoadingView.dismiss();
+        }
+    }
 
     protected ActivityComponent getActivityComponent(){
         return DaggerActivityComponent.builder()
@@ -93,4 +107,5 @@ public abstract class SimpleActivity extends AppCompatActivity {
         mUnbind.unbind();
         unSubscribe();
     }
+
 }

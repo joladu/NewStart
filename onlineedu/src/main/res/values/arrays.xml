@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="forum_type">
+        <item>提问</item>
+        <item>灌水</item>
+        <item>反馈</item>
+    </string-array>
+
+    <string-array name="test_type">
+        <item>选择类别</item>
+        <item>类别1</item>
+        <item>类别2</item>
+        <item>类别3</item>
+        <item>类别4</item>
+        <item>类别5</item>
+    </string-array>
+
+    <string-array name="test_grade">
+        <item>选择年级</item>
+        <item>年级1</item>
+        <item>年级2</item>
+        <item>年级3</item>
+        <item>年级4</item>
+        <item>年级5</item>
+    </string-array>
+
+    <string-array name="test_class">
+        <item>选择课程</item>
+        <item>课程1</item>
+        <item>课程2</item>
+        <item>课程3</item>
+        <item>课程4</item>
+        <item>课程5</item>
+    </string-array>
+
+    <string-array name="test_sort">
+        <item>排序方式</item>
+        <item>方式1</item>
+        <item>方式2</item>
+        <item>方式3</item>
+        <item>方式4</item>
+        <item>方式5</item>
+    </string-array>
+
+
+</resources>

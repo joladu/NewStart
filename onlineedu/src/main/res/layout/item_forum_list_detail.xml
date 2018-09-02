@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_forum_list_activity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/window_bg"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ci_head_img"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/margin_content_to_border"
+        android:layout_marginTop="@dimen/margin_content_to_border"
+        android:src="@drawable/image_placeholder_loading"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_commenter_name"
+        android:layout_toEndOf="@+id/ci_head_img"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:layout_alignBottom="@+id/ci_head_img"
+        android:layout_marginBottom="8dp"
+        android:text="小华"
+        android:textSize="13sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_num_praise"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_content_to_border"
+        android:layout_alignTop="@+id/ci_head_img"
+        android:text="67"
+        android:textSize="14sp"
+        android:textColor="#808288"
+        />
+    <ImageView
+        android:id="@+id/iv_praise_hand"
+        android:layout_width="@dimen/qb_px_20"
+        android:layout_height="@dimen/qb_px_20"
+        android:src="@drawable/hand_praise_no_2x"
+        android:layout_toLeftOf="@+id/tv_num_praise"
+        android:layout_alignTop="@+id/tv_num_praise"
+        android:layout_marginRight="10dp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_forum_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ci_head_img"
+        android:layout_marginStart="@dimen/margin_content_to_border"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:layout_marginTop="5dp"
+        android:gravity="start"
+        android:text="薛定谔的猫，到底藏在哪里，课程讲的非常好支持支持支持，支持"
+        android:textColor="@color/hint_text_gray"
+        android:textSize="@dimen/forum_content_text_size"
+        />
+
+    <TextView
+        android:id="@+id/tv_recomment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_forum_content"
+        android:layout_marginRight="@dimen/margin_content_to_border"
+        android:layout_marginBottom="@dimen/margin_content_to_border"
+        android:text="回复"
+        android:textColor="#808288"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_comment_time_ago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_recomment"
+        android:layout_toLeftOf="@+id/tv_recomment"
+        android:layout_marginRight="10dp"
+        android:text="1分钟前"
+        android:textColor="#808288"
+        android:textSize="14sp"
+        />
+
+</RelativeLayout>

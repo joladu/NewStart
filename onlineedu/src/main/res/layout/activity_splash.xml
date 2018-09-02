@@ -39,7 +39,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/head_bottom_text"
         android:textColor="#252C42"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:fontFamily="PingFangSC-Light"
         android:text="在 线 教 育 技 术 服 务 提 供 商"
         />

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:id="@+id/tv_title_test_pool_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_content_to_border"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:layout_marginTop="@dimen/margin_content_to_border"
+        android:text="河南省数学高考题"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:textColor="@color/gray_content_forum_text"
+        />
+
+    <TextView
+        android:id="@+id/tv_describe_test_pool_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title_test_pool_item"
+        android:layout_marginStart="@dimen/margin_content_to_border"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:layout_marginBottom="@dimen/margin_content_to_border"
+        android:layout_marginTop="10dp"
+        android:text="类别：数学 上传日期：昨天"
+        android:textColor="@color/gray_test_pool_describe"
+        />
+
+</RelativeLayout>

@@ -3,6 +3,7 @@ package com.jola.onlineedu.ui.activity;
 
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,26 +62,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
         setToolBar(toolbar, "手机找回密码");
         iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
         getActivityComponent().inject(this);
-        disposableCountDown = Flowable.interval(0, 1, TimeUnit.SECONDS)
-                .take(60)
-                .map(new Function<Long, Long>() {
-                    @Override
-                    public Long apply(Long aLong) throws Exception {
-                        return 60 - aLong;
-                    }
-                })
-                .compose(RxUtil.<Long>rxSchedulerHelper())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        tv_getCheckCode.setText(aLong + "s");
-                        if (aLong <= 1) {
-                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                            tv_getCheckCode.setEnabled(true);
-                            tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
-                        }
-                    }
-                });
+
     }
 
     @OnClick(R.id.iv_image_code)
@@ -97,6 +79,27 @@ public class ForgetPasswordActivity extends SimpleActivity {
         }
         tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.divide_line_gray));
         tv_getCheckCode.setEnabled(false);
+        disposableCountDown = Flowable.interval(0, 1, TimeUnit.SECONDS)
+                .take(60)
+                .map(new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long aLong) throws Exception {
+                        return 60 - aLong;
+                    }
+                })
+                .compose(RxUtil.<Long>rxSchedulerHelper())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.e("jola","time:"+aLong+"s");
+                        tv_getCheckCode.setText(aLong + "s");
+                        if (aLong <= 1) {
+                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                            tv_getCheckCode.setEnabled(true);
+                            tv_getCheckCode.setText(getResources().getString(R.string.get_check_code));
+                        }
+                    }
+                });
         addSubscribe(disposableCountDown);
         addSubscribe(dataManager.fetchMsgCheckCode(phoneNum)
                 .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())

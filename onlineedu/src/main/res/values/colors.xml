@@ -16,6 +16,7 @@
     <color name="gray_hint_text_search">#C2C2C2</color>
     <color name="gray_item_forum_type">#E9EEF2</color>
     <color name="gray_content_forum_text">#252D41</color>
+    <color name="gray_test_pool_describe">#808288</color>
 
     <color name="black_title_popup_window">#000000</color>
     <color name="black_status_bar">#000000</color>
@@ -28,5 +29,8 @@
     <color name="controller_bg_light">#00000000</color>
 
     <color name="back_icon_gray">#888888</color>
+
+    <color name="color_f6">#f6f6f6</color>
+
 
 </resources>

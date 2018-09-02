@@ -6,6 +6,18 @@ package com.jola.onlineedu.mode.prefs;
 
 public interface PreferencesHelper {
 
+    void setUserId(String userId);
+    String getUserId();
+
+    void setUserName(String userName);
+    String getUserName();
+
+    void setUserPhone(String phone);
+    String getUserPhone();
+
+    void setUserToken(String userToken);
+    String getUserToken();
+
     boolean getNightModeState();
 
     void setNightModeState(boolean state);
