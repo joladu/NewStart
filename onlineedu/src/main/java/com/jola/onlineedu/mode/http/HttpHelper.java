@@ -23,7 +23,7 @@ public interface HttpHelper {
 
     Flowable<ResUserLogin> fetchUserLoginInfo(String userName,String userPassword);
 
-    Flowable<ResUserRegister> fetchUserRegisterInfo(String userName,String mobileNum,String checkCode,String imageCode,String captcha,String password,String passwordConfirm);
+    Flowable<ResUserRegister> fetchUserRegisterInfo(String token,String userName,String mobileNum,String checkCode,String imageCode,String captcha,String password,String passwordConfirm);
 
     Flowable<ResponseSimpleResult> fetchForgetPassword(String mobilePhone,String password,String msgCode,String captchaKey,String captcha);
 

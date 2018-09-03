@@ -103,7 +103,7 @@ public class RegisterActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
-        addSubscribe(dataManager.fetchUserRegisterInfo(userName,phoneNum,msgCheckCode,imageCode,imageCode,password,passwordConfirm)
+        addSubscribe(dataManager.fetchUserRegisterInfo("unknown",userName,phoneNum,msgCheckCode,imageCode,imageCode,password,passwordConfirm)
             .compose(RxUtil.<ResUserRegister>rxSchedulerHelper())
                 .subscribe(new Consumer<ResUserRegister>() {
                     @Override

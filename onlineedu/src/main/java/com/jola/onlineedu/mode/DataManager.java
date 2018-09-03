@@ -59,8 +59,8 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResUserRegister> fetchUserRegisterInfo(String userName, String mobileNum, String checkCode, String imageCode, String captcha, String password, String passwordConfirm) {
-        return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,imageCode,captcha,password,passwordConfirm);
+    public Flowable<ResUserRegister> fetchUserRegisterInfo(String token,String userName, String mobileNum, String checkCode, String imageCode, String captcha, String password, String passwordConfirm) {
+        return myApis.getUserRegisterInfo(token,userName,mobileNum,checkCode,imageCode,captcha,password,passwordConfirm);
     }
 
     @Override

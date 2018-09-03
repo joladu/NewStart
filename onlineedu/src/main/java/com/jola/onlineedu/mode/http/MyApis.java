@@ -42,7 +42,8 @@ public interface MyApis {
 
     @POST("v1/user/register")
     @FormUrlEncoded
-    Flowable<ResUserRegister> getUserRegisterInfo(@Field("user_name") String userName,
+    Flowable<ResUserRegister> getUserRegisterInfo(@Header("authorization") String token,
+                                                  @Field("user_name") String userName,
                                                   @Field("mobile") String mobileNum,
 //                                                  短信验证码
                                                   @Field("v_code") String checkCode,
