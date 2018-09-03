@@ -16,6 +16,8 @@
 
     <!--内容距离边框margin 20dp-->
     <dimen name="margin_content_to_border">@dimen/qb_px_20</dimen>
+
+    <dimen name="margin_between_two">@dimen/qb_px_10</dimen>
     <dimen name="tip_logout_text">15sp</dimen>
     <dimen name="btn_pop_text_size">22sp</dimen>
 

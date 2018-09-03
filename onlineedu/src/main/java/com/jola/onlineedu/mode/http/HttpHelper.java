@@ -27,4 +27,6 @@ public interface HttpHelper {
 
     Flowable<ResponseSimpleResult> fetchForgetPassword(String mobilePhone,String password,String msgCode,String captchaKey,String captcha);
 
+    Flowable<String> testHead(String token,String testName);
+
 }

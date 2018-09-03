@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
+import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.video.cover.ControllerCover;
 import com.jola.onlineedu.video.play.DataInter;
 import com.jola.onlineedu.video.play.MonitorDataProvider;
@@ -31,10 +32,9 @@ import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.kk.taurus.playerbase.render.AspectRatio;
 import com.kk.taurus.playerbase.render.IRender;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import kr.co.namee.permissiongen.PermissionFail;
-import kr.co.namee.permissiongen.PermissionGen;
-import kr.co.namee.permissiongen.PermissionSuccess;
+import io.reactivex.functions.Consumer;
 
 
 public class VideoViewActivity extends AppCompatActivity implements OnPlayerEventListener {
@@ -80,45 +80,33 @@ public class VideoViewActivity extends AppCompatActivity implements OnPlayerEven
 //        mMusicWave.setWaveType(waveType[typeIndex]);
 //        mMusicWave.setColors(new int[]{Color.YELLOW, Color.BLUE});
 
-        PermissionGen.with(this)
-                .addRequestCode(101)
-                .permissions(
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.MODIFY_AUDIO_SETTINGS,
-                        Manifest.permission.ACCESS_NETWORK_STATE
-                )
-                .request();
+//        PermissionGen.with(this)
+//                .addRequestCode(101)
+//                .permissions(
+//                        Manifest.permission.RECORD_AUDIO,
+//                        Manifest.permission.MODIFY_AUDIO_SETTINGS,
+//                        Manifest.permission.ACCESS_NETWORK_STATE
+//                )
+//                .request();
+//
 
-//        mMusicWave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(permissionSuccess){
-//                    typeIndex++;
-//                    typeIndex %= waveType.length;
-//                    mMusicWave.setWaveType(waveType[typeIndex]);
-//                }
-//            }
-//        });
+        new RxPermissions(this).request(Manifest.permission.RECORD_AUDIO,Manifest.permission.MODIFY_AUDIO_SETTINGS,Manifest.permission.ACCESS_NETWORK_STATE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean){
+                            initPlay();
+                        }else{
+                            ToastUtil.toastShort("未同意相关权限，可能导致部分功能受限！");
+                            initPlay();
+                        }
+                    }
+                });
+
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-    }
 
-    @PermissionSuccess(requestCode = 101)
-    public void permissionSuccess() {
-        permissionSuccess = true;
-        initPlay();
-    }
-
-    @PermissionFail(requestCode = 101)
-    public void permissionFailure(){
-        permissionSuccess = false;
-        initPlay();
-    }
 
     private void initPlay() {
         updateVideo(false);

@@ -69,12 +69,15 @@ public class HttpModule {
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
 
-//                get方式添加token，在所有请求连接中添加token
+//                get方式添加token，在所有请求链接中添加token  相当于url?token=value_token
 //                HttpUrl httpUrl = request.url().newBuilder()
 //                        .addQueryParameter("token", "token_value")
 //                        .build();
 //                Request requestHttpUrl = request.newBuilder().url(httpUrl).build();
 //                chain.proceed(requestHttpUrl);
+
+//                head 头部添加token
+//                request = request.newBuilder().addHeader("token", "value_token").build();
 //
                 if (!SystemUtil.isNetworkConnected()) {
                     request = request.newBuilder()

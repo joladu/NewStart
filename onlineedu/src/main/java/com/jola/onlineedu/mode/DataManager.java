@@ -69,6 +69,11 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<String> testHead(String token, String testName) {
+        return myApis.testHead(token,testName);
+    }
+
+    @Override
     public void insertNewsId(int id) {
         mDBHelper.insertNewsId(id);
     }

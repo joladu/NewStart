@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.ui.adapter.GridImageAdapter;
+import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.FullyGridLayoutManager;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -29,6 +30,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class ForumPublishActivity extends SimpleActivity {
 
@@ -39,6 +41,7 @@ public class ForumPublishActivity extends SimpleActivity {
     RecyclerView recyclerView;
 
 
+    private int maxSelectImages = 3;
     private int themeId = R.style.picture_default_style;
     private GridImageAdapter gridImageAdapter;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -55,9 +58,8 @@ public class ForumPublishActivity extends SimpleActivity {
 //
         FullyGridLayoutManager manager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
-        gridImageAdapter = new GridImageAdapter(this, onAddPicClickListener);
+        gridImageAdapter = new GridImageAdapter(this, onAddPicClickListener,maxSelectImages);
         gridImageAdapter.setList(selectList);
-        gridImageAdapter.setSelectMax(3);
         recyclerView.setAdapter(gridImageAdapter);
         gridImageAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
@@ -86,30 +88,44 @@ public class ForumPublishActivity extends SimpleActivity {
         });
 
         // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
-        RxPermissions permissions = new RxPermissions(this);
-        permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
+//        RxPermissions permissions = new RxPermissions(this);
+//        permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//            }
+//
+//            @Override
+//            public void onNext(Boolean aBoolean) {
+//                if (aBoolean) {
+//                    PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
+//                } else {
+//                    Toast.makeText(ForumPublishActivity.this,
+//                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//            }
+//        });
 
-            @Override
-            public void onNext(Boolean aBoolean) {
-                if (aBoolean) {
-                    PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
-                } else {
-                    Toast.makeText(ForumPublishActivity.this,
-                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
+        addSubscribe(new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .subscribe(new Consumer<Boolean>() {
+                @Override
+                public void accept(Boolean aBoolean) throws Exception {
+                    if (aBoolean){
+                        PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
+                    }else{
+                        ToastUtil.toastShort(getString(R.string.picture_jurisdiction));
+                    }
                 }
-            }
+            })
+        );
 
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onComplete() {
-            }
-        });
 
 
 
@@ -187,7 +203,7 @@ public class ForumPublishActivity extends SimpleActivity {
                 PictureSelector.create(ForumPublishActivity.this)
                         .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                         .theme(themeId)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
-                        .maxSelectNum(6)// 最大图片选择数量
+                        .maxSelectNum(maxSelectImages)// 最大图片选择数量
                         .minSelectNum(0)// 最小选择数量
                         .imageSpanCount(3)// 每行显示个数
                         .selectionMode(PictureConfig.MULTIPLE)// 多选 PictureConfig.MULTIPLE or 单选 PictureConfig.SINGLE

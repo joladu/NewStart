@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/window_bg"
@@ -31,7 +31,7 @@
             android:layout_marginEnd="@dimen/margin_content_to_border"
             android:layout_marginStart="@dimen/margin_content_to_border"
             android:layout_marginTop="10dp"
-            android:text="每天观看直播节目，你们一般会评论什么，内容呢？"
+            android:text="@string/test_forum_title"
             android:textColor="@color/title_text"
             android:textSize="@dimen/title_text_size"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -68,7 +68,7 @@
             android:layout_marginEnd="@dimen/margin_content_to_border"
             android:layout_marginStart="@dimen/margin_content_to_border"
             android:layout_marginTop="5dp"
-            android:text="目前我司做的你们可能听过的节目有《今晚80后脱口秀》《今夜百乐门》《吐槽大会》。别撇嘴，我知道质量参差不齐，会越来越好的。所以在这个阶段，没有有绝对话语权的主持人，写手与编导团队也都在摸索，所有段子、环节都要一起商量着来，生态还没有建立起来。等到我们把脱口秀在国内的生态建立起来（主语的“我们”意指我们公司笑果文化，这是我司野心我只能跟着这么说，我个人是不愿意说这么不要脸的话的）"
+            android:text="@string/test_forum_content"
             android:textColor="@color/gray_content_forum_text"
             android:textSize="@dimen/forum_content_text_size"
             app:layout_constraintTop_toBottomOf="@+id/tv_forum_tag" />
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="陈华山"
+            android:text="@string/test_forum_author"
             android:textColor="@color/author_name_text_color"
             android:textSize="@dimen/forum_author_name_text_size"
             app:layout_constraintLeft_toRightOf="@+id/ci_head_img"
@@ -112,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="发布版块：反馈    发布时间：2018-08-17"
+            android:text="@string/test_forum_describe"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@+id/tv_name_author"
             app:layout_constraintTop_toBottomOf="@+id/tv_name_author" />

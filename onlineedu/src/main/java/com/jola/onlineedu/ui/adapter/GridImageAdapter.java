@@ -36,7 +36,7 @@ public class GridImageAdapter extends
     public static final int TYPE_PICTURE = 2;
     private LayoutInflater mInflater;
     private List<LocalMedia> list = new ArrayList<>();
-    private int selectMax = 9;
+    private int selectMax = 3;
     private Context context;
     /**
      * 点击添加图片跳转
@@ -47,10 +47,11 @@ public class GridImageAdapter extends
         void onAddPicClick();
     }
 
-    public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
+    public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener,int selectMax) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.mOnAddPicClickListener = mOnAddPicClickListener;
+        this.selectMax = selectMax;
     }
 
     public void setSelectMax(int selectMax) {
@@ -105,7 +106,8 @@ public class GridImageAdapter extends
     }
 
     private boolean isShowAddItem(int position) {
-        int size = list.size() == 0 ? 0 : list.size();
+        int size = (null == list ? 0 : list.size());
+//        int size = list.size() == 0 ? 0 : list.size();
         return position == size;
     }
 
