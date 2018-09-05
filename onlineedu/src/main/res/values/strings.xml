@@ -38,4 +38,6 @@
 
     <string name="error_server_message">请求失败：可能是手机无网络，或者服务器繁忙！</string>
 
+    <string name="tab_item_class">选择类别</string>
+
 </resources>

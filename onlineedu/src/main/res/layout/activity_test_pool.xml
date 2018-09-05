@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/window_bg"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    >
+    android:focusableInTouchMode="true">
 
 
     <include
@@ -29,86 +28,151 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />
 
-    <!--<HorizontalScrollView-->
-        <!--android:id="@+id/sv_search_tag_spinner"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!---->
-        <!---->
-        <!--android:scrollbars="none"-->
-        <!--&gt;-->
 
-        <LinearLayout
-            android:id="@+id/ll_contain_tab"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/ll_contain_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+        <RelativeLayout
+            android:id="@+id/rl_tab_select_first"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_view"
-            android:padding="10dp"
+            android:layout_weight="1"
             >
-
-            <include layout="@layout/view_tab_more"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tv_tab_class1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:text="@string/tab_item_class"
+                android:gravity="center"
+                android:textSize="@dimen/title_toolbar_text_size"
+                android:textColor="@color/hint_text_gray"
                 />
+            <ImageView
+                android:layout_width="@dimen/qb_px_10"
+                android:layout_height="@dimen/qb_px_10"
+                android:src="@drawable/down_select_other_x3"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_tab_class1"
+                android:layout_marginStart="0dp"
+                />
+        </RelativeLayout>
 
-            <!--<View-->
-                <!--android:layout_width="1dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/divide_line_gray"-->
-                <!--/>-->
-
-            <include layout="@layout/view_tab_more"
-                android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/rl_tab_select_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_tab_class2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:text="@string/tab_item_class"
+                android:gravity="center"
+                android:textSize="@dimen/title_toolbar_text_size"
+                android:textColor="@color/hint_text_gray"
                 />
+            <ImageView
+                android:layout_width="@dimen/qb_px_10"
+                android:layout_height="@dimen/qb_px_10"
+                android:src="@drawable/down_select_other_x3"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_tab_class2"
+                android:layout_marginStart="0dp"
+                />
+        </RelativeLayout>
 
-            <include layout="@layout/view_tab_more"
-                android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/rl_tab_select_third"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_tab_class3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:text="@string/tab_item_class"
+                android:gravity="center"
+                android:textSize="@dimen/title_toolbar_text_size"
+                android:textColor="@color/hint_text_gray"
                 />
+            <ImageView
+                android:layout_width="@dimen/qb_px_10"
+                android:layout_height="@dimen/qb_px_10"
+                android:src="@drawable/down_select_other_x3"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_tab_class3"
+                android:layout_marginStart="0dp"
+                />
+        </RelativeLayout>
 
-            <include layout="@layout/view_tab_more"
-                android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/rl_tab_select_fourth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_tab_class4"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:text="@string/tab_item_class"
+                android:gravity="center"
+                android:textSize="@dimen/title_toolbar_text_size"
+                android:textColor="@color/hint_text_gray"
                 />
+            <ImageView
+                android:layout_width="@dimen/qb_px_10"
+                android:layout_height="@dimen/qb_px_10"
+                android:src="@drawable/down_select_other_x3"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_tab_class4"
+                android:layout_marginStart="0dp"
+                />
+        </RelativeLayout>
 
-            <!--<Spinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:entries="@array/test_type"-->
-                <!--android:padding="10dp"-->
-                <!--/>-->
 
-            <!--<Spinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:entries="@array/test_grade"-->
-                <!--android:padding="10dp"-->
-                <!--/>-->
 
-            <!--<Spinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:entries="@array/test_class"-->
-                <!--android:padding="10dp"-->
-                <!--/>-->
 
-            <!--<Spinner-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:entries="@array/test_sort"-->
-                <!--android:padding="10dp"-->
-                <!--/>-->
-        </LinearLayout>
-    <!--</HorizontalScrollView>-->
+        <!--<include-->
+            <!--layout="@layout/view_tab_more"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
+
+        <!--<View-->
+        <!--android:layout_width="1dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/divide_line_gray"-->
+        <!--/>-->
+
+        <!--<include-->
+            <!--layout="@layout/view_tab_more"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
+
+        <!--<include-->
+            <!--layout="@layout/view_tab_more"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
+
+        <!--<include-->
+            <!--layout="@layout/view_tab_more"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
+
+    </LinearLayout>
 
     <View
         android:id="@+id/view_divide_below_spinner"
