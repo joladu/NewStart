@@ -43,7 +43,7 @@
         <activity android:name=".ui.activity.ForumListActivity" />
         <activity android:name=".ui.activity.ForumDetailActivity" />
         <activity android:name=".ui.activity.ForumPublishActivity" />
-        <activity android:name=".ui.activity.TestPoolActivity"></activity>
+        <activity android:name=".ui.activity.TestPoolActivity"/>
     </application>
 
 </manifest>

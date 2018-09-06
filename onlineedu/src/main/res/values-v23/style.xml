@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!--当status背景色为弱色时 ，status bar文字颜色会变为灰黑色-->
+        <!--当status背景色为弱色时 ，status bar文字颜色会变为灰黑色 android 6.0 sdk >= 23 生效-->
         <item name="android:windowLightStatusBar">true</item>
 
     </style>

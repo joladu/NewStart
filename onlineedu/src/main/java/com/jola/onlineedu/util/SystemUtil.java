@@ -64,45 +64,45 @@ public class SystemUtil {
         ToastUtil.toastLong("已复制到剪贴板");
     }
 
-    /**
-     * 保存图片到本地
-     * @param context
-     * @param url
-     * @param bitmap
-     */
-    public static Uri saveBitmapToFile(Context context, String url, Bitmap bitmap, View container, boolean isShare){
-        String fileName = url.substring(url.lastIndexOf("/"),url.lastIndexOf(".")) + ".png";
-        File fileDir = new File(Constants.PATH_SDCARD);
-        if (!fileDir.exists()){
-            fileDir.mkdirs();
-        }
-        File imageFile = new File(fileDir,fileName);
-        Uri uri = Uri.fromFile(imageFile);
-        if (isShare && imageFile.exists()) {
-            return uri;
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            boolean isCompress = bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            if (isCompress) {
-                SnackbarUtil.showShort(container,"保存图片成功！");
-            } else {
-                SnackbarUtil.showShort(container,"保存图片失败！");
-            }
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            SnackbarUtil.showShort(container,"保存图片失败！");
-        }
-        try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri));
-        return uri;
-    }
+//    /**
+//     * 保存图片到本地
+//     * @param context
+//     * @param url
+//     * @param bitmap
+//     */
+//    public static Uri saveBitmapToFile(Context context, String url, Bitmap bitmap, View container, boolean isShare){
+//        String fileName = url.substring(url.lastIndexOf("/"),url.lastIndexOf(".")) + ".png";
+//        File fileDir = new File(Constants.PATH_SDCARD);
+//        if (!fileDir.exists()){
+//            fileDir.mkdirs();
+//        }
+//        File imageFile = new File(fileDir,fileName);
+//        Uri uri = Uri.fromFile(imageFile);
+//        if (isShare && imageFile.exists()) {
+//            return uri;
+//        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(imageFile);
+//            boolean isCompress = bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+//            if (isCompress) {
+//                SnackbarUtil.showShort(container,"保存图片成功！");
+//            } else {
+//                SnackbarUtil.showShort(container,"保存图片失败！");
+//            }
+//            fos.flush();
+//            fos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            SnackbarUtil.showShort(container,"保存图片失败！");
+//        }
+//        try {
+//            MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), fileName, null);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri));
+//        return uri;
+//    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
@@ -129,33 +129,36 @@ public class SystemUtil {
         final float scale = App.getInstance().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+//
+//    /**
+//     * 获取进程号对应的进程名
+//     *
+//     * @param pid 进程号
+//     * @return 进程名
+//     */
+//    public static String getProcessName(int pid) {
+//        BufferedReader reader = null;
+//        try {
+//            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+//            String processName = reader.readLine();
+//            if (!TextUtils.isEmpty(processName)) {
+//                processName = processName.trim();
+//            }
+//            return processName;
+//        } catch (Throwable throwable) {
+//            throwable.printStackTrace();
+//        } finally {
+//            try {
+//                if (reader != null) {
+//                    reader.close();
+//                }
+//            } catch (IOException exception) {
+//                exception.printStackTrace();
+//            }
+//        }
+//        return null;
+//    }
 
-    /**
-     * 获取进程号对应的进程名
-     *
-     * @param pid 进程号
-     * @return 进程名
-     */
-    public static String getProcessName(int pid) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
-            String processName = reader.readLine();
-            if (!TextUtils.isEmpty(processName)) {
-                processName = processName.trim();
-            }
-            return processName;
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
-        return null;
-    }
+
+
 }
