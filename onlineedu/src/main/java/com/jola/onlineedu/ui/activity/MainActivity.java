@@ -41,6 +41,10 @@ public class MainActivity extends SimpleActivity {
 //                })
 //        );
 
+
+
+
+
 //        Flowable.timer(2000,TimeUnit.MILLISECONDS)
 //                .compose(RxUtil.<Long>rxSchedulerHelper())
 //                .subscribe(new Consumer<Long>() {
