@@ -9,13 +9,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
-import com.jola.onlineedu.util.CodeUtils;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
-import com.jola.onlineedu.util.StatusBarUtil;
 import com.jola.onlineedu.util.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -51,6 +52,9 @@ public class ForgetPasswordActivity extends SimpleActivity {
     EditText et_input_password;
     private Disposable disposableCountDown;
 
+    private String captcha_img;
+    private String captcha_key;
+
 
     @Override
     protected int getLayout() {
@@ -60,14 +64,45 @@ public class ForgetPasswordActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
         setToolBar(toolbar, "手机找回密码");
-        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
+//        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
         getActivityComponent().inject(this);
+
+        getKatpchCode();
+
+    }
+
+    private void getKatpchCode() {
+        //        获得图形验证码
+        addSubscribe(dataManager.fetchImageCode()
+                        .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResGetImageCode>() {
+                            @Override
+                            public void accept(ResGetImageCode resGetImageCode) throws Exception {
+                                int error_code = resGetImageCode.getError_code();
+                                if (error_code == 0) {
+                                    captcha_img = resGetImageCode.getData().getCaptcha_img();
+//                                              "captcha_img":"/captcha/image/20d8699afac91bb9bc4fc26f40f564eacbc91b6e/"
+//                            http://yunketang.dev.attackt.com/captcha/image/99d0501dea9230fd9984f41581b7e703a2652dbe/
+                                    captcha_key = resGetImageCode.getData().getCaptcha_key();
+                                    Glide.with(ForgetPasswordActivity.this).load(MyApis.DOMAIN + captcha_img).into(iv_ImageCode);
+                                } else {
+                                    ToastUtil.toastLong(resGetImageCode.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) {
+                                hideLoadingDialog();
+                                ToastUtil.toastLong(getString(R.string.error_server_message));
+                            }
+                        })
+        );
 
     }
 
     @OnClick(R.id.iv_image_code)
     public void refreshImageCode(View view) {
-        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
+        getKatpchCode();
     }
 
     @OnClick(R.id.tv_getCheckCode)
@@ -91,7 +126,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        Log.e("jola","time:"+aLong+"s");
+                        Log.e("jola", "time:" + aLong + "s");
                         tv_getCheckCode.setText(aLong + "s");
                         if (aLong <= 1) {
                             tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
@@ -143,15 +178,35 @@ public class ForgetPasswordActivity extends SimpleActivity {
             ToastUtil.toastShort(getString(R.string.tip_not_fill_all_content));
             return;
         }
-        String realCode = CodeUtils.getInstance().getCode();
-        if (!realCode.equals(imageCode)){
-            ToastUtil.toastShort(getString(R.string.tip_error_image_code));
-        }
+//        String realCode = CodeUtils.getInstance().getCode();
+//        if (!realCode.equals(imageCode)){
+//            ToastUtil.toastShort(getString(R.string.tip_error_image_code));
+//        }
         if (TextUtils.isEmpty(phoneNum) || phoneNum.length() != 11) {
             ToastUtil.toastShort("请输入11位数字手机号码！");
             return;
         }
-//        addSubscribe(dataManager.fet);
+        showLoadingDialog();
+        addSubscribe(dataManager.fetchForgetPassword(phoneNum, password, checkCode, captcha_key, imageCode)
+                .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper()).subscribe(new Consumer<ResponseSimpleResult>() {
+                    @Override
+                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                        hideLoadingDialog();
+                        int error_code = responseSimpleResult.getError_code();
+                        if (error_code == 0) {
+                            ToastUtil.toastShort("重置密码成功！");
+                            ForgetPasswordActivity.this.finish();
+                        } else {
+                            ToastUtil.toastShort(responseSimpleResult.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        ToastUtil.toastLong(getString(R.string.error_server_message));
+                    }
+                }));
 
     }
 

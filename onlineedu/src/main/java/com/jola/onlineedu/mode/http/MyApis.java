@@ -1,6 +1,8 @@
 package com.jola.onlineedu.mode.http;
 
 import com.jola.onlineedu.mode.bean.WelcomeBean;
+import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResUserLogin;
 import com.jola.onlineedu.mode.bean.response.ResUserRegister;
 import com.jola.onlineedu.mode.bean.response.ResponseGetQiLiuBean;
@@ -26,45 +28,51 @@ import retrofit2.http.Path;
 
 public interface MyApis {
 
-    String HOST = "http://yunketang.dev.attackt.com/api/";
 
-    @GET("qiniu/settings")
+    String DOMAIN = "http://yunketang.dev.attackt.com";
+    String HOST = DOMAIN+"/api/";
+
+    @GET("qiniu/settings/")
     Flowable<ResponseGetQiLiuBean> getQiLiuInfo();
 
-    @POST("v1/code/vcode")
+    @POST("v1/code/vcode/")
     @FormUrlEncoded
     Flowable<ResponseSimpleResult> getMsgCheckCode(@Field("mobile") String mobile);
 
-    @POST("v1/user/login")
+    @GET("v1/code/captcha/")
+    Flowable<ResGetImageCode> getImageCode();
+
+    @POST("v1/user/login/")
     @FormUrlEncoded
     Flowable<ResUserLogin> getUserLoginInfo(@Field("user_name") String userName,
                                             @Field("password") String userPassword);
 
-    @POST("v1/user/register")
+    @POST("v1/user/register/")
     @FormUrlEncoded
-    Flowable<ResUserRegister> getUserRegisterInfo(@Header("authorization") String token,
-                                                  @Field("user_name") String userName,
+    Flowable<ResUserRegister> getUserRegisterInfo(@Field("user_name") String userName,
                                                   @Field("mobile") String mobileNum,
-//                                                  短信验证码
                                                   @Field("v_code") String checkCode,
-                                                  @Field("captcha_key") String imgCode,
+                                                  @Field("captcha_key") String captcha_key,
                                                   @Field("captcha") String captcha,
                                                   @Field("password") String password,
                                                   @Field("re_password") String passwordConfirm);
 
     @FormUrlEncoded
-    @POST("v1/user/resetpwd")
+    @POST("v1/user/resetpwd/")
     Flowable<ResponseSimpleResult> getUserForgetPasswrod(@Field("mobile") String mobilePhone,
                                                          @Field("v_code") String msgCode,
                                                          @Field("captcha_key") String imageCodeKey,
                                                          @Field("captcha") String imageCode,
                                                          @Field("password") String password);
-
+//
     @FormUrlEncoded
-    @POST("v1/user/test")
+    @POST("v1/user/tes/t")
     Flowable<String> testHead(@Header("token") String token,String testName);
 
 
+
+    @GET("v1/bbs/types/")
+    Flowable<ResForumTypeBean> getForumTypeInfo();
 
 
 

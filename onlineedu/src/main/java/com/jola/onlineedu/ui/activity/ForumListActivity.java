@@ -13,7 +13,10 @@ import com.donkingliang.labels.LabelsView;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.RootSimpleActivity;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
 import com.jola.onlineedu.ui.adapter.ForumListAdapter;
+import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
@@ -26,11 +29,17 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 public class ForumListActivity extends RootSimpleActivity {
 
+
+    @Inject
+    DataManager dataManager;
 
     @BindView(R.id.toolbar_view)
     Toolbar toolbar;
@@ -42,7 +51,6 @@ public class ForumListActivity extends RootSimpleActivity {
 
     @BindView(R.id.labels_list_forum)
     LabelsView labelsView;
-
 
     private ArrayList<String> mList;
     private ForumListAdapter mAdapter;
@@ -56,8 +64,10 @@ public class ForumListActivity extends RootSimpleActivity {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-
+        getActivityComponent().inject(this);
         setToolBar(toolbar,"论坛");
+
+//        获取帖子类型
 
         ArrayList<String> label = new ArrayList<>();
         label.add("全部");
@@ -114,6 +124,24 @@ public class ForumListActivity extends RootSimpleActivity {
             }
         });
     }
+
+
+    private void getForumTypeInfo(){
+        addSubscribe(dataManager.getForumTypeInfo()
+        .compose(RxUtil.<ResForumTypeBean>rxSchedulerHelper())
+        .subscribe(new Consumer<ResForumTypeBean>() {
+            @Override
+            public void accept(ResForumTypeBean resForumTypeBean) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        }));
+    }
+
 
     @OnClick(R.id.add_icon_in_tool)
     public void addPublishForum(View view){

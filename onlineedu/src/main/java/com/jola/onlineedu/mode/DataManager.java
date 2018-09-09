@@ -1,6 +1,8 @@
 package com.jola.onlineedu.mode;
 
 import com.jola.onlineedu.mode.bean.WelcomeBean;
+import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResUserLogin;
 import com.jola.onlineedu.mode.bean.response.ResUserRegister;
 import com.jola.onlineedu.mode.bean.response.ResponseGetQiLiuBean;
@@ -54,18 +56,28 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResGetImageCode> fetchImageCode() {
+        return myApis.getImageCode();
+    }
+
+    @Override
     public Flowable<ResUserLogin> fetchUserLoginInfo(String userName, String userPassword) {
         return myApis.getUserLoginInfo(userName,userPassword);
     }
 
     @Override
-    public Flowable<ResUserRegister> fetchUserRegisterInfo(String token,String userName, String mobileNum, String checkCode, String imageCode, String captcha, String password, String passwordConfirm) {
-        return myApis.getUserRegisterInfo(token,userName,mobileNum,checkCode,imageCode,captcha,password,passwordConfirm);
+    public Flowable<ResUserRegister> fetchUserRegisterInfo(String userName, String mobileNum, String checkCode, String imageCode, String captcha, String password, String passwordConfirm) {
+        return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,imageCode,captcha,password,passwordConfirm);
     }
 
     @Override
     public Flowable<ResponseSimpleResult> fetchForgetPassword(String mobilePhone, String password, String msgCode, String captchaKey, String captcha) {
         return myApis.getUserForgetPasswrod(mobilePhone,msgCode,captchaKey,captcha,password);
+    }
+
+    @Override
+    public Flowable<ResForumTypeBean> getForumTypeInfo() {
+        return myApis.getForumTypeInfo();
     }
 
     @Override
@@ -76,6 +88,16 @@ public class DataManager implements HttpHelper ,DBHelper,PreferencesHelper{
     @Override
     public void insertNewsId(int id) {
         mDBHelper.insertNewsId(id);
+    }
+
+    @Override
+    public void setCurMainFragmentTag(int fragmentTag) {
+        mPreferenceHelper.setCurMainFragmentTag(fragmentTag);
+    }
+
+    @Override
+    public int getCurMainFragmentTag() {
+        return mPreferenceHelper.getCurMainFragmentTag();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.jola.onlineedu.app.App;
+import com.jola.onlineedu.ui.activity.MainActivity;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,7 @@ public class PreferencesHelperImpl implements PreferencesHelper {
     private static final String SHAREDPREFERENCES_NAME = "online_edu_sp";
 
     public static final String SP_NIGHT_MODE = "night_mode";
+    public static final String  TAG_MAIN_SHOW_FRAGMENT = "main_fragment";
     public static final String  TAG_USER_ID = "user_id";
     public static final String  TAG_USER_NAME = "user_name";
     public static final String  TAG_USER_PHONE = "user_phone";
@@ -31,6 +33,16 @@ public class PreferencesHelperImpl implements PreferencesHelper {
         mSPrefs = App.getInstance().getSharedPreferences(SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
+
+    @Override
+    public void setCurMainFragmentTag(int fragmentTag) {
+        mSPrefs.edit().putInt(TAG_MAIN_SHOW_FRAGMENT,fragmentTag).apply();
+    }
+
+    @Override
+    public int getCurMainFragmentTag() {
+        return mSPrefs.getInt(TAG_MAIN_SHOW_FRAGMENT, 101);
+    }
 
     @Override
     public void setUserId(String userId) {

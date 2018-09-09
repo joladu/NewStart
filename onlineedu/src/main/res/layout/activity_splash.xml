@@ -16,13 +16,24 @@
 
     <!--750*1334 高距离 438px / 1334 = -->
     <ImageView
+        android:id="@+id/iv_logo_splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/head_logo_gl"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/logo_splash_black_580x138"
+        android:src="@drawable/logo_black_2x"
        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_logo_splash"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/qb_px_10"
+        android:src="@drawable/icon_easy_learn_x2"
+        />
 
     <android.support.constraint.Guideline
         android:id="@+id/head_bottom_text"

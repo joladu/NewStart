@@ -12,12 +12,6 @@
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!--begin qiniu-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--end qiniu-->
-
     <application
         android:name=".app.App"
         android:allowBackup="true"

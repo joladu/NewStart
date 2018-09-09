@@ -30,6 +30,8 @@
 
 
 
+
+
 #begin PictureSelector
 
 #PictureSelector 2.0
@@ -77,3 +79,9 @@
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 #end PictureSelector
+
+
+#being qiliu pull
+-keep class com.pili.pldroid.player.** { *; }
+-keep class com.qiniu.qplayer.mediaEngine.MediaPlayer{*;}
+#end qiliu pull

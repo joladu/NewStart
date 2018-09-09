@@ -8,12 +8,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResUserRegister;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
-import com.jola.onlineedu.util.CodeUtils;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 
@@ -53,6 +55,8 @@ public class RegisterActivity extends SimpleActivity {
     EditText et_input_username;
 
     private Disposable disposableCountDown;
+    private String captcha_img;
+    private String captcha_key;
 
     @Override
     protected int getLayout() {
@@ -65,14 +69,64 @@ public class RegisterActivity extends SimpleActivity {
         getActivityComponent().inject(this);
 
         setToolBar(toolbar, "注册");
-        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
+
+//        获得图形验证码
+        addSubscribe(dataManager.fetchImageCode()
+                .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
+                .subscribe(new Consumer<ResGetImageCode>() {
+                    @Override
+                    public void accept(ResGetImageCode resGetImageCode) throws Exception {
+                        int error_code = resGetImageCode.getError_code();
+                        if (error_code == 0){
+                            captcha_img = resGetImageCode.getData().getCaptcha_img();
+//                                              "captcha_img":"/captcha/image/20d8699afac91bb9bc4fc26f40f564eacbc91b6e/"
+//                            http://yunketang.dev.attackt.com/captcha/image/99d0501dea9230fd9984f41581b7e703a2652dbe/
+                            captcha_key = resGetImageCode.getData().getCaptcha_key();
+                            Glide.with(RegisterActivity.this).load(MyApis.DOMAIN+captcha_img).into(iv_ImageCode);
+                        }else{
+                            ToastUtil.toastLong(resGetImageCode.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        hideLoadingDialog();
+                        ToastUtil.toastLong(getString(R.string.error_server_message));
+                    }
+                })
+        );
+//        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
     }
 
 
 
     @OnClick(R.id.iv_image_code)
     public void refreshImageCode(View view){
-        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
+        //        获得图形验证码
+        addSubscribe(dataManager.fetchImageCode()
+                        .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResGetImageCode>() {
+                            @Override
+                            public void accept(ResGetImageCode resGetImageCode) throws Exception {
+                                int error_code = resGetImageCode.getError_code();
+                                if (error_code == 0){
+                                    captcha_img = resGetImageCode.getData().getCaptcha_img();
+//                                              "captcha_img":"/captcha/image/20d8699afac91bb9bc4fc26f40f564eacbc91b6e/"
+//                            http://yunketang.dev.attackt.com/captcha/image/99d0501dea9230fd9984f41581b7e703a2652dbe/
+                                    captcha_key = resGetImageCode.getData().getCaptcha_key();
+                                    Glide.with(RegisterActivity.this).load(MyApis.DOMAIN+captcha_img).into(iv_ImageCode);
+                                }else{
+                                    ToastUtil.toastLong(resGetImageCode.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) {
+                                hideLoadingDialog();
+                                ToastUtil.toastLong(getString(R.string.error_server_message));
+                            }
+                        })
+        );
     }
 
     @OnClick(R.id.tv_back)
@@ -93,17 +147,17 @@ public class RegisterActivity extends SimpleActivity {
             ToastUtil.toastShort(getString(R.string.tip_not_fill_all_content));
             return;
         }
-        String realImageCode = CodeUtils.getInstance().getCode();
-        if (!realImageCode.equals(imageCode)){
-            ToastUtil.toastShort(getString(R.string.tip_error_image_code));
-            return;
-        }
+//        String realImageCode = CodeUtils.getInstance().getCode();
+//        if (!realImageCode.equals(imageCode)){
+//            ToastUtil.toastShort(getString(R.string.tip_error_image_code));
+//            return;
+//        }
         if (!password.equals(passwordConfirm)){
             ToastUtil.toastShort("两次密码输入不一致！");
             return;
         }
         showLoadingDialog();
-        addSubscribe(dataManager.fetchUserRegisterInfo("unknown",userName,phoneNum,msgCheckCode,imageCode,imageCode,password,passwordConfirm)
+        addSubscribe(dataManager.fetchUserRegisterInfo(userName,phoneNum,msgCheckCode,captcha_key,imageCode,password,passwordConfirm)
             .compose(RxUtil.<ResUserRegister>rxSchedulerHelper())
                 .subscribe(new Consumer<ResUserRegister>() {
                     @Override
@@ -120,7 +174,9 @@ public class RegisterActivity extends SimpleActivity {
                             dataManager.setUserToken(token);
                             dataManager.setUserName(realname);
                             dataManager.setUserPhone(mobile);
-                            ToastUtil.toastShort("注册成功：" + "token:" + token + " ; user_id" + user_id);
+//                            ToastUtil.toastShort("注册成功：" + "token:" + token + " ; user_id" + user_id);
+                            ToastUtil.toastShort("注册成功!");
+                            RegisterActivity.this.finish();
                         } else {
                             ToastUtil.toastShort("注册失败：" + resUserRegister.getError_msg());
                         }

@@ -17,6 +17,7 @@
     <color name="gray_item_forum_type">#E9EEF2</color>
     <color name="gray_content_forum_text">#252D41</color>
     <color name="gray_test_pool_describe">#808288</color>
+    <color name="gray_star_score">#BCBCBC</color>
 
     <color name="black_title_popup_window">#000000</color>
     <color name="black_status_bar">#000000</color>

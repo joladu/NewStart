@@ -65,7 +65,7 @@ public class LoginActivity extends SimpleActivity {
                     int error_code = resUserLogin.getError_code();
                     if (error_code == 0) {
                         ToastUtil.toastShort("登陆成功！");
-                        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         ToastUtil.toastLong(resUserLogin.getError_msg());
                     }
@@ -93,12 +93,13 @@ public class LoginActivity extends SimpleActivity {
 
     @OnClick(R.id.iv_ali_login)
     public void aliLogin(View view){
-        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
     }
 
     @OnClick(R.id.iv_qq_login)
     public void qqLogin(View view){
-        startActivity(new Intent(LoginActivity.this, TestPoolActivity.class));
+//        startActivity(new Intent(LoginActivity.this, TestPoolActivity.class));
     }
 
     @OnClick(R.id.iv_weibo_login)

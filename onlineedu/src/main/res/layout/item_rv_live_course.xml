@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/qb_px_180"
+    android:layout_height="@dimen/qb_px_200"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    >
+
+    <FrameLayout
+        android:id="@+id/fl_live_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_120"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_120"
+            android:background="@drawable/image_placeholder_loading"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/play_icon_x2"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_title_live_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fl_live_image"
+        android:layout_margin="@dimen/qb_px_5"
+        android:textColor="@color/title_text"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:lines="1"
+        android:ellipsize="end"
+        android:text="王传军的直播王传军的直直播王传军的直播播王传军的直播"
+        />
+    <TextView
+        android:id="@+id/tv_price_live_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title_live_item"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/qb_px_5"
+        android:text="￥500000.00"
+        android:textColor="@color/colorAccent"
+        />
+
+
+    <com.jola.onlineedu.widget.StarBar
+        android:id="@+id/star_bar_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        ratingbar:starEmpty="@drawable/star_no_x2"
+        ratingbar:starFill="@drawable/star_yes_x2"
+        ratingbar:starDistance="0dp"
+        ratingbar:starCount="5"
+        ratingbar:starSize="11dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_score_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/star_bar_score"
+        android:layout_alignTop="@+id/star_bar_score"
+        android:layout_marginTop="-5dp"
+        android:layout_marginStart="5dp"
+        android:text="4.8"
+        android:textSize="13sp"
+        android:textColor="@color/gray_star_score"
+        />
+    <TextView
+        android:id="@+id/tv_persons_watched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_toRightOf="@+id/tv_score_num"
+        android:text="2500人看过"
+        android:textSize="13sp"
+        android:textColor="@color/gray_star_score"
+        android:drawableLeft="@drawable/person_watched_course_x2"
+        android:layout_marginLeft="@dimen/qb_px_10"
+        android:drawablePadding="@dimen/qb_px_5"
+        />
+
+
+
+
+
+</RelativeLayout>

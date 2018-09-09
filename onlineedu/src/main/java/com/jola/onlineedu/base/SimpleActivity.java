@@ -3,7 +3,6 @@ package com.jola.onlineedu.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -19,13 +18,14 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by lenovo on 2018/8/10.
  * 使用butterknife ,方法抽象化，统一管理activity
  */
 
-public abstract class SimpleActivity extends AppCompatActivity {
+public abstract class SimpleActivity extends SupportActivity {
 
     private Unbinder mUnbind;
     protected Activity mContext;
