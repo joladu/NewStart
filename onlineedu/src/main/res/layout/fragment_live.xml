@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/window_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     >
 
     <TextView
@@ -152,6 +154,7 @@
         android:id="@+id/srl_live_course"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/divide_line_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

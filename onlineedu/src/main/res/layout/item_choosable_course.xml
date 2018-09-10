@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/qb_px_210"
+    android:layout_height="wrap_content"
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:background="@color/window_bg"
     >
@@ -19,16 +19,21 @@
             android:layout_height="@dimen/qb_px_120"
             android:background="@drawable/image_placeholder_loading"
             />
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/play_icon_x2"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom|right"
+            android:text="￥120"
+            android:textColor="@color/window_bg"
+            android:background="@drawable/shape_radius_green_bg"
+            android:layout_marginEnd="@dimen/qb_px_5"
+            android:layout_marginBottom="@dimen/qb_px_5"
+            android:textSize="13sp"
             />
     </FrameLayout>
 
     <TextView
-        android:id="@+id/tv_title_live_item"
+        android:id="@+id/tv_title_choosable_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fl_live_image"
@@ -37,7 +42,20 @@
         android:textSize="@dimen/title_toolbar_text_size"
         android:lines="1"
         android:ellipsize="end"
-        android:text="王传军的直播王"
+        android:text="洋葱教学"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_type_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_title_choosable_course"
+        android:layout_marginRight="10dp"
+        android:text="付费"
+        android:textColor="@color/colorAccent"
+        android:textSize="13sp"
         />
 
 
@@ -46,7 +64,7 @@
         android:id="@+id/star_bar_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title_live_item"
+        android:layout_below="@+id/tv_title_choosable_course"
         android:layout_marginTop="@dimen/qb_px_5"
         android:layout_marginLeft="@dimen/qb_px_5"
         ratingbar:starEmpty="@drawable/star_no_x2"
@@ -83,27 +101,6 @@
         android:layout_marginLeft="@dimen/qb_px_10"
         android:drawablePadding="@dimen/qb_px_5"
         />
-
-    <TextView
-        android:id="@+id/tv_price_live_course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/view_hold_end"
-        android:layout_alignBottom="@+id/view_hold_end"
-        android:layout_margin="@dimen/qb_px_5"
-        android:text="￥500.00"
-        android:textColor="@color/colorAccent"
-        />
-    <View
-        android:id="@+id/view_hold_end"
-        android:layout_width="10dp"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        />
-
-
-
 
 
 </RelativeLayout>

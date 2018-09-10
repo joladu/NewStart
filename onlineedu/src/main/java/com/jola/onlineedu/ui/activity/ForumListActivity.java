@@ -73,9 +73,6 @@ public class ForumListActivity extends RootSimpleActivity {
         label.add("全部");
         label.add("提问");
         label.add("灌水");
-        label.add("反馈");
-        label.add("提问");
-        label.add("灌水");
         labelsView.setLabels(label); //直接设置一个字符串数组就可以了。
         //标签的选中监听
         labelsView.setOnLabelSelectChangeListener(new LabelsView.OnLabelSelectChangeListener() {

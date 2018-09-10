@@ -71,7 +71,7 @@ public class RegisterActivity extends SimpleActivity {
         setToolBar(toolbar, "注册");
 
 //        获得图形验证码
-        addSubscribe(dataManager.fetchImageCode()
+        addSubscribe(dataManager.getImageCode()
                 .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
                 .subscribe(new Consumer<ResGetImageCode>() {
                     @Override
@@ -103,7 +103,7 @@ public class RegisterActivity extends SimpleActivity {
     @OnClick(R.id.iv_image_code)
     public void refreshImageCode(View view){
         //        获得图形验证码
-        addSubscribe(dataManager.fetchImageCode()
+        addSubscribe(dataManager.getImageCode()
                         .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
                         .subscribe(new Consumer<ResGetImageCode>() {
                             @Override
@@ -157,7 +157,7 @@ public class RegisterActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
-        addSubscribe(dataManager.fetchUserRegisterInfo(userName,phoneNum,msgCheckCode,captcha_key,imageCode,password,passwordConfirm)
+        addSubscribe(dataManager.getUserRegisterInfo(userName,phoneNum,msgCheckCode,captcha_key,imageCode,password,passwordConfirm)
             .compose(RxUtil.<ResUserRegister>rxSchedulerHelper())
                 .subscribe(new Consumer<ResUserRegister>() {
                     @Override
@@ -223,7 +223,7 @@ public class RegisterActivity extends SimpleActivity {
                     }
                 });
         addSubscribe(disposableCountDown);
-        addSubscribe(dataManager.fetchMsgCheckCode(phoneNum)
+        addSubscribe(dataManager.getMsgCheckCode(phoneNum)
             .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override

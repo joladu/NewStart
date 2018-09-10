@@ -56,7 +56,7 @@ public class LoginActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
-        addSubscribe(mDataManager.fetchUserLoginInfo(account,password)
+        addSubscribe(mDataManager.getUserLoginInfo(account,password)
             .compose(RxUtil.<ResUserLogin>rxSchedulerHelper())
             .subscribe(new Consumer<ResUserLogin>() {
                 @Override

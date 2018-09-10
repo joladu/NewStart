@@ -73,7 +73,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
 
     private void getKatpchCode() {
         //        获得图形验证码
-        addSubscribe(dataManager.fetchImageCode()
+        addSubscribe(dataManager.getImageCode()
                         .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
                         .subscribe(new Consumer<ResGetImageCode>() {
                             @Override
@@ -136,7 +136,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
                     }
                 });
         addSubscribe(disposableCountDown);
-        addSubscribe(dataManager.fetchMsgCheckCode(phoneNum)
+        addSubscribe(dataManager.getMsgCheckCode(phoneNum)
                 .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
@@ -187,7 +187,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
-        addSubscribe(dataManager.fetchForgetPassword(phoneNum, password, checkCode, captcha_key, imageCode)
+        addSubscribe(dataManager.getUserForgetPasswrod(phoneNum, password, checkCode, captcha_key, imageCode)
                 .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper()).subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
