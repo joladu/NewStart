@@ -20,12 +20,12 @@ public class FriendFragment extends SimpleFragment {
 
 
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        MyLog.logMy("FriendFragment : onCreate");
-    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        MyLog.logMy("FriendFragment : onCreate");
+//    }
 
     @Override
     protected int getLayoutId() {

@@ -105,4 +105,7 @@ dependencies {
 //    picture selector
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
 
+//    汉字转拼音
+    implementation 'com.belerweb:pinyin4j:2.5.1'
+
 }

@@ -3,6 +3,11 @@
 
 
     <string name="tip_error_state">异常错误，请重试！</string>
+    <string name="error_server_message">请求失败：服务器繁忙！</string>
+
+    <string name="state_empty_tip">未获取到内容，点我重试</string>
+    <string name="state_error_server_tip">请求失败，点我重试</string>
+    <string name="state_loading_tip">玩命加载中</string>
 
     <string name="home_page_text">首页</string>
     <string name="live_text">直播</string>
@@ -11,6 +16,11 @@
 
     <string name="excellent_course">精品课程</string>
     <string name="forum">论坛</string>
+    <string name="forum_type">板块:</string>
+    <string name="forum_publish">发布帖子</string>
+    <string name="tip_no_forum_type_selected">请选择帖子类型,再试！</string>
+    <string name="tip_no_forum_title">请填写帖子标题,再试！</string>
+    <string name="tip_no_forum_content">请填写帖子内容,再试！</string>
     <string name="teacher_master">精英名师</string>
     <string name="test_pool">题库</string>
     <string name="course_recommend">课程推荐</string>
@@ -49,8 +59,9 @@
 
     <string name="tip_not_fill_all_content">请填写所有输入项，再重试！</string>
 
-    <string name="error_server_message">请求失败：服务器繁忙！</string>
 
     <string name="tab_item_class">选择类别</string>
+    <string name="forum_search_hint">论坛</string>
+
 
 </resources>

@@ -15,8 +15,11 @@
         android:textSize="@dimen/hint_search_text_size"
         android:textColor="@color/gray_hint_text_search"
         android:gravity="center"
+        android:lines="1"
+        android:singleLine="true"
         />
     <ImageView
+        android:id="@+id/iv_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/search_gray_2x"

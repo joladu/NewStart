@@ -25,6 +25,8 @@ import com.jola.onlineedu.mode.bean.response.ResUserRegister;
 import com.jola.onlineedu.mode.bean.response.ResponseGetQiLiuBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -157,7 +159,12 @@ public interface MyApis {
      * @return
      */
     @POST("v1/bbs/images/")
+    @Multipart
     Flowable<ResUploadFourmImageBean> uploadForumImage(@Part MultipartBody.Part[] file);
+
+    @POST("v1/bbs/posts/")
+    @FormUrlEncoded
+    Flowable<ResponseSimpleResult> publishForumContent(@Field("type") String type, @Field("title") String title, @Field("content") String content, @Field("imgs") List<String> imageUrlList);
 
 
 

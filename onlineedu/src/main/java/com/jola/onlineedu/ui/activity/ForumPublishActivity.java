@@ -7,13 +7,23 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResUploadFourmImageBean;
+import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.ui.adapter.GridImageAdapter;
+import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.FullyGridLayoutManager;
 import com.luck.picture.lib.PictureSelector;
@@ -23,28 +33,56 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.tools.PictureFileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class ForumPublishActivity extends SimpleActivity {
 
+
+
+    @Inject
+    DataManager dataManager;
 
     @BindView(R.id.toolbar_view)
     Toolbar toolbar;
     @BindView(R.id.rv_images_forum)
     RecyclerView recyclerView;
 
+    @BindView(R.id.spinner_forum_content)
+    Spinner spinner_forum_content;
+
+    @BindView(R.id.et_input_title_forum)
+    EditText et_input_title_forum;
+    @BindView(R.id.et_input_content_forum)
+    EditText et_input_content_forum;
+
 
     private int maxSelectImages = 3;
     private int themeId = R.style.picture_default_style;
     private GridImageAdapter gridImageAdapter;
     private List<LocalMedia> selectList = new ArrayList<>();
+
+
+    private ArrayList<String> lableList;
+    private HashMap<String, Integer> map_lableIds;
+    private String curForumTypeId;
+
+    private List<String> listUploadedImageUrls = new ArrayList<>();
+    private int i = 0;
+
 
     @Override
     protected int getLayout() {
@@ -53,7 +91,25 @@ public class ForumPublishActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-        setToolBar(toolbar,"发布帖子");
+        setToolBar(toolbar,getString(R.string.forum_publish));
+        getActivityComponent().inject(this);
+
+        getForumTypeInfo();
+
+        spinner_forum_content.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (null != lableList){
+                    String forumTypeText = lableList.get(position);
+                    curForumTypeId = map_lableIds.get(forumTypeText)+"";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 //
         FullyGridLayoutManager manager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
@@ -132,8 +188,125 @@ public class ForumPublishActivity extends SimpleActivity {
 
     }
 
+    private void getForumTypeInfo() {
+        addSubscribe(dataManager.getForumTypeInfo()
+                .compose(RxUtil.<ResForumTypeBean>rxSchedulerHelper())
+                .subscribe(new Consumer<ResForumTypeBean>() {
+                    @Override
+                    public void accept(ResForumTypeBean resForumTypeBean) throws Exception {
+                        int error_code = resForumTypeBean.getError_code();
+                        lableList = new ArrayList<>();
+                        map_lableIds = new HashMap<>();
+                        if (error_code == 0) {
+                            ResForumTypeBean.DataBean data = resForumTypeBean.getData();
+                            List<ResForumTypeBean.DataBean.TypesBean> types = data.getTypes();
+                            for (ResForumTypeBean.DataBean.TypesBean typesBean : types) {
+                                int id = typesBean.getId();
+                                String name = typesBean.getName();
+                                lableList.add(name);
+                                map_lableIds.put(name, id);
+                            }
+                            ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(ForumPublishActivity.this, android.R.layout.simple_list_item_1, lableList);
+                            spinner_forum_content.setAdapter(stringArrayAdapter);
+                        }else{
+                            ToastUtil.toastShort(resForumTypeBean.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                       ToastUtil.toastShort(getString(R.string.error_server_message));
+                    }
+                }));
+    }
+
     @OnClick(R.id.send_icon_in_tool)
     public void confirmSendForum(View view){
+
+        if (null != selectList && selectList.size() > 0){
+            listUploadedImageUrls = new ArrayList<String>();
+            showLoadingDialog();
+            for ( i = 0;i<selectList.size();i++){
+                String path = selectList.get(i).getPath();
+                File file = new File(path);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part[]  filePart = new MultipartBody.Part[1];
+                filePart[0] = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
+//                file[1] = MultipartBody.Part.createFormData("file", file1.getName(), requestFile);
+                addSubscribe(dataManager.uploadForumImage(filePart)
+                        .compose(RxUtil.<ResUploadFourmImageBean>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResUploadFourmImageBean>() {
+                            @Override
+                            public void accept(ResUploadFourmImageBean resultBean) throws Exception {
+                                int error_code = resultBean.getError_code();
+                                if (error_code == 0) {
+                                    String img_url = resultBean.getData().getImg_url();
+                                    if (!TextUtils.isEmpty(img_url)){
+                                        listUploadedImageUrls.add(img_url);
+                                    }
+                                    if (i == selectList.size() - 1){
+                                        publishforumContent();
+                                    }
+                                }else{
+                                    ToastUtil.toastShort(resultBean.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                hideLoadingDialog();
+                                ToastUtil.toastShort("上传图片失败！ "+getString(R.string.error_server_message));
+                            }
+                        }));
+
+            }
+        }else{
+            publishforumContent();
+        }
+
+
+
+
+
+
+    }
+
+    private void publishforumContent(){
+
+        if (null == curForumTypeId || curForumTypeId.length() == 0){
+            ToastUtil.toastShort(getString(R.string.tip_no_forum_type_selected));
+            return;
+        }
+        String title = et_input_title_forum.getText().toString();
+        if (TextUtils.isEmpty(title)){
+            ToastUtil.toastShort(getString(R.string.tip_no_forum_title));
+            return;
+        }
+        String content = et_input_content_forum.getText().toString();
+        if (TextUtils.isEmpty(title)){
+            ToastUtil.toastShort(getString(R.string.tip_no_forum_content));
+            return;
+        }
+
+        addSubscribe(dataManager.publishForumContent(curForumTypeId,title,content,listUploadedImageUrls)
+                .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                .subscribe(new Consumer<ResponseSimpleResult>() {
+                    @Override
+                    public void accept(ResponseSimpleResult resultBean) throws Exception {
+//                        int error_code = resultBean.getError_code();
+//                        if (error_code == 0) {
+//
+//                        }else{
+//
+//                        }
+                        ToastUtil.toastShort(resultBean.getError_msg());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtil.toastShort(getString(R.string.error_server_message));
+                    }
+                }));
 
     }
 
@@ -179,9 +352,6 @@ public class ForumPublishActivity extends SimpleActivity {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，已取压缩路径为准，因为是先裁剪后压缩的
-                    for (LocalMedia media : selectList) {
-                        Log.i("图片-----》", media.getPath());
-                    }
                     gridImageAdapter.setList(selectList);
                     gridImageAdapter.notifyDataSetChanged();
                     break;

@@ -15,6 +15,7 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.ui.activity.ForumListActivity;
+import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
 import com.jola.onlineedu.ui.activity.TestPoolActivity;
 import com.jola.onlineedu.ui.adapter.RVRecommendCourseAdapter;
 import com.jola.onlineedu.ui.adapter.VPHomePagerBannerAdapter;
@@ -116,6 +117,7 @@ public class HomePageFragment extends SimpleFragment {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.iv_excellent_course:
+                startActivity(new Intent(getContext(), SelectableCourseActivity.class));
                 break;
             case R.id.iv_forum:
                 startActivity(new Intent(getContext(), ForumListActivity.class));

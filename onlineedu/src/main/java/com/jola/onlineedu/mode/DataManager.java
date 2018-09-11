@@ -25,9 +25,10 @@ import com.jola.onlineedu.mode.bean.response.ResUserRegister;
 import com.jola.onlineedu.mode.bean.response.ResponseGetQiLiuBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.mode.db.DBHelper;
-import com.jola.onlineedu.mode.http.HttpHelper;
 import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.mode.prefs.PreferencesHelper;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
@@ -163,6 +164,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResUploadFourmImageBean> uploadForumImage(MultipartBody.Part[] file) {
         return myApis.uploadForumImage(file);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> publishForumContent(String type, String title, String content, List<String> imageUrlList) {
+        return myApis.publishForumContent(type,title,content,imageUrlList);
     }
 
     @Override

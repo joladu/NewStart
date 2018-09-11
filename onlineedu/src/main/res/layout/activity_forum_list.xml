@@ -15,16 +15,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<View-->
-        <!--android:id="@+id/view_divide_below_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="10dp"-->
-        <!--android:background="#fafafa"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/toolbar_view"-->
-        <!--/>-->
-
     <include
         android:id="@+id/search_view"
         layout="@layout/view_search"
@@ -77,23 +67,51 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_labels">
-
+        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_labels"
+        android:visibility="invisible"
+        >
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/view_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_state_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_labels"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/iv_tip_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/state_loading"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:id="@+id/tv_state_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_below="@+id/iv_tip_state"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/qb_px_20"
+            android:text="@string/state_loading_tip"
+            />
+
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

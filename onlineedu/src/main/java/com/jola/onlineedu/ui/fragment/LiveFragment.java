@@ -11,6 +11,7 @@ import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.ui.adapter.RVLiveCourseAdapter;
 import com.jola.onlineedu.widget.DividerGridItemDecoration;
+import com.jola.onlineedu.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -59,8 +60,7 @@ public class LiveFragment extends SimpleFragment {
         mList.add("text");
         mAdapter = new RVLiveCourseAdapter(getContext(), mList);
         rv_view_main.setLayoutManager(new GridLayoutManager(getContext(),2));
-
-        rv_view_main.addItemDecoration(new DividerGridItemDecoration(getContext()));
+        rv_view_main.addItemDecoration(new DividerItemDecoration(getContext(),10,10,getContext().getResources().getColor(R.color.divide_line_gray)));
 //        rv_view_main.addItemDecoration(new GridDivider(getContext(),10,getContext().getResources().getColor(R.color.divide_line_gray)));
 
 //        rv_view_main.addItemDecoration(new RecycleViewDivider(

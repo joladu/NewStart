@@ -47,6 +47,7 @@
         <activity android:name=".ui.activity.ForumDetailActivity" />
         <activity android:name=".ui.activity.ForumPublishActivity" />
         <activity android:name=".ui.activity.TestPoolActivity"/>
+        <activity android:name=".ui.activity.SelectableCourseActivity"/>
     </application>
 
 </manifest>

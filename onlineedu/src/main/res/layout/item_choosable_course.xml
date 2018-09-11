@@ -17,9 +17,10 @@
             android:id="@+id/iv_course_cover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/qb_px_120"
-            android:background="@drawable/image_placeholder_loading"
+            android:src="@drawable/shape_gray_bg"
             />
         <TextView
+            android:id="@+id/tv_price_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

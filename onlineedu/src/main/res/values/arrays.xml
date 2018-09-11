@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="forum_type">
-        <item>提问</item>
-        <item>灌水</item>
-        <item>反馈</item>
-    </string-array>
+    <!--<string-array name="forum_type">-->
+        <!--<item>提问</item>-->
+        <!--<item>灌水</item>-->
+        <!--<item>反馈</item>-->
+    <!--</string-array>-->
 
     <string-array name="test_type">
         <item>选择类别</item>

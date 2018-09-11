@@ -1,21 +1,16 @@
 package com.jola.onlineedu.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
-import com.jola.onlineedu.ui.activity.ForumDetailActivity;
-
-import org.w3c.dom.Text;
+import com.jola.onlineedu.widget.StarBar;
 
 import java.util.List;
 
@@ -26,12 +21,12 @@ import butterknife.ButterKnife;
  * Created by jola on 2018/8/28.
  */
 
-public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.ViewHolder> {
+public class SelectableCourseListAdapter extends RecyclerView.Adapter<SelectableCourseListAdapter.ViewHolder> {
 
 
     private LayoutInflater inflater;
     private Context mContext;
-    private List<ResForumListByTypeBean.DataBean.PostsBean> mList;
+    private List<String> mList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -39,11 +34,11 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position,View view);
+        void onItemClick(int position, View view);
     }
 
 
-    public ForumListAdapter(Context context,List<ResForumListByTypeBean.DataBean.PostsBean> mList) {
+    public SelectableCourseListAdapter(Context context, List<String> mList) {
         this.mContext = context;
         this.mList = mList;
         inflater = LayoutInflater.from(context);
@@ -52,18 +47,18 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.item_forum_list,parent,false));
+        return new ViewHolder(inflater.inflate(R.layout.item_choosable_course,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv_forumContent.setText(position+":"+mList.get(position));
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, ForumDetailActivity.class));
-            }
-        });
+//        holder.tv_titleTest.setText(position+":"+mList.get(position));
+//        holder.tv_describeTest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mContext.startActivity(new Intent(mContext, ForumDetailActivity.class));
+//            }
+//        });
 //        holder.relativeLayout.setOnClickListener();
     }
 
@@ -75,14 +70,21 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.rl_forum_list_activity)
-        RelativeLayout relativeLayout;
-        @BindView(R.id.tv_forum_tag)
-        TextView tv_forumTag;
 
-        @BindView(R.id.tv_forum_content)
-        TextView tv_forumContent;
-
+        @BindView(R.id.iv_course_cover)
+        ImageView iv_course_cover;
+        @BindView(R.id.tv_price_course)
+        TextView tv_price_course;
+        @BindView(R.id.tv_title_choosable_course)
+        TextView tv_title_choosable_course;
+        @BindView(R.id.tv_type_course)
+        TextView tv_type_course;
+        @BindView(R.id.star_bar_score)
+        StarBar star_bar_score;
+        @BindView(R.id.tv_score_num)
+        TextView tv_score_num;
+        @BindView(R.id.tv_persons_watched)
+        TextView tv_persons_watched;
 
         public ViewHolder(View itemView) {
             super(itemView);
