@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.jola.onlineedu.R;
@@ -34,6 +35,8 @@ public class LoginActivity extends SimpleActivity {
     EditText et_account;
     @BindView(R.id.et_password)
     EditText et_password;
+    @BindView(R.id.cb_remember_password)
+    CheckBox cb_remember_password;
 
 
     @Override
@@ -43,14 +46,22 @@ public class LoginActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-       StatusBarUtil.setStatusBarTranslucent(this);
+        StatusBarUtil.setStatusBarTranslucent(this);
         getActivityComponent().inject(this);
+        String userName = mDataManager.getUserName();
+        if (!TextUtils.isEmpty(userName)){
+            et_account.setText(userName);
+        }
+        String userPassword = mDataManager.getUserPassword();
+        if (!TextUtils.isEmpty(userPassword)){
+            et_password.setText(userPassword);
+        }
     }
 
     @OnClick(R.id.tv_login)
     public void login(View view){
-        String account = et_account.getText().toString();
-        String password = et_password.getText().toString();
+        final String account = et_account.getText().toString();
+        final String password = et_password.getText().toString();
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)){
             ToastUtil.toastShort("请输入账号和密码后，再重试！");
             return;
@@ -66,6 +77,14 @@ public class LoginActivity extends SimpleActivity {
                     if (error_code == 0) {
                         ToastUtil.toastShort("登陆成功！");
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        mDataManager.setUserPhone(resUserLogin.getData().getUser().getMobile());
+                        mDataManager.setUserId(resUserLogin.getData().getUser().getUser_id()+"");
+                        mDataManager.setUserToken(resUserLogin.getData().getToken());
+                        if (cb_remember_password.isChecked()){
+                            mDataManager.setUserName(account);
+                            mDataManager.setUserPassword(password);
+                        }
+                        LoginActivity.this.finish();
                     } else {
                         ToastUtil.toastLong(resUserLogin.getError_msg());
                     }

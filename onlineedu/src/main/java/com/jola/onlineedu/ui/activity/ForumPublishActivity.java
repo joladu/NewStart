@@ -273,6 +273,7 @@ public class ForumPublishActivity extends SimpleActivity {
 
     private void publishforumContent(){
 
+        showLoadingDialog();
         if (null == curForumTypeId || curForumTypeId.length() == 0){
             ToastUtil.toastShort(getString(R.string.tip_no_forum_type_selected));
             return;
@@ -288,11 +289,12 @@ public class ForumPublishActivity extends SimpleActivity {
             return;
         }
 
-        addSubscribe(dataManager.publishForumContent(curForumTypeId,title,content,listUploadedImageUrls)
+        addSubscribe(dataManager.publishForumContent(dataManager.getUserToken(),curForumTypeId,title,content,listUploadedImageUrls)
                 .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
                     public void accept(ResponseSimpleResult resultBean) throws Exception {
+                        hideLoadingDialog();
 //                        int error_code = resultBean.getError_code();
 //                        if (error_code == 0) {
 //
@@ -304,6 +306,7 @@ public class ForumPublishActivity extends SimpleActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
                         ToastUtil.toastShort(getString(R.string.error_server_message));
                     }
                 }));

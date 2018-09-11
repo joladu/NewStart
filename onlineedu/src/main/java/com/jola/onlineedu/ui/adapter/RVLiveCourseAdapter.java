@@ -1,6 +1,7 @@
 package com.jola.onlineedu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.widget.StarBar;
 
 import java.util.List;
@@ -42,7 +44,12 @@ public class RVLiveCourseAdapter extends RecyclerView.Adapter <RVLiveCourseAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.iv_course_cover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, LiveDetailActivity.class));
+            }
+        });
     }
 
     @Override

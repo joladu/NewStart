@@ -23,6 +23,7 @@ public class PreferencesHelperImpl implements PreferencesHelper {
     public static final String  TAG_USER_NAME = "user_name";
     public static final String  TAG_USER_PHONE = "user_phone";
     public static final String  TAG_USER_TOKEN = "user_token";
+    public static final String  TAG_USER_Password = "user_password";
 
     private static final boolean DEFAULT_NIGHT_MODE = false;
 
@@ -33,6 +34,16 @@ public class PreferencesHelperImpl implements PreferencesHelper {
         mSPrefs = App.getInstance().getSharedPreferences(SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
+
+    @Override
+    public void setUserPassword(String password) {
+        mSPrefs.edit().putString(TAG_USER_Password,password).apply();
+    }
+
+    @Override
+    public String getUserPassword() {
+        return mSPrefs.getString(TAG_USER_Password,"");
+    }
 
     @Override
     public void setCurMainFragmentTag(int fragmentTag) {

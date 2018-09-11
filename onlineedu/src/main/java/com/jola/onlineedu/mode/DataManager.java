@@ -167,8 +167,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> publishForumContent(String type, String title, String content, List<String> imageUrlList) {
-        return myApis.publishForumContent(type,title,content,imageUrlList);
+    public Flowable<ResponseSimpleResult> publishForumContent(String token,String type, String title, String content, List<String> imageUrlList) {
+        return myApis.publishForumContent(token,type,title,content,imageUrlList);
     }
 
     @Override
@@ -244,6 +244,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public void insertNewsId(int id) {
         mDBHelper.insertNewsId(id);
+    }
+
+    @Override
+    public void setUserPassword(String password) {
+        mPreferenceHelper.setUserPassword(password);
+    }
+
+    @Override
+    public String getUserPassword() {
+        return mPreferenceHelper.getUserPassword();
     }
 
     @Override

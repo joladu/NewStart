@@ -27,10 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
-
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".ui.activity.VideoViewActivity" />
 
         <!-- 登陆 -->
@@ -46,8 +45,11 @@
         <activity android:name=".ui.activity.ForumListActivity" />
         <activity android:name=".ui.activity.ForumDetailActivity" />
         <activity android:name=".ui.activity.ForumPublishActivity" />
-        <activity android:name=".ui.activity.TestPoolActivity"/>
-        <activity android:name=".ui.activity.SelectableCourseActivity"/>
+        <activity android:name=".ui.activity.TestPoolActivity" />
+        <activity android:name=".ui.activity.SelectableCourseActivity" />
+        <activity android:name=".ui.activity.LiveDetailActivity"/>
+        <activity android:name=".ui.activity.CourseDetailActivity"/>
+        <activity android:name=".ui.activity.TeacherMasterActivity"/>
     </application>
 
 </manifest>

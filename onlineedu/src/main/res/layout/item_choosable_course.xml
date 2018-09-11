@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/qb_px_185"
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:background="@color/window_bg"
     >
@@ -17,7 +17,7 @@
             android:id="@+id/iv_course_cover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/qb_px_120"
-            android:src="@drawable/shape_gray_bg"
+            android:background="@drawable/shape_gray_bg"
             />
         <TextView
             android:id="@+id/tv_price_course"

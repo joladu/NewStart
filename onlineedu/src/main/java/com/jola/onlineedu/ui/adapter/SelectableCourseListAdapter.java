@@ -1,6 +1,7 @@
 package com.jola.onlineedu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.ui.activity.CourseDetailActivity;
 import com.jola.onlineedu.widget.StarBar;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
 
 
     private LayoutInflater inflater;
-    private Context mContext;
-    private List<String> mList;
+    private Context context;
+    private List<String> list;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -39,8 +41,8 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
 
 
     public SelectableCourseListAdapter(Context context, List<String> mList) {
-        this.mContext = context;
-        this.mList = mList;
+        context = context;
+        list = mList;
         inflater = LayoutInflater.from(context);
     }
 
@@ -60,11 +62,17 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
 //            }
 //        });
 //        holder.relativeLayout.setOnClickListener();
+        holder.iv_course_cover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, CourseDetailActivity.class));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return null == mList ? 0 :mList.size();
+        return null == list ? 0 : list.size();
     }
 
 

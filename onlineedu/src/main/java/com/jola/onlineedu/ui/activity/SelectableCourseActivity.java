@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +19,10 @@ import android.widget.TextView;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.ui.adapter.RVLiveCourseAdapter;
 import com.jola.onlineedu.ui.adapter.SelectableCourseListAdapter;
 import com.jola.onlineedu.ui.adapter.TestPoolListAdapter;
+import com.jola.onlineedu.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -60,6 +61,7 @@ public class SelectableCourseActivity extends SimpleActivity {
     List<String> mList;
     private int mStartIndex = 1;
     private SelectableCourseListAdapter mAdapter;
+//    private RVLiveCourseAdapter mAdapter;
     private ListView lv_tabList;
 
     @Override
@@ -83,7 +85,7 @@ public class SelectableCourseActivity extends SimpleActivity {
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerView.addItemDecoration(new com.jola.onlineedu.widget.DividerItemDecoration(this,10,10,getResources().getColor(R.color.divide_line_gray)));
+        recyclerView.addItemDecoration(new DividerItemDecoration(SelectableCourseActivity.this,10,10,getResources().getColor(R.color.divide_line_gray)));
 //
 
 

@@ -8,7 +8,7 @@
 
     <color name="title_text">#252D41</color>
     <color name="hint_text_gray">#555555</color>
-    <color name="divide_line_gray">#DDDDDD</color>
+    <color name="divide_line_gray">#BCBCBC</color>
 
     <color name="gray_bg_popup_window">#bfbfbf</color>
     <color name="gray_tip_logout">#777777</color>

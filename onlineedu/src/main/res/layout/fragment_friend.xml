@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/divide_line_gray">
+    android:background="@color/window_bg">
 
     <TextView
         android:id="@+id/title_toolbar_tv"
@@ -110,19 +110,22 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/lv_friends"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_friend_apply"
         app:layout_constraintRight_toRightOf="parent"
+        android:divider="@color/divide_line_gray"
+        android:dividerHeight="1dp"
         />
 
     <com.jola.onlineedu.widget.SideBar
         android:id="@+id/side_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_friend_apply"
+        android:layout_marginTop="@dimen/qb_px_120"
         android:paddingRight="10dp"
         android:textColor="@color/colorAccent"
         android:textSize="15sp" />

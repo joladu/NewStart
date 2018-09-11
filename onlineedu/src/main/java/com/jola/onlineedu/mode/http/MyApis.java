@@ -164,7 +164,7 @@ public interface MyApis {
 
     @POST("v1/bbs/posts/")
     @FormUrlEncoded
-    Flowable<ResponseSimpleResult> publishForumContent(@Field("type") String type, @Field("title") String title, @Field("content") String content, @Field("imgs") List<String> imageUrlList);
+    Flowable<ResponseSimpleResult> publishForumContent(@Header("authorization")String token,@Field("type") String type, @Field("title") String title, @Field("content") String content, @Field("imgs") List<String> imageUrlList);
 
 
 

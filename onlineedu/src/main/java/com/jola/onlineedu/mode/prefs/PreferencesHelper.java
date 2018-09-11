@@ -6,6 +6,9 @@ package com.jola.onlineedu.mode.prefs;
 
 public interface PreferencesHelper {
 
+    void setUserPassword(String password);
+    String getUserPassword();
+
     void setCurMainFragmentTag(int fragmentTag);
     int getCurMainFragmentTag();
 
