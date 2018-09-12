@@ -10,7 +10,6 @@ import com.jola.onlineedu.ui.activity.ForumPublishActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MainActivity;
 import com.jola.onlineedu.ui.activity.RegisterActivity;
-import com.jola.onlineedu.ui.activity.WelcomeActivity;
 
 import dagger.Component;
 
@@ -22,7 +21,7 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class,modules = ActivityModule.class)
 public interface ActivityComponent {
     Activity getActivity();
-    void inject(WelcomeActivity welcomeActivity);
+//    void inject(WelcomeActivity welcomeActivity);
     void inject(LoginActivity loginActivity);
     void inject(RegisterActivity registerActivity);
     void inject(ForgetPasswordActivity forgetPasswordActivity);

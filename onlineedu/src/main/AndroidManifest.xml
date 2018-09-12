@@ -30,7 +30,9 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.activity.VideoViewActivity" />
+
+
+        <!--<activity android:name=".ui.activity.VideoViewActivity" />-->
 
         <!-- 登陆 -->
         <activity

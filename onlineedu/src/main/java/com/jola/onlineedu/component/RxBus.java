@@ -15,7 +15,7 @@ import io.reactivex.processors.PublishProcessor;
 public class RxBus {
 
     /**
-     *订阅：RxBus.getDefault.toFlowable(EventType.class) ；RxBus.getDefault.toDefaultFlowable(EventType.class,Consumer)
+     * 订阅：RxBus.getDefault.toFlowable(EventType.class) ；RxBus.getDefault.toDefaultFlowable(EventType.class,Consumer)
      * 发送：RxBus.getDefault.post(EventType.class)
      */
     private final FlowableProcessor<Object> bus;

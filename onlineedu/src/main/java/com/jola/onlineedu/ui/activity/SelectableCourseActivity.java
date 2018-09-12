@@ -87,9 +87,6 @@ public class SelectableCourseActivity extends SimpleActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.addItemDecoration(new DividerItemDecoration(SelectableCourseActivity.this,10,10,getResources().getColor(R.color.divide_line_gray)));
 //
-
-
-
         recyclerView.setAdapter(mAdapter);
 
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {

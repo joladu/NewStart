@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+
     <!--only full screen opaque can request screen orientation 全屏不透明-->
     <!--<style name="PortraitScreenStyle" parent="AppTheme">-->
         <!--<item name="android:windowIsTranslucent">true</item>-->

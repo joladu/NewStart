@@ -1,6 +1,5 @@
 package com.jola.onlineedu.mode;
 
-import com.jola.onlineedu.mode.bean.WelcomeBean;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
@@ -162,9 +161,14 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResUploadFourmImageBean> uploadForumImage(MultipartBody.Part[] file) {
-        return myApis.uploadForumImage(file);
+    public Flowable<ResUploadFourmImageBean> uploadForumImage(String img) {
+        return myApis.uploadForumImage(img);
     }
+
+//    @Override
+//    public Flowable<ResUploadFourmImageBean> uploadForumImage(MultipartBody.Part[] file) {
+//        return myApis.uploadForumImage(file);
+//    }
 
     @Override
     public Flowable<ResponseSimpleResult> publishForumContent(String token,String type, String title, String content, List<String> imageUrlList) {
@@ -236,10 +240,7 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
         return myApis.testHead(token,testName);
     }
 
-    @Override
-    public Flowable<WelcomeBean> getWelcomeInfo() {
-        return null;
-    }
+
 
     @Override
     public void insertNewsId(int id) {

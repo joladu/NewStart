@@ -19,7 +19,7 @@ public class CourseDetailActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-        changeFullScreen();
+//        changeFullScreen();
     }
 
     public void changeFullScreen(){
@@ -32,6 +32,7 @@ public class CourseDetailActivity extends SimpleActivity {
 
         }
     }
+
     @OnClick({R.id.iv_back})
     public void doClick(View view){
         switch (view.getId()){

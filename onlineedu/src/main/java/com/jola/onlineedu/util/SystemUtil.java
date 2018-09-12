@@ -3,25 +3,14 @@ package com.jola.onlineedu.util;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.view.View;
-
+import android.util.Base64;
 
 import com.jola.onlineedu.app.App;
-import com.jola.onlineedu.app.Constants;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 
 
 public class SystemUtil {
@@ -50,6 +39,14 @@ public class SystemUtil {
     public static boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) App.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager.getActiveNetworkInfo() != null;
+    }
+
+
+    public static String encodeImageWithBase64(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes,Base64.DEFAULT);
     }
 
     /**

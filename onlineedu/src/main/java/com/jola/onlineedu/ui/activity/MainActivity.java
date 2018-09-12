@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.app.Constants;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.ui.fragment.FriendFragment;

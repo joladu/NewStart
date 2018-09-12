@@ -10,7 +10,6 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.ui.adapter.RVLiveCourseAdapter;
-import com.jola.onlineedu.widget.DividerGridItemDecoration;
 import com.jola.onlineedu.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

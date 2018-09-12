@@ -1,6 +1,5 @@
 package com.jola.onlineedu.mode.http;
 
-import com.jola.onlineedu.mode.bean.WelcomeBean;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
@@ -29,12 +28,9 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HEAD;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -158,9 +154,18 @@ public interface MyApis {
      * @param file   键值：img
      * @return
      */
+//    @POST("v1/bbs/images/")
+//    @Multipart
+//    Flowable<ResUploadFourmImageBean> uploadForumImage(@Part MultipartBody.Part[] file);
+
+
+    /**
+     * base64 字符串
+     * @return
+     */
     @POST("v1/bbs/images/")
-    @Multipart
-    Flowable<ResUploadFourmImageBean> uploadForumImage(@Part MultipartBody.Part[] file);
+    @FormUrlEncoded
+    Flowable<ResUploadFourmImageBean> uploadForumImage(@Field("img")String img);
 
     @POST("v1/bbs/posts/")
     @FormUrlEncoded
@@ -269,8 +274,8 @@ public interface MyApis {
 //    Call<ResponseBody> testFormUrlEncoded1(@Field("username") String name, @Field("age") int age);
 //    Flowable<WelcomeBean> testFormUrlEncoded(@Field("username") String name,@Field("age") int age);
 
-    @GET("testJola/")
-    Flowable<WelcomeBean> getWelcomeInfo();
+//    @GET("testJola/")
+//    Flowable<WelcomeBean> getWelcomeInfo();
 
 
 //    /**

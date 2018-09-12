@@ -1,7 +1,7 @@
 package com.jola.onlineedu.di.module;
 
 import com.jola.onlineedu.BuildConfig;
-import com.jola.onlineedu.app.Constants;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.SystemUtil;
 
@@ -62,7 +62,8 @@ public class HttpModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
         }
-        File cacheFile = new File(Constants.PATH_CACHE);
+//        File cacheFile = new File(Constants.PATH_CACHE);
+        File cacheFile = new File(App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data/NetCache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
             @Override

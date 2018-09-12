@@ -2,6 +2,8 @@ package com.jola.onlineedu.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
@@ -24,6 +27,7 @@ import com.jola.onlineedu.mode.bean.response.ResUploadFourmImageBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.ui.adapter.GridImageAdapter;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.SystemUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.FullyGridLayoutManager;
 import com.luck.picture.lib.PictureSelector;
@@ -34,6 +38,9 @@ import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.tools.PictureFileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +88,7 @@ public class ForumPublishActivity extends SimpleActivity {
     private String curForumTypeId;
 
     private List<String> listUploadedImageUrls = new ArrayList<>();
-    private int i = 0;
+
 
 
     @Override
@@ -142,50 +149,22 @@ public class ForumPublishActivity extends SimpleActivity {
                 }
             }
         });
+    }
 
+    private void clearnCache(){
         // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
-//        RxPermissions permissions = new RxPermissions(this);
-//        permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//            }
-//
-//            @Override
-//            public void onNext(Boolean aBoolean) {
-//                if (aBoolean) {
-//                    PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
-//                } else {
-//                    Toast.makeText(ForumPublishActivity.this,
-//                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//            }
-//        });
-
         addSubscribe(new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .subscribe(new Consumer<Boolean>() {
-                @Override
-                public void accept(Boolean aBoolean) throws Exception {
-                    if (aBoolean){
-                        PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
-                    }else{
-                        ToastUtil.toastShort(getString(R.string.picture_jurisdiction));
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean){
+                            PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
+                        }else{
+                            ToastUtil.toastShort(getString(R.string.picture_jurisdiction));
+                        }
                     }
-                }
-            })
+                })
         );
-
-
-
-
-
     }
 
     private void getForumTypeInfo() {
@@ -222,53 +201,11 @@ public class ForumPublishActivity extends SimpleActivity {
 
     @OnClick(R.id.send_icon_in_tool)
     public void confirmSendForum(View view){
-
         if (null != selectList && selectList.size() > 0){
-            listUploadedImageUrls = new ArrayList<String>();
-            showLoadingDialog();
-            for ( i = 0;i<selectList.size();i++){
-                String path = selectList.get(i).getPath();
-                File file = new File(path);
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part[]  filePart = new MultipartBody.Part[1];
-                filePart[0] = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
-//                file[1] = MultipartBody.Part.createFormData("file", file1.getName(), requestFile);
-                addSubscribe(dataManager.uploadForumImage(filePart)
-                        .compose(RxUtil.<ResUploadFourmImageBean>rxSchedulerHelper())
-                        .subscribe(new Consumer<ResUploadFourmImageBean>() {
-                            @Override
-                            public void accept(ResUploadFourmImageBean resultBean) throws Exception {
-                                int error_code = resultBean.getError_code();
-                                if (error_code == 0) {
-                                    String img_url = resultBean.getData().getImg_url();
-                                    if (!TextUtils.isEmpty(img_url)){
-                                        listUploadedImageUrls.add(img_url);
-                                    }
-                                    if (i == selectList.size() - 1){
-                                        publishforumContent();
-                                    }
-                                }else{
-                                    ToastUtil.toastShort(resultBean.getError_msg());
-                                }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                hideLoadingDialog();
-                                ToastUtil.toastShort("上传图片失败！ "+getString(R.string.error_server_message));
-                            }
-                        }));
-
-            }
+           uploadImages();
         }else{
             publishforumContent();
         }
-
-
-
-
-
-
     }
 
     private void publishforumContent(){
@@ -295,12 +232,12 @@ public class ForumPublishActivity extends SimpleActivity {
                     @Override
                     public void accept(ResponseSimpleResult resultBean) throws Exception {
                         hideLoadingDialog();
-//                        int error_code = resultBean.getError_code();
-//                        if (error_code == 0) {
-//
-//                        }else{
-//
-//                        }
+                        int error_code = resultBean.getError_code();
+                        if (error_code == 0) {
+                            clearnCache();
+                        }else{
+
+                        }
                         ToastUtil.toastShort(resultBean.getError_msg());
                     }
                 }, new Consumer<Throwable>() {
@@ -311,34 +248,6 @@ public class ForumPublishActivity extends SimpleActivity {
                     }
                 }));
 
-    }
-
-    public void cleranCache(){
-        // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
-        RxPermissions permissions = new RxPermissions(this);
-        permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-
-            @Override
-            public void onNext(Boolean aBoolean) {
-                if (aBoolean) {
-                    PictureFileUtils.deleteCacheDirFile(ForumPublishActivity.this);
-                } else {
-                    Toast.makeText(ForumPublishActivity.this,
-                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onComplete() {
-            }
-        });
     }
 
 
@@ -361,6 +270,54 @@ public class ForumPublishActivity extends SimpleActivity {
             }
         }
     }
+
+    private void uploadImages(){
+        if (null != selectList && selectList.size() > 0){
+            listUploadedImageUrls = new ArrayList<>();
+            showLoadingDialog();
+            for (int i = 0;i<selectList.size();i++){
+                String imgFile = selectList.get(0).getPath();
+                Bitmap bitmap = BitmapFactory.decodeFile(imgFile);
+                if (null == bitmap){
+                  hideLoadingDialog();
+                  ToastUtil.toastShort("获取图片错误，无法上传！");
+                  return;
+                }
+                String imageBase64 = SystemUtil.encodeImageWithBase64(bitmap);
+
+                MyLog.logMy(imageBase64);
+                addSubscribe(dataManager.uploadForumImage(imageBase64)
+                        .compose(RxUtil.<ResUploadFourmImageBean>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResUploadFourmImageBean>() {
+                            @Override
+                            public void accept(ResUploadFourmImageBean resultBean) throws Exception {
+                                int error_code = resultBean.getError_code();
+                                if (error_code == 0) {
+                                    String img_url = resultBean.getData().getImg_url();
+                                    if (!TextUtils.isEmpty(img_url)){
+                                        listUploadedImageUrls.add(img_url);
+                                    }
+                                    if (listUploadedImageUrls.size() == selectList.size()){
+                                        publishforumContent();
+                                    }
+                                }else{
+                                    hideLoadingDialog();
+                                    ToastUtil.toastShort(resultBean.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                hideLoadingDialog();
+                                ToastUtil.toastShort("上传图片失败！ "+getString(R.string.error_server_message));
+                            }
+                        }));
+
+            }
+        }
+
+    }
+
 
     private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
         @Override

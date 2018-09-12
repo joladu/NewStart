@@ -2,35 +2,17 @@ package com.jola.onlineedu.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
-import com.jola.onlineedu.R;
 import com.jola.onlineedu.di.component.AppComponent;
 import com.jola.onlineedu.di.component.DaggerAppComponent;
 import com.jola.onlineedu.di.module.AppModule;
 import com.jola.onlineedu.di.module.HttpModule;
-//import com.kk.taurus.ijkplayer.IjkPlayer;
-import com.jola.onlineedu.mode.http.MyApis;
-import com.kk.taurus.playerbase.config.PlayerConfig;
-import com.kk.taurus.playerbase.config.PlayerLibrary;
-import com.kk.taurus.playerbase.entity.DecoderPlan;
-import com.kk.taurus.playerbase.log.PLog;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import io.realm.Realm;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 
 /**
  * Created by jola on 2018/8/7.
@@ -39,21 +21,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public class App extends Application {
 
 
-    /**
-     * ijk 解码
-     */
-    public static final int PLAN_ID_IJK = 1;
-    /**
-     * exo 解码备用
-     */
-//    public static final int PLAN_ID_EXO = 2;
 
     private static App instance;
 
-    /**
-     * 是否忽略移动网络下播放警告
-     */
-    public static boolean ignoreMobile;
 
     private static AppComponent appComponent;
 
@@ -78,28 +48,8 @@ public class App extends Application {
         super.onCreate();
         instance = this;
 
-        PLog.LOG_OPEN = true;
-
-        initVideoPlay();
-
         //初始化数据库
         Realm.init(this);
-
-//        初始化Stetho
-//        Stetho.initializeWithDefaults(this);
-
-
-    }
-
-    private void initVideoPlay() {
-//        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_IJK, IjkPlayer.class.getName(), "IjkPlayer"));
-//        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_EXO, ExoMediaPlayer.class.getName(), "ExoPlayer"));
-//        PlayerConfig.setDefaultPlanId(PLAN_ID_IJK);
-
-        //use default NetworkEventProducer.
-        PlayerConfig.setUseDefaultNetworkEventProducer(true);
-
-        PlayerLibrary.init(this);
     }
 
 

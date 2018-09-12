@@ -41,7 +41,7 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
 
 
     public SelectableCourseListAdapter(Context context, List<String> mList) {
-        context = context;
+        this.context = context;
         list = mList;
         inflater = LayoutInflater.from(context);
     }

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.donkingliang.labels.LabelsView;
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.base.RootSimpleActivity;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
