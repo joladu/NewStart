@@ -1,7 +1,9 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.app.ActionBar;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -115,6 +117,7 @@ public class SelectableCourseActivity extends SimpleActivity {
             }
         });
     }
+
 
     @OnClick(R.id.rl_tab_select_first)
     public void tabSelectFirst(View view){

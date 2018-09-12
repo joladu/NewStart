@@ -95,7 +95,7 @@ public interface MyApis {
 
 
     @GET("v1/user/myprofile/")
-    Flowable<ResUserInfoBean> getUserInfo();
+    Flowable<ResUserInfoBean> getUserInfo(@Header("authorization") String token);
 
 
 
@@ -109,9 +109,14 @@ public interface MyApis {
      //        3、创建`MultipartBody.Part`，其中需要注意第一个参数`fileUpload`需要与服务器对应,也就是`键`    avatar_binary
      MultipartBody.Part part = MultipartBody.Part.createFormData("fileUpload", file.getName(), requestFile);
      */
+//    @POST("v1/user/avatar/")
+//    @Multipart
+//    Flowable<ResUploadUserImageBean> uploadUserImage(@Part MultipartBody.Part file);
+
+
     @POST("v1/user/avatar/")
-    @Multipart
-    Flowable<ResUploadUserImageBean> uploadUserImage(@Part MultipartBody.Part file);
+    @FormUrlEncoded
+    Flowable<ResUploadUserImageBean> uploadUserImage(@Header("authorization") String token,@Field("avatar_binary") String imageBase64Str);
 
 
 //   ***************** end user api  *****************

@@ -19,7 +19,7 @@ public class CourseDetailActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-//        changeFullScreen();
+        changeFullScreen();
     }
 
     public void changeFullScreen(){
