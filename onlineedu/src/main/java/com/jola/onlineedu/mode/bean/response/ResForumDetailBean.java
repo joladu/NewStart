@@ -67,7 +67,7 @@ public class ResForumDetailBean {
 
             private int id;
             private String title;
-            private List<?> images;
+            private List<String> images;
             private List<CommentsBean> comments;
 
             public int getId() {
@@ -86,11 +86,11 @@ public class ResForumDetailBean {
                 this.title = title;
             }
 
-            public List<?> getImages() {
+            public List<String> getImages() {
                 return images;
             }
 
-            public void setImages(List<?> images) {
+            public void setImages(List<String> images) {
                 this.images = images;
             }
 

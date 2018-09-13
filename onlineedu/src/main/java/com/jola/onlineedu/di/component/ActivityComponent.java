@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.jola.onlineedu.di.module.ActivityModule;
 import com.jola.onlineedu.di.scope.ActivityScope;
 import com.jola.onlineedu.ui.activity.ForgetPasswordActivity;
+import com.jola.onlineedu.ui.activity.ForumDetailActivity;
 import com.jola.onlineedu.ui.activity.ForumListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
@@ -28,4 +29,5 @@ public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(ForumListActivity forumListActivity);
     void inject(ForumPublishActivity forumPublishActivity);
+    void inject(ForumDetailActivity forumDetailActivity);
 }

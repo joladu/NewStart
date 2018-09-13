@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 
 import java.util.List;
@@ -18,9 +20,9 @@ import java.util.List;
 public class ForumImagesGridViewAdapter extends BaseAdapter {
 
 
-    Context context;
-    List<String> mList;
-    LayoutInflater layoutInflater;
+    private Context context;
+    private List<String> mList;
+    private LayoutInflater layoutInflater;
 
     public ForumImagesGridViewAdapter(Context context, List<String> mList) {
         this.context = context;
@@ -54,7 +56,10 @@ public class ForumImagesGridViewAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        ImageLoader.
+        Glide.with(context)
+                .load(mList.get(position))
+                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder_loading).error(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
+                .into(viewHolder.imageView);
         return convertView;
     }
 

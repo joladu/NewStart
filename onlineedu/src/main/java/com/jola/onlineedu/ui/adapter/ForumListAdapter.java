@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by jola on 2018/8/28.
@@ -57,14 +58,37 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv_forumContent.setText(position+":"+mList.get(position));
+
+        final ResForumListByTypeBean.DataBean.PostsBean curBean = mList.get(position);
+        final int is_essence = curBean.getIs_essence();
+        if (is_essence == 1){
+            holder.tv_forumTag.setText(mContext.getString(R.string.forum_essence));
+            holder.tv_forumTag.setVisibility(View.VISIBLE);
+        }else{
+            holder.tv_forumTag.setVisibility(View.INVISIBLE);
+        }
+
+        holder.tv_forumContent.setText(curBean.getTitle());
+
+//        版块：提问  楼主：小华 30条评论  40分钟前
+        final String describeContent = "板块: "+curBean.getPost_type().getName()+"  楼主: "+curBean.getUser()+"  "+curBean.getComment_count()+"条评论  "+curBean.getCreated();
+        holder.tv_describe_content.setText(describeContent);
+
+
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, ForumDetailActivity.class));
+                Intent intent = new Intent(mContext, ForumDetailActivity.class);
+                intent.putExtra("id",curBean.getId());
+                intent.putExtra("is_essence",is_essence);
+                intent.putExtra("author",curBean.getUser());
+                intent.putExtra("describeContent",describeContent);
+                mContext.startActivity(intent);
             }
         });
-//        holder.relativeLayout.setOnClickListener();
+
+
+
     }
 
     @Override
@@ -77,11 +101,15 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
 
         @BindView(R.id.rl_forum_list_activity)
         RelativeLayout relativeLayout;
+
         @BindView(R.id.tv_forum_tag)
         TextView tv_forumTag;
-
         @BindView(R.id.tv_forum_content)
         TextView tv_forumContent;
+        @BindView(R.id.ci_head_img)
+        CircleImageView ci_head_img;
+        @BindView(R.id.tv_describe_content)
+        TextView tv_describe_content;
 
 
         public ViewHolder(View itemView) {

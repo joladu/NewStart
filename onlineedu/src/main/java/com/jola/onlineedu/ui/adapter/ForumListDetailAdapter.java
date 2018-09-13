@@ -10,12 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
+import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
+import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.ToastUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by jola on 2018/8/28.
@@ -24,9 +30,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetailAdapter.ViewHolder> {
 
 
+    DataManager dataManager;
     private LayoutInflater inflater;
     private Context mContext;
-    private List<String> mList;
+    private List<ResForumDetailBean.DataBean.PostBean.CommentsBean> mList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -38,10 +45,11 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
     }
 
 
-    public ForumListDetailAdapter(Context context, List<String> mList) {
+    public ForumListDetailAdapter(Context context, List<ResForumDetailBean.DataBean.PostBean.CommentsBean> mList,DataManager dataManager) {
         this.mContext = context;
         this.mList = mList;
         inflater = LayoutInflater.from(context);
+        this.dataManager = dataManager;
     }
 
     @NonNull
@@ -52,19 +60,35 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-//        holder.tv_forumContent.setText(position+":"+mList.get(position));
-//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mContext.startActivity(new Intent(mContext, ForumDetailActivity.class));
-//            }
-//        });
-//        holder.relativeLayout.setOnClickListener();
+        ResForumDetailBean.DataBean.PostBean.CommentsBean curBean = mList.get(position);
+        holder.tv_name.setText(curBean.getUser());
+        holder.tv_forum_content.setText(curBean.getContent());
+        holder.tv_num_praise.setText(curBean.getPraise_count());
+        final int id = curBean.getId();
+
         holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_no_2x));
         holder.iv_handPraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_yes_2x));
+                dataManager.praiseComment(id+"")
+                        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResponseSimpleResult>() {
+                            @Override
+                            public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                                if (0 == responseSimpleResult.getError_code()){
+                                    holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_yes_2x));
+                                    ToastUtil.toastShort("点赞成功!");
+                                }else{
+                                    ToastUtil.toastShort(responseSimpleResult.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                ToastUtil.toastShort(mContext.getString(R.string.error_server_message));
+                            }
+                        });
+
             }
         });
     }

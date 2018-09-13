@@ -12,6 +12,7 @@ import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.di.component.ActivityComponent;
 import com.jola.onlineedu.di.component.DaggerActivityComponent;
 import com.jola.onlineedu.di.module.ActivityModule;
+import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.DialogLoadingView;
 
 import butterknife.ButterKnife;
@@ -107,5 +108,15 @@ public abstract class SimpleActivity extends SupportActivity {
         mUnbind.unbind();
         unSubscribe();
     }
+
+    protected void tipServerError(){
+        ToastUtil.toastShort(getString(R.string.error_server_message));
+    }
+
+
+//    protected void stateLoading(){}
+//    protected void stateEmpty(){}
+//    protected void stateError(){}
+//    protected void stateMain(){}
 
 }

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/rl_forum_list_activity"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/window_bg"
     >
 
