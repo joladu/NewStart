@@ -126,13 +126,13 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResUserInfoBean> getUserInfo() {
-        return myApis.getUserInfo();
+    public Flowable<ResUserInfoBean> getUserInfo(String token) {
+        return myApis.getUserInfo(token);
     }
 
     @Override
-    public Flowable<ResUploadUserImageBean> uploadUserImage(MultipartBody.Part file) {
-        return myApis.uploadUserImage(file);
+    public Flowable<ResUploadUserImageBean> uploadUserImage(String token,String imageBase64Str) {
+        return myApis.uploadUserImage(token,imageBase64Str);
     }
 
     @Override

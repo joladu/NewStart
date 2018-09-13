@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.di.module.FragmentModule;
 import com.jola.onlineedu.di.scope.FragmentScope;
+import com.jola.onlineedu.ui.fragment.MineFragment;
 
 import dagger.Component;
 
@@ -18,5 +19,5 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
-//    void inject(DailyFragment dailyFragment);
+    void inject(MineFragment mineFragment);
 }
