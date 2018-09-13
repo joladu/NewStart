@@ -200,6 +200,8 @@ public class ForumDetailActivity extends SimpleActivity {
                             mListComments = data.getComments();
                             tv_num_comments.setText(mListComments.size());
 
+
+
                             forumListDetailAdapter = new ForumListDetailAdapter(ForumDetailActivity.this, mListComments,dataManager);
                             recyclerView.setAdapter(forumListDetailAdapter);
 
