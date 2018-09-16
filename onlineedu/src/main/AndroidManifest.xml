@@ -50,7 +50,8 @@
         <activity android:name=".ui.activity.TestPoolActivity" />
         <activity android:name=".ui.activity.SelectableCourseActivity" />
         <activity android:name=".ui.activity.LiveDetailActivity"/>
-        <activity android:name=".ui.activity.CourseDetailActivity"/>
+        <activity android:name=".ui.activity.CourseDetailActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.activity.TeacherMasterActivity"/>
     </application>
 

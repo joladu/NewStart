@@ -30,7 +30,7 @@ public class ResCourseDetail {
     private String author;
     private String cover;
     private int pay_type;
-    private int price;
+    private String price;
     private int see_count;
     private int recommend_count;
     private int share_count;
@@ -86,11 +86,11 @@ public class ResCourseDetail {
         this.pay_type = pay_type;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

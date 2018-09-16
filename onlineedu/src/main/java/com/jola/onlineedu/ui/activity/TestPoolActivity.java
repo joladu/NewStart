@@ -17,13 +17,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResExamsList;
 import com.jola.onlineedu.ui.adapter.TestPoolListAdapter;
+import com.jola.onlineedu.util.RxUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -31,19 +36,34 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 
 public class TestPoolActivity extends SimpleActivity {
 
 
+    @Inject
+    DataManager dataManager;
+
     @BindView(R.id.toolbar_view)
     Toolbar toolbar;
-    @BindView(R.id.srl_test_pool_list)
-    SmartRefreshLayout smartRefreshLayout;
+
     @BindView(R.id.view_main)
     RecyclerView recyclerView;
+    @BindView(R.id.srl_test_pool_list)
+    SmartRefreshLayout smartRefreshLayout;
+    @BindView(R.id.rl_state_info)
+    RelativeLayout relativeLayoutStateInfo;
+    @BindView(R.id.iv_tip_state)
+    ImageView iv_stateImage;
+    @BindView(R.id.tv_state_tip)
+    TextView tv_stateText;
+
+
     @BindView(R.id.et_hint_search_view)
     EditText et_hint_search_view;
 
@@ -59,7 +79,7 @@ public class TestPoolActivity extends SimpleActivity {
     private int mCurrentIndex = 1;
     private PopupWindow popupWindow;
 
-    List<String> mList;
+    List<ResExamsList.DataBean.ExamsBean> mList;
     private int mStartIndex = 1;
     private TestPoolListAdapter mAdapter;
     private ListView lv_tabList;
@@ -71,14 +91,96 @@ public class TestPoolActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-        setToolBar(toolbar,"题库");
-        et_hint_search_view.setHint("题库资源搜索");
+
+        getActivityComponent().inject(this);
+
+        setToolBar(toolbar,getString(R.string.test_pool));
+        et_hint_search_view.setHint(getString(R.string.hint_search_test_pool));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+
+//        测试数据
+//        testData();
+
+        loadData();
+
+    }
+
+    @OnClick(R.id.tv_state_tip)
+    public void retry(View view){
+        loadData();
+    }
+
+    private void stateLoading(){
+        showLoadingDialog();
+        smartRefreshLayout.setVisibility(View.INVISIBLE);
+        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
+        tv_stateText.setText(getString(R.string.state_loading_tip));
+    }
+
+    private void stateEmpty(){
+        hideLoadingDialog();
+        smartRefreshLayout.setVisibility(View.INVISIBLE);
+        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
+        tv_stateText.setText(getString(R.string.state_empty_tip));
+    }
+
+    private void stateError(){
+        hideLoadingDialog();
+        smartRefreshLayout.setVisibility(View.INVISIBLE);
+        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
+        tv_stateText.setText(getString(R.string.state_error_server_tip));
+    }
+
+    private void stateMain(){
+        hideLoadingDialog();
+        smartRefreshLayout.setVisibility(View.VISIBLE);
+        relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
+    }
+
+    private void loadData() {
+        getExamsList();
+    }
+
+    private void getExamsList(){
+        stateLoading();
+        addSubscribe(dataManager.getExamsList()
+        .compose(RxUtil.<ResExamsList>rxSchedulerHelper())
+                .subscribe(new Consumer<ResExamsList>() {
+                    @Override
+                    public void accept(ResExamsList resExamsList) throws Exception {
+                        if (resExamsList.getError_code() == 0){
+                           mList = resExamsList.getData().getExams();
+                            mAdapter = new TestPoolListAdapter(TestPoolActivity.this, mList);
+                            recyclerView.setAdapter(mAdapter);
+                           if (mList.size() == 0){
+                               stateEmpty();
+                           }else{
+                               stateMain();
+                           }
+                        }else{
+                            stateError();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        stateError();
+                    }
+                })
+        );
+    }
 
 
+    private void testData(){
         mList = new ArrayList<>();
-        for (int i= mStartIndex;i < mStartIndex + 10;i++){
-            mList.add("高考题目"+i);
-        }
+//        for (int i= mStartIndex;i < mStartIndex + 10;i++){
+//            mList.add("高考题目"+i);
+//        }
         mAdapter = new TestPoolListAdapter(this, mList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
@@ -87,9 +189,9 @@ public class TestPoolActivity extends SimpleActivity {
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                for (int i= mStartIndex;i < mStartIndex + 10;i++){
-                    mList.add("河南省数学高考题：第"+i+"条");
-                }
+//                for (int i= mStartIndex;i < mStartIndex + 10;i++){
+//                    mList.add("河南省数学高考题：第"+i+"条");
+//                }
                 mStartIndex += 10;
                 smartRefreshLayout.finishLoadMore(2000);
                 mAdapter.notifyDataSetChanged();
@@ -99,9 +201,9 @@ public class TestPoolActivity extends SimpleActivity {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 mList.clear();
                 mStartIndex = 1;
-                for (int i= mStartIndex;i < mStartIndex + 10;i++){
-                    mList.add("河南省数学高考题：第"+i+"条");
-                }
+//                for (int i= mStartIndex;i < mStartIndex + 10;i++){
+//                    mList.add("河南省数学高考题：第"+i+"条");
+//                }
                 mStartIndex += 10;
 
                 smartRefreshLayout.finishRefresh(2000);
@@ -110,6 +212,11 @@ public class TestPoolActivity extends SimpleActivity {
             }
         });
     }
+
+
+
+
+
 
     @OnClick(R.id.rl_tab_select_first)
     public void tabSelectFirst(View view){

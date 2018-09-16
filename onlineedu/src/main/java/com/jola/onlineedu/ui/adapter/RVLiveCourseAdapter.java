@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
 import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.widget.StarBar;
 
@@ -27,10 +28,10 @@ public class RVLiveCourseAdapter extends RecyclerView.Adapter <RVLiveCourseAdapt
 
 
     Context context;
-    List<String> mList;
+    List<ResLiveCourseList.ResultsBean> mList;
     LayoutInflater layoutInflater;
 
-    public RVLiveCourseAdapter(Context context, List<String> mList) {
+    public RVLiveCourseAdapter(Context context, List<ResLiveCourseList.ResultsBean> mList) {
         this.context = context;
         this.mList = mList;
         layoutInflater = LayoutInflater.from(context);
@@ -44,6 +45,11 @@ public class RVLiveCourseAdapter extends RecyclerView.Adapter <RVLiveCourseAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ResLiveCourseList.ResultsBean resultsBean = mList.get(position);
+        holder.tv_title_live.setText(resultsBean.getName());
+        holder.tv_price_live_course.setText(resultsBean.getPrice());
+        holder.tv_score_num.setText(resultsBean.getHot()+"");
+        holder.starBar.setStarMark(resultsBean.getHot());
         holder.iv_course_cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.mode.bean.response.ResExamsList;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class TestPoolListAdapter extends RecyclerView.Adapter<TestPoolListAdapte
 
     private LayoutInflater inflater;
     private Context mContext;
-    private List<String> mList;
+    private List<ResExamsList.DataBean.ExamsBean> mList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -39,7 +40,7 @@ public class TestPoolListAdapter extends RecyclerView.Adapter<TestPoolListAdapte
     }
 
 
-    public TestPoolListAdapter(Context context, List<String> mList) {
+    public TestPoolListAdapter(Context context, List<ResExamsList.DataBean.ExamsBean> mList) {
         this.mContext = context;
         this.mList = mList;
         inflater = LayoutInflater.from(context);
@@ -53,7 +54,12 @@ public class TestPoolListAdapter extends RecyclerView.Adapter<TestPoolListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tv_titleTest.setText(position+":"+mList.get(position));
+        ResExamsList.DataBean.ExamsBean examsBean = mList.get(position);
+
+        holder.tv_titleTest.setText(examsBean.getName());
+        String describeText = "考试时间："+examsBean.getTest_time()+" 分数："+examsBean.getExam_score()+" 时间："+examsBean.getDeadline();
+        holder.tv_describeTest.setText(describeText);
+
 //        holder.tv_describeTest.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

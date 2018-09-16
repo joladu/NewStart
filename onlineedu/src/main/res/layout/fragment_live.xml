@@ -150,15 +150,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_contain_tab" />
 
+    <!--android:background="@color/divide_line_gray"-->
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_live_course"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/divide_line_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner">
+        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner"
+        android:visibility="invisible"
+        >
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
@@ -175,6 +178,38 @@
 
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_state_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/iv_tip_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/state_loading"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:id="@+id/tv_state_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:layout_below="@+id/iv_tip_state"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/qb_px_20"
+            android:text="@string/state_loading_tip"
+            />
+
+    </RelativeLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

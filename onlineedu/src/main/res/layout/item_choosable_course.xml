@@ -13,11 +13,14 @@
         android:layout_margin="3dp"
         android:background="@color/divide_line_gray"
         >
+
+        <!--android:background="@drawable/shape_gray_bg"-->
         <ImageView
             android:id="@+id/iv_course_cover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/qb_px_120"
-            android:background="@drawable/shape_gray_bg"
+            android:src="@drawable/image_placeholder"
+            android:scaleType="fitXY"
             />
         <TextView
             android:id="@+id/tv_price_course"
@@ -42,8 +45,8 @@
         android:textColor="@color/title_text"
         android:textSize="@dimen/title_toolbar_text_size"
         android:lines="1"
+        android:maxLength="8"
         android:ellipsize="end"
-        android:text="洋葱教学"
         />
 
 
@@ -83,7 +86,6 @@
         android:layout_alignTop="@+id/star_bar_score"
         android:layout_marginTop="-5dp"
         android:layout_marginStart="5dp"
-        android:text="4.8"
         android:textSize="13sp"
         android:textColor="@color/gray_star_score"
         />

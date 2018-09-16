@@ -133,15 +133,15 @@ public interface MyApis {
     @GET("v1/bbs/posts/")
     Flowable<ResForumListByTypeBean> getForumListByType(@Query("kw") String keyWords,@Query("type") String forumType);
 
-    @GET("v1/bbs/posts/{:id}/")
+    @GET("v1/bbs/posts/{id}/")
     Flowable<ResForumDetailBean> getForumDetail(@Path("id") String id);
 
-    @POST("v1/bbs/posts/{:id}/comments/")
+    @POST("v1/bbs/posts/{id}/comments/")
     @FormUrlEncoded
     Flowable<ResponseSimpleResult> commentForum(@Path("id") String id,@Field("content") String content);
 
 
-    @PUT("v1/bbs/comments/{:id}/praise/")
+    @PUT("v1/bbs/comments/{id}/praise/")
     Flowable<ResponseSimpleResult> praiseComment(@Path("id") String id);
 
 
@@ -191,7 +191,7 @@ public interface MyApis {
     @GET("v1/exams/")
     Flowable<ResExamsList> getExamsList();
 
-    @GET("v1/exams/{:id}/")
+    @GET("v1/exams/{id}/")
     Flowable<ResExamsDetail> getExamsDetail(@Path("id") String id);
 
 //  *****************  begin  exams api *****************
@@ -205,16 +205,16 @@ public interface MyApis {
     @GET("v1/course/")
     Flowable<ResCourseList> getCourseList(@Query("page") String page,@Query("page_size")String page_size);
 
-    @GET("v1/course/{:id}/detail/")
+    @GET("v1/course/{id}/detail/")
     Flowable<ResCourseDetail> getCourseDetail(@Path("id") String id);
 
-    @GET("v1/coursechapter/{:course_id}/")
+    @GET("v1/coursechapter/{course_id}/")
     Flowable<ResCourseCapterList> getCourseCapterList(@Path("course_id")String course_id,@Query("page")String page,@Query("page_size")String page_size);
 
-    @GET("v1/coursechapter/{:id}/detail/")
+    @GET("v1/coursechapter/{id}/detail/")
     Flowable<ResCourseCapterDetail> getCourseCapterDetail(@Path("id")String id);
 
-    @GET("v1/coursecomment/{:course_id}/")
+    @GET("v1/coursecomment/{course_id}/")
     Flowable<ResCouserCommentList> getCourseCommentList(@Path("course_id")String course_id,@Query("page")String page,@Query("page_size")String page_size);
 
 
@@ -230,7 +230,7 @@ public interface MyApis {
     @GET("v1/livecourse/")
     Flowable<ResLiveCourseList> getLiveCourseList(@Query("page")String page,@Query("page_size")String page_size);
 
-    @GET("v1/livecourse/{:id}/detail/")
+    @GET("v1/livecourse/{id}/detail/")
     Flowable<ResLiveCourseDetail> getLiveCourseDetail();
 
 //  *****************  begin  live course api *****************
@@ -243,7 +243,7 @@ public interface MyApis {
     @GET("v1/teacher/")
     Flowable<ResTeacherList> getTeacherList(@Query("page")String page,@Query("page_size")String page_size);
 
-    @GET("v1/teacher/{:id}/detail/")
+    @GET("v1/teacher/{id}/detail/")
     Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(@Path("id")String id);
 
 //  *****************  begin  teacher api *****************

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/divide_line_gray"
-        android:textColor="#BCBCBC"
+        android:textColor="@color/gray_content_forum_text"
         android:textSize="12sp"
         android:paddingTop="5dp"
         android:paddingLeft="10dp"

@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.ui.activity.CourseDetailActivity;
 import com.jola.onlineedu.widget.StarBar;
 
@@ -28,7 +31,7 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
 
     private LayoutInflater inflater;
     private Context context;
-    private List<String> list;
+    private List<ResCourseList.ResultsBean> list;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -40,7 +43,7 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
     }
 
 
-    public SelectableCourseListAdapter(Context context, List<String> mList) {
+    public SelectableCourseListAdapter(Context context, List<ResCourseList.ResultsBean> mList) {
         this.context = context;
         list = mList;
         inflater = LayoutInflater.from(context);
@@ -54,18 +57,27 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.tv_titleTest.setText(position+":"+mList.get(position));
-//        holder.tv_describeTest.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mContext.startActivity(new Intent(mContext, ForumDetailActivity.class));
-//            }
-//        });
-//        holder.relativeLayout.setOnClickListener();
+        ResCourseList.ResultsBean resultsBean = list.get(position);
+        final int id = resultsBean.getId();
+        String coverUrl = resultsBean.getCover();
+        Glide.with(context).load(coverUrl).apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder)).into(holder.iv_course_cover);
+        if (resultsBean.getPay_type() == 1){
+            holder.tv_price_course.setText("￥"+resultsBean.getPrice());
+            holder.tv_price_course.setVisibility(View.VISIBLE);
+            holder.tv_type_course.setText("付费");
+        }else{
+            holder.tv_price_course.setVisibility(View.INVISIBLE);
+            holder.tv_type_course.setText("免费");
+        }
+        holder.tv_title_choosable_course.setText(resultsBean.getSummary());
+        holder.tv_persons_watched.setText(resultsBean.getSee_count()+"");
+
         holder.iv_course_cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, CourseDetailActivity.class));
+                Intent intent = new Intent(context, CourseDetailActivity.class);
+                intent.putExtra("id",id);
+                context.startActivity(intent);
             }
         });
     }
