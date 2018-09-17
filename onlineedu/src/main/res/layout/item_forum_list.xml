@@ -49,17 +49,54 @@
         />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_type_author"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_describe_content"
         android:layout_toEndOf="@+id/ci_head_img"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="@dimen/margin_content_to_border"
         android:layout_alignBottom="@+id/ci_head_img"
-        android:layout_marginBottom="10dp"
-        android:text="版块：提问  楼主：小华 30条评论  40分钟前"
+        android:layout_marginBottom="@dimen/qb_px_10"
+        android:text="版块：提问  楼主：小华 "
         android:textSize="13sp"
         />
+
+    <TextView
+        android:id="@+id/tv_comments_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_type_author"
+        android:layout_marginStart="5dp"
+        android:layout_alignTop="@+id/tv_type_author"
+        android:text="30条评论"
+        android:textSize="13sp"
+        android:drawableLeft="@drawable/icon_message_comment_x2"
+        android:drawablePadding="@dimen/qb_px_2"
+        />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_type_author"
+        android:layout_marginRight="@dimen/qb_px_10"
+        android:text="2018-06-01"
+        android:textSize="12sp"
+        android:drawablePadding="@dimen/qb_px_5"
+        />
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tv_describe_content"-->
+        <!--android:layout_toEndOf="@+id/ci_head_img"-->
+        <!--android:layout_marginStart="5dp"-->
+        <!--android:layout_marginEnd="@dimen/margin_content_to_border"-->
+        <!--android:layout_alignBottom="@+id/ci_head_img"-->
+        <!--android:layout_marginBottom="@dimen/qb_px_10"-->
+        <!--android:text="版块：提问  楼主：小华 30条评论  40分钟前"-->
+        <!--android:textSize="13sp"-->
+        <!--/>-->
 
 
 </RelativeLayout>

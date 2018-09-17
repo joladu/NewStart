@@ -66,7 +66,7 @@ public class ResForumListByTypeBean {
 
             private int is_essence;
             private String title;
-            private Object created;
+            private String created;
             private int comment_count;
             private PostTypeBean post_type;
             private String user;
@@ -88,11 +88,11 @@ public class ResForumListByTypeBean {
                 this.title = title;
             }
 
-            public Object getCreated() {
+            public String getCreated() {
                 return created;
             }
 
-            public void setCreated(Object created) {
+            public void setCreated(String created) {
                 this.created = created;
             }
 

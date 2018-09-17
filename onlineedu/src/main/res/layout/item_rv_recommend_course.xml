@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/qb_px_105"
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_parent_container"
     >
 
     <FrameLayout
@@ -17,9 +18,11 @@
             android:id="@+id/iv_course_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/test_banner_image_home_page"
+            android:src="@drawable/image_placeholder"
+            android:scaleType="fitXY"
             />
         <TextView
+            android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

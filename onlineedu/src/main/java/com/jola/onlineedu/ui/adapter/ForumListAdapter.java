@@ -71,8 +71,10 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
         holder.tv_forumContent.setText(curBean.getTitle());
 
 //        版块：提问  楼主：小华 30条评论  40分钟前
-        final String describeContent = "板块: "+curBean.getPost_type().getName()+"  楼主: "+curBean.getUser()+"  "+curBean.getComment_count()+"条评论  "+curBean.getCreated();
-        holder.tv_describe_content.setText(describeContent);
+        final String describeContent = "板块:"+curBean.getPost_type().getName()+"  楼主: "+curBean.getUser()+"  "+curBean.getComment_count()+"条评论  "+curBean.getCreated().substring(0,10);
+        holder.tv_type_author.setText("板块:"+curBean.getPost_type().getName()+"  楼主:"+curBean.getUser());
+        holder.tv_comments_num.setText(curBean.getComment_count()+"条评论");
+        holder.tv_time.setText(curBean.getCreated().substring(0,10));
 
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +110,13 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
         TextView tv_forumContent;
         @BindView(R.id.ci_head_img)
         CircleImageView ci_head_img;
-        @BindView(R.id.tv_describe_content)
-        TextView tv_describe_content;
+
+        @BindView(R.id.tv_type_author)
+        TextView tv_type_author;
+        @BindView(R.id.tv_comments_num)
+        TextView tv_comments_num;
+        @BindView(R.id.tv_time)
+        TextView tv_time;
 
 
         public ViewHolder(View itemView) {
