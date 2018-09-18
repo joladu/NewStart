@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.mode.bean.response.ResTeacherList;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
 
     private LayoutInflater inflater;
     private Context mContext;
-    private List<String> mList;
+    private List<ResTeacherList.ResultsBean> mList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -37,7 +38,7 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
     }
 
 
-    public TeacherMasterListAdapter(Context context, List<String> mList) {
+    public TeacherMasterListAdapter(Context context, List<ResTeacherList.ResultsBean> mList) {
         this.mContext = context;
         this.mList = mList;
         inflater = LayoutInflater.from(context);

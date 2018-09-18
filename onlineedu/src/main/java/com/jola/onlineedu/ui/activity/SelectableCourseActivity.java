@@ -105,7 +105,7 @@ public class SelectableCourseActivity extends SimpleActivity {
         et_hint_search_view.setHint(getString(R.string.search_excellent_course));
 
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-//        recyclerView.addItemDecoration(new DividerItemDecoration(SelectableCourseActivity.this,10,10,getResources().getColor(R.color.divide_line_gray)));
+        recyclerView.addItemDecoration(new DividerItemDecoration(SelectableCourseActivity.this,10,10,getResources().getColor(R.color.divide_line_gray)));
 
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override

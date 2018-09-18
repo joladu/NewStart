@@ -13,6 +13,7 @@ import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MainActivity;
 import com.jola.onlineedu.ui.activity.RegisterActivity;
 import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
+import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
 import com.jola.onlineedu.ui.activity.TestPoolActivity;
 
 import dagger.Component;
@@ -36,4 +37,5 @@ public interface ActivityComponent {
     void inject(TestPoolActivity testPoolActivity);
     void inject(SelectableCourseActivity selectableCourseActivity);
     void inject(CourseDetailActivity courseDetailActivity);
+    void inject(TeacherMasterActivity teacherMasterActivity);
 }
