@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
 
@@ -52,6 +54,17 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        ResTeacherList.ResultsBean resultsBean = mList.get(position);
+        Glide.with(mContext)
+                .load(resultsBean.getAvatar())
+                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
+                .into(holder.civ_head_user);
+
+        holder.tv_teacher_name.setText(resultsBean.getName());
+        holder.tv_teacher_describe.setText(resultsBean.getTeaching_courses());
+        holder.tv_latest_course.setText(resultsBean.getTeaching_courses());
+
 //        holder.tv_titleTest.setText(position+":"+mList.get(position));
 //        holder.tv_describeTest.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -76,8 +89,8 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
         TextView tv_teacher_name;
         @BindView(R.id.tv_teacher_describe)
         TextView tv_teacher_describe;
-        @BindView(R.id.tv_care_num)
-        TextView tv_care_num;
+        @BindView(R.id.tv_latest_course)
+        TextView tv_latest_course;
 
 
         public ViewHolder(View itemView) {

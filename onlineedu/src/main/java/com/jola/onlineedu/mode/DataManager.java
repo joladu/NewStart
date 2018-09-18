@@ -221,8 +221,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResLiveCourseDetail> getLiveCourseDetail() {
-        return myApis.getLiveCourseDetail();
+    public Flowable<ResLiveCourseDetail> getLiveCourseDetail(String id) {
+        return myApis.getLiveCourseDetail(id);
     }
 
     @Override

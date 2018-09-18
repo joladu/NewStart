@@ -45,15 +45,18 @@ public class RVLiveCourseAdapter extends RecyclerView.Adapter <RVLiveCourseAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ResLiveCourseList.ResultsBean resultsBean = mList.get(position);
+        final ResLiveCourseList.ResultsBean resultsBean = mList.get(position);
         holder.tv_title_live.setText(resultsBean.getName());
         holder.tv_price_live_course.setText(resultsBean.getPrice());
-        holder.tv_score_num.setText(resultsBean.getHot()+"");
-        holder.starBar.setStarMark(resultsBean.getHot());
+        holder.tv_score_num.setText(resultsBean.getEvaluate()+"");
+        holder.starBar.setStarMark(resultsBean.getEvaluate());
+        holder.tv_persons_watched.setText(resultsBean.getHot()+"");
         holder.iv_course_cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, LiveDetailActivity.class));
+                Intent intent = new Intent(context, LiveDetailActivity.class);
+                intent.putExtra("id",resultsBean.getId());
+                context.startActivity(intent);
             }
         });
     }

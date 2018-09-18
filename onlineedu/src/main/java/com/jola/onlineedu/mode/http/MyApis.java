@@ -231,7 +231,7 @@ public interface MyApis {
     Flowable<ResLiveCourseList> getLiveCourseList(@Query("page")String page,@Query("page_size")String page_size);
 
     @GET("v1/livecourse/{id}/detail/")
-    Flowable<ResLiveCourseDetail> getLiveCourseDetail();
+    Flowable<ResLiveCourseDetail> getLiveCourseDetail(@Path("id")String id);
 
 //  *****************  begin  live course api *****************
 

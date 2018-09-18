@@ -41,9 +41,23 @@
         android:layout_marginStart="@dimen/qb_px_10"
         android:layout_marginTop="@dimen/qb_px_5"
         android:layout_toRightOf="@+id/civ_head_user"
-        android:text="关注：50    已关注"
-        android:textColor="@color/gray_star_score"
+        android:text="最新课程"
+        android:textColor="@color/author_name_text_color"
         android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_latest_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_teacher_describe"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_5"
+        android:layout_toRightOf="@+id/tv_care_num"
+        android:text="机械制图与制造"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp" />
+
+
 
 
 </RelativeLayout>

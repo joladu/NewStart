@@ -9,6 +9,7 @@ import com.jola.onlineedu.ui.activity.ForgetPasswordActivity;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
 import com.jola.onlineedu.ui.activity.ForumListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
+import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MainActivity;
 import com.jola.onlineedu.ui.activity.RegisterActivity;
@@ -38,4 +39,5 @@ public interface ActivityComponent {
     void inject(SelectableCourseActivity selectableCourseActivity);
     void inject(CourseDetailActivity courseDetailActivity);
     void inject(TeacherMasterActivity teacherMasterActivity);
+    void inject(LiveDetailActivity liveDetailActivity);
 }
