@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/onlineedu" />
+            <option value="$PROJECT_DIR$/skills" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
