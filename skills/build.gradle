@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.jola.shengfan.skills"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"

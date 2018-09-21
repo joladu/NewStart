@@ -50,9 +50,9 @@ public class MovieView extends RelativeLayout {
     private String mTitle;
 
 
-    public abstract class MovieListener {
+    public abstract static class MovieListener {
         public void onMovieStarted(){};
-        public void onMovieStop(){};
+        public void onMovieStopped(){};
         public void onMovieMinimized(){};
 
     }
@@ -269,7 +269,7 @@ public class MovieView extends RelativeLayout {
         adjustToggleState();
         setKeepScreenOn(false);
         if (mMovieListener != null) {
-            mMovieListener.onMovieStop();
+            mMovieListener.onMovieStopped();
         }
     }
 
@@ -369,7 +369,7 @@ public class MovieView extends RelativeLayout {
         }
     }
 
-    private void play() {
+    public void play() {
         if (null == mMediaPlayer){
             return;
         }
@@ -381,6 +381,10 @@ public class MovieView extends RelativeLayout {
         }
 
 
+    }
+
+    public boolean isPlaying() {
+        return mMediaPlayer != null && mMediaPlayer.isPlaying();
     }
 
     private void adjustToggleState() {
