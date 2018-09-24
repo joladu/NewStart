@@ -76,6 +76,7 @@
         ratingbar:starDistance="0dp"
         ratingbar:starCount="5"
         ratingbar:starSize="11dp"
+        android:clickable="false"
         />
 
     <TextView

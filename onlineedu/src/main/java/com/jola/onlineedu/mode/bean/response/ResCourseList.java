@@ -9,15 +9,15 @@ import java.util.List;
 public class ResCourseList {
 
     /**
-     * count : 2
+     * count : 1
      * next : http://localhost:8000/api/v1/course/?page=2&page_size=1
-     * previous : null
-     * results : [{"id":1,"user":4,"name":"课程1","author":"MCE","cover":"","pay_type":0,"price":100,"see_count":1,"recommend_count":1,"share_count":1,"summary":"","is_recommend":0,"categories":[{"id":1,"name":"小学"}]}]
+     * previous :
+     * results : [{"id":1,"user":4,"name":"课程1","author":"MCE","cover":"","pay_type":0,"price":100,"see_count":1,"recommend_count":1,"share_count":1,"collect_count":1,"praise_count":1,"score":5,"summary":"","is_recommend":0,"categories":[{"id":1,"name":"小学"}]}]
      */
 
     private int count;
     private String next;
-    private Object previous;
+    private String previous;
     private List<ResultsBean> results;
 
     public int getCount() {
@@ -36,11 +36,11 @@ public class ResCourseList {
         this.next = next;
     }
 
-    public Object getPrevious() {
+    public String getPrevious() {
         return previous;
     }
 
-    public void setPrevious(Object previous) {
+    public void setPrevious(String previous) {
         this.previous = previous;
     }
 
@@ -64,6 +64,9 @@ public class ResCourseList {
          * see_count : 1
          * recommend_count : 1
          * share_count : 1
+         * collect_count : 1
+         * praise_count : 1
+         * score : 5
          * summary :
          * is_recommend : 0
          * categories : [{"id":1,"name":"小学"}]
@@ -79,6 +82,9 @@ public class ResCourseList {
         private int see_count;
         private int recommend_count;
         private int share_count;
+        private int collect_count;
+        private int praise_count;
+        private int score;
         private String summary;
         private int is_recommend;
         private List<CategoriesBean> categories;
@@ -161,6 +167,30 @@ public class ResCourseList {
 
         public void setShare_count(int share_count) {
             this.share_count = share_count;
+        }
+
+        public int getCollect_count() {
+            return collect_count;
+        }
+
+        public void setCollect_count(int collect_count) {
+            this.collect_count = collect_count;
+        }
+
+        public int getPraise_count() {
+            return praise_count;
+        }
+
+        public void setPraise_count(int praise_count) {
+            this.praise_count = praise_count;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
         }
 
         public String getSummary() {

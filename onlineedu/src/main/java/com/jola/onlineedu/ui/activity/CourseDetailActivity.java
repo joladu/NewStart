@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.ui.adapter.CourseDetailCommentsAdapter;
 import com.jola.onlineedu.ui.adapter.ForumListDetailAdapter;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.widget.StarBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -58,6 +60,14 @@ public class CourseDetailActivity extends SimpleActivity {
     TextView tv_praise_num;
     @BindView(R.id.tv_share_num)
     TextView tv_share_num;
+    @BindView(R.id.tv_score_num)
+    TextView tv_score_num;
+    @BindView(R.id.star_bar_score)
+    StarBar star_bar_score;
+
+    @BindView(R.id.et_input_comment)
+    EditText et_input_comment;
+
 
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout smartRefreshLayout;
@@ -115,8 +125,10 @@ public class CourseDetailActivity extends SimpleActivity {
                         tv_price_live_course.setText("￥"+resCourseDetail.getPrice());
                         tv_content_brief.setText(resCourseDetail.getSummary());
                         tv_share_num.setText(resCourseDetail.getShare_count()+"");
-                        tv_praise_num.setText(resCourseDetail.getRecommend_count()+"");
-                        tv_heart_num.setText(resCourseDetail.getRecommend_count()+"");
+                        tv_praise_num.setText(resCourseDetail.getPraise_count()+"");
+                        tv_heart_num.setText(resCourseDetail.getCollect_count()+"");
+                        tv_score_num.setText(resCourseDetail.getScore()+"");
+                        star_bar_score.setStarMark(resCourseDetail.getScore());
 
                     }
                 }, new Consumer<Throwable>() {
@@ -194,8 +206,8 @@ public class CourseDetailActivity extends SimpleActivity {
     }
 
     private void confirmComment() {
-//        showLoadingDialog();
-//        addSubscribe(dataManager.com);
+        showLoadingDialog();
+//        addSubscribe(dataManager);
     }
 
 }

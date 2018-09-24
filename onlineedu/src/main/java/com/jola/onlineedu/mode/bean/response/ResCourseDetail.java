@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ResCourseDetail {
 
+
     /**
      * id : 1
      * user : 4
@@ -19,6 +20,9 @@ public class ResCourseDetail {
      * see_count : 1
      * recommend_count : 1
      * share_count : 1
+     * collect_count : 1
+     * praise_count : 1
+     * score : 5
      * summary :
      * is_recommend : 0
      * categories : [{"id":1,"name":"小学"}]
@@ -30,10 +34,13 @@ public class ResCourseDetail {
     private String author;
     private String cover;
     private int pay_type;
-    private String price;
+    private int price;
     private int see_count;
     private int recommend_count;
     private int share_count;
+    private int collect_count;
+    private int praise_count;
+    private int score;
     private String summary;
     private int is_recommend;
     private List<CategoriesBean> categories;
@@ -86,11 +93,11 @@ public class ResCourseDetail {
         this.pay_type = pay_type;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -116,6 +123,30 @@ public class ResCourseDetail {
 
     public void setShare_count(int share_count) {
         this.share_count = share_count;
+    }
+
+    public int getCollect_count() {
+        return collect_count;
+    }
+
+    public void setCollect_count(int collect_count) {
+        this.collect_count = collect_count;
+    }
+
+    public int getPraise_count() {
+        return praise_count;
+    }
+
+    public void setPraise_count(int praise_count) {
+        this.praise_count = praise_count;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public String getSummary() {

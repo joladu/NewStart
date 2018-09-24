@@ -1,5 +1,6 @@
 package com.jola.onlineedu.mode.http;
 
+import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
@@ -205,6 +206,9 @@ public interface MyApis {
     @GET("v1/course/")
     Flowable<ResCourseList> getCourseList(@Query("page") String page,@Query("page_size")String page_size);
 
+    @GET("v1/course/recommend/")
+    Flowable<ResCourseList> getCourseRecommendList(@Query("page") String page,@Query("page_size")String page_size);
+
     @GET("v1/course/{id}/detail/")
     Flowable<ResCourseDetail> getCourseDetail(@Path("id") String id);
 
@@ -216,6 +220,13 @@ public interface MyApis {
 
     @GET("v1/coursecomment/{course_id}/")
     Flowable<ResCouserCommentList> getCourseCommentList(@Path("course_id")String course_id,@Query("page")String page,@Query("page_size")String page_size);
+
+    @FormUrlEncoded
+    @POST("v1/bbs/posts/{id}/comments/")
+    Flowable<ResponseSimpleResult> publishCourseComment(@Path("id")String id,@Field("content")String content);
+
+    @PUT("v1/bbs/comments/{id}/praise/")
+    Flowable<ResponseSimpleResult> praiseCommentCourse(@Path("id")String id);
 
 
 //  *****************  begin  course api *****************
@@ -250,7 +261,18 @@ public interface MyApis {
 //
 
 
-// *****************  begin teacher api *****************
+
+
+// *****************  begin common api *****************
+
+    @GET("v1/banner/")
+    Flowable<ResBannerHomepage> getBannerHomepage();
+
+//  *****************  begin  common api *****************
+
+
+
+    // *****************  begin teacher api *****************
 
 //  *****************  begin  teacher api *****************
 

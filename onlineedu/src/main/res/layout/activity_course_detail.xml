@@ -89,7 +89,9 @@
             ratingbar:starDistance="0dp"
             ratingbar:starEmpty="@drawable/star_no_x2"
             ratingbar:starFill="@drawable/star_yes_x2"
-            ratingbar:starSize="11dp" />
+            ratingbar:starSize="11dp"
+            android:clickable="false"
+            />
 
         <TextView
             android:id="@+id/tv_score_num"

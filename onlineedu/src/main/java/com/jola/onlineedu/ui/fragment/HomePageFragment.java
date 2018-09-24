@@ -125,6 +125,10 @@ public class HomePageFragment extends SimpleFragment {
         vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(getContext());
         vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter);
 
+
+        loadBannerData();
+
+
         rvRecommendCourseAdapter = new RVRecommendCourseAdapter(getContext(), mList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
@@ -144,9 +148,13 @@ public class HomePageFragment extends SimpleFragment {
         });
     }
 
+    private void loadBannerData() {
+//        addSubscribe(dataManager.getCourseRecommendList());
+    }
+
     private void loadData() {
         stateLoading();
-        addSubscribe(dataManager.getCourseList(page+"",page_size+"")
+        addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")
         .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseList>() {
                     @Override

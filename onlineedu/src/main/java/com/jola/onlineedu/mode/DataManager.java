@@ -1,5 +1,6 @@
 package com.jola.onlineedu.mode;
 
+import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
@@ -196,6 +197,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResCourseList> getCourseRecommendList(String page, String page_size) {
+        return myApis.getCourseList(page,page_size);
+    }
+
+    @Override
     public Flowable<ResCourseDetail> getCourseDetail(String id) {
         return myApis.getCourseDetail(id);
     }
@@ -216,6 +222,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResponseSimpleResult> publishCourseComment(String id, String content) {
+        return myApis.publishCourseComment(id,content);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> praiseCommentCourse(String id) {
+        return myApis.praiseCommentCourse(id);
+    }
+
+    @Override
     public Flowable<ResLiveCourseList> getLiveCourseList(String page, String page_size) {
         return myApis.getLiveCourseList(page,page_size);
     }
@@ -233,6 +249,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(String id) {
         return myApis.getTeacherCourseDetail(id);
+    }
+
+    @Override
+    public Flowable<ResBannerHomepage> getBannerHomepage() {
+        return myApis.getBannerHomepage();
     }
 
     @Override
