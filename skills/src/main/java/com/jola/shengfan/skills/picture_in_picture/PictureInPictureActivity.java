@@ -13,12 +13,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Rational;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
+
 
 import com.jola.shengfan.skills.R;
 
@@ -124,7 +126,9 @@ public class PictureInPictureActivity extends AppCompatActivity {
         // Note this call can happen even when the app is not in PiP mode. In that case, the
         // arguments will be used for at the next call of #enterPictureInPictureMode.
         setPictureInPictureParams(mPictureInPictureParamsBuilder.build());
+
     }
+
 
     /** Enters Picture-in-Picture mode. */
     void minimize() {

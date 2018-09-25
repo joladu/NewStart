@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import com.jola.shengfan.skills.R;
 
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 
 
