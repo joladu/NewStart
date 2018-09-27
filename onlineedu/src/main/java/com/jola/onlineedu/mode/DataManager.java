@@ -29,8 +29,10 @@ import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.mode.prefs.PreferencesHelper;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
+import io.reactivex.annotations.Nullable;
 import okhttp3.MultipartBody;
 
 /**
@@ -142,9 +144,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResForumListByTypeBean> getForumListByType(String keyWords, String forumType) {
-        return myApis.getForumListByType(keyWords,forumType);
+    public Flowable<ResForumListByTypeBean> getForumListByType(Map<String, String> map) {
+        return myApis.getForumListByType(map);
     }
+
+
+//    @Override
+//    public Flowable<ResForumListByTypeBean> getForumListByType(String forumType) {
+//        return myApis.getForumListByType(forumType);
+//    }
+
 
     @Override
     public Flowable<ResForumDetailBean> getForumDetail(String id) {

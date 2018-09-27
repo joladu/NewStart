@@ -8,8 +8,9 @@ import java.util.List;
 
 public class ResForumListByTypeBean {
 
+
     /**
-     * data : {"posts":[{"is_essence":1,"title":"读大学好不好","created":null,"comment_count":2,"post_type":{"id":1,"name":"提问"},"user":"admin","id":1}]}
+     * data : {"posts":[{"is_essence":1,"title":"cvhhhhj","created":"2018-09-27T20:41:29.907","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":10},{"is_essence":1,"title":"滚滚滚","created":"2018-09-26T15:34:19.084","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":9},{"is_essence":1,"title":"还回家","created":"2018-09-26T15:21:42.873","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":8},{"is_essence":1,"title":"还回家","created":"2018-09-26T15:21:42.540","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":7},{"is_essence":1,"title":"111","created":"2018-09-19T10:12:53.597","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":6},{"is_essence":1,"title":"刚刚大大方方不过分v尴尬","created":"2018-09-17T23:52:35.050","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":5},{"is_essence":1,"title":"返回很反感九号公馆","created":"2018-09-17T22:59:12.073","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":4},{"is_essence":1,"title":"fghhhf","created":"2018-09-17T22:52:39.051","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":3},{"is_essence":1,"title":"chvxfugff","created":"2018-09-16T17:02:47.152","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":2},{"is_essence":1,"title":"fvhvvg","created":"2018-09-16T17:01:28.345","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":1}],"page":1,"pageSize":10}
      * error_code : 0
      * error_msg : success
      */
@@ -43,7 +44,31 @@ public class ResForumListByTypeBean {
     }
 
     public static class DataBean {
+        /**
+         * posts : [{"is_essence":1,"title":"cvhhhhj","created":"2018-09-27T20:41:29.907","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":10},{"is_essence":1,"title":"滚滚滚","created":"2018-09-26T15:34:19.084","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":9},{"is_essence":1,"title":"还回家","created":"2018-09-26T15:21:42.873","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":8},{"is_essence":1,"title":"还回家","created":"2018-09-26T15:21:42.540","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":7},{"is_essence":1,"title":"111","created":"2018-09-19T10:12:53.597","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"wakana ","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":6},{"is_essence":1,"title":"刚刚大大方方不过分v尴尬","created":"2018-09-17T23:52:35.050","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":5},{"is_essence":1,"title":"返回很反感九号公馆","created":"2018-09-17T22:59:12.073","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":4},{"is_essence":1,"title":"fghhhf","created":"2018-09-17T22:52:39.051","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":3},{"is_essence":1,"title":"chvxfugff","created":"2018-09-16T17:02:47.152","comment_count":0,"post_type":{"id":1,"name":"灌水"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":2},{"is_essence":1,"title":"fvhvvg","created":"2018-09-16T17:01:28.345","comment_count":0,"post_type":{"id":2,"name":"提问"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""},"id":1}]
+         * page : 1
+         * pageSize : 10
+         */
+
+        private int page;
+        private int pageSize;
         private List<PostsBean> posts;
+
+        public int getPage() {
+            return page;
+        }
+
+        public void setPage(int page) {
+            this.page = page;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
 
         public List<PostsBean> getPosts() {
             return posts;
@@ -56,12 +81,12 @@ public class ResForumListByTypeBean {
         public static class PostsBean {
             /**
              * is_essence : 1
-             * title : 读大学好不好
-             * created : null
-             * comment_count : 2
-             * post_type : {"id":1,"name":"提问"}
-             * user : admin
-             * id : 1
+             * title : cvhhhhj
+             * created : 2018-09-27T20:41:29.907
+             * comment_count : 0
+             * post_type : {"id":2,"name":"提问"}
+             * user : {"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/static/upload/avatar/","name":""}
+             * id : 10
              */
 
             private int is_essence;
@@ -69,7 +94,7 @@ public class ResForumListByTypeBean {
             private String created;
             private int comment_count;
             private PostTypeBean post_type;
-            private String user;
+            private UserBean user;
             private int id;
 
             public int getIs_essence() {
@@ -112,11 +137,11 @@ public class ResForumListByTypeBean {
                 this.post_type = post_type;
             }
 
-            public String getUser() {
+            public UserBean getUser() {
                 return user;
             }
 
-            public void setUser(String user) {
+            public void setUser(UserBean user) {
                 this.user = user;
             }
 
@@ -130,7 +155,7 @@ public class ResForumListByTypeBean {
 
             public static class PostTypeBean {
                 /**
-                 * id : 1
+                 * id : 2
                  * name : 提问
                  */
 
@@ -143,6 +168,42 @@ public class ResForumListByTypeBean {
 
                 public void setId(int id) {
                     this.id = id;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+            }
+
+            public static class UserBean {
+                /**
+                 * username : duzi
+                 * avatar_url : http://yunketang.dev.attackt.com/static/upload/avatar/
+                 * name :
+                 */
+
+                private String username;
+                private String avatar_url;
+                private String name;
+
+                public String getUsername() {
+                    return username;
+                }
+
+                public void setUsername(String username) {
+                    this.username = username;
+                }
+
+                public String getAvatar_url() {
+                    return avatar_url;
+                }
+
+                public void setAvatar_url(String avatar_url) {
+                    this.avatar_url = avatar_url;
                 }
 
                 public String getName() {

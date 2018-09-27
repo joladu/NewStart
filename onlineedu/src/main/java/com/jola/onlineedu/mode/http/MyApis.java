@@ -26,6 +26,7 @@ import com.jola.onlineedu.mode.bean.response.ResponseGetQiLiuBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
@@ -39,6 +40,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by jola on 2018/8/14.
@@ -131,8 +133,13 @@ public interface MyApis {
     @GET("v1/bbs/types/")
     Flowable<ResForumTypeBean> getForumTypeInfo();
 
+
+
+//    @GET("v1/bbs/posts/")
+//    Flowable<ResForumListByTypeBean> getForumListByType(@Query("type") String forumType);
+
     @GET("v1/bbs/posts/")
-    Flowable<ResForumListByTypeBean> getForumListByType(@Query("kw") String keyWords,@Query("type") String forumType);
+    Flowable<ResForumListByTypeBean> getForumListByType(@QueryMap Map<String,String> map);
 
     @GET("v1/bbs/posts/{id}/")
     Flowable<ResForumDetailBean> getForumDetail(@Path("id") String id);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
+import com.jola.onlineedu.util.TimeFormatUtil;
 
 import org.w3c.dom.Text;
 
@@ -71,10 +72,10 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
         holder.tv_forumContent.setText(curBean.getTitle());
 
 //        版块：提问  楼主：小华 30条评论  40分钟前
-        final String describeContent = "板块:"+curBean.getPost_type().getName()+"  楼主: "+curBean.getUser()+"  "+curBean.getComment_count()+"条评论  "+curBean.getCreated().substring(0,10);
-        holder.tv_type_author.setText("板块:"+curBean.getPost_type().getName()+"  楼主:"+curBean.getUser());
+        final String describeContent = "板块:"+curBean.getPost_type().getName()+"  楼主: "+curBean.getUser().getUsername()+"  "+curBean.getComment_count()+"条评论  "+ TimeFormatUtil.formatTime(curBean.getCreated());
+        holder.tv_type_author.setText("板块:"+curBean.getPost_type().getName()+"  楼主:"+curBean.getUser().getUsername());
         holder.tv_comments_num.setText(curBean.getComment_count()+"条评论");
-        holder.tv_time.setText(curBean.getCreated().substring(0,10));
+        holder.tv_time.setText(TimeFormatUtil.formatTime(curBean.getCreated()));
 
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +84,7 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
                 Intent intent = new Intent(mContext, ForumDetailActivity.class);
                 intent.putExtra("id",curBean.getId());
                 intent.putExtra("is_essence",is_essence);
-                intent.putExtra("author",curBean.getUser());
+                intent.putExtra("author",curBean.getUser().getUsername());
                 intent.putExtra("describeContent",describeContent);
                 mContext.startActivity(intent);
             }

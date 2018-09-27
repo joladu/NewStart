@@ -134,7 +134,7 @@ public class ForumListActivity extends SimpleActivity {
                         searchKey = "";
                     }
                     curForumTypeId = map_lableIds.get((String) data) + "";
-                    getForumList(searchKey,curForumTypeId);
+                    getForumList(searchKey.length() == 0 ? null : searchKey,curForumTypeId);
                 }
             }
         });
@@ -178,14 +178,14 @@ public class ForumListActivity extends SimpleActivity {
     public void doClick(View view){
         String searchKey = et_hint_search_view.getText().toString();
         if (TextUtils.isEmpty(searchKey)){
-            searchKey = "";
+            searchKey = null;
         }
         getForumList(searchKey,curForumTypeId);
     }
 
 
     private void getForumTypeInfo() {
-         stateLoading();
+        stateLoading();
         addSubscribe(dataManager.getForumTypeInfo()
                 .compose(RxUtil.<ResForumTypeBean>rxSchedulerHelper())
                 .subscribe(new Consumer<ResForumTypeBean>() {
@@ -224,7 +224,12 @@ public class ForumListActivity extends SimpleActivity {
 
     private void getForumList(String keyWord, String forumType) {
         stateLoading();
-        addSubscribe(dataManager.getForumListByType(keyWord, forumType)
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type",forumType);
+        if (null != keyWord && keyWord.length() > 0){
+            map.put("kw",keyWord);
+        }
+        addSubscribe(dataManager.getForumListByType(map)
                 .compose(RxUtil.<ResForumListByTypeBean>rxSchedulerHelper())
                 .subscribe(new Consumer<ResForumListByTypeBean>() {
                     @Override
@@ -247,7 +252,8 @@ public class ForumListActivity extends SimpleActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                       stateError();
+//                        String message = throwable.getMessage();
+                        stateError();
                     }
                 }));
     }
