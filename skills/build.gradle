@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.jola.shengfan.skills"
-        minSdkVersion 26
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -23,6 +23,11 @@ android {
         }
     }
 
+//    aapt : android asset packaging tool --> 防止压缩tensorflow lite 模型导致模型失效
+    aaptOptions {
+        noCompress "tflite"
+    }
+
 }
 
 dependencies {
@@ -33,4 +38,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+//    glide
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+//    tensorflow
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+
 }
