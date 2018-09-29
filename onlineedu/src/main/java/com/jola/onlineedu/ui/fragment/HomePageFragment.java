@@ -18,6 +18,7 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.ui.activity.ForumListActivity;
 import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
@@ -54,6 +55,8 @@ public class HomePageFragment extends SimpleFragment {
 
     @BindView(R.id.vp_banner_home_page)
     ViewPager vp_banner_home_page;
+    @BindView(R.id.iv_holder_banner)
+    ImageView iv_holder_banner;
 
 
     @BindView(R.id.view_main)
@@ -121,11 +124,6 @@ public class HomePageFragment extends SimpleFragment {
         getFragmentComponent().inject(this);
         et_hint_search_view.setHint(getString(R.string.tip_hint_input_search));
 
-//        banner
-        vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(getContext());
-        vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter);
-
-
         loadBannerData();
 
 
@@ -149,7 +147,34 @@ public class HomePageFragment extends SimpleFragment {
     }
 
     private void loadBannerData() {
-//        addSubscribe(dataManager.getCourseRecommendList());
+        addSubscribe(dataManager.getBannerHomepage()
+            .compose(RxUtil.<ResBannerHomepage>rxSchedulerHelper())
+                .subscribe(new Consumer<ResBannerHomepage>() {
+                    @Override
+                    public void accept(ResBannerHomepage resBannerHomepage) throws Exception {
+                        if (resBannerHomepage != null){
+                            ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
+                            listBanner.add(resBannerHomepage);
+                            vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(getContext(),listBanner);
+                            vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter);
+
+                            vp_banner_home_page.setVisibility(View.VISIBLE);
+                            iv_holder_banner.setVisibility(View.INVISIBLE);
+                        }else{
+                            vp_banner_home_page.setVisibility(View.INVISIBLE);
+                            iv_holder_banner.setVisibility(View.VISIBLE);
+                            iv_holder_banner.setImageDrawable(mContext.getResources().getDrawable(R.drawable.image_placeholder_fail));
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        vp_banner_home_page.setVisibility(View.INVISIBLE);
+                        iv_holder_banner.setVisibility(View.VISIBLE);
+                        iv_holder_banner.setImageDrawable(mContext.getResources().getDrawable(R.drawable.image_placeholder_fail));
+                    }
+                })
+        );
     }
 
     private void loadData() {

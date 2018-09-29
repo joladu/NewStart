@@ -6,6 +6,7 @@ package com.jola.onlineedu.mode.bean.response;
 
 public class ResBannerHomepage {
 
+
     /**
      * id : 1
      * name : 图片1
