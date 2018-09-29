@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 public class BannerViewPager extends FrameLayout implements ViewPager.OnPageChangeListener{
 
     public BannerViewPager(@NonNull Context context) {
+//        fakjfskasdjf
         super(context);
     }
 
