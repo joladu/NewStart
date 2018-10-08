@@ -29,6 +29,7 @@ import com.jola.onlineedu.ui.adapter.RVLiveCourseAdapter;
 import com.jola.onlineedu.ui.adapter.SelectableCourseListAdapter;
 import com.jola.onlineedu.ui.adapter.TestPoolListAdapter;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -163,6 +164,7 @@ public class SelectableCourseActivity extends SimpleActivity {
 
     private void loadData() {
         stateLoading();
+        page = 1;
         addSubscribe(dataManager.getCourseList(page+"",pageSize+"")
             .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseList>() {
@@ -191,20 +193,27 @@ public class SelectableCourseActivity extends SimpleActivity {
 
 
     private void loadMoreData() {
+        if (nextUrl == null || nextUrl.length() ==0){
+            smartRefreshLayout.finishLoadMore();
+            ToastUtil.toastShort("暂无更多内容！");
+            return;
+        }
         addSubscribe(dataManager.getCourseList((page++)+"",pageSize+"")
                 .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseList>() {
                     @Override
                     public void accept(ResCourseList resCourseList) throws Exception {
                         smartRefreshLayout.finishLoadMore();
-                        mList.addAll(resCourseList.getResults());
-                        mAdapter.notifyDataSetChanged();
+                        if (null != resCourseList && resCourseList.getResults().size() > 0){
+                            mList.addAll(resCourseList.getResults());
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         smartRefreshLayout.finishLoadMore();
-                        stateError();
+//                        stateError();
                     }
                 })
         );

@@ -20,6 +20,7 @@ import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.ui.adapter.CourseDetailCommentsAdapter;
 import com.jola.onlineedu.ui.adapter.ForumListDetailAdapter;
+import com.jola.onlineedu.ui.adapter.RelativeCourseAdapter;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.widget.StarBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -67,14 +68,15 @@ public class CourseDetailActivity extends SimpleActivity {
 
     @BindView(R.id.et_input_comment)
     EditText et_input_comment;
-
-
+    @BindView(R.id.rv_relative_course)
+    RecyclerView rv_relativeCourse;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.view_main)
     RecyclerView recyclerView;
     private List<ResCouserCommentList.ResultsBean> commentList;
     private CourseDetailCommentsAdapter adapter;
+    private RelativeCourseAdapter mAdapterRelativeCourse;
 
 
     @Override
@@ -112,7 +114,7 @@ public class CourseDetailActivity extends SimpleActivity {
                     @Override
                     public void accept(ResCourseDetail resCourseDetail) throws Exception {
                         hideLoadingDialog();
-                        String cover = resCourseDetail.getCover();
+                        String cover = resCourseDetail.getCover_url();
                         if (null != cover && cover.length() > 0){
                             Glide.with(CourseDetailActivity.this)
                                     .load(cover)
@@ -129,6 +131,14 @@ public class CourseDetailActivity extends SimpleActivity {
                         tv_heart_num.setText(resCourseDetail.getCollect_count()+"");
                         tv_score_num.setText(resCourseDetail.getScore()+"");
                         star_bar_score.setStarMark(resCourseDetail.getScore());
+
+//                        加载相关课程
+                        List<ResCourseDetail.ReleatedCoursesBean> releated_courses = resCourseDetail.getReleated_courses();
+                        mAdapterRelativeCourse = new RelativeCourseAdapter(CourseDetailActivity.this, releated_courses);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                        rv_relativeCourse.setLayoutManager(linearLayoutManager);
+                        rv_relativeCourse.setAdapter(mAdapterRelativeCourse);
+
 
                     }
                 }, new Consumer<Throwable>() {

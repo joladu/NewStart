@@ -13,6 +13,8 @@
         <attr format="reference" name="starEmpty"/>
         <!--星星满图-->
         <attr format="reference" name="starFill"/>
+        <!--是否可以点击-->
+        <attr format="boolean" name="changeable"/>
     </declare-styleable>
 
     <!--字母导航-->

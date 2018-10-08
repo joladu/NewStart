@@ -19,6 +19,7 @@ import com.jola.onlineedu.R;
  */
 
 public class StarBar extends View {
+    private boolean changeable = false;
     private int starDistance = 0; //星星间距
     private int starCount = 5;  //星星个数
     private int starSize;     //星星高度大小，星星一般正方形，宽度等于高度
@@ -54,6 +55,7 @@ public class StarBar extends View {
     private void init(Context context, AttributeSet attrs){
         setClickable(true);
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RatingBar);
+        changeable = mTypedArray.getBoolean(R.styleable.RatingBar_changeable, false);
         this.starDistance = (int) mTypedArray.getDimension(R.styleable.RatingBar_starDistance, 0);
         this.starSize = (int) mTypedArray.getDimension(R.styleable.RatingBar_starSize, 20);
         this.starCount = mTypedArray.getInteger(R.styleable.RatingBar_starCount, 5);
@@ -158,6 +160,9 @@ public class StarBar extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!changeable){
+            return super.onTouchEvent(event);
+        }
         int x = (int) event.getX();
         if (x < 0) x = 0;
         if (x > getMeasuredWidth()) x = getMeasuredWidth();

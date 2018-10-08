@@ -30,6 +30,8 @@
     <string name="hint_search_test_pool">题库资源搜索</string>
     <string name="course_recommend">课程推荐</string>
     <string name="course_comment">课程评论</string>
+    <string name="course_brief">课程简介</string>
+    <string name="course_relative">相关课程</string>
 
     <string name="tip_hint_input_search">请输入搜索内容</string>
 
