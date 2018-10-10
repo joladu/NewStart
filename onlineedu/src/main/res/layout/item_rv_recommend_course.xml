@@ -45,11 +45,12 @@
         android:layout_marginTop="@dimen/qb_px_10"
 
         >
+
+        <!--android:text="洋葱教学"-->
         <TextView
             android:id="@+id/tv_course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="洋葱教学"
             android:textColor="@color/gray_content_forum_text"
             android:textSize="15sp"
             />
@@ -59,10 +60,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_course_name"
             android:layout_marginTop="5dp"
-            android:text="主讲：任达华"
             android:textColor="@color/title_text"
             android:textSize="13sp"
             />
+        <!--android:text="主讲：任达华"-->
+
 
         <TextView
             android:id="@+id/tv_type_course"
@@ -71,10 +73,11 @@
             android:layout_toRightOf="@+id/tv_author_course"
             android:layout_alignTop="@+id/tv_author_course"
             android:layout_marginStart="@dimen/qb_px_10"
-            android:text="付费"
             android:textColor="@color/colorAccent"
             android:textSize="13sp"
             />
+        <!--android:text="付费"-->
+
 
         <View
             android:id="@+id/view_icon"
@@ -105,23 +108,25 @@
             android:layout_above="@+id/view_icon"
             android:layout_marginBottom="-5dp"
             android:layout_marginStart="2dp"
-            android:text="4.8"
             android:textSize="13sp"
             android:textColor="@color/gray_star_score"
             />
+        <!--android:text="4.8"-->
+
         <TextView
             android:id="@+id/tv_persons_watched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/tv_score_num"
-            android:text="2500人看过"
             android:textSize="13sp"
             android:textColor="@color/gray_star_score"
             android:drawableLeft="@drawable/person_watched_course_x2"
             android:layout_marginLeft="@dimen/qb_px_10"
             android:drawablePadding="@dimen/qb_px_5"
             />
+        <!--android:text="2500人看过"-->
+
     </RelativeLayout>
 
 </RelativeLayout>

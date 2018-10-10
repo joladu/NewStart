@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_content_to_border"
             android:layout_marginTop="10dp"
-            android:text="@string/course_comment"
+            android:text="帖子评论"
             android:textColor="@color/title_text"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"

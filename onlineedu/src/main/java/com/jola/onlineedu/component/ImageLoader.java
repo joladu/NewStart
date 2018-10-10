@@ -19,7 +19,8 @@ public class ImageLoader {
 //        Glide.with(context).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(iv);
         Glide.with(context)
                 .load(url)
-                .apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder_loading))
+//                .apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder_loading))
+                .apply(new RequestOptions().error(R.drawable.image_fail).placeholder(R.drawable.image_placeholder))
                 .into(iv);
     }
 

@@ -39,8 +39,9 @@
         android:textSize="@dimen/title_toolbar_text_size"
         android:lines="1"
         android:ellipsize="end"
-        android:text="王传军的直播王"
         />
+    <!--android:text="王传军的直播王"-->
+
 
 
 
@@ -66,10 +67,11 @@
         android:layout_alignTop="@+id/star_bar_score"
         android:layout_marginTop="-5dp"
         android:layout_marginStart="5dp"
-        android:text="4.8"
         android:textSize="13sp"
         android:textColor="@color/gray_star_score"
         />
+    <!--android:text="4.8"-->
+
     <TextView
         android:id="@+id/tv_persons_watched"
         android:layout_width="wrap_content"
@@ -77,7 +79,6 @@
         android:layout_marginBottom="3dp"
         android:layout_alignTop="@+id/tv_score_num"
         android:layout_toRightOf="@+id/tv_score_num"
-        android:text="250000人"
         android:maxLength="6"
         android:textSize="13sp"
         android:textColor="@color/gray_star_score"
@@ -85,6 +86,8 @@
         android:layout_marginLeft="@dimen/qb_px_10"
         android:drawablePadding="@dimen/qb_px_5"
         />
+    <!--android:text="250000人"-->
+
 
     <TextView
         android:id="@+id/tv_price_live_course"
@@ -93,9 +96,11 @@
         android:layout_toLeftOf="@+id/view_hold_end"
         android:layout_alignBottom="@+id/view_hold_end"
         android:layout_margin="@dimen/qb_px_5"
-        android:text="￥500.00"
         android:textColor="@color/colorAccent"
         />
+    <!--android:text="￥500.00"-->
+
+
     <View
         android:id="@+id/view_hold_end"
         android:layout_width="10dp"

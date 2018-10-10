@@ -20,9 +20,9 @@
     <LinearLayout
         android:id="@+id/ly_tab_menu"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/qb_px_56"
+        android:layout_height="@dimen/qb_px_53"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="-5dp"
+        android:layout_marginBottom="-6dp"
         android:orientation="horizontal">
 
 

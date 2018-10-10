@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.ui.activity.CourseDetailActivity;
 import com.jola.onlineedu.ui.activity.LiveDetailActivity;
@@ -51,15 +52,19 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter <RVRecommendC
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         final ResCourseList.ResultsBean resultsBean = mList.get(position);
-        Glide.with(context).load(resultsBean.getCover())
-                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
-                .into(holder.iv_course_cover);
+//        Glide.with(context).load(resultsBean.getCover())
+//                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
+//                .into(holder.iv_course_cover);
+        ImageLoader.load(context,resultsBean.getCover(),holder.iv_course_cover);
+
+
         if (resultsBean.getPay_type() == 1){
             holder.tv_price.setText("￥"+resultsBean.getPrice());
-            holder.tv_price.setVisibility(View.VISIBLE);
+//            holder.tv_price.setVisibility(View.VISIBLE);
             holder.tv_type_course.setText("付费");
         }else{
-            holder.tv_price.setVisibility(View.INVISIBLE);
+            holder.tv_price.setText("免费");
+//            holder.tv_price.setVisibility(View.VISIBLE);
             holder.tv_type_course.setText("免费");
         }
         holder.tv_score_num.setText(resultsBean.getScore()+"");

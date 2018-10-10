@@ -22,6 +22,7 @@ import com.jola.onlineedu.ui.adapter.CourseDetailCommentsAdapter;
 import com.jola.onlineedu.ui.adapter.ForumListDetailAdapter;
 import com.jola.onlineedu.ui.adapter.RelativeCourseAdapter;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.StarBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -65,6 +66,8 @@ public class CourseDetailActivity extends SimpleActivity {
     TextView tv_score_num;
     @BindView(R.id.star_bar_score)
     StarBar star_bar_score;
+//    @BindView(R.id.tv_num_comments)
+//    TextView tv_num_comments;
 
     @BindView(R.id.et_input_comment)
     EditText et_input_comment;
@@ -161,6 +164,7 @@ public class CourseDetailActivity extends SimpleActivity {
                         adapter = new CourseDetailCommentsAdapter(CourseDetailActivity.this, commentList, dataManager);
                         recyclerView.setAdapter(adapter);
                         smartRefreshLayout.finishRefresh();
+//                        tv_num_comments.setText(commentList == null ? 0 : commentList.size());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -215,8 +219,15 @@ public class CourseDetailActivity extends SimpleActivity {
     }
 
     private void confirmComment() {
-        showLoadingDialog();
-//        addSubscribe(dataManager);
+        String commentContent = et_input_comment.getText().toString();
+        if (commentContent.length() ==0){
+            ToastUtil.toastShort("请输入评价内容！");
+        }
+
+        ToastUtil.toastShort("无评价接口！");
+
+//        showLoadingDialog();
+//        addSubscribe(dataManager.publishCourseComment());
     }
 
 }
