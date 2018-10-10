@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 
 import com.jola.onlineedu.app.MyLog;
 
+import java.util.Locale;
+
 /**
  * Created by lenovo on 2018/9/30.
  */
@@ -86,12 +88,12 @@ public class ViewpagerIndicator extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        MyLog.logMy("ViewpagerIndicator : onMeasure");
+//        MyLog.logMy("ViewpagerIndicator : onMeasure");
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension((mRadius * 2+mPadding) * mItemCount + mPadding,mRadius * 2 + mPadding * 2);
 
-        MyLog.logMy(" setMeasuredDimension"+ "** width:"+(mRadius * 2+mPadding) * mItemCount + mPadding+"*****height:"+mRadius * 2 + mPadding * 2);
+//        MyLog.logMy(" setMeasuredDimension"+ "** width:"+(mRadius * 2+mPadding) * mItemCount + mPadding+"*****height:"+mRadius * 2 + mPadding * 2);
     }
 
     @Override
@@ -111,9 +113,7 @@ public class ViewpagerIndicator extends LinearLayout {
         super.onDraw(canvas);
         for (int i = 0 ; i < mItemCount ;i++){
             canvas.drawCircle(mRadius + mPadding + mRadius * 2 * i + mPadding * i,mRadius +mPadding,mRadius,mPaint);
-
 //            MyLog.logMy("circle i="+i+"**x:"+mRadius + mPadding + mRadius * 2 * i + mPadding * i+"**y:"+mRadius +mPadding+"**radius:"+mRadius);
-
         }
     }
 

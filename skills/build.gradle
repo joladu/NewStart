@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
-
-
 
     defaultConfig {
         applicationId "com.jola.shengfan.skills"
@@ -43,5 +42,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.3.1'
 //    tensorflow
     implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }

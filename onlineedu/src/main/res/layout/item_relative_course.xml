@@ -21,11 +21,12 @@
             android:src="@drawable/image_placeholder"
             android:scaleType="fitXY"
             />
+
+        <!--android:text="￥14.00"-->
         <TextView
             android:id="@+id/tv_price_relative_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥14.00"
             android:layout_gravity="bottom"
             android:gravity="center"
             android:textColor="@color/white"
@@ -35,8 +36,9 @@
             />
     </FrameLayout>
 
+    <!--android:text="洋葱教学"-->
     <TextView
-        android:id="@+id/tv_title_live_item"
+        android:id="@+id/tv_title_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fl_live_image"
@@ -44,26 +46,21 @@
         android:textSize="@dimen/title_toolbar_text_size"
         android:lines="1"
         android:ellipsize="end"
-        android:text="洋葱教学"
         android:layout_marginStart="@dimen/qb_px_10"
         android:layout_marginTop="@dimen/qb_px_5"
         />
 
+    <!--android:text="洋葱教学洋葱教学洋葱教学洋葱教学洋葱教学洋葱教学洋葱教学"-->
     <TextView
         android:id="@+id/tv_brief_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title_live_item"
+        android:layout_below="@+id/tv_title_course"
         android:textColor="@color/title_text"
         android:textSize="12sp"
         android:lines="1"
         android:ellipsize="end"
-        android:text="洋葱教学洋葱教学洋葱教学洋葱教学洋葱教学洋葱教学洋葱教学"
         android:layout_marginStart="@dimen/qb_px_10"
         />
-
-
-
-
 
 </RelativeLayout>

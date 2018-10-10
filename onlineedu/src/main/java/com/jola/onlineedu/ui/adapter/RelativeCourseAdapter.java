@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.ui.activity.CourseDetailActivity;
@@ -50,68 +52,46 @@ public class RelativeCourseAdapter extends RecyclerView.Adapter <RelativeCourseA
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        final ResCourseList.ResultsBean resultsBean = mList.get(position);
-//        Glide.with(context).load(resultsBean.getCover())
-//                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
-//                .into(holder.iv_course_cover);
-//        if (resultsBean.getPay_type() == 1){
-//            holder.tv_price.setText("￥"+resultsBean.getPrice());
-//            holder.tv_price.setVisibility(View.VISIBLE);
-//            holder.tv_type_course.setText("付费");
-//        }else{
-//            holder.tv_price.setVisibility(View.INVISIBLE);
-//            holder.tv_type_course.setText("免费");
-//        }
-//        holder.tv_score_num.setText(resultsBean.getScore()+"");
-//        holder.star_bar_score.setStarMark(resultsBean.getScore());
-//        holder.tv_course_name.setText(resultsBean.getName());
-//        holder.tv_author_course.setText("主讲："+resultsBean.getAuthor());
-//        holder.tv_persons_watched.setText(resultsBean.getSee_count()+"人看过");
-//
-//
-//
-//        holder.rl_parent_container.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, CourseDetailActivity.class);
-//                intent.putExtra("id",resultsBean.getId());
-//                context.startActivity(intent);
-//            }
-//        });
+        final ResCourseDetail.ReleatedCoursesBean releatedCoursesBean = mList.get(position);
+        ImageLoader.load(context,releatedCoursesBean.getCover_url(),holder.iv_course_cover);
+        holder.tv_title_course.setText(releatedCoursesBean.getName());
+        holder.tv_brief_content.setText(releatedCoursesBean.getSummary());
+
+        if (releatedCoursesBean.getPay_type() == 1){
+            holder.tv_price_relative_course.setText("￥"+releatedCoursesBean.getPrice());
+        }else{
+            holder.tv_price_relative_course.setText("免费");
+        }
+
+        holder.fl_live_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CourseDetailActivity.class);
+                intent.putExtra("id",releatedCoursesBean.getId());
+                context.startActivity(intent);
+            }
+        });
 
     }
-
-//    @Override
-//    public int getItemCount() {
-//        return mList == null ? 0 : mList.size();
-//    }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mList == null ? 0 : mList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-//        @BindView(R.id.rl_parent_container)
-//        RelativeLayout rl_parent_container;
-//        @BindView(R.id.iv_course_cover)
-//        ImageView iv_course_cover;
-//        @BindView(R.id.tv_price)
-//        TextView tv_price;
-//        @BindView(R.id.tv_course_name)
-//        TextView tv_course_name;
-//        @BindView(R.id.tv_author_course)
-//        TextView tv_author_course;
-//        @BindView(R.id.tv_type_course)
-//        TextView tv_type_course;
-//        @BindView(R.id.star_bar_score)
-//        StarBar star_bar_score;
-//        @BindView(R.id.tv_score_num)
-//        TextView tv_score_num;
-//        @BindView(R.id.tv_persons_watched)
-//        TextView tv_persons_watched;
-
+        @BindView(R.id.fl_live_image)
+        FrameLayout fl_live_image;
+        @BindView(R.id.iv_course_cover)
+        ImageView iv_course_cover;
+        @BindView(R.id.tv_price_relative_course)
+        TextView tv_price_relative_course;
+        @BindView(R.id.tv_title_course)
+        TextView tv_title_course;
+        @BindView(R.id.tv_brief_content)
+        TextView tv_brief_content;
 
         public ViewHolder(View itemView) {
             super(itemView);

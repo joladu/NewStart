@@ -199,7 +199,6 @@ public class CourseDetailActivity extends SimpleActivity {
                 View decorView = getWindow().getDecorView();
                 decorView.setSystemUiVisibility(option);
                 getWindow().setStatusBarColor(Color.TRANSPARENT);
-
         }
     }
 

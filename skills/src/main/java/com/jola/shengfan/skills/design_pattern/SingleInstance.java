@@ -56,8 +56,6 @@ public class SingleInstance {
             System.out.println(instanceOne.getObjectName());
             System.out.println(instanceTwo.getObjectName());
         }
-
-
     }
 
 
