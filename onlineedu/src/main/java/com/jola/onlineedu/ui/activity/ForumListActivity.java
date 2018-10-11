@@ -75,6 +75,7 @@ public class ForumListActivity extends SimpleActivity {
     private ArrayList<String> lableList;
     private HashMap<String, Integer> map_lableIds;
     private String curForumTypeId;
+    private int page = 1;
 
     @Override
     protected int getLayout() {
@@ -115,7 +116,11 @@ public class ForumListActivity extends SimpleActivity {
 
     @OnClick(R.id.tv_state_tip)
     public void retry(View view){
-        loadData();
+        String searchKey = et_hint_search_view.getText().toString();
+        if (TextUtils.isEmpty(searchKey)){
+            searchKey = "";
+        }
+        getForumList(searchKey.length() == 0 ? null : searchKey,curForumTypeId);
     }
 
     @Override
@@ -143,29 +148,25 @@ public class ForumListActivity extends SimpleActivity {
         rv_list.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
 
-//        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-//            @Override
-//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-////                for (int i = mStartIndex; i < mStartIndex + 10; i++) {
-////                    mList.add("每天观看直播节目，你们一般会评论什么，内容呢？：第" + i + "条");
-////                }
-////                mStartIndex += 10;
-////                smartRefreshLayout.finishLoadMore(2000);
-////                mAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-////                mList.clear();
-////                mStartIndex = 1;
-////                for (int i = mStartIndex; i < mStartIndex + 10; i++) {
-////                    mList.add("每天观看直播节目，你们一般会评论什么，内容呢？：第" + i + "条");
-////                }
-////                mStartIndex += 10;
-////                smartRefreshLayout.finishRefresh(2000);
-////                mAdapter.notifyDataSetChanged();
-//            }
-//        });
+        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                String searchKey = et_hint_search_view.getText().toString();
+                if (TextUtils.isEmpty(searchKey)){
+                    searchKey = "";
+                }
+                getForumListMore(searchKey.length() == 0 ? null : searchKey,curForumTypeId);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                String searchKey = et_hint_search_view.getText().toString();
+                if (TextUtils.isEmpty(searchKey)){
+                    searchKey = "";
+                }
+                getForumList(searchKey.length() == 0 ? null : searchKey,curForumTypeId);
+            }
+        });
 
         loadData();
     }
@@ -223,9 +224,12 @@ public class ForumListActivity extends SimpleActivity {
 
 
     private void getForumList(String keyWord, String forumType) {
+        page = 1;
         stateLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("type",forumType);
+        map.put("page",page+"");
+        map.put("pageSize","10");
         if (null != keyWord && keyWord.length() > 0){
             map.put("kw",keyWord);
         }
@@ -248,12 +252,49 @@ public class ForumListActivity extends SimpleActivity {
                         }else{
                             stateError();
                         }
+                        smartRefreshLayout.finishRefresh();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 //                        String message = throwable.getMessage();
                         stateError();
+                        smartRefreshLayout.finishRefresh();
+                    }
+                }));
+    }
+
+
+    private void getForumListMore(String keyWord, String forumType) {
+        page++;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type",forumType);
+        map.put("page",page+"");
+        map.put("pageSize","10");
+        if (null != keyWord && keyWord.length() > 0){
+            map.put("kw",keyWord);
+        }
+        addSubscribe(dataManager.getForumListByType(map)
+                .compose(RxUtil.<ResForumListByTypeBean>rxSchedulerHelper())
+                .subscribe(new Consumer<ResForumListByTypeBean>() {
+                    @Override
+                    public void accept(ResForumListByTypeBean forumListByTypeBean) throws Exception {
+                        int error_code = forumListByTypeBean.getError_code();
+                        if (error_code == 0) {
+//                            List<ResForumListByTypeBean.DataBean.PostsBean> posts = forumListByTypeBean.getData().getPosts();
+//                            mList = forumListByTypeBean.getData().getPosts();
+//                            mAdapter = new ForumListAdapter(ForumListActivity.this, mList);
+//                            rv_list.setAdapter(mAdapter);
+                            mList.addAll(forumListByTypeBean.getData().getPosts());
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        smartRefreshLayout.finishLoadMore();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtil.toastShort("获取更多失败");
+                        smartRefreshLayout.finishLoadMore();
                     }
                 }));
     }

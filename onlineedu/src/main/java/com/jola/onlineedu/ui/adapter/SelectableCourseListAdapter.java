@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.ui.activity.CourseDetailActivity;
 import com.jola.onlineedu.widget.StarBar;
@@ -60,7 +61,8 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
         ResCourseList.ResultsBean resultsBean = list.get(position);
         final int id = resultsBean.getId();
         String coverUrl = resultsBean.getCover();
-        Glide.with(context).load(coverUrl).apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder)).into(holder.iv_course_cover);
+//        Glide.with(context).load(coverUrl).apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder)).into(holder.iv_course_cover);
+        ImageLoader.load(context,coverUrl,holder.iv_course_cover);
         if (resultsBean.getPay_type() == 1){
             holder.tv_price_course.setText("￥"+resultsBean.getPrice());
             holder.tv_price_course.setVisibility(View.VISIBLE);

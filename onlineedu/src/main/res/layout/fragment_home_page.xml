@@ -47,9 +47,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_search"
-            android:src="@drawable/image_placeholder_loading"
+            android:src="@drawable/image_fail"
             android:visibility="visible"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             />
 
 
