@@ -1,9 +1,6 @@
 package com.jola.shengfan.toutiaojola.api;
 
 
-
-
-import com.jola.shengfan.toutiaojola.mode.entity.Video;
 import com.jola.shengfan.toutiaojola.mode.entity.VideoModel;
 import com.jola.shengfan.toutiaojola.mode.response.CommentResponse;
 import com.jola.shengfan.toutiaojola.mode.response.NewsDetail;
@@ -11,10 +8,8 @@ import com.jola.shengfan.toutiaojola.mode.response.NewsResponse;
 import com.jola.shengfan.toutiaojola.mode.response.ResultResponse;
 import com.jola.shengfan.toutiaojola.mode.response.VideoPathResponse;
 
-
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -25,6 +20,8 @@ import retrofit2.http.Url;
  */
 
 public interface ApiService {
+
+    public static final String BASE_SERVER_URL = "http://is.snssdk.com/";
 
     String GET_ARTICLE_LIST = "api/news/feed/v62/?refer=1&count=20&loc_mode=4&device_id=34960436458&iid=13136511752";
     String GET_COMMENT_LIST = "article/v2/tab_comments/";
