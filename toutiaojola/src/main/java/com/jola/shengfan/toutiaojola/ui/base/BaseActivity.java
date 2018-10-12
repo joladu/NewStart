@@ -43,17 +43,22 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         }
     }
 
-    private void initListener() {
+
+
+    protected void initView() {
 
     }
 
-    private void initData() {
+
+    protected void initData() {
 
     }
 
-    private void initView() {
+
+    protected void initListener() {
 
     }
+
 
 //    public void requestPermission(String[] permissions, IPermissionListener iPermissionListener){
 //

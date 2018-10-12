@@ -1,6 +1,9 @@
 package com.jola.shengfan.toutiaojola.ui.activity;
 
+import android.content.Intent;
+
 import com.jola.shengfan.toutiaojola.R;
+import com.jola.shengfan.toutiaojola.app.MyApp;
 import com.jola.shengfan.toutiaojola.ui.base.BaseActivity;
 import com.jola.shengfan.toutiaojola.ui.base.BasePresenter;
 
@@ -17,5 +20,16 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected int provideLayoutId() {
         return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void initView() {
+        MyApp.getMainHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                finish();
+            }
+        },2000);
     }
 }
