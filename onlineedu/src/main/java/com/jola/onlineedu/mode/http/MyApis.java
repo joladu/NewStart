@@ -272,7 +272,7 @@ public interface MyApis {
 
 // *****************  begin common api *****************
 
-    @GET("v1/banner/")
+    @GET("v1/common/banner/")
     Flowable<ResBannerHomepage> getBannerHomepage();
 
 //  *****************  begin  common api *****************

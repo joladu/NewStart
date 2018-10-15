@@ -9,21 +9,19 @@ public class ResBannerHomepage {
 
     /**
      * id : 1
-     * name : 图片1
+     * name : 产品1
      * order_no : 1
-     * img : img_1537443054.jpeg
-     * advertising_url : http://xxxx
-     * intro :
-     * url_type : 0
+     * domain_img_url : http://yunketang.dev.attackt.com/media/img_1539315955.jpg
+     * advertising_url : http://www.baidu.com
+     * intro : 新产品
      */
 
     private int id;
     private String name;
     private int order_no;
-    private String img;
+    private String domain_img_url;
     private String advertising_url;
     private String intro;
-    private int url_type;
 
     public int getId() {
         return id;
@@ -49,12 +47,12 @@ public class ResBannerHomepage {
         this.order_no = order_no;
     }
 
-    public String getImg() {
-        return img;
+    public String getDomain_img_url() {
+        return domain_img_url;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setDomain_img_url(String domain_img_url) {
+        this.domain_img_url = domain_img_url;
     }
 
     public String getAdvertising_url() {
@@ -71,13 +69,5 @@ public class ResBannerHomepage {
 
     public void setIntro(String intro) {
         this.intro = intro;
-    }
-
-    public int getUrl_type() {
-        return url_type;
-    }
-
-    public void setUrl_type(int url_type) {
-        this.url_type = url_type;
     }
 }

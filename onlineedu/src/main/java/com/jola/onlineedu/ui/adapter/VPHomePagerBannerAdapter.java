@@ -54,7 +54,7 @@ public class VPHomePagerBannerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = layoutInflater.inflate(R.layout.item_vp_banner_home_page,container,false);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_banner_hp);
-        ImageLoader.load(context,mList.get(position).getImg(),imageView);
+        ImageLoader.load(context,mList.get(position).getDomain_img_url(),imageView);
         container.addView(view);
         return view;
     }

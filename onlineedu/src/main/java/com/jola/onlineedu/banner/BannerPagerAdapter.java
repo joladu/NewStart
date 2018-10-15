@@ -1,6 +1,7 @@
 package com.jola.onlineedu.banner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
+import com.jola.onlineedu.ui.activity.LoadWebUrlActivity;
 
 import java.util.List;
 
@@ -60,16 +62,25 @@ public class BannerPagerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull final ViewGroup container, int position) {
         final View view = layoutInflater.inflate(R.layout.item_vp_banner_home_page,container,false);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_banner_hp);
-        ImageLoader.load(context,mList.get(position).getImg(),imageView);
+        ImageLoader.load(context,mList.get(position).getDomain_img_url(),imageView);
         final  int curPos = position;
         if (null != onPageClickListener){
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onPageClickListener.onPageClick(view,curPos);
+                }
+            });
+        }else{
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, LoadWebUrlActivity.class);
+                    intent.putExtra("url",mList.get(curPos).getAdvertising_url());
+                    context.startActivity(intent);
                 }
             });
         }

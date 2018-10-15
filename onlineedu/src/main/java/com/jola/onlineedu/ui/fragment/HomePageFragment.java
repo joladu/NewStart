@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -157,7 +158,7 @@ public class HomePageFragment extends SimpleFragment {
     private void testBanner() {
         ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
         ResBannerHomepage resBannerHomepage = new ResBannerHomepage();
-       resBannerHomepage.setImg("https://www.baidu.com/img/bd_logo1.png?where=super");
+       resBannerHomepage.setAdvertising_url("https://www.baidu.com/img/bd_logo1.png?where=super");
         listBanner.add(resBannerHomepage);
         listBanner.add(resBannerHomepage);
         listBanner.add(resBannerHomepage);
@@ -184,6 +185,8 @@ public class HomePageFragment extends SimpleFragment {
                     @Override
                     public void accept(ResBannerHomepage resBannerHomepage) throws Exception {
                         if (resBannerHomepage != null){
+                            Log.e("jola11","bannner  accept(ResBannerHomepage resBannerHomepage");
+
                             ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
                             listBanner.add(resBannerHomepage);
                             vpHomePagerBannerAdapter = new BannerPagerAdapter(getContext(),listBanner);
@@ -206,6 +209,7 @@ public class HomePageFragment extends SimpleFragment {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        Log.e("jola11","bannner  throws Exception ");
                         vp_banner_home_page.setVisibility(View.INVISIBLE);
                         iv_holder_banner.setVisibility(View.VISIBLE);
                     }
