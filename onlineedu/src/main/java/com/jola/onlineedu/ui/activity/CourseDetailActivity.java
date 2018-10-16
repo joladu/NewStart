@@ -3,6 +3,7 @@ package com.jola.onlineedu.ui.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.constraint.Group;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +78,18 @@ public class CourseDetailActivity extends SimpleActivity {
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.view_main)
     RecyclerView recyclerView;
+
+    @BindView(R.id.view_indication_brief)
+    View view_indication_brief;
+    @BindView(R.id.view_indication_chapter)
+    View view_indication_chapter;
+    @BindView(R.id.group_brief_container)
+    Group group_brief_container;
+    @BindView(R.id.rv_course_chapters)
+    RecyclerView rv_course_chapters;
+
+
+
     private List<ResCouserCommentList.ResultsBean> commentList;
     private CourseDetailCommentsAdapter adapter;
     private RelativeCourseAdapter mAdapterRelativeCourse;
@@ -206,7 +219,7 @@ public class CourseDetailActivity extends SimpleActivity {
         }
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_send_comment})
+    @OnClick({R.id.iv_back,R.id.tv_send_comment,R.id.tv_brief_title,R.id.tv_chapter_title})
     public void doClick(View view){
         switch (view.getId()){
             case R.id.iv_back:
@@ -214,6 +227,18 @@ public class CourseDetailActivity extends SimpleActivity {
                 break;
             case R.id.tv_send_comment:
                 confirmComment();
+                break;
+            case R.id.tv_brief_title:
+                view_indication_chapter.setVisibility(View.INVISIBLE);
+                view_indication_brief.setVisibility(View.VISIBLE);
+                rv_course_chapters.setVisibility(View.INVISIBLE);
+                group_brief_container.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_chapter_title:
+                view_indication_brief.setVisibility(View.INVISIBLE);
+                view_indication_chapter.setVisibility(View.VISIBLE);
+                group_brief_container.setVisibility(View.INVISIBLE);
+                rv_course_chapters.setVisibility(View.VISIBLE);
                 break;
         }
     }
