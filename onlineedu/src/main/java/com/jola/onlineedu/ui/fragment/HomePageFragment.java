@@ -180,24 +180,24 @@ public class HomePageFragment extends SimpleFragment {
 
     private void loadBannerData() {
         addSubscribe(dataManager.getBannerHomepage()
-            .compose(RxUtil.<ResBannerHomepage>rxSchedulerHelper())
-                .subscribe(new Consumer<ResBannerHomepage>() {
+            .compose(RxUtil.<List<ResBannerHomepage>>rxSchedulerHelper())
+                .subscribe(new Consumer<List<ResBannerHomepage>>() {
                     @Override
-                    public void accept(ResBannerHomepage resBannerHomepage) throws Exception {
+                    public void accept(List<ResBannerHomepage> resBannerHomepage) throws Exception {
                         if (resBannerHomepage != null){
                             Log.e("jola11","bannner  accept(ResBannerHomepage resBannerHomepage");
 
-                            ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
-                            listBanner.add(resBannerHomepage);
-                            vpHomePagerBannerAdapter = new BannerPagerAdapter(getContext(),listBanner);
-                            vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter,listBanner.size());
+//                            ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
+//                            listBanner.add(resBannerHomepage);
+                            vpHomePagerBannerAdapter = new BannerPagerAdapter(getContext(),resBannerHomepage);
+                            vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter,resBannerHomepage.size());
 
-                            vpHomePagerBannerAdapter.setOnPageClickListener(new BannerPagerAdapter.OnPageClickListener() {
-                                @Override
-                                public void onPageClick(View view, int position) {
-                                    ToastUtil.toastLong("position:"+position);
-                                }
-                            });
+//                            vpHomePagerBannerAdapter.setOnPageClickListener(new BannerPagerAdapter.OnPageClickListener() {
+//                                @Override
+//                                public void onPageClick(View view, int position) {
+//                                    ToastUtil.toastLong("position:"+position);
+//                                }
+//                            });
 
                             vp_banner_home_page.setVisibility(View.VISIBLE);
                             iv_holder_banner.setVisibility(View.INVISIBLE);

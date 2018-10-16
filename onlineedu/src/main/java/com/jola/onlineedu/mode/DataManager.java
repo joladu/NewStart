@@ -261,7 +261,7 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResBannerHomepage> getBannerHomepage() {
+    public Flowable<List<ResBannerHomepage>> getBannerHomepage() {
         return myApis.getBannerHomepage();
     }
 

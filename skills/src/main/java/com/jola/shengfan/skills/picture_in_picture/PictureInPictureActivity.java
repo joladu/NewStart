@@ -160,6 +160,7 @@ public class PictureInPictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_picture_in_picture);
 
+
 //        prepare string resource
         mPlayStr = getString(R.string.play);
         mPauseStr = getString(R.string.pause);

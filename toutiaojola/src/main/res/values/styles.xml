@@ -44,4 +44,12 @@
         <item name="android:layout_marginRight">10dp</item>
     </style>
 
+    <style name="TextAppearanceHome" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearanceVideo" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

@@ -12,6 +12,7 @@ import com.jola.shengfan.toutiaojola.ui.base.BasePresenter;
  */
 
 public class SplashActivity extends BaseActivity {
+
     @Override
     protected BasePresenter createPresenter() {
         return null;

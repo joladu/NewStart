@@ -10,19 +10,19 @@ import io.reactivex.disposables.Disposable;
  * Created by lenovo on 2018/10/10.
  */
 
-public abstract class BasePresenter<T> {
+public abstract class BasePresenter<V> {
 
     protected ApiService apiService = ApiRetrofit.getInstance().getApiService();
 
 
-    protected T mView;
+    protected V mView;
     private CompositeDisposable mCompositeDisposable;
 
-    public BasePresenter(T view){
+    public BasePresenter(V view){
         mView = view;
     }
 
-    public void attachView(T view){
+    public void attachView(V view){
         mView = view;
     }
 
