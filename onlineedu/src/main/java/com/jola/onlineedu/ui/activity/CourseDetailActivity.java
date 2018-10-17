@@ -46,6 +46,41 @@ public class CourseDetailActivity extends SimpleActivity {
     private int page = 1;
     private int page_size = 10;
 
+
+//    tv_title_live_item,
+//    tv_course_author,
+//    star_bar_score,
+//    tv_score_num,
+//    tv_share_num,
+//    tv_praise_num,
+//    tv_heart_num,
+//    tv_price_live_course,
+
+//    view_divide_below_price,
+
+//    tv_brief,
+
+
+//    tv_content_brief,
+
+
+//    view_divide_below_teacher,
+
+
+//    tv_relative_course,
+
+//    tv_comment_project,
+
+//    ed_input_comment,
+
+//    tv_send_comment,
+
+
+//    smart_refresh_layout,
+//    rv_relative_course,
+//    et_input_comment
+
+
     @BindView(R.id.iv_play_course)
     ImageView iv_play_course;
     @BindView(R.id.tv_title_live_item)
