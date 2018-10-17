@@ -33,6 +33,7 @@ import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
@@ -141,18 +142,28 @@ public class HomePageFragment extends SimpleFragment {
         loadData();
 
 //
-        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+//        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                loadDataMore();
+//            }
+//
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                mList.clear();
+//                loadData();
+//            }
+//        });
+
+        smartRefreshLayout.setEnableRefresh(false);
+
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadDataMore();
             }
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mList.clear();
-                loadData();
-            }
         });
+
     }
 
     private void testBanner() {

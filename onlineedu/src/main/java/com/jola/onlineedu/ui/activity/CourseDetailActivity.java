@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -80,6 +81,9 @@ public class CourseDetailActivity extends SimpleActivity {
 //    rv_relative_course,
 //    et_input_comment
 
+
+//    @BindView(R.id.sv_root)
+//    ScrollView sv_root;
 
     @BindView(R.id.iv_play_course)
     ImageView iv_play_course;
@@ -254,9 +258,12 @@ public class CourseDetailActivity extends SimpleActivity {
         }
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_send_comment,R.id.tv_brief_title,R.id.tv_chapter_title})
+    @OnClick({R.id.iv_back,R.id.tv_send_comment,R.id.tv_brief_title,R.id.tv_chapter_title,R.id.iv_play_video})
     public void doClick(View view){
         switch (view.getId()){
+            case R.id.iv_play_video:
+//                sv_root.scrollTo(0,0);
+                break;
             case R.id.iv_back:
                 this.finish();
                 break;
@@ -268,6 +275,12 @@ public class CourseDetailActivity extends SimpleActivity {
                 view_indication_brief.setVisibility(View.VISIBLE);
                 rv_course_chapters.setVisibility(View.INVISIBLE);
                 group_brief_container.setVisibility(View.VISIBLE);
+//                sv_root.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        sv_root.scrollTo(0,0);
+//                    }
+//                },100);
                 break;
             case R.id.tv_chapter_title:
                 view_indication_brief.setVisibility(View.INVISIBLE);
