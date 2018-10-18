@@ -152,8 +152,6 @@
                 "
             android:visibility="visible"
             />
-
-
         <!--course list-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_course_chapters"
@@ -162,9 +160,6 @@
             app:layout_constraintTop_toBottomOf="@+id/divide_below_tab"
             android:visibility="invisible"
             />
-
-
-
         <!--养宠教学-->
         <TextView
             android:id="@+id/tv_title_live_item"
@@ -487,9 +482,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_send_comment">
 
-            <com.scwang.smartrefresh.layout.header.ClassicsHeader
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <!--<com.scwang.smartrefresh.layout.header.ClassicsHeader-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/view_main"

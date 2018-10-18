@@ -47,7 +47,7 @@ public class LoadWebUrlActivity extends SimpleActivity {
           @Override
           public void onProgressChanged(WebView view, int newProgress) {
 //              super.onProgressChanged(view, newProgress);
-              if (newProgress > 70){
+              if (newProgress > 90){
                   if (isInflatedCompleted){
                       return;
                   }

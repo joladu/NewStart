@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="40dp"
+    android:id="@+id/rl_item_chapter"
+    >
 
     <TextView
         android:id="@+id/tv_chapter_name"
@@ -25,6 +28,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/qb_px_10"
         android:layout_centerVertical="true"
+        android:visibility="invisible"
         />
 
 </RelativeLayout>

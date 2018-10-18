@@ -18,8 +18,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
+import com.jola.onlineedu.ui.adapter.CourseChapterListAdapter;
 import com.jola.onlineedu.ui.adapter.CourseDetailCommentsAdapter;
 import com.jola.onlineedu.ui.adapter.ForumListDetailAdapter;
 import com.jola.onlineedu.ui.adapter.RelativeCourseAdapter;
@@ -28,8 +30,10 @@ import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.StarBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -132,6 +136,10 @@ public class CourseDetailActivity extends SimpleActivity {
     private List<ResCouserCommentList.ResultsBean> commentList;
     private CourseDetailCommentsAdapter adapter;
     private RelativeCourseAdapter mAdapterRelativeCourse;
+    private int page_chapter = 1;
+    private int PageSizeChapter = 10;
+    private List<ResCourseCapterList.ResultsBean> mChapterList;
+    private CourseChapterListAdapter mCourseChapterListAdapter;
 
 
     @Override
@@ -148,17 +156,49 @@ public class CourseDetailActivity extends SimpleActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         loadData();
         loadComments();
-        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        smartRefreshLayout.setEnableRefresh(false);
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadMoreComments();
             }
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                loadComments();
-            }
         });
+        loadCourseChaptersData();
+//        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                loadMoreComments();
+//            }
+//
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                loadComments();
+//            }
+//        });
+    }
+
+    private void loadCourseChaptersData() {
+        addSubscribe(dataManager.getCourseCapterList(id+"",page_chapter+"",PageSizeChapter+"")
+            .compose(RxUtil.<ResCourseCapterList>rxSchedulerHelper())
+                .subscribe(new Consumer<ResCourseCapterList>() {
+                    @Override
+                    public void accept(ResCourseCapterList resCourseCapterList) throws Exception {
+                       mChapterList = resCourseCapterList.getResults();
+                        mCourseChapterListAdapter = new CourseChapterListAdapter(mContext, mChapterList, new CourseChapterListAdapter.IPlayingListener() {
+                            @Override
+                            public void playPosition(int position) {
+                                ToastUtil.toastLong(mChapterList.get(position).getName()+" should be played");
+                            }
+                        });
+                        rv_course_chapters.setAdapter(mCourseChapterListAdapter);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtil.toastLong("获取章节信息失败！");
+                    }
+                })
+        );
     }
 
     private void loadData() {
@@ -262,7 +302,6 @@ public class CourseDetailActivity extends SimpleActivity {
     public void doClick(View view){
         switch (view.getId()){
             case R.id.iv_play_video:
-//                sv_root.scrollTo(0,0);
                 break;
             case R.id.iv_back:
                 this.finish();
@@ -275,12 +314,6 @@ public class CourseDetailActivity extends SimpleActivity {
                 view_indication_brief.setVisibility(View.VISIBLE);
                 rv_course_chapters.setVisibility(View.INVISIBLE);
                 group_brief_container.setVisibility(View.VISIBLE);
-//                sv_root.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        sv_root.scrollTo(0,0);
-//                    }
-//                },100);
                 break;
             case R.id.tv_chapter_title:
                 view_indication_brief.setVisibility(View.INVISIBLE);
