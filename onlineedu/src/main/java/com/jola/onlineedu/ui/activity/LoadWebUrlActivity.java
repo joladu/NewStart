@@ -1,5 +1,6 @@
 package com.jola.onlineedu.ui.activity;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -35,29 +36,45 @@ public class LoadWebUrlActivity extends SimpleActivity {
 
         final String url = getIntent().getStringExtra("url");
 
-      wv_load_web_url.setWebViewClient(new WebViewClient(){
-          @Override
-          public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-              view.loadUrl(url);
-              return true;
-          }
-      });
+        wv_load_web_url.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
 
-      wv_load_web_url.setWebChromeClient(new WebChromeClient(){
-          @Override
-          public void onProgressChanged(WebView view, int newProgress) {
+        wv_load_web_url.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
 //              super.onProgressChanged(view, newProgress);
-              if (newProgress > 90){
-                  if (isInflatedCompleted){
-                      return;
-                  }
-                  hideLoadingDialog();
-                  wv_load_web_url.setVisibility(View.VISIBLE);
-                  isInflatedCompleted = true;
-              }
-          }
-      });
+                if (newProgress > 90) {
+                    if (isInflatedCompleted) {
+                        return;
+                    }
+                    hideLoadingDialog();
+                    wv_load_web_url.setVisibility(View.VISIBLE);
+                    isInflatedCompleted = true;
+                }
+            }
+        });
 
         wv_load_web_url.loadUrl(url);
+
+
+        wv_load_web_url.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && wv_load_web_url.canGoBack()) {
+                        wv_load_web_url.goBack();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
     }
 }
