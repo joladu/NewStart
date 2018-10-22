@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/tv_forum_tag"
+        android:id="@+id/tv_forum_is_essence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -16,9 +16,40 @@
         android:layout_marginStart="@dimen/margin_content_to_border"
         android:gravity="center"
         android:text="精华"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:background="@drawable/shape_rectangle_gray_bg"
+        android:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/tv_forum_is_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_forum_is_essence"
+        android:layout_marginTop="@dimen/margin_content_to_border"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:gravity="center"
+        android:text="热门"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:background="@drawable/shape_rectangle_orange_bg"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/tv_forum_is_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_forum_is_hot"
+        android:layout_marginTop="@dimen/margin_content_to_border"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:gravity="center"
+        android:text="最新"
         android:textColor="@color/window_bg"
         android:textSize="11sp"
         android:background="@drawable/shape_rectangle_gray_bg"
+        android:visibility="invisible"
         />
 
     <TextView
@@ -27,7 +58,7 @@
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:ellipsize="end"
-        android:layout_below="@+id/tv_forum_tag"
+        android:layout_below="@+id/tv_forum_is_essence"
         android:layout_marginStart="@dimen/margin_content_to_border"
         android:layout_marginEnd="@dimen/margin_content_to_border"
         android:layout_marginTop="5dp"

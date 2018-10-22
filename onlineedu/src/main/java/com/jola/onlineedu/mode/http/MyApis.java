@@ -8,6 +8,7 @@ import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.mode.bean.response.ResExamsDetail;
 import com.jola.onlineedu.mode.bean.response.ResExamsList;
+import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
@@ -143,6 +144,9 @@ public interface MyApis {
 
     @GET("v1/bbs/posts/{id}/")
     Flowable<ResForumDetailBean> getForumDetail(@Path("id") String id);
+
+    @GET("v1/bbs/posts/{id}/commments/")
+    Flowable<ResForumComments> getForumComments(@Path("id") String id, @Query("page") int page);
 
     @POST("v1/bbs/posts/{id}/comments/")
     @FormUrlEncoded

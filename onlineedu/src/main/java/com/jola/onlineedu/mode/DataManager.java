@@ -8,6 +8,7 @@ import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.mode.bean.response.ResExamsDetail;
 import com.jola.onlineedu.mode.bean.response.ResExamsList;
+import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
@@ -158,6 +159,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResForumDetailBean> getForumDetail(String id) {
         return myApis.getForumDetail(id);
+    }
+
+    @Override
+    public Flowable<ResForumComments> getForumComments(String id, int page) {
+        return myApis.getForumComments(id,page);
     }
 
     @Override

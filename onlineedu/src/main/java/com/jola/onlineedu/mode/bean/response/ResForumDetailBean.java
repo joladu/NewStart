@@ -8,8 +8,9 @@ import java.util.List;
 
 public class ResForumDetailBean {
 
+
     /**
-     * data : {"post":{"images":[],"id":1,"comments":[{"content":"建瓯建瓯而归热狗机偶尔给人家偶尔巨佛问卷佛界无法","praise_count":34,"id":1,"user":"admin"},{"content":"快来评论呀，开学了，好开心。","praise_count":1,"id":2,"user":"test"}],"title":"读大学好不好"}}
+     * data : {"post":{"content":"发过火家家户户","is_top":1,"is_essence":1,"title":"法国刚给他","images":[],"is_hot":1,"created":"2018-10-10T23:22:07.531","id":13,"is_new":0},"post_type":{"id":1,"name":"灌水"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15396902624908.jpg","name":""}}
      * error_code : 0
      * error_msg : success
      */
@@ -44,10 +45,14 @@ public class ResForumDetailBean {
 
     public static class DataBean {
         /**
-         * post : {"images":[],"id":1,"comments":[{"content":"建瓯建瓯而归热狗机偶尔给人家偶尔巨佛问卷佛界无法","praise_count":34,"id":1,"user":"admin"},{"content":"快来评论呀，开学了，好开心。","praise_count":1,"id":2,"user":"test"}],"title":"读大学好不好"}
+         * post : {"content":"发过火家家户户","is_top":1,"is_essence":1,"title":"法国刚给他","images":[],"is_hot":1,"created":"2018-10-10T23:22:07.531","id":13,"is_new":0}
+         * post_type : {"id":1,"name":"灌水"}
+         * user : {"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15396902624908.jpg","name":""}
          */
 
         private PostBean post;
+        private PostTypeBean post_type;
+        private UserBean user;
 
         public PostBean getPost() {
             return post;
@@ -57,25 +62,67 @@ public class ResForumDetailBean {
             this.post = post;
         }
 
+        public PostTypeBean getPost_type() {
+            return post_type;
+        }
+
+        public void setPost_type(PostTypeBean post_type) {
+            this.post_type = post_type;
+        }
+
+        public UserBean getUser() {
+            return user;
+        }
+
+        public void setUser(UserBean user) {
+            this.user = user;
+        }
+
         public static class PostBean {
             /**
+             * content : 发过火家家户户
+             * is_top : 1
+             * is_essence : 1
+             * title : 法国刚给他
              * images : []
-             * id : 1
-             * comments : [{"content":"建瓯建瓯而归热狗机偶尔给人家偶尔巨佛问卷佛界无法","praise_count":34,"id":1,"user":"admin"},{"content":"快来评论呀，开学了，好开心。","praise_count":1,"id":2,"user":"test"}]
-             * title : 读大学好不好
+             * is_hot : 1
+             * created : 2018-10-10T23:22:07.531
+             * id : 13
+             * is_new : 0
              */
 
-            private int id;
+            private String content;
+            private int is_top;
+            private int is_essence;
             private String title;
+            private int is_hot;
+            private String created;
+            private int id;
+            private int is_new;
             private List<String> images;
-            private List<CommentsBean> comments;
 
-            public int getId() {
-                return id;
+            public String getContent() {
+                return content;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public int getIs_top() {
+                return is_top;
+            }
+
+            public void setIs_top(int is_top) {
+                this.is_top = is_top;
+            }
+
+            public int getIs_essence() {
+                return is_essence;
+            }
+
+            public void setIs_essence(int is_essence) {
+                this.is_essence = is_essence;
             }
 
             public String getTitle() {
@@ -86,6 +133,38 @@ public class ResForumDetailBean {
                 this.title = title;
             }
 
+            public int getIs_hot() {
+                return is_hot;
+            }
+
+            public void setIs_hot(int is_hot) {
+                this.is_hot = is_hot;
+            }
+
+            public String getCreated() {
+                return created;
+            }
+
+            public void setCreated(String created) {
+                this.created = created;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getIs_new() {
+                return is_new;
+            }
+
+            public void setIs_new(int is_new) {
+                this.is_new = is_new;
+            }
+
             public List<String> getImages() {
                 return images;
             }
@@ -93,59 +172,67 @@ public class ResForumDetailBean {
             public void setImages(List<String> images) {
                 this.images = images;
             }
+        }
 
-            public List<CommentsBean> getComments() {
-                return comments;
+        public static class PostTypeBean {
+            /**
+             * id : 1
+             * name : 灌水
+             */
+
+            private int id;
+            private String name;
+
+            public int getId() {
+                return id;
             }
 
-            public void setComments(List<CommentsBean> comments) {
-                this.comments = comments;
+            public void setId(int id) {
+                this.id = id;
             }
 
-            public static class CommentsBean {
-                /**
-                 * content : 建瓯建瓯而归热狗机偶尔给人家偶尔巨佛问卷佛界无法
-                 * praise_count : 34
-                 * id : 1
-                 * user : admin
-                 */
+            public String getName() {
+                return name;
+            }
 
-                private String content;
-                private int praise_count;
-                private int id;
-                private String user;
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
 
-                public String getContent() {
-                    return content;
-                }
+        public static class UserBean {
+            /**
+             * username : duzi
+             * avatar_url : http://yunketang.dev.attackt.com/media/avatar/15396902624908.jpg
+             * name :
+             */
 
-                public void setContent(String content) {
-                    this.content = content;
-                }
+            private String username;
+            private String avatar_url;
+            private String name;
 
-                public int getPraise_count() {
-                    return praise_count;
-                }
+            public String getUsername() {
+                return username;
+            }
 
-                public void setPraise_count(int praise_count) {
-                    this.praise_count = praise_count;
-                }
+            public void setUsername(String username) {
+                this.username = username;
+            }
 
-                public int getId() {
-                    return id;
-                }
+            public String getAvatar_url() {
+                return avatar_url;
+            }
 
-                public void setId(int id) {
-                    this.id = id;
-                }
+            public void setAvatar_url(String avatar_url) {
+                this.avatar_url = avatar_url;
+            }
 
-                public String getUser() {
-                    return user;
-                }
+            public String getName() {
+                return name;
+            }
 
-                public void setUser(String user) {
-                    this.user = user;
-                }
+            public void setName(String name) {
+                this.name = name;
             }
         }
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.util.RxUtil;
@@ -33,7 +34,7 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
     DataManager dataManager;
     private LayoutInflater inflater;
     private Context mContext;
-    private List<ResForumDetailBean.DataBean.PostBean.CommentsBean> mList;
+    private List<ResForumComments.DataBean.CommentsBean> mList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -45,7 +46,7 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
     }
 
 
-    public ForumListDetailAdapter(Context context, List<ResForumDetailBean.DataBean.PostBean.CommentsBean> mList,DataManager dataManager) {
+    public ForumListDetailAdapter(Context context, List<ResForumComments.DataBean.CommentsBean> mList, DataManager dataManager) {
         this.mContext = context;
         this.mList = mList;
         inflater = LayoutInflater.from(context);
@@ -60,8 +61,8 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ResForumDetailBean.DataBean.PostBean.CommentsBean curBean = mList.get(position);
-        holder.tv_name.setText(curBean.getUser());
+        ResForumComments.DataBean.CommentsBean curBean = mList.get(position);
+        holder.tv_name.setText(curBean.getUser().getUsername());
         holder.tv_forum_content.setText(curBean.getContent());
         holder.tv_num_praise.setText(curBean.getPraise_count());
         final int id = curBean.getId();

@@ -18,9 +18,12 @@
             android:layout_height="@dimen/qb_px_235">
 
             <ImageView
+                android:id="@+id/iv_cover_live"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/shape_gray_bg" />
+                android:src="@drawable/shape_gray_bg"
+                android:scaleType="fitXY"
+                />
 
             <ImageView
                 android:id="@+id/iv_back"

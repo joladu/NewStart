@@ -63,13 +63,50 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         final ResForumListByTypeBean.DataBean.PostsBean curBean = mList.get(position);
+
         final int is_essence = curBean.getIs_essence();
-        if (is_essence == 1){
-            holder.tv_forumTag.setText(mContext.getString(R.string.forum_essence));
-            holder.tv_forumTag.setVisibility(View.VISIBLE);
-        }else{
-            holder.tv_forumTag.setVisibility(View.INVISIBLE);
-        }
+        final int is_hot = curBean.getIs_hot();
+        final int is_top = curBean.getIs_top();
+        int count = is_essence + is_hot + is_top;
+//        if (count == 0){
+//            holder.tv_forum_is_essence.setVisibility(View.INVISIBLE);
+//            holder.tv_forum_is_hot.setVisibility(View.INVISIBLE);
+//            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
+//        }else if (count == 1){
+//            if (is_essence == 1){
+//                holder.tv_forum_is_essence.setText("精华");
+//            }else if (is_top == 1){
+//                holder.tv_forum_is_essence.setText("置顶");
+//            }else if (is_hot == 1){
+//                holder.tv_forum_is_essence.setText("热门");
+//            }
+//            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
+//            holder.tv_forum_is_hot.setVisibility(View.INVISIBLE);
+//            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
+//        }else if (count == 2){
+//            if (is_essence == 0){
+//                holder.tv_forum_is_essence.setText("置顶");
+//                holder.tv_forum_is_hot.setText("热门");
+//            }else if (is_top == 0){
+//                holder.tv_forum_is_essence.setText("精华");
+//                holder.tv_forum_is_hot.setText("热门");
+//            }else if (is_hot == 0){
+//                holder.tv_forum_is_essence.setText("置顶");
+//                holder.tv_forum_is_hot.setText("精华");
+//            }
+//            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
+//            holder.tv_forum_is_hot.setVisibility(View.VISIBLE);
+//            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
+//        }else {
+//            holder.tv_forum_is_essence.setText("精华");
+//            holder.tv_forum_is_hot.setText("热门");
+//            holder.tv_forum_is_new.setText("置顶");
+//
+//            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
+//            holder.tv_forum_is_hot.setVisibility(View.VISIBLE);
+//            holder.tv_forum_is_new.setVisibility(View.VISIBLE);
+//        }
+
 
         ImageLoader.load(mContext,curBean.getUser().getAvatar_url(),holder.ci_head_img);
 
@@ -88,6 +125,8 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
                 Intent intent = new Intent(mContext, ForumDetailActivity.class);
                 intent.putExtra("id",curBean.getId());
                 intent.putExtra("is_essence",is_essence);
+                intent.putExtra("is_hot",is_hot);
+                intent.putExtra("is_top",is_top);
                 intent.putExtra("author",curBean.getUser().getUsername());
                 intent.putExtra("describeContent",describeContent);
                 mContext.startActivity(intent);
@@ -109,8 +148,14 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
         @BindView(R.id.rl_forum_list_activity)
         RelativeLayout relativeLayout;
 
-        @BindView(R.id.tv_forum_tag)
-        TextView tv_forumTag;
+        @BindView(R.id.tv_forum_is_essence)
+        TextView tv_forum_is_essence;
+        @BindView(R.id.tv_forum_is_hot)
+        TextView tv_forum_is_hot;
+        @BindView(R.id.tv_forum_is_new)
+        TextView tv_forum_is_new;
+
+
         @BindView(R.id.tv_forum_content)
         TextView tv_forumContent;
         @BindView(R.id.ci_head_img)

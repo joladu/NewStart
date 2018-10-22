@@ -3,10 +3,12 @@ package com.jola.onlineedu.ui.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.util.RxUtil;
@@ -40,6 +42,8 @@ public class LiveDetailActivity extends SimpleActivity {
     TextView tv_content_brief;
     @BindView(R.id.tv_content_brief_teacher)
     TextView tv_content_brief_teacher;
+    @BindView(R.id.iv_cover_live)
+    ImageView iv_cover_live;
 
     @Override
     protected int getLayout() {
@@ -61,6 +65,8 @@ public class LiveDetailActivity extends SimpleActivity {
                 .subscribe(new Consumer<ResLiveCourseDetail>() {
                     @Override
                     public void accept(ResLiveCourseDetail resLiveCourseDetail) throws Exception {
+                        String cover_url = resLiveCourseDetail.getCover_url();
+                        ImageLoader.load(LiveDetailActivity.this,cover_url,iv_cover_live);
                         tv_title_live_item.setText(resLiveCourseDetail.getName());
                         star_bar_score.setStarMark(resLiveCourseDetail.getEvaluate());
                         tv_score_num.setText(resLiveCourseDetail.getEvaluate()+"");

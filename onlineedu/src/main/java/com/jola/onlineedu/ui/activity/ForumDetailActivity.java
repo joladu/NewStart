@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.ui.adapter.ForumImagesGridViewAdapter;
@@ -62,7 +63,7 @@ public class ForumDetailActivity extends SimpleActivity {
     @BindView(R.id.view_main)
     RecyclerView recyclerView;
 
-    private List<ResForumDetailBean.DataBean.PostBean.CommentsBean> mListComments;
+    private List<ResForumComments.DataBean.CommentsBean> mListComments;
 //    int mStartIndex = 1;
 
     private ForumImagesGridViewAdapter forumImagesGridViewAdapter;
@@ -71,6 +72,7 @@ public class ForumDetailActivity extends SimpleActivity {
     private int is_essence;
     private String author;
     private String describeContent;
+    private int page = 1;
 
     @Override
     protected int getLayout() {
@@ -197,14 +199,8 @@ public class ForumDetailActivity extends SimpleActivity {
                             }
                             tv_name_author.setText(author);
                             tv_describe_content.setText(describeContent);
-                            mListComments = data.getComments();
-                            tv_num_comments.setText(mListComments.size());
-
-
-
-                            forumListDetailAdapter = new ForumListDetailAdapter(ForumDetailActivity.this, mListComments,dataManager);
-                            recyclerView.setAdapter(forumListDetailAdapter);
-
+//                            mListComments = data.getComments();
+//                            tv_num_comments.setText(mListComments.size());
 
                         }else{
                             ToastUtil.toastLong(resForumDetailBean.getError_msg());
@@ -220,5 +216,34 @@ public class ForumDetailActivity extends SimpleActivity {
         );
 
     }
+
+
+    private void getForumCommentsList(){
+        addSubscribe(dataManager.getForumComments(id+"",page)
+            .compose(RxUtil.<ResForumComments>rxSchedulerHelper())
+                .subscribe(new Consumer<ResForumComments>() {
+                    @Override
+                    public void accept(ResForumComments resForumComments) throws Exception {
+                        int error_code = resForumComments.getError_code();
+                        if (error_code == 0){
+                           mListComments = resForumComments.getData().getComments();
+                           tv_num_comments.setText(mListComments.size());
+                            forumListDetailAdapter = new ForumListDetailAdapter(ForumDetailActivity.this, mListComments,dataManager);
+                            recyclerView.setAdapter(forumListDetailAdapter);
+
+
+                        }else{
+                            ToastUtil.toastShort("获取评论失败！");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                })
+        );
+    }
+
 
 }
