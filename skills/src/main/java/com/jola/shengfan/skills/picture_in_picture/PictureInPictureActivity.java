@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.Configuration;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
@@ -24,6 +25,8 @@ import android.widget.ScrollView;
 
 import com.jola.shengfan.skills.R;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**

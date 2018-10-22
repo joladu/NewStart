@@ -45,7 +45,7 @@
         android:layout_below="@+id/tv_forum_content"
         android:layout_marginBottom="@dimen/margin_content_to_border"
         android:layout_marginTop="5dp"
-        android:src="@drawable/image_placeholder_loading"
+        android:src="@drawable/person_holder_logout_x2"
         />
 
     <TextView

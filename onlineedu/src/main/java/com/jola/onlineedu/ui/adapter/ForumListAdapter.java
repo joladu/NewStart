@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
 import com.jola.onlineedu.util.TimeFormatUtil;
@@ -68,6 +70,8 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
         }else{
             holder.tv_forumTag.setVisibility(View.INVISIBLE);
         }
+
+        ImageLoader.load(mContext,curBean.getUser().getAvatar_url(),holder.ci_head_img);
 
         holder.tv_forumContent.setText(curBean.getTitle());
 

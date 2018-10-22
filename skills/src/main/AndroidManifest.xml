@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jola.shengfan.skills">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,20 +25,20 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:supportsPictureInPicture="true" />
         <activity android:name=".picture_in_picture.MediaSessionPlaybackActivity" />
+        <activity android:name=".ai.tensor_flow_google.TensorFlowLiteActivity" />
 
-        <activity android:name=".ai.tensor_flow_google.TensorFlowLiteActivity"/>
         <provider
-            android:authorities="com.jola.shengfan.skills.provider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.jola.shengfan.skills.provider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            >
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"
-                />
-
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".custome_widget.pie.AnimatedPieActivity" />
+        <activity android:name=".custome_widget.pie.CustomeWidgetActivity"/>
     </application>
 
 </manifest>

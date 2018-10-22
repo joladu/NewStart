@@ -112,7 +112,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
             ToastUtil.toastShort("请输入11位数字手机号码！");
             return;
         }
-        tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.divide_line_gray));
+        tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.gray_tip_logout));
         tv_getCheckCode.setEnabled(false);
         disposableCountDown = Flowable.interval(0, 1, TimeUnit.SECONDS)
                 .take(60)
@@ -126,7 +126,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        Log.e("jola", "time:" + aLong + "s");
+//                        Log.e("jola", "time:" + aLong + "s");
                         tv_getCheckCode.setText(aLong + "s");
                         if (aLong <= 1) {
                             tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.colorAccent));
@@ -144,7 +144,7 @@ public class ForgetPasswordActivity extends SimpleActivity {
                         int error_code = responseSimpleResult.getError_code();
                         if (error_code == 0) {
                             ToastUtil.toastShort("获取验证码成功！");
-                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.divide_line_gray));
+                            tv_getCheckCode.setBackgroundColor(getResources().getColor(R.color.gray_tip_logout));
                             tv_getCheckCode.setEnabled(false);
                         } else {
                             ToastUtil.toastShort("获取验证码失败：" + responseSimpleResult.getError_msg());

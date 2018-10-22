@@ -164,7 +164,7 @@ public class ForumListActivity extends SimpleActivity {
                 if (TextUtils.isEmpty(searchKey)){
                     searchKey = "";
                 }
-                getForumList(searchKey.length() == 0 ? null : searchKey,curForumTypeId);
+                refreshForumList(searchKey.length() == 0 ? null : searchKey,curForumTypeId);
             }
         });
 
@@ -226,6 +226,47 @@ public class ForumListActivity extends SimpleActivity {
     private void getForumList(String keyWord, String forumType) {
         page = 1;
         stateLoading();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type",forumType);
+        map.put("page",page+"");
+        map.put("pageSize","10");
+        if (null != keyWord && keyWord.length() > 0){
+            map.put("kw",keyWord);
+        }
+        addSubscribe(dataManager.getForumListByType(map)
+                .compose(RxUtil.<ResForumListByTypeBean>rxSchedulerHelper())
+                .subscribe(new Consumer<ResForumListByTypeBean>() {
+                    @Override
+                    public void accept(ResForumListByTypeBean forumListByTypeBean) throws Exception {
+                        int error_code = forumListByTypeBean.getError_code();
+                        if (error_code == 0) {
+//                            List<ResForumListByTypeBean.DataBean.PostsBean> posts = forumListByTypeBean.getData().getPosts();
+                            mList = forumListByTypeBean.getData().getPosts();
+                            mAdapter = new ForumListAdapter(ForumListActivity.this, mList);
+                            rv_list.setAdapter(mAdapter);
+                            if (mList.size() == 0){
+                                stateEmpty();
+                            }else{
+                                stateMain();
+                            }
+                        }else{
+                            stateError();
+                        }
+                        smartRefreshLayout.finishRefresh();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+//                        String message = throwable.getMessage();
+                        stateError();
+                        smartRefreshLayout.finishRefresh();
+                    }
+                }));
+    }
+
+    private void refreshForumList(String keyWord, String forumType) {
+        page = 1;
+//        stateLoading();
         HashMap<String, String> map = new HashMap<>();
         map.put("type",forumType);
         map.put("page",page+"");

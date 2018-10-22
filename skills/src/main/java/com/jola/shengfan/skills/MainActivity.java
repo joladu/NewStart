@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jola.shengfan.skills.ai.tensor_flow_google.TensorFlowLiteActivity;
+import com.jola.shengfan.skills.custome_widget.pie.CustomeWidgetActivity;
 import com.jola.shengfan.skills.picture_in_picture.PictureInPictureActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,4 +24,10 @@ public class MainActivity extends AppCompatActivity {
     public void tensorFlow(View veiw){
         startActivity(new Intent(this, TensorFlowLiteActivity.class));
     }
+
+    public void animatedPieView(View veiw){
+        startActivity(new Intent(this, CustomeWidgetActivity.class));
+    }
+
+
 }

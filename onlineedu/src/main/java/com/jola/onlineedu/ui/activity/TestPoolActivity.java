@@ -310,9 +310,6 @@ public class TestPoolActivity extends SimpleActivity {
         popupWindow.showAsDropDown(view,0,10, Gravity.CENTER);
 
 
-
-
-
     }
 
 
