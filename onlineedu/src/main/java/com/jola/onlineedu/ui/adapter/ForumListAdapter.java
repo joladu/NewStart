@@ -7,18 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
 import com.jola.onlineedu.util.TimeFormatUtil;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -64,48 +60,54 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
 
         final ResForumListByTypeBean.DataBean.PostsBean curBean = mList.get(position);
 
+
         final int is_essence = curBean.getIs_essence();
         final int is_hot = curBean.getIs_hot();
-        final int is_top = curBean.getIs_top();
+//        final int is_top = curBean.getIs_top();
+//        is_top ：最新
+        final int is_top = curBean.getIs_new();
         int count = is_essence + is_hot + is_top;
-//        if (count == 0){
-//            holder.tv_forum_is_essence.setVisibility(View.INVISIBLE);
-//            holder.tv_forum_is_hot.setVisibility(View.INVISIBLE);
-//            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
-//        }else if (count == 1){
-//            if (is_essence == 1){
-//                holder.tv_forum_is_essence.setText("精华");
-//            }else if (is_top == 1){
-//                holder.tv_forum_is_essence.setText("置顶");
-//            }else if (is_hot == 1){
-//                holder.tv_forum_is_essence.setText("热门");
-//            }
-//            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
-//            holder.tv_forum_is_hot.setVisibility(View.INVISIBLE);
-//            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
-//        }else if (count == 2){
-//            if (is_essence == 0){
-//                holder.tv_forum_is_essence.setText("置顶");
-//                holder.tv_forum_is_hot.setText("热门");
-//            }else if (is_top == 0){
-//                holder.tv_forum_is_essence.setText("精华");
-//                holder.tv_forum_is_hot.setText("热门");
-//            }else if (is_hot == 0){
-//                holder.tv_forum_is_essence.setText("置顶");
-//                holder.tv_forum_is_hot.setText("精华");
-//            }
-//            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
-//            holder.tv_forum_is_hot.setVisibility(View.VISIBLE);
-//            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
-//        }else {
-//            holder.tv_forum_is_essence.setText("精华");
-//            holder.tv_forum_is_hot.setText("热门");
-//            holder.tv_forum_is_new.setText("置顶");
-//
-//            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
-//            holder.tv_forum_is_hot.setVisibility(View.VISIBLE);
-//            holder.tv_forum_is_new.setVisibility(View.VISIBLE);
-//        }
+
+//        Log.e("jola_forum","bean id :"+curBean.getId() + " is_essence:"+is_essence+ " is_hot:"+is_hot+ " is_top:"+is_top + "  count: "+count);
+
+        if (count == 0){
+            holder.tv_forum_is_essence.setVisibility(View.INVISIBLE);
+            holder.tv_forum_is_hot.setVisibility(View.INVISIBLE);
+            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
+        }else if (count == 1){
+            if (is_essence == 1){
+                holder.tv_forum_is_essence.setText("精华");
+            }else if (is_top == 1){
+                holder.tv_forum_is_essence.setText("最新");
+            }else if (is_hot == 1){
+                holder.tv_forum_is_essence.setText("热门");
+            }
+            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
+            holder.tv_forum_is_hot.setVisibility(View.INVISIBLE);
+            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
+        }else if (count == 2){
+            if (is_essence == 0){
+                holder.tv_forum_is_essence.setText("最新");
+                holder.tv_forum_is_hot.setText("热门");
+            }else if (is_top == 0){
+                holder.tv_forum_is_essence.setText("精华");
+                holder.tv_forum_is_hot.setText("热门");
+            }else if (is_hot == 0){
+                holder.tv_forum_is_essence.setText("最新");
+                holder.tv_forum_is_hot.setText("精华");
+            }
+            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
+            holder.tv_forum_is_hot.setVisibility(View.VISIBLE);
+            holder.tv_forum_is_new.setVisibility(View.INVISIBLE);
+        }else {
+            holder.tv_forum_is_essence.setText("精华");
+            holder.tv_forum_is_hot.setText("热门");
+            holder.tv_forum_is_new.setText("最新");
+
+            holder.tv_forum_is_essence.setVisibility(View.VISIBLE);
+            holder.tv_forum_is_hot.setVisibility(View.VISIBLE);
+            holder.tv_forum_is_new.setVisibility(View.VISIBLE);
+        }
 
 
         ImageLoader.load(mContext,curBean.getUser().getAvatar_url(),holder.ci_head_img);
@@ -126,7 +128,7 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
                 intent.putExtra("id",curBean.getId());
                 intent.putExtra("is_essence",is_essence);
                 intent.putExtra("is_hot",is_hot);
-                intent.putExtra("is_top",is_top);
+                intent.putExtra("is_new",is_top);
                 intent.putExtra("author",curBean.getUser().getUsername());
                 intent.putExtra("describeContent",describeContent);
                 mContext.startActivity(intent);

@@ -41,8 +41,13 @@ public class ForumDetailActivity extends SimpleActivity {
 
     @BindView(R.id.tv_title_forum)
     TextView tv_title_forum;
-    @BindView(R.id.tv_forum_tag)
-    TextView tv_forum_tag;
+    @BindView(R.id.tv_forum_is_essence)
+    TextView tv_forum_is_essence;
+    @BindView(R.id.tv_forum_is_hot)
+    TextView tv_forum_is_hot;
+    @BindView(R.id.tv_forum_is_new)
+    TextView tv_forum_is_new;
+
     @BindView(R.id.tv_forum_content)
     TextView tv_forum_content;
     @BindView(R.id.gv_forum_imgs)
@@ -70,6 +75,8 @@ public class ForumDetailActivity extends SimpleActivity {
     private ForumListDetailAdapter forumListDetailAdapter;
     private int id;
     private int is_essence;
+    private int is_hot;
+    private int is_new;
     private String author;
     private String describeContent;
     private int page = 1;
@@ -113,10 +120,12 @@ public class ForumDetailActivity extends SimpleActivity {
     protected void initEventAndData() {
         setToolBar(toolbar,getString(R.string.forum_detail));
         getActivityComponent().inject(this);
-        tv_forum_tag.setVisibility(View.INVISIBLE);
 
         id = getIntent().getIntExtra("id",0);
         is_essence = getIntent().getIntExtra("is_essence",0);
+        is_hot = getIntent().getIntExtra("is_essence",0);
+        is_new = getIntent().getIntExtra("is_essence",0);
+
         author = getIntent().getStringExtra("author");
         describeContent = getIntent().getStringExtra("describeContent");
 
@@ -185,8 +194,13 @@ public class ForumDetailActivity extends SimpleActivity {
                             ResForumDetailBean.DataBean.PostBean data = resForumDetailBean.getData().getPost();
                             tv_title_forum.setText(data.getTitle());
                             if (is_essence == 1){
-                                tv_forum_tag.setText(getString(R.string.forum_essence));
-                                tv_forum_tag.setVisibility(View.VISIBLE);
+                                tv_forum_is_essence.setVisibility(View.VISIBLE);
+                            }
+                            if (is_hot == 1){
+                                tv_forum_is_hot.setVisibility(View.VISIBLE);
+                            }
+                            if (is_new == 1){
+                                tv_forum_is_new.setVisibility(View.VISIBLE);
                             }
                             tv_forum_content.setText(data.getTitle());
                             List<String> images = data.getImages();
@@ -230,6 +244,7 @@ public class ForumDetailActivity extends SimpleActivity {
                            tv_num_comments.setText(mListComments.size());
                             forumListDetailAdapter = new ForumListDetailAdapter(ForumDetailActivity.this, mListComments,dataManager);
                             recyclerView.setAdapter(forumListDetailAdapter);
+
 
 
                         }else{

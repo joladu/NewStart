@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title_forum" />
 
         <TextView
-            android:id="@+id/tv_forum_tag"
+            android:id="@+id/tv_forum_is_essence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -57,7 +57,44 @@
             android:gravity="center"
             android:textColor="#000"
             android:textSize="11sp"
-           />
+            android:visibility="gone"
+            android:text="精华"
+            />
+
+        <TextView
+            android:id="@+id/tv_forum_is_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/tv_forum_is_essence"
+            app:layout_constraintTop_toBottomOf="@+id/view_divide_below_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/qb_px_10"
+            android:gravity="center"
+            android:text="热门"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:background="@drawable/shape_rectangle_orange_bg"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tv_forum_is_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/tv_forum_is_hot"
+            app:layout_constraintTop_toBottomOf="@+id/view_divide_below_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/qb_px_10"
+            android:gravity="center"
+            android:text="最新"
+            android:textColor="@color/window_bg"
+            android:textSize="11sp"
+            android:background="@drawable/shape_rectangle_gray_bg"
+            android:visibility="gone"
+            />
+        
+        
+        
 
         <TextView
             android:id="@+id/tv_forum_content"
@@ -68,7 +105,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/gray_content_forum_text"
             android:textSize="@dimen/forum_content_text_size"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forum_tag" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_forum_is_essence" />
 
         <com.jola.onlineedu.widget.CustomGridView
             android:layout_width="match_parent"

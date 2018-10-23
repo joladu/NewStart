@@ -52,9 +52,11 @@ public class AnimatedPieView extends View {
         int height = getHeight() - getPaddingTop() - getPaddingBottom();
 
         float radius = (float)(Math.min(width, height) / 2 * 0.85);
-        mRectF.set(-radius,-radius,radius,radius);
+
 
         canvas.translate(width/2,height/2);
+
+        mRectF.set(-radius,-radius,radius,radius);
 
         mPaint.setColor(Color.GREEN);
         canvas.drawArc(mRectF,0,120,false,mPaint);
@@ -66,4 +68,7 @@ public class AnimatedPieView extends View {
         canvas.drawArc(mRectF,240,120,false,mPaint);
 
     }
+
+
+
 }
