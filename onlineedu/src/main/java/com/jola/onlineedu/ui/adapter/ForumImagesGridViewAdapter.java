@@ -58,7 +58,7 @@ public class ForumImagesGridViewAdapter extends BaseAdapter {
         }
         Glide.with(context)
                 .load(mList.get(position))
-                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder_loading).error(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
+                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder_loading).error(R.drawable.image_placeholder_fail))
                 .into(viewHolder.imageView);
         return convertView;
     }

@@ -244,9 +244,6 @@ public class ForumDetailActivity extends SimpleActivity {
                            tv_num_comments.setText(mListComments.size());
                             forumListDetailAdapter = new ForumListDetailAdapter(ForumDetailActivity.this, mListComments,dataManager);
                             recyclerView.setAdapter(forumListDetailAdapter);
-
-
-
                         }else{
                             ToastUtil.toastShort("获取评论失败！");
                         }
