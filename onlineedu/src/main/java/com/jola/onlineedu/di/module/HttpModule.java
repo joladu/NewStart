@@ -1,8 +1,12 @@
 package com.jola.onlineedu.di.module;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.jola.onlineedu.BuildConfig;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.mode.http.MyApis;
+import com.jola.onlineedu.mode.prefs.PreferencesHelperImpl;
 import com.jola.onlineedu.util.SystemUtil;
 
 import java.io.File;
@@ -79,6 +83,11 @@ public class HttpModule {
 
 //                head 头部添加token
 //                request = request.newBuilder().addHeader("token", "value_token").build();
+
+                String token = App.getInstance().getSharedPreferences(PreferencesHelperImpl.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE).getString(PreferencesHelperImpl.TAG_USER_TOKEN, "");
+                request = request.newBuilder().addHeader("authorization", token).build();
+
+//                Log.e("jolaaaa",token);
 //
                 if (!SystemUtil.isNetworkConnected()) {
                     request = request.newBuilder()

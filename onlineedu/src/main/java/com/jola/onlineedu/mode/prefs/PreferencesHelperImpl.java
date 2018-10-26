@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class PreferencesHelperImpl implements PreferencesHelper {
 
 
-    private static final String SHAREDPREFERENCES_NAME = "online_edu_sp";
+    public static final String SHAREDPREFERENCES_NAME = "online_edu_sp";
 
     public static final String SP_NIGHT_MODE = "night_mode";
     public static final String  TAG_MAIN_SHOW_FRAGMENT = "main_fragment";

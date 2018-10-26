@@ -122,6 +122,9 @@ public interface MyApis {
     @FormUrlEncoded
     Flowable<ResUploadUserImageBean> uploadUserImage(@Header("authorization") String token,@Field("avatar_binary") String imageBase64Str);
 
+    @PUT("v1/user/change/profile/")
+    Flowable<ResponseSimpleResult> updateUserProfile(@QueryMap Map<String,String> map);
+
 
 //   ***************** end user api  *****************
 

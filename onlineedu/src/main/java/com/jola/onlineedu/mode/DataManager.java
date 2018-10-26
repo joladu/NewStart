@@ -140,6 +140,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResponseSimpleResult> updateUserProfile(Map<String, String> map) {
+        return myApis.updateUserProfile(map);
+    }
+
+    @Override
     public Flowable<ResForumTypeBean> getForumTypeInfo() {
         return myApis.getForumTypeInfo();
     }
