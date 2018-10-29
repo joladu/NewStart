@@ -73,22 +73,6 @@ public class HttpModule {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-
-//                get方式添加token，在所有请求链接中添加token  相当于url?token=value_token
-//                HttpUrl httpUrl = request.url().newBuilder()
-//                        .addQueryParameter("token", "token_value")
-//                        .build();
-//                Request requestHttpUrl = request.newBuilder().url(httpUrl).build();
-//                chain.proceed(requestHttpUrl);
-
-//                head 头部添加token
-//                request = request.newBuilder().addHeader("token", "value_token").build();
-
-                String token = App.getInstance().getSharedPreferences(PreferencesHelperImpl.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE).getString(PreferencesHelperImpl.TAG_USER_TOKEN, "");
-                request = request.newBuilder().addHeader("authorization", token).build();
-
-//                Log.e("jolaaaa",token);
-//
                 if (!SystemUtil.isNetworkConnected()) {
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
@@ -113,18 +97,18 @@ public class HttpModule {
                 return response;
             }
         };
-//        Interceptor apikey = new Interceptor() {
-//            @Override
-//            public Response intercept(Chain chain) throws IOException {
-//                Request request = chain.request();
-//                request = request.newBuilder()
-//                        .addHeader("apikey",Constants.KEY_API)
-//                        .build();
-//                return chain.proceed(request);
-//            }
-//        }
+        Interceptor tokenInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                String token = App.getInstance().getSharedPreferences(PreferencesHelperImpl.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE).getString(PreferencesHelperImpl.TAG_USER_TOKEN, "");
+                request = request.newBuilder().addHeader("authorization", token)
+                        .build();
+                return chain.proceed(request);
+            }
+        };
 //        设置统一的请求头部参数
-//        builder.addInterceptor(apikey);
+        builder.addInterceptor(tokenInterceptor);
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);

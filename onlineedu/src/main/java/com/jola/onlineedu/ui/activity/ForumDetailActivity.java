@@ -123,13 +123,15 @@ public class ForumDetailActivity extends SimpleActivity {
 
         id = getIntent().getIntExtra("id",0);
         is_essence = getIntent().getIntExtra("is_essence",0);
-        is_hot = getIntent().getIntExtra("is_essence",0);
-        is_new = getIntent().getIntExtra("is_essence",0);
+        is_hot = getIntent().getIntExtra("is_hot",0);
+        is_new = getIntent().getIntExtra("is_new",0);
 
         author = getIntent().getStringExtra("author");
         describeContent = getIntent().getStringExtra("describeContent");
 
         getForumDetail();
+
+        getForumCommentsList();
 
 
 //        模拟帖子有图片数据

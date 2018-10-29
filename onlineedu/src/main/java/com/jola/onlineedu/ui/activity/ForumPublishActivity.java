@@ -213,16 +213,19 @@ public class ForumPublishActivity extends SimpleActivity {
         showLoadingDialog();
         if (null == curForumTypeId || curForumTypeId.length() == 0){
             ToastUtil.toastShort(getString(R.string.tip_no_forum_type_selected));
+            hideLoadingDialog();
             return;
         }
         String title = et_input_title_forum.getText().toString();
         if (TextUtils.isEmpty(title)){
             ToastUtil.toastShort(getString(R.string.tip_no_forum_title));
+            hideLoadingDialog();
             return;
         }
         String content = et_input_content_forum.getText().toString();
         if (TextUtils.isEmpty(title)){
             ToastUtil.toastShort(getString(R.string.tip_no_forum_content));
+            hideLoadingDialog();
             return;
         }
 
@@ -235,10 +238,10 @@ public class ForumPublishActivity extends SimpleActivity {
                         int error_code = resultBean.getError_code();
                         if (error_code == 0) {
                             clearnCache();
+                            ToastUtil.toastShort("发帖成功！");
                         }else{
-
+                            ToastUtil.toastShort("发帖失败："+resultBean.getError_msg());
                         }
-                        ToastUtil.toastShort(resultBean.getError_msg());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
