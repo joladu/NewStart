@@ -28,10 +28,6 @@
 #end video player
 
 
-
-
-
-
 #begin PictureSelector
 
 #PictureSelector 2.0

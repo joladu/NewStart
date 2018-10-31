@@ -38,7 +38,8 @@
         </provider>
 
         <activity android:name=".custome_widget.pie.AnimatedPieActivity" />
-        <activity android:name=".custome_widget.pie.CustomeWidgetActivity"/>
+        <activity android:name=".custome_widget.pie.CustomeWidgetActivity" />
+        <activity android:name=".ui_adapter.UiAdapterActivity"></activity>
     </application>
 
 </manifest>

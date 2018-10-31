@@ -130,6 +130,9 @@ public class PictureInPictureActivity extends AppCompatActivity {
         // arguments will be used for at the next call of #enterPictureInPictureMode.
         setPictureInPictureParams(mPictureInPictureParamsBuilder.build());
 
+
+
+
     }
 
 

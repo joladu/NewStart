@@ -1,9 +1,17 @@
 package com.jola.onlineedu.ui.activity;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
@@ -11,8 +19,19 @@ import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
+import com.jola.onlineedu.util.DataUtils;
+import com.jola.onlineedu.util.PUtil;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.video.play.DataInter;
+import com.jola.onlineedu.video.play.ReceiverGroupManager;
 import com.jola.onlineedu.widget.StarBar;
+import com.kk.taurus.playerbase.assist.InterEvent;
+import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
+import com.kk.taurus.playerbase.entity.DataSource;
+import com.kk.taurus.playerbase.event.OnPlayerEventListener;
+import com.kk.taurus.playerbase.player.IPlayer;
+import com.kk.taurus.playerbase.receiver.ReceiverGroup;
+import com.kk.taurus.playerbase.widget.BaseVideoView;
 
 import javax.inject.Inject;
 
@@ -20,7 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
-public class LiveDetailActivity extends SimpleActivity {
+public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventListener{
 
 
     @Inject
@@ -42,8 +61,21 @@ public class LiveDetailActivity extends SimpleActivity {
     TextView tv_content_brief;
     @BindView(R.id.tv_content_brief_teacher)
     TextView tv_content_brief_teacher;
-    @BindView(R.id.iv_cover_live)
-    ImageView iv_cover_live;
+
+    @BindView(R.id.base_video_view)
+    BaseVideoView mVideoView;
+
+    //    @BindView(R.id.iv_cover_live)
+//    ImageView iv_cover_live;
+
+    private ReceiverGroup mReceiverGroup;
+
+
+    private boolean userPause;
+    private boolean isLandscape;
+
+    private boolean hasStart;
+
 
     @Override
     protected int getLayout() {
@@ -53,10 +85,97 @@ public class LiveDetailActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
         getActivityComponent().inject(this);
-        changeFullScreen();
+
+        //        changeFullScreen();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
+        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
+        mVideoView.setReceiverGroup(mReceiverGroup);
+        mVideoView.setEventHandler(onVideoViewEventHandler);
+        mVideoView.setOnPlayerEventListener(this);
+
+
         id = getIntent().getIntExtra("id", 0);
         loadData();
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int state = mVideoView.getState();
+        if(state == IPlayer.STATE_PLAYBACK_COMPLETE)
+            return;
+        if(mVideoView.isInPlaybackState()){
+            if(!userPause)
+                mVideoView.resume();
+        }else{
+            mVideoView.rePlay(0);
+        }
+        initPlay();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        int state = mVideoView.getState();
+        if(state == IPlayer.STATE_PLAYBACK_COMPLETE)
+            return;
+        if(mVideoView.isInPlaybackState()){
+            mVideoView.pause();
+        }else{
+            mVideoView.stop();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mVideoView.stopPlayback();
+    }
+
+
+
+
+    private void initPlay(){
+        if(!hasStart){
+//            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_01));
+            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
+            mVideoView.start();
+            hasStart = true;
+        }
+    }
+
+    private OnVideoViewEventHandler onVideoViewEventHandler = new OnVideoViewEventHandler(){
+        @Override
+        public void onAssistHandle(BaseVideoView assist, int eventCode, Bundle bundle) {
+            super.onAssistHandle(assist, eventCode, bundle);
+            switch (eventCode){
+                case InterEvent.CODE_REQUEST_PAUSE:
+                    userPause = true;
+                    break;
+                case DataInter.Event.EVENT_CODE_REQUEST_BACK:
+                    if(isLandscape){
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }else{
+                        finish();
+                    }
+                    break;
+                case DataInter.Event.EVENT_CODE_REQUEST_TOGGLE_SCREEN:
+                    setRequestedOrientation(isLandscape ?
+                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    break;
+                case DataInter.Event.EVENT_CODE_ERROR_SHOW:
+                    mVideoView.stop();
+                    break;
+            }
+        }
+    };
+
+
 
     private void loadData() {
         showLoadingDialog();
@@ -66,7 +185,7 @@ public class LiveDetailActivity extends SimpleActivity {
                     @Override
                     public void accept(ResLiveCourseDetail resLiveCourseDetail) throws Exception {
                         String cover_url = resLiveCourseDetail.getCover_url();
-                        ImageLoader.load(LiveDetailActivity.this,cover_url,iv_cover_live);
+//                        ImageLoader.load(LiveDetailActivity.this,cover_url,iv_cover_live);
                         tv_title_live_item.setText(resLiveCourseDetail.getName());
                         star_bar_score.setStarMark(resLiveCourseDetail.getEvaluate());
                         tv_score_num.setText(resLiveCourseDetail.getEvaluate()+"");
@@ -102,5 +221,58 @@ public class LiveDetailActivity extends SimpleActivity {
                 break;
         }
     }
+
+    @Override
+    public void onBackPressedSupport() {
+        if(isLandscape){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            isLandscape = true;
+            updateVideo(true);
+        }else{
+            isLandscape = false;
+            updateVideo(false);
+        }
+        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_LANDSCAPE, isLandscape);
+    }
+
+    private void updateVideo(boolean landscape){
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) mVideoView.getLayoutParams();
+        if(landscape){
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.setMargins(0, 0, 0, 0);
+        }else{
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = PUtil.dip2px(this,180);
+            layoutParams.setMargins(0, 0, 0, 0);
+        }
+        mVideoView.setLayoutParams(layoutParams);
+    }
+
+
+    @Override
+    public void onPlayerEvent(int eventCode, Bundle bundle) {
+        switch (eventCode){
+            case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
+
+                break;
+        }
+    }
+
+    private void replay(){
+//        mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_01));
+        mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
+        mVideoView.start();
+    }
+
 
 }

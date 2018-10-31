@@ -1,0 +1,12 @@
+{
+  "version" : "1.0.0",
+  "bundles" : [
+    {
+      "uri" : "main",
+      "pkg" : "com.jola.small.plugin.plugin_small"
+    },{
+      "uri" : "app.main",
+      "pkg" : "com.jola.small.plugin.appmain"
+    }
+  ]
+}

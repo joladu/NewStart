@@ -49,7 +49,10 @@
         <activity android:name=".ui.activity.ForumPublishActivity" />
         <activity android:name=".ui.activity.TestPoolActivity" />
         <activity android:name=".ui.activity.SelectableCourseActivity" />
-        <activity android:name=".ui.activity.LiveDetailActivity"/>
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <activity android:name=".ui.activity.LiveDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity android:name=".ui.activity.CourseDetailActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.activity.TeacherMasterActivity"/>

@@ -11,42 +11,55 @@
         android:layout_height="wrap_content"
         android:background="@color/window_bg">
 
-        <FrameLayout
-            android:id="@+id/fl_live_image"
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/qb_px_15"
+            android:layout_height="@dimen/qb_px_25"
+            android:layout_marginStart="@dimen/qb_px_20"
+            android:layout_marginTop="@dimen/qb_px_40"
+            android:src="@drawable/back_icon__white_x2" />
+
+        <com.kk.taurus.playerbase.widget.BaseVideoView
+            android:id="@+id/base_video_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/qb_px_235">
+            android:layout_height="180dp"/>
 
-            <ImageView
-                android:id="@+id/iv_cover_live"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/shape_gray_bg"
-                android:scaleType="fitXY"
-                />
+        <!--<FrameLayout-->
+            <!--android:id="@+id/fl_live_image"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/qb_px_235">-->
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="@dimen/qb_px_15"
-                android:layout_height="@dimen/qb_px_25"
-                android:layout_marginStart="@dimen/qb_px_20"
-                android:layout_marginTop="@dimen/qb_px_40"
-                android:src="@drawable/back_icon__white_x2" />
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_cover_live"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:src="@drawable/shape_gray_bg"-->
+                <!--android:scaleType="fitXY"-->
+                <!--/>-->
 
-            <ImageView
-                android:layout_width="@dimen/qb_px_60"
-                android:layout_height="@dimen/qb_px_60"
-                android:layout_gravity="center"
-                android:src="@drawable/play_icon_x2" />
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_back"-->
+                <!--android:layout_width="@dimen/qb_px_15"-->
+                <!--android:layout_height="@dimen/qb_px_25"-->
+                <!--android:layout_marginStart="@dimen/qb_px_20"-->
+                <!--android:layout_marginTop="@dimen/qb_px_40"-->
+                <!--android:src="@drawable/back_icon__white_x2" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="5dp"
-                android:background="@drawable/shape_bg_black_live_status"
-                android:text="正在直播"
-                android:textColor="@color/window_bg" />
-        </FrameLayout>
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/qb_px_60"-->
+                <!--android:layout_height="@dimen/qb_px_60"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/play_icon_x2" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="bottom|right"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:background="@drawable/shape_bg_black_live_status"-->
+                <!--android:text="正在直播"-->
+                <!--android:textColor="@color/window_bg" />-->
+        <!--</FrameLayout>-->
 
         <TextView
             android:id="@+id/tv_title_live_item"
@@ -60,7 +73,7 @@
             android:textColor="@color/title_text"
             android:textSize="@dimen/title_toolbar_text_size"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_live_image" />
+            app:layout_constraintTop_toBottomOf="@+id/base_video_view" />
 
 
         <com.jola.onlineedu.widget.StarBar

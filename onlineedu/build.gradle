@@ -107,10 +107,12 @@ dependencies {
     //    labels select
     implementation 'com.github.donkingliang:LabelsView:1.4.2'
 
+//    video
+    implementation 'cn.jiajunhui:ijkplayer:3322_088_002'
 //    //    video decode
 //    implementation 'com.kk.taurus.playerbase:playerbase:3.3.1'
 //    //    media loader
-//    implementation 'com.jiajunhui.xapp.medialoader:medialoader:1.2.1'
+    implementation 'com.jiajunhui.xapp.medialoader:medialoader:1.2.1'
 
 
     //    debug db
