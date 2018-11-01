@@ -108,11 +108,26 @@ dependencies {
     implementation 'com.github.donkingliang:LabelsView:1.4.2'
 
 //    video
-    implementation 'cn.jiajunhui:ijkplayer:3322_088_002'
+
+    implementation 'com.kk.taurus.playerbase:playerbase:3.3.2.2'
+
+//    implementation 'cn.jiajunhui:ijkplayer:3322_088_002'
 //    //    video decode
 //    implementation 'com.kk.taurus.playerbase:playerbase:3.3.1'
 //    //    media loader
     implementation 'com.jiajunhui.xapp.medialoader:medialoader:1.2.1'
+
+
+    //---------如果使用ijkPlayer解码，使用以下依赖。---------
+    //该依赖包含ijkplayer解码和MediaPlayer解码
+//    implementation 'cn.jiajunhui:ijkplayer:3322_088_002'
+//    //ijk官方的解码库依赖，较少格式版本且不支持HTTPS。
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+////    # Other ABIs: optional
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+    //    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'  //not available in 19 (21+)
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8' //not available in 19 (21+)
 
 
     //    debug db
