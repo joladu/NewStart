@@ -13,7 +13,7 @@ public class ResLiveCourseDetail {
      * id : 1
      * user : 1
      * name : 物理课程直播
-     * cover_url : http://yunketang.dev.attackt.com/media/cover_1539338864.jpg
+     * cover_url : /media/cover_1539338864.jpg
      * see_count : 1
      * speaker : 李先生
      * hot : 0
@@ -25,10 +25,9 @@ public class ResLiveCourseDetail {
      3、总结
      * intro : 直播天体运动
      * categories : [{"id":2,"name":"物理"}]
-     * releated_courses : [{"id":2,"user":1,"name":"直播操作系统课程","cover_url":"http://yunketang.dev.attackt.com/media/cover_1539338871.jpg","see_count":1,"speaker":"张老师","hot":0,"evaluate":0,"price":"58.0","duration":"","menu":"1、绪论\r\n2、正文\r\n3、总结","intro":"计算机操作系统概论","categories":[{"id":3,"name":"计算机"}]}]
+     * releated_courses : [{"id":2,"user":1,"name":"直播操作系统课程","cover_url":"/media/cover_1539338871.jpg","see_count":1,"speaker":"张老师","hot":0,"evaluate":0,"price":"58.0","duration":"","menu":"1、绪论\r\n2、正文\r\n3、总结","intro":"计算机操作系统概论","categories":[{"id":3,"name":"计算机"}]}]
      * share_resources : []
-     * summary :
-     * teaching_courses :
+     * teacher_profile : {"username":"","name":"","avatar":"","sex":null,"teacher_certification_id":"","teacher_certification":"","id_card_front_pic":"","id_card_behind_pic":"","summary":"","teaching_courses":"","hot":null,"score":null}
      */
 
     private int id;
@@ -43,8 +42,7 @@ public class ResLiveCourseDetail {
     private String duration;
     private String menu;
     private String intro;
-    private String summary;
-    private String teaching_courses;
+    private TeacherProfileBean teacher_profile;
     private List<CategoriesBean> categories;
     private List<ReleatedCoursesBean> releated_courses;
     private List<?> share_resources;
@@ -145,20 +143,12 @@ public class ResLiveCourseDetail {
         this.intro = intro;
     }
 
-    public String getSummary() {
-        return summary;
+    public TeacherProfileBean getTeacher_profile() {
+        return teacher_profile;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getTeaching_courses() {
-        return teaching_courses;
-    }
-
-    public void setTeaching_courses(String teaching_courses) {
-        this.teaching_courses = teaching_courses;
+    public void setTeacher_profile(TeacherProfileBean teacher_profile) {
+        this.teacher_profile = teacher_profile;
     }
 
     public List<CategoriesBean> getCategories() {
@@ -183,6 +173,132 @@ public class ResLiveCourseDetail {
 
     public void setShare_resources(List<?> share_resources) {
         this.share_resources = share_resources;
+    }
+
+    public static class TeacherProfileBean {
+        /**
+         * username :
+         * name :
+         * avatar :
+         * sex : null
+         * teacher_certification_id :
+         * teacher_certification :
+         * id_card_front_pic :
+         * id_card_behind_pic :
+         * summary :
+         * teaching_courses :
+         * hot : null
+         * score : null
+         */
+
+        private String username;
+        private String name;
+        private String avatar;
+        private Object sex;
+        private String teacher_certification_id;
+        private String teacher_certification;
+        private String id_card_front_pic;
+        private String id_card_behind_pic;
+        private String summary;
+        private String teaching_courses;
+        private Object hot;
+        private Object score;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public Object getSex() {
+            return sex;
+        }
+
+        public void setSex(Object sex) {
+            this.sex = sex;
+        }
+
+        public String getTeacher_certification_id() {
+            return teacher_certification_id;
+        }
+
+        public void setTeacher_certification_id(String teacher_certification_id) {
+            this.teacher_certification_id = teacher_certification_id;
+        }
+
+        public String getTeacher_certification() {
+            return teacher_certification;
+        }
+
+        public void setTeacher_certification(String teacher_certification) {
+            this.teacher_certification = teacher_certification;
+        }
+
+        public String getId_card_front_pic() {
+            return id_card_front_pic;
+        }
+
+        public void setId_card_front_pic(String id_card_front_pic) {
+            this.id_card_front_pic = id_card_front_pic;
+        }
+
+        public String getId_card_behind_pic() {
+            return id_card_behind_pic;
+        }
+
+        public void setId_card_behind_pic(String id_card_behind_pic) {
+            this.id_card_behind_pic = id_card_behind_pic;
+        }
+
+        public String getSummary() {
+            return summary;
+        }
+
+        public void setSummary(String summary) {
+            this.summary = summary;
+        }
+
+        public String getTeaching_courses() {
+            return teaching_courses;
+        }
+
+        public void setTeaching_courses(String teaching_courses) {
+            this.teaching_courses = teaching_courses;
+        }
+
+        public Object getHot() {
+            return hot;
+        }
+
+        public void setHot(Object hot) {
+            this.hot = hot;
+        }
+
+        public Object getScore() {
+            return score;
+        }
+
+        public void setScore(Object score) {
+            this.score = score;
+        }
     }
 
     public static class CategoriesBean {
@@ -216,7 +332,7 @@ public class ResLiveCourseDetail {
          * id : 2
          * user : 1
          * name : 直播操作系统课程
-         * cover_url : http://yunketang.dev.attackt.com/media/cover_1539338871.jpg
+         * cover_url : /media/cover_1539338871.jpg
          * see_count : 1
          * speaker : 张老师
          * hot : 0

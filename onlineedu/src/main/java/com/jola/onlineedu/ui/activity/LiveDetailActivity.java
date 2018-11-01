@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,8 +66,10 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     @BindView(R.id.base_video_view)
     BaseVideoView mVideoView;
 
-    //    @BindView(R.id.iv_cover_live)
-//    ImageView iv_cover_live;
+    @BindView(R.id.iv_cover_live)
+    ImageView iv_cover_live;
+    @BindView(R.id.fl_live_image)
+    FrameLayout fl_live_image;
 
     private ReceiverGroup mReceiverGroup;
 
@@ -91,7 +94,7 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
-        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
+//        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
         mVideoView.setReceiverGroup(mReceiverGroup);
         mVideoView.setEventHandler(onVideoViewEventHandler);
         mVideoView.setOnPlayerEventListener(this);
@@ -133,7 +136,9 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mVideoView.stopPlayback();
+        if (null != mVideoView){
+            mVideoView.stopPlayback();
+        }
     }
 
 
@@ -185,7 +190,7 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
                     @Override
                     public void accept(ResLiveCourseDetail resLiveCourseDetail) throws Exception {
                         String cover_url = resLiveCourseDetail.getCover_url();
-//                        ImageLoader.load(LiveDetailActivity.this,cover_url,iv_cover_live);
+                        ImageLoader.loadWhitPrefix(LiveDetailActivity.this,cover_url,iv_cover_live);
                         tv_title_live_item.setText(resLiveCourseDetail.getName());
                         star_bar_score.setStarMark(resLiveCourseDetail.getEvaluate());
                         tv_score_num.setText(resLiveCourseDetail.getEvaluate()+"");
@@ -213,11 +218,17 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
 
         }
     }
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back,R.id.iv_play_icon})
     public void doClick(View view){
         switch (view.getId()){
             case R.id.iv_back:
+                mVideoView.stop();
                 this.finish();
+                break;
+            case R.id.iv_play_icon:
+                initPlay();
+                fl_live_image.setVisibility(View.INVISIBLE);
+                mVideoView.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -228,7 +239,7 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             return;
         }
-        super.onBackPressed();
+        super.onBackPressedSupport();
     }
 
     @Override

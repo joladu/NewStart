@@ -11,31 +11,22 @@
         android:layout_height="wrap_content"
         android:background="@color/window_bg">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/qb_px_15"
-            android:layout_height="@dimen/qb_px_25"
-            android:layout_marginStart="@dimen/qb_px_20"
-            android:layout_marginTop="@dimen/qb_px_40"
-            android:src="@drawable/back_icon__white_x2" />
 
-        <com.kk.taurus.playerbase.widget.BaseVideoView
-            android:id="@+id/base_video_view"
+        <FrameLayout
+            android:id="@+id/fl_live_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="180dp"/>
+            android:layout_height="180dp">
 
-        <!--<FrameLayout-->
-            <!--android:id="@+id/fl_live_image"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/qb_px_235">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/iv_cover_live"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:src="@drawable/shape_gray_bg"-->
-                <!--android:scaleType="fitXY"-->
-                <!--/>-->
+            <ImageView
+                android:id="@+id/iv_cover_live"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/shape_gray_bg"
+                android:scaleType="fitXY"
+                />
 
             <!--<ImageView-->
                 <!--android:id="@+id/iv_back"-->
@@ -45,21 +36,78 @@
                 <!--android:layout_marginTop="@dimen/qb_px_40"-->
                 <!--android:src="@drawable/back_icon__white_x2" />-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="@dimen/qb_px_60"-->
-                <!--android:layout_height="@dimen/qb_px_60"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:src="@drawable/play_icon_x2" />-->
+            <ImageView
+                android:id="@+id/iv_play_icon"
+                android:layout_width="@dimen/qb_px_60"
+                android:layout_height="@dimen/qb_px_60"
+                android:layout_gravity="center"
+                android:src="@drawable/play_icon_x2" />
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="bottom|right"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:background="@drawable/shape_bg_black_live_status"-->
-                <!--android:text="正在直播"-->
-                <!--android:textColor="@color/window_bg" />-->
-        <!--</FrameLayout>-->
+            <TextView
+                android:id="@+id/tv_tip_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_bg_black_live_status"
+                android:text="正在直播"
+                android:textColor="@color/window_bg" />
+        </FrameLayout>
+
+        <!--<android.support.constraint.Group-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--app:constraint_referenced_ids="-->
+                <!--fl_live_image,-->
+                <!--tv_title_live_item,-->
+                <!--star_bar_score,-->
+                <!--tv_score_num,-->
+                <!--tv_persons_watched,-->
+
+                <!--tv_price_live_course,-->
+                <!--fl_live_image,-->
+                <!--fl_live_image,-->
+                <!--fl_live_image,-->
+                <!--fl_live_image,-->
+
+            <!--"-->
+            <!--android:visibility="gone"-->
+            <!--/>-->
+
+
+        <com.kk.taurus.playerbase.widget.BaseVideoView
+            android:id="@+id/base_video_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            />
+        <!--<FrameLayout-->
+            <!--android:id="@+id/fl_container"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="180dp"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--/>-->
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/qb_px_15"
+            android:layout_height="@dimen/qb_px_25"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_marginStart="@dimen/qb_px_20"
+            android:layout_marginTop="@dimen/qb_px_20"
+            android:src="@drawable/back_icon__white_x2"
+            />
+
+
 
         <TextView
             android:id="@+id/tv_title_live_item"
