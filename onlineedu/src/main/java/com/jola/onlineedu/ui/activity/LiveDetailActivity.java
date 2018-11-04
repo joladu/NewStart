@@ -256,7 +256,7 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     }
 
     private void updateVideo(boolean landscape){
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) mVideoView.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mVideoView.getLayoutParams();
         if(landscape){
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
