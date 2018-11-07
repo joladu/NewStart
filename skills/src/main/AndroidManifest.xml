@@ -39,7 +39,9 @@
 
         <activity android:name=".custome_widget.pie.AnimatedPieActivity" />
         <activity android:name=".custome_widget.pie.CustomeWidgetActivity" />
-        <activity android:name=".ui_adapter.UiAdapterActivity"></activity>
+        <activity android:name=".ui_adapter.UiAdapterActivity" />
+        <activity android:name=".jetpacket.databinding.DatabindActivity" />
+        <activity android:name=".video_playbase.VideoPlayActivity"></activity>
     </application>
 
 </manifest>

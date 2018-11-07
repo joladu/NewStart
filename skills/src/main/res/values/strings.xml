@@ -1,9 +1,13 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="es">
+
+    <!--locale 指定资源文件使用语言-->
+
     <string name="app_name">skills</string>
 
     <!--begin pictureInPicture-->
 
-    <string name="play">Play</string>
+    <!--translatable 指定是否需要根据系统语言进行翻译 translate:翻译-->
+    <string name="play" translatable="false" tools:ignore="formatted">Play</string>
     <string name="pause">Pause</string>
     <string name="info">Info</string>
     <string name="info_description">Information about this video</string>

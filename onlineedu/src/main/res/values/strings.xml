@@ -20,6 +20,10 @@
     <string name="search_excellent_course">精品课程搜索</string>
     <string name="forum">论坛</string>
     <string name="forum_type">板块:</string>
+    <string name="forum_title">标题:</string>
+    <string name="forum_hint_input_title">请输入标题</string>
+    <string name="forum_content">内容:</string>
+    <string name="forum_hint_input_content">请输入帖子内容</string>
     <string name="forum_publish">发布帖子</string>
     <string name="tip_no_forum_type_selected">请选择帖子类型,再试！</string>
     <string name="tip_no_forum_title">请填写帖子标题,再试！</string>

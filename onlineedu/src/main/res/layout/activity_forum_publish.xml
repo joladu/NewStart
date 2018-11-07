@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,23 +59,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="标题:"
+                android:layout_centerVertical="true"
+                android:text="@string/forum_title"
                 android:textColor="@color/hint_text_gray"
                 android:textSize="@dimen/title_toolbar_text_size"
                 />
             <EditText
                 android:id="@+id/et_input_title_forum"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:maxLength="30"
-                android:gravity="left"
+                android:gravity="start|center"
+                android:layout_centerVertical="true"
                 android:lines="1"
                 android:singleLine="true"
                 android:layout_toRightOf="@+id/tv_title_forum"
                 android:layout_marginLeft="@dimen/qb_px_15"
                 android:textSize="@dimen/title_toolbar_text_size"
                 android:background="@null"
-                android:hint="请输入标题"
+                android:hint="@string/forum_hint_input_title"
                 />
         </RelativeLayout>
 
@@ -92,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="内容:"
+                android:text="@string/forum_content"
                 android:textColor="@color/hint_text_gray"
                 android:textSize="@dimen/title_toolbar_text_size"
                 />
@@ -102,12 +106,12 @@
                 android:layout_height="wrap_content"
                 android:minHeight="120dp"
                 android:maxLength="300"
-                android:gravity="left"
+                android:gravity="start"
                 android:layout_toRightOf="@+id/tv_content_forum"
                 android:layout_marginLeft="@dimen/qb_px_15"
                 android:textSize="@dimen/title_toolbar_text_size"
                 android:background="@null"
-                android:hint="请输入帖子内容"
+                android:hint="@string/forum_hint_input_content"
                 />
         </RelativeLayout>
 

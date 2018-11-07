@@ -27,12 +27,19 @@ android {
         noCompress "tflite"
     }
 
+
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -43,6 +50,12 @@ dependencies {
 //    tensorflow
     implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+
+//    video
+    implementation 'com.kk.taurus.playerbase:playerbase:3.3.2.2'
+//    media loader
+    implementation 'com.jiajunhui.xapp.medialoader:medialoader:1.2.1'
 
 }
 repositories {
