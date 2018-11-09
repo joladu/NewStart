@@ -3,6 +3,7 @@ package com.jola.shengfan.skills.jetpacket.architecture;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Created by lenovo on 2018/11/8.
@@ -12,6 +13,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class MeterInfo {
 
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "meterNo")
     public String meterNo;
 

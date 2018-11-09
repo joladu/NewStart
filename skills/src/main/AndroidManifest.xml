@@ -41,7 +41,8 @@
         <activity android:name=".custome_widget.pie.CustomeWidgetActivity" />
         <activity android:name=".ui_adapter.UiAdapterActivity" />
         <activity android:name=".jetpacket.databinding.DatabindActivity" />
-        <activity android:name=".video_playbase.VideoPlayActivity"></activity>
+        <activity android:name=".video_playbase.VideoPlayActivity" />
+        <activity android:name=".pull_refresh_custom.CustomPullRefreshActivity"/>
     </application>
 
 </manifest>

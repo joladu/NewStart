@@ -37,4 +37,14 @@
         android:layout_margin="10dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="custom_pull_refresh"
+        android:background="@drawable/shape_red_bg_corner"
+        android:textColor="#fff"
+        android:onClick="customPullRefresh"
+        android:layout_margin="10dp"
+        />
+
 </LinearLayout>

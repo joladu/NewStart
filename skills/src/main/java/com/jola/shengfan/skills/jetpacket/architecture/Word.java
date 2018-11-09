@@ -15,17 +15,18 @@ public class Word {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "word")
-    private String mWord;
+    private String word;
 
-    public Word(String mWord) {
-        this.mWord = mWord;
+    public Word(@NonNull String word) {
+        this.word = word;
     }
 
-    public String getmWord() {
-        return mWord;
+    @NonNull
+    public String getWord() {
+        return word;
     }
 
-    public void setmWord(String mWord) {
-        this.mWord = mWord;
+    public void setWord(@NonNull String word) {
+        this.word = word;
     }
 }

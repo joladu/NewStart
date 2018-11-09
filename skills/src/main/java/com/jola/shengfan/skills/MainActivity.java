@@ -8,6 +8,7 @@ import android.view.View;
 import com.jola.shengfan.skills.ai.tensor_flow_google.TensorFlowLiteActivity;
 import com.jola.shengfan.skills.custome_widget.pie.CustomeWidgetActivity;
 import com.jola.shengfan.skills.picture_in_picture.PictureInPictureActivity;
+import com.jola.shengfan.skills.pull_refresh_custom.CustomPullRefreshActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void animatedPieView(View veiw){
         startActivity(new Intent(this, CustomeWidgetActivity.class));
+    }
+
+    public void customPullRefresh(View veiw){
+        startActivity(new Intent(this, CustomPullRefreshActivity.class));
     }
 
 
