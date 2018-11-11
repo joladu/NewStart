@@ -40,6 +40,20 @@
     <string name="tip_hint_input_search">请输入搜索内容</string>
 
 
+    <!--begin personal info-->
+    <string name="person_info">个人信息</string>
+    <string name="modify_person_info">修改信息</string>
+    <string name="modify_person_password">修改密码</string>
+    <string name="teacher_attestation">教师认证</string>
+
+    <string name="password_original">旧密码</string>
+    <string name="password_new">新密码</string>
+    <string name="password_new_again">再次输入新密码</string>
+
+
+    <!--end personal info-->
+
+
     <!--begin test string-->
     <!--<string name="test_forum_title">每天观看直播节目，你们一般会评论什么，内容呢？</string>-->
     <!--<string name="test_forum_content">目前我司做的你们可能听过的节目有《今晚80后脱口秀》《今夜百乐门》《吐槽大会》。别撇嘴，我知道质量参差不齐，会越来越好的。所以在这个阶段，没有有绝对话语权的主持人，写手与编导团队也都在摸索，所有段子、环节都要一起商量着来，生态还没有建立起来。等到我们把脱口秀在国内的生态建立起来（主语的“我们”意指我们公司笑果文化，这是我司野心我只能跟着这么说，我个人是不愿意说这么不要脸的话的）</string>-->

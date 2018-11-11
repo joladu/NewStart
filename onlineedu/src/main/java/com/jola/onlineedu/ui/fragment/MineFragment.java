@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,9 +20,12 @@ import com.jola.onlineedu.mode.bean.response.ResUploadUserImageBean;
 import com.jola.onlineedu.mode.bean.response.ResUserInfoBean;
 import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
+import com.jola.onlineedu.ui.activity.LoginActivity;
+import com.jola.onlineedu.ui.activity.PersonInfoActivity;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.SystemUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.jola.onlineedu.widget.PopupLogoutView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -45,11 +50,14 @@ public class MineFragment extends SimpleFragment {
     @Inject
     DataManager dataManager;
 
+    @BindView(R.id.sv_root_mine_fragment)
+    ScrollView sv_root;
     @BindView(R.id.civ_head_user)
     CircleImageView civ_head_user;
     @BindView(R.id.tv_user_name)
     TextView tv_user_name;
     private int themeId = R.style.picture_default_style;
+    private PopupLogoutView mPopupLogoutView;
 
 
 //    @Override
@@ -67,6 +75,36 @@ public class MineFragment extends SimpleFragment {
     protected void initEventAndData() {
         getFragmentComponent().inject(this);
         getUserInfo();
+    }
+
+    @OnClick({
+            R.id.rl_person_info,
+            R.id.rl_logout
+    })
+    public void clickEvent(View view){
+        switch (view.getId()){
+            case R.id.rl_person_info:
+                startActivity(new Intent(mActivity, PersonInfoActivity.class));
+                break;
+            case R.id.rl_logout:
+                showLogoutView();
+                break;
+        }
+    }
+
+    private void showLogoutView() {
+        mPopupLogoutView = new PopupLogoutView(mContext, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.btn_logout:
+                        startActivity(new Intent(mActivity, LoginActivity.class));
+                        mActivity.finish();
+                        break;
+                }
+            }
+        });
+        mPopupLogoutView.showAtLocation(sv_root, Gravity.CENTER,0,0);
     }
 
     private void getUserInfo() {

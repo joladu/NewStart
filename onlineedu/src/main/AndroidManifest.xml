@@ -29,17 +29,20 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
+        <!-- <activity android:name=".ui.activity.VideoViewActivity" /> -->
 
-        <!--<activity android:name=".ui.activity.VideoViewActivity" />-->
 
         <!-- 登陆 -->
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ForgetPasswordActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.RegisterActivity"
@@ -49,14 +52,17 @@
         <activity android:name=".ui.activity.ForumPublishActivity" />
         <activity android:name=".ui.activity.TestPoolActivity" />
         <activity android:name=".ui.activity.SelectableCourseActivity" />
-        <!-- android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <activity android:name=".ui.activity.LiveDetailActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            />
-        <activity android:name=".ui.activity.CourseDetailActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.activity.TeacherMasterActivity"/>
-        <activity android:name=".ui.activity.LoadWebUrlActivity"/>
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
+        <activity
+            android:name=".ui.activity.LiveDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".ui.activity.CourseDetailActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.activity.TeacherMasterActivity" />
+        <activity android:name=".ui.activity.LoadWebUrlActivity" />
+        <activity android:name=".ui.activity.PersonInfoActivity"/>
+        <activity android:name=".ui.activity.ModifyPasswordActivity" />
     </application>
 
 </manifest>

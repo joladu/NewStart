@@ -55,7 +55,7 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter <RVRecommendC
 //        Glide.with(context).load(resultsBean.getCover())
 //                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
 //                .into(holder.iv_course_cover);
-        ImageLoader.load(context,resultsBean.getCover(),holder.iv_course_cover);
+        ImageLoader.loadWhitPrefix(context,resultsBean.getCover(),holder.iv_course_cover);
 
 
         if (resultsBean.getPay_type() == 1){

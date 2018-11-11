@@ -1,6 +1,5 @@
 package com.jola.onlineedu.widget;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -17,10 +16,19 @@ import com.jola.onlineedu.R;
 
 public class PopupLogoutView extends PopupWindow {
 
-    public PopupLogoutView(Context context) {
+    public PopupLogoutView(Context context, View.OnClickListener onClickListener) {
         super(context);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View inflateView = layoutInflater.inflate(R.layout.popup_logout_view, null);
+
+        inflateView.findViewById(R.id.btn_logout).setOnClickListener(onClickListener);
+        inflateView.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
 
 //        初始化工作
 
