@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ModifyPasswordActivity extends SimpleActivity {
+public class ModifyProfileInfoActivity extends SimpleActivity {
 
 
     @Inject
@@ -41,12 +41,12 @@ public class ModifyPasswordActivity extends SimpleActivity {
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_modify_password;
+        return R.layout.activity_modify_user_profile;
     }
 
     @Override
     protected void initEventAndData() {
-        setToolBar(toolbar, getString(R.string.modify_person_password));
+        setToolBar(toolbar, getString(R.string.modify_person_info));
         getActivityComponent().inject(this);
 
     }

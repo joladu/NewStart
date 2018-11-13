@@ -29,7 +29,6 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!-- <activity android:name=".ui.activity.VideoViewActivity" /> -->
@@ -38,11 +37,9 @@
         <!-- 登陆 -->
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ForgetPasswordActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.RegisterActivity"
@@ -63,6 +60,8 @@
         <activity android:name=".ui.activity.LoadWebUrlActivity" />
         <activity android:name=".ui.activity.PersonInfoActivity"/>
         <activity android:name=".ui.activity.ModifyPasswordActivity" />
+        <activity android:name=".ui.activity.TeacherAttestationActivity" />
+        <activity android:name=".ui.activity.ModifyProfileInfoActivity" />
     </application>
 
 </manifest>

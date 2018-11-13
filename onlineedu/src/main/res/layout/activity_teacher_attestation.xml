@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jola.onlineedu.ui.activity.PersonInfoActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/window_bg"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/view_toolbar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_line_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="15dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher_qualification_no"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_hint_text_search"
+                android:textSize="@dimen/title_toolbar_text_size"
+                android:background="@null"
+                android:layout_marginStart="10dp"
+                tools:text="k1251212121212122"
+
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_line_gray" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_card_front_pic"
+            android:textColor="@color/gray_star_score"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp"
+            android:background="#bfbfbf"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hold_ic_card"
+                android:scaleType="centerInside"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/upload_2x"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_card_back_pic"
+            android:textColor="@color/gray_star_score"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp"
+            android:background="#bfbfbf"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hold_ic_card"
+                android:scaleType="centerInside"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/upload_2x"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/teacher_card_pic"
+            android:textColor="@color/gray_star_score"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp"
+            android:background="#bfbfbf"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/upload_teacher_hold_x2"
+                android:scaleType="fitXY"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/upload_2x"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/tv_modify_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/attestation_text"
+
+            style="@style/BtnGreenSingleLine"
+
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+
+            />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

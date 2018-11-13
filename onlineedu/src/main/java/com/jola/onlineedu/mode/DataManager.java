@@ -16,6 +16,7 @@ import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
 import com.jola.onlineedu.mode.bean.response.ResTeacherCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
 import com.jola.onlineedu.mode.bean.response.ResUploadFourmImageBean;
@@ -274,6 +275,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<List<ResBannerHomepage>> getBannerHomepage() {
         return myApis.getBannerHomepage();
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> changePassword(String oldpwd, String newpwd, String newpwd2) {
+        return myApis.changePassword(oldpwd,newpwd,newpwd2);
+    }
+
+    @Override
+    public Flowable<ResTeacherAttestation> teacherAttestation(String teacher_certification_id, String teacher_certification, String id_card_front_pic, String id_card_behind_pic) {
+        return myApis.teacherAttestation(teacher_certification_id,teacher_certification,id_card_front_pic,id_card_behind_pic);
     }
 
     @Override

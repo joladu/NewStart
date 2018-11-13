@@ -16,6 +16,7 @@ import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
 import com.jola.onlineedu.mode.bean.response.ResTeacherCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
 import com.jola.onlineedu.mode.bean.response.ResUploadFourmImageBean;
@@ -209,7 +210,7 @@ public interface MyApis {
     @GET("v1/exams/{id}/")
     Flowable<ResExamsDetail> getExamsDetail(@Path("id") String id);
 
-//  *****************  begin  exams api *****************
+//  *****************  end  exams api *****************
 
 
 
@@ -243,7 +244,7 @@ public interface MyApis {
     Flowable<ResponseSimpleResult> praiseCommentCourse(@Path("id")String id);
 
 
-//  *****************  begin  course api *****************
+//  *****************  end  course api *****************
 
 
 
@@ -258,7 +259,7 @@ public interface MyApis {
     @GET("v1/livecourse/{id}/detail/")
     Flowable<ResLiveCourseDetail> getLiveCourseDetail(@Path("id")String id);
 
-//  *****************  begin  live course api *****************
+//  *****************  end  live course api *****************
 
 
 
@@ -271,7 +272,7 @@ public interface MyApis {
     @GET("v1/teacher/{id}/detail/")
     Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(@Path("id")String id);
 
-//  *****************  begin  teacher api *****************
+//  *****************  end  teacher api *****************
 //
 
 
@@ -282,13 +283,33 @@ public interface MyApis {
     @GET("v1/common/banner/")
     Flowable<List<ResBannerHomepage>> getBannerHomepage();
 
-//  *****************  begin  common api *****************
+//  *****************  end  common api *****************
 
 
 
-    // *****************  begin teacher api *****************
+    // *****************  begin user api *****************
 
-//  *****************  begin  teacher api *****************
+    @PUT("v1/uc/chpwd/")
+    Flowable<ResponseSimpleResult> changePassword(@Field("oldpwd") String oldpwd,@Field("newpwd") String newpwd,@Field("newpwd2") String newpwd2);
+
+    @FormUrlEncoded
+    @POST("v1/uc/teacherverify/")
+    Flowable<ResTeacherAttestation> teacherAttestation(
+            @Field("teacher_certification_id") String teacher_certification_id,
+            @Field("teacher_certification") String teacher_certification,
+            @Field("id_card_front_pic") String id_card_front_pic,
+            @Field("teacher_certification_id") String id_card_behind_pic
+            );
+
+//  *****************  end  user api *****************
+
+
+
+
+
+// *****************  begin teacher api *****************
+
+//  *****************  end  teacher api *****************
 
 
 
