@@ -134,4 +134,7 @@ dependencies {
     //    fragment:  https://github.com/YoKeyword/Fragmentation/blob/master/README_CN.md
     implementation 'me.yokeyword:fragmentation:0.10.4'
 
+//    address picture
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+
 }

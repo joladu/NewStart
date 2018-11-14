@@ -5,6 +5,8 @@
 
     <dimen name="title_toolbar_text_size">15sp</dimen>
 
+    <dimen name="modify_profile_size">14sp</dimen>
+
     <dimen name="padding_input_login">8dp</dimen>
     <dimen name="padding_btn_green_single">10dp</dimen>
     <dimen name="hint_input_text_login">18sp</dimen>

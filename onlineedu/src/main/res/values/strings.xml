@@ -61,6 +61,12 @@
 
     <string name="attestation_text">认证</string>
 
+    <string name="head_text">头像</string>
+    <string name="pet_name">昵称</string>
+    <string name="phone_no">手机号</string>
+    <string name="address">地址</string>
+    <string name="school">学校</string>
+    <string name="teach_course">所教课程</string>
 
 
     <!--end personal info-->

@@ -23,28 +23,32 @@
             />
 
         <RelativeLayout
-            android:id="@+id/rl_modify_info"
+            android:id="@+id/rl_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/qb_px_15"
+
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/modify_person_info"
-                android:textSize="@dimen/title_toolbar_text_size"
+                android:text="@string/head_text"
+                android:textSize="@dimen/modify_profile_size"
                 android:textColor="@color/gray_content_forum_text"
                 android:gravity="center"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
                 />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/person_holder_logout_x2"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 />
 
         </RelativeLayout>
@@ -57,20 +61,35 @@
             />
 
         <RelativeLayout
-            android:id="@+id/rl_modify_password"
+            android:id="@+id/rl_pet_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/qb_px_15"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/modify_person_password"
-                android:textSize="@dimen/title_toolbar_text_size"
+                android:text="@string/pet_name"
+                android:textSize="@dimen/modify_profile_size"
                 android:textColor="@color/gray_content_forum_text"
                 android:gravity="center"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_hint_text_search"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="90dp"
+                tools:text="陈华山"
                 />
 
             <ImageView
@@ -79,6 +98,7 @@
                 android:src="@drawable/icon_right_enter_x2"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
                 />
 
         </RelativeLayout>
@@ -91,20 +111,35 @@
             />
 
         <RelativeLayout
-            android:id="@+id/rl_teacher_attestation"
+            android:id="@+id/rl_phone_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/qb_px_15"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/teacher_attestation"
-                android:textSize="@dimen/title_toolbar_text_size"
-                android:textColor="@color/colorAccent"
+                android:text="@string/phone_no"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_content_forum_text"
                 android:gravity="center"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_hint_text_search"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="90dp"
+                tools:text="13541151254"
                 />
 
             <ImageView
@@ -113,9 +148,12 @@
                 android:src="@drawable/icon_right_enter_x2"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
                 />
 
         </RelativeLayout>
+
+
 
         <View
             android:layout_width="match_parent"
@@ -123,8 +161,158 @@
             android:background="@color/divide_line_gray"
             />
 
+        <RelativeLayout
+            android:id="@+id/rl_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_content_forum_text"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_hint_text_search"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="90dp"
+                tools:text="北京市  北京市  朝阳区"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/address_x2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                />
+
+        </RelativeLayout>
 
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_line_gray"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/school"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_content_forum_text"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_hint_text_search"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="90dp"
+                tools:text="中国传媒大学南广学院"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_right_enter_x2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                />
+
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_line_gray"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_teach_course"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teach_course"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_content_forum_text"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_hint_text_search"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="90dp"
+                tools:text="语文 数学 英语"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_right_enter_x2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                />
+
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_line_gray"
+            />
 
 
     </LinearLayout>
