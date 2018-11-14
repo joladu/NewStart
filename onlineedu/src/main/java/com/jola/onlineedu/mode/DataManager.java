@@ -278,8 +278,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> changePassword(String oldpwd, String newpwd, String newpwd2) {
-        return myApis.changePassword(oldpwd,newpwd,newpwd2);
+    public Flowable<ResponseSimpleResult> changePassword(String token,String oldpwd, String newpwd, String newpwd2) {
+        return myApis.changePassword(token,oldpwd,newpwd,newpwd2);
     }
 
     @Override

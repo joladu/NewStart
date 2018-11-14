@@ -50,6 +50,8 @@
     <string name="password_new">新密码</string>
     <string name="password_new_again">再次输入新密码</string>
 
+    <string name="tip_two_time_not_same">两次输入密码不一致！</string>
+
     <string name="teacher_attestation_title">教师认证</string>
     <string name="teacher_qualification_no">教师资格证号:</string>
 

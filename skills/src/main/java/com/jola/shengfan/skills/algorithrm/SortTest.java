@@ -84,11 +84,22 @@ public class SortTest {
         int[] arr = DataUtil.randomIntArr(size);
         printArr("org",arr);
         long startTime = System.currentTimeMillis();
-        DivideMergeSort.divideMergeSort(arr,0,arr.length - 1);
+        DivideMergeSort.divideMergeSortAsc(arr,0,arr.length - 1);
         long endTime = System.currentTimeMillis();
         printArr("res",arr);
         System.out.println("time:"+(endTime - startTime));
 
+    }
+
+
+    public static void testDivideMergeSortDes(int size){
+        int[] arr = DataUtil.randomIntArr(size);
+        printArr("org",arr);
+        long startTime = System.currentTimeMillis();
+        DivideMergeSort.divideMergeSortDes(arr,0,arr.length - 1);
+        long endTime = System.currentTimeMillis();
+        printArr("res",arr);
+        System.out.println("time:"+(endTime - startTime));
     }
 
 

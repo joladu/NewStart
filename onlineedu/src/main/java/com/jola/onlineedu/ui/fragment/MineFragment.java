@@ -196,7 +196,7 @@ public class MineFragment extends SimpleFragment {
                     List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
                     if (null != localMedia && localMedia.size() > 0){
                         String path = localMedia.get(0).getPath();
-                        MyLog.logMy(path);
+//                        MyLog.logMy(path);
                         showLoadingDialog();
                         uploadPicture(path);
                     }else{

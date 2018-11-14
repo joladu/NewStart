@@ -40,6 +40,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_input_teacher_iccard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_hint_text_search"
@@ -78,6 +79,7 @@
             android:background="#bfbfbf"
             >
             <ImageView
+                android:id="@+id/iv_iccard_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/hold_ic_card"
@@ -85,6 +87,7 @@
                 android:layout_centerInParent="true"
                 />
             <ImageView
+                android:id="@+id/iv_upload_ic_card_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/upload_2x"
@@ -113,6 +116,7 @@
             android:background="#bfbfbf"
             >
             <ImageView
+                android:id="@+id/iv_iccard_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/hold_ic_card"
@@ -120,6 +124,7 @@
                 android:layout_centerInParent="true"
                 />
             <ImageView
+                android:id="@+id/iv_upload_iccard_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/upload_2x"
@@ -147,12 +152,14 @@
             android:background="#bfbfbf"
             >
             <ImageView
+                android:id="@+id/iv_teacher_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/upload_teacher_hold_x2"
                 android:scaleType="fitXY"
                 />
             <ImageView
+                android:id="@+id/iv_upload_teacher_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/upload_2x"

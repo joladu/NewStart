@@ -18,6 +18,42 @@ public class DataUtil {
         return arr;
     }
 
+    public static int[] mergeSortedArr(int[] sortedArrA,int[] sortedArrB){
+
+        int[] resultArr = new int[sortedArrA.length + sortedArrB.length];
+
+        int indexA = 0,indexB = 0,indexResult = 0;
+
+
+        while (indexA < sortedArrA.length && indexB < sortedArrB.length ){
+            if (sortedArrA[indexA] < sortedArrB[indexB]){
+                resultArr[indexResult++] = sortedArrA[indexA++];
+            }else{
+                resultArr[indexResult++] = sortedArrB[indexB++];
+            }
+        }
+
+        while (indexA < sortedArrA.length){
+            resultArr[indexResult++] = sortedArrA[indexA++];
+        }
+
+        while (indexB < sortedArrB.length){
+            resultArr[indexResult++] = sortedArrB[indexB++];
+        }
+
+        return resultArr;
+    }
+
+    public static int existSameElementIndex(int[] sortedArr){
+        int index = -1;
+        for (int i = 0;i < sortedArr.length - 1;i++){
+            if (sortedArr[i] == sortedArr [i+1]){
+                return i;
+            }
+        }
+        return index;
+    }
+
 
 
 }

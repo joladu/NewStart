@@ -290,7 +290,7 @@ public interface MyApis {
     // *****************  begin user api *****************
 
     @PUT("v1/uc/chpwd/")
-    Flowable<ResponseSimpleResult> changePassword(@Field("oldpwd") String oldpwd,@Field("newpwd") String newpwd,@Field("newpwd2") String newpwd2);
+    Flowable<ResponseSimpleResult> changePassword(@Header("authorization") String token,@Field("oldpwd") String oldpwd,@Field("newpwd") String newpwd,@Field("newpwd2") String newpwd2);
 
     @FormUrlEncoded
     @POST("v1/uc/teacherverify/")

@@ -24,19 +24,7 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
     @BindView(R.id.toolbar_view)
     Toolbar toolbar;
 
-    @BindView(R.id.iv_visible_oldpassword)
-    ImageView iv_visible_oldpassword;
-    @BindView(R.id.iv_visible_new_password)
-    ImageView iv_visible_new_password;
-    @BindView(R.id.iv_visible_password_again)
-    ImageView iv_visible_password_again;
 
-    @BindView(R.id.et_input_password_original)
-    EditText et_input_password_original;
-    @BindView(R.id.et_input_password_new)
-    EditText et_input_password_new;
-    @BindView(R.id.et_input_password_again)
-    EditText et_input_password_again;
 
 
     @Override
