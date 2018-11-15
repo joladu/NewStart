@@ -58,6 +58,7 @@
     <string name="ic_card_front_pic">手持身份证照片正面</string>
     <string name="ic_card_back_pic">手持身份证照片背面</string>
     <string name="teacher_card_pic">教师资格证照片</string>
+    <string name="hint_input_teach_card">请输入教师资格证号</string>
 
     <string name="attestation_text">认证</string>
 

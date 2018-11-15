@@ -73,6 +73,8 @@ public class ModifyPasswordActivity extends SimpleActivity {
     public void doClick(View view){
         switch (view.getId()){
             case R.id.iv_visible_oldpassword:
+                String originalContent = et_input_password_original.getText().toString();
+                et_input_password_original.setText("");
                 if (isOldVisible){
                     et_input_password_original.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     iv_visible_new_password.setImageResource(R.drawable.eye_open_2x);
@@ -82,8 +84,11 @@ public class ModifyPasswordActivity extends SimpleActivity {
                     iv_visible_new_password.setImageResource(R.drawable.eye_chose_2x);
                     isOldVisible = true;
                 }
+                et_input_password_original.setText(originalContent);
                 break;
             case R.id.iv_visible_new_password:
+                String originalContentNew = et_input_password_new.getText().toString();
+                et_input_password_new.setText("");
                 if (isNewVisible){
                     et_input_password_new.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     iv_visible_new_password.setImageResource(R.drawable.eye_open_2x);
@@ -93,8 +98,11 @@ public class ModifyPasswordActivity extends SimpleActivity {
                     iv_visible_new_password.setImageResource(R.drawable.eye_chose_2x);
                     isNewVisible = true;
                 }
+                et_input_password_new.setText(originalContentNew);
                 break;
             case R.id.iv_visible_password_again:
+                String originalContentAgain = et_input_password_again.getText().toString();
+                et_input_password_new.setText("");
                 if (isNewAgainVisible){
                     et_input_password_again.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     iv_visible_password_again.setImageResource(R.drawable.eye_open_2x);
@@ -104,6 +112,7 @@ public class ModifyPasswordActivity extends SimpleActivity {
                     iv_visible_password_again.setImageResource(R.drawable.eye_chose_2x);
                     isNewAgainVisible = true;
                 }
+                et_input_password_new.setText(originalContentAgain);
                 break;
             case R.id.tv_modify_password:
                 confirmModify();

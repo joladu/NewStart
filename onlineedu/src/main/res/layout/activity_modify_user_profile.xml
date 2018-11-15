@@ -41,6 +41,7 @@
                 />
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_head_user"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/person_holder_logout_x2"
@@ -80,6 +81,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_pet_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/modify_profile_size"
@@ -130,6 +132,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_phone_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/modify_profile_size"
@@ -181,6 +184,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/modify_profile_size"
@@ -232,6 +236,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/modify_profile_size"
@@ -283,6 +288,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_teach_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/modify_profile_size"

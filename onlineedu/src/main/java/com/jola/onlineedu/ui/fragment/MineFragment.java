@@ -113,14 +113,14 @@ public class MineFragment extends SimpleFragment {
         .subscribe(new Consumer<ResUserInfoBean>() {
             @Override
             public void accept(ResUserInfoBean resUserInfoBean) throws Exception {
-                int error_code = resUserInfoBean.getError_code();
-                if (error_code == 0){
-                    tv_user_name.setText(resUserInfoBean.getData().getUser().getUsername());
-                    String headImgUrl = resUserInfoBean.getData().getUser().getAvatar();
-                    Glide.with(mActivity).load(headImgUrl).apply(new RequestOptions().placeholder(R.drawable.person_holder_logout_x2).error(R.drawable.person_holder_logout_x2)).into(civ_head_user);
-                }else{
-                    ToastUtil.toastShort(resUserInfoBean.getError_msg());
-                }
+//                int error_code = resUserInfoBean.getError_code();
+//                if (error_code == 0){
+//                    tv_user_name.setText(resUserInfoBean.getData().getUser().getUsername());
+//                    String headImgUrl = resUserInfoBean.getData().getUser().getAvatar();
+//                    Glide.with(mActivity).load(headImgUrl).apply(new RequestOptions().placeholder(R.drawable.person_holder_logout_x2).error(R.drawable.person_holder_logout_x2)).into(civ_head_user);
+//                }else{
+//                    ToastUtil.toastShort(resUserInfoBean.getError_msg());
+//                }
             }
         }, new Consumer<Throwable>() {
             @Override

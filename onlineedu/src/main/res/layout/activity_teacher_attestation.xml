@@ -2,17 +2,18 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.jola.onlineedu.ui.activity.PersonInfoActivity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/window_bg"
-    >
+    tools:context="com.jola.onlineedu.ui.activity.PersonInfoActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
 
         <include layout="@layout/view_toolbar" />
@@ -25,31 +26,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="15dp"
-            android:orientation="horizontal"
-            >
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teacher_qualification_no"
                 android:textColor="@color/gray_content_forum_text"
-                android:textSize="@dimen/title_toolbar_text_size"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
 
             <EditText
                 android:id="@+id/et_input_teacher_iccard"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray_hint_text_search"
-                android:textSize="@dimen/title_toolbar_text_size"
-                android:background="@null"
                 android:layout_marginStart="10dp"
-                tools:text="k1251212121212122"
-
-                />
+                android:background="@null"
+                android:hint="@string/hint_input_teach_card"
+                android:textColor="@color/gray_hint_text_search"
+                android:textSize="@dimen/title_toolbar_text_size" />
 
         </LinearLayout>
 
@@ -59,131 +56,121 @@
             android:background="@color/divide_line_gray" />
 
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ic_card_front_pic"
-            android:textColor="@color/gray_star_score"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:textSize="14sp"
-            />
+            android:text="@string/ic_card_front_pic"
+            android:textColor="@color/gray_star_score"
+            android:textSize="14sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:background="#bfbfbf"
-            >
+            android:background="#bfbfbf">
+
             <ImageView
                 android:id="@+id/iv_iccard_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hold_ic_card"
-                android:scaleType="centerInside"
                 android:layout_centerInParent="true"
-                />
+                android:scaleType="centerCrop"
+                android:src="@drawable/hold_ic_card" />
+
             <ImageView
                 android:id="@+id/iv_upload_ic_card_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/upload_2x"
                 android:layout_centerInParent="true"
-                />
+                android:src="@drawable/upload_2x" />
         </RelativeLayout>
-
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ic_card_back_pic"
-            android:textColor="@color/gray_star_score"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:textSize="14sp"
-            />
+            android:text="@string/ic_card_back_pic"
+            android:textColor="@color/gray_star_score"
+            android:textSize="14sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:background="#bfbfbf"
-            >
+            android:background="#bfbfbf">
+
             <ImageView
                 android:id="@+id/iv_iccard_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hold_ic_card"
-                android:scaleType="centerInside"
                 android:layout_centerInParent="true"
-                />
+                android:scaleType="centerCrop"
+                android:src="@drawable/hold_ic_card" />
+
             <ImageView
                 android:id="@+id/iv_upload_iccard_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/upload_2x"
                 android:layout_centerInParent="true"
-                />
+                android:src="@drawable/upload_2x" />
         </RelativeLayout>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/teacher_card_pic"
-            android:textColor="@color/gray_star_score"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:textSize="14sp"
-            />
+            android:text="@string/teacher_card_pic"
+            android:textColor="@color/gray_star_score"
+            android:textSize="14sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:background="#bfbfbf"
-            >
+            android:background="#bfbfbf">
+
             <ImageView
                 android:id="@+id/iv_teacher_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/upload_teacher_hold_x2"
-                android:scaleType="fitXY"
-                />
+                android:scaleType="centerCrop"
+                android:src="@drawable/upload_teacher_hold_x2" />
+
             <ImageView
                 android:id="@+id/iv_upload_teacher_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/upload_2x"
                 android:layout_centerInParent="true"
-                />
+                android:src="@drawable/upload_2x" />
         </RelativeLayout>
-
 
 
         <TextView
             android:id="@+id/tv_verify_teacher"
+            style="@style/BtnGreenSingleLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/attestation_text"
-
-            style="@style/BtnGreenSingleLine"
-
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
 
-            />
+            android:layout_marginStart="15dp"
 
+            android:layout_marginTop="15dp"
+            android:text="@string/attestation_text"
+
+            />
 
 
     </LinearLayout>

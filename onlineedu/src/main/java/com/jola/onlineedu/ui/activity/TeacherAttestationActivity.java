@@ -129,14 +129,15 @@ public class TeacherAttestationActivity extends SimpleActivity {
         File fileIcCardFront = new File(mICCardFilePathFront);
         File fileIcCardBack = new File(mICCardFilePathBack);
         File fileTeacherCard = new File(mTeacherCardFilePath);
-        RequestBody requestBodyICCardFront = RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront);
-        RequestBody requestBodyICCardBack = RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardBack);
-        RequestBody requestBodyTeacherCard = RequestBody.create(MediaType.parse("multipart/form-data"), fileTeacherCard);
-        MultipartBody.Part[] filePartArr = new MultipartBody.Part[3];
-        filePartArr[0] = MultipartBody.Part.createFormData("id_card_front_pic",fileIcCardFront.getName(),requestBodyICCardFront);
-        filePartArr[1] = MultipartBody.Part.createFormData("teacher_certification",fileIcCardFront.getName(),requestBodyICCardFront);
-        filePartArr[2] = MultipartBody.Part.createFormData("teacher_certification",fileIcCardFront.getName(),requestBodyICCardFront);
-        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),teacherCardNo,filePartArr)
+
+        MultipartBody multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("teacher_certification_id", teacherCardNo)
+                .addFormDataPart("teacher_certification", fileTeacherCard.getName(), RequestBody.create(MediaType.parse("image/*"), fileTeacherCard))
+                .addFormDataPart("id_card_front_pic", fileIcCardFront.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardFront))
+                .addFormDataPart("id_card_behind_pic", fileIcCardBack.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardBack))
+                .build();
+
+        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),multipartBody)
             .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
                 .subscribe(new Consumer<ResTeacherAttestation>() {
                     @Override
@@ -144,9 +145,9 @@ public class TeacherAttestationActivity extends SimpleActivity {
                         hideLoadingDialog();
                         int error_code = resTeacherAttestation.getError_code();
                         if (error_code == 0){
-
+                            ToastUtil.toastShort("资料上传成功，请等待审核！");
                         }else{
-                            ToastUtil.toastShort(resTeacherAttestation.getError_msg());
+                            ToastUtil.toastLong(resTeacherAttestation.getError_msg());
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -220,14 +221,17 @@ public class TeacherAttestationActivity extends SimpleActivity {
                             case 1:
                                 mICCardFilePathFront = path;
                                 ImageLoader.load(TeacherAttestationActivity.this,path,iv_iccard_front);
+                                iv_upload_ic_card_front.setImageResource(R.drawable.upload_retry2x);
                                 break;
                             case 2:
                                 mICCardFilePathBack = path;
                                 ImageLoader.load(TeacherAttestationActivity.this,path,iv_iccard_back);
+                                iv_upload_iccard_back.setImageResource(R.drawable.upload_retry2x);
                                 break;
                             case 3:
                                 mTeacherCardFilePath = path;
                                 ImageLoader.load(TeacherAttestationActivity.this,path,iv_teacher_card);
+                                iv_upload_teacher_card.setImageResource(R.drawable.upload_retry2x);
                                 break;
                         }
 //                        MyLog.logMy(path);

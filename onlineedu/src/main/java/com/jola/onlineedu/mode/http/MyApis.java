@@ -32,15 +32,14 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
-import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -105,20 +104,6 @@ public interface MyApis {
 
 
 
-    /**
-     * 1、根据地址拿到File
-     File file = new File(path);
-
-     //        2、创建RequestBody，其中`multipart/form-data`为编码类型
-     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-     //        3、创建`MultipartBody.Part`，其中需要注意第一个参数`fileUpload`需要与服务器对应,也就是`键`    avatar_binary
-     MultipartBody.Part part = MultipartBody.Part.createFormData("fileUpload", file.getName(), requestFile);
-     */
-//    @POST("v1/user/avatar/")
-//    @Multipart
-//    Flowable<ResUploadUserImageBean> uploadUserImage(@Part MultipartBody.Part file);
-
 
     @POST("v1/user/avatar/")
     @FormUrlEncoded
@@ -160,25 +145,6 @@ public interface MyApis {
 
     @PUT("v1/bbs/comments/{id}/praise/")
     Flowable<ResponseSimpleResult> praiseComment(@Path("id") String id);
-
-
-    /**
-     * //        1、根据地址拿到File
-     File file = new File(path);
-
-     //        2、创建RequestBody，其中`multipart/form-data`为编码类型
-     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-     //        3、创建`MultipartBody.Part`数组，多图片上传，其中需要注意第一个参数`fileUpload`需要与服务器对应,也就是`键`，多个也一样
-     MultipartBody.Part[]  file = new MultipartBody.Part[2];
-     file[0] = MultipartBody.Part.createFormData("file", file1.getName(), requestFile);
-     file[1] = MultipartBody.Part.createFormData("file", file1.getName(), requestFile);
-     * @param file   键值：img
-     * @return
-     */
-//    @POST("v1/bbs/images/")
-//    @Multipart
-//    Flowable<ResUploadFourmImageBean> uploadForumImage(@Part MultipartBody.Part[] file);
 
 
     /**
@@ -290,6 +256,7 @@ public interface MyApis {
 
     // *****************  begin user api *****************
 
+    @FormUrlEncoded
     @PUT("v1/uc/chpwd/")
     Flowable<ResponseSimpleResult> changePassword(@Header("authorization") String token,@Field("oldpwd") String oldpwd,@Field("newpwd") String newpwd,@Field("newpwd2") String newpwd2);
 
@@ -305,18 +272,11 @@ public interface MyApis {
 
 
 
-//    File file = new File(path);
-//    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//    MultipartBody.Part[]  file = new MultipartBody.Part[2];
-//    file[0] = MultipartBody.Part.createFormData("fileKey", file1.getName(), requestFile);
-//    file[1] = MultipartBody.Part.createFormData("fileKey", file1.getName(), requestFile);
 
     @POST("v1/uc/teacherverify/")
-    @Multipart
     Flowable<ResTeacherAttestation> teacherVerify(
             @Header("authorization") String token,
-            @Field("teacher_certification_id") String teacher_certification_id,
-            @Part MultipartBody.Part[] fileArrPart
+            @Body RequestBody requestBody
             );
 
     @GET("v1/fridend/{id}/detail/")

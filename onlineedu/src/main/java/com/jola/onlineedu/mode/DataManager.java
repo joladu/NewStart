@@ -37,6 +37,7 @@ import java.util.Map;
 import io.reactivex.Flowable;
 import io.reactivex.annotations.Nullable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by lenovo on 2018/8/14
@@ -289,9 +290,10 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResTeacherAttestation> teacherVerify(String token, String teacher_certification_id, MultipartBody.Part[] fileArrPart) {
-        return myApis.teacherVerify(token,teacher_certification_id,fileArrPart);
+    public Flowable<ResTeacherAttestation> teacherVerify(String token, RequestBody requestBody) {
+        return myApis.teacherVerify(token,requestBody);
     }
+
 
     @Override
     public Flowable<ResFriendDetailBean> getFriendDetailInfo(String token, String id) {
