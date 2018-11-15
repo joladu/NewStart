@@ -36,7 +36,11 @@ public class ImageLoader {
     public static void load(Activity activity, String url, ImageView iv) {    //使用Glide加载圆形ImageView(如头像)时，不要使用占位图
         if(!activity.isDestroyed()) {
 //            Glide.with(activity).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(iv);
-            Glide.with(activity).load(url).into(iv);
+            Glide
+                    .with(activity)
+                    .load(url)
+                    .apply(new RequestOptions().error(R.drawable.image_fail).placeholder(R.drawable.image_placeholder))
+                    .into(iv);
         }
     }
 

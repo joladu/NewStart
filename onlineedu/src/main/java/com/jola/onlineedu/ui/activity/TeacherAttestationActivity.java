@@ -2,6 +2,7 @@ package com.jola.onlineedu.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,19 +10,28 @@ import android.widget.ImageView;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
+import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Multipart;
 
 public class TeacherAttestationActivity extends SimpleActivity {
 
@@ -52,10 +62,9 @@ public class TeacherAttestationActivity extends SimpleActivity {
 
     private int themeId = R.style.picture_default_style;
     int currIndex = -1;
-
-
-
-
+    private String mICCardFilePathFront;
+    private String mICCardFilePathBack;
+    private String mTeacherCardFilePath;
 
 
     @Override
@@ -76,7 +85,7 @@ public class TeacherAttestationActivity extends SimpleActivity {
             R.id.iv_upload_ic_card_front,
             R.id.iv_upload_iccard_back,
             R.id.iv_upload_teacher_card,
-            R.id.tv_modify_password
+            R.id.tv_verify_teacher
     })
     public void doClick(View view){
         switch (view.getId()){
@@ -92,10 +101,62 @@ public class TeacherAttestationActivity extends SimpleActivity {
                 currIndex = 3;
                 chooseOrTakePhoto();
                 break;
-
-            case R.id.tv_modify_password:
+            case R.id.tv_verify_teacher:
+                confirmVerify();
                 break;
         }
+    }
+
+    private void confirmVerify() {
+        String teacherCardNo = et_input_teacher_iccard.getText().toString();
+        if (TextUtils.isEmpty(teacherCardNo)){
+            ToastUtil.toastShort("请填写教师资格证号码后，再重试！");
+            return;
+        }
+        if (TextUtils.isEmpty(mICCardFilePathFront)){
+            ToastUtil.toastShort("请选择身份证正面照后，再重试！");
+            return;
+        }
+        if (TextUtils.isEmpty(mICCardFilePathBack)){
+            ToastUtil.toastShort("请选择身份证背面照后，再重试！");
+            return;
+        }
+        if (TextUtils.isEmpty(mICCardFilePathFront)){
+            ToastUtil.toastShort("请选择教师资格证照片后，再重试！");
+            return;
+        }
+        showLoadingDialog();
+        File fileIcCardFront = new File(mICCardFilePathFront);
+        File fileIcCardBack = new File(mICCardFilePathBack);
+        File fileTeacherCard = new File(mTeacherCardFilePath);
+        RequestBody requestBodyICCardFront = RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront);
+        RequestBody requestBodyICCardBack = RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardBack);
+        RequestBody requestBodyTeacherCard = RequestBody.create(MediaType.parse("multipart/form-data"), fileTeacherCard);
+        MultipartBody.Part[] filePartArr = new MultipartBody.Part[3];
+        filePartArr[0] = MultipartBody.Part.createFormData("id_card_front_pic",fileIcCardFront.getName(),requestBodyICCardFront);
+        filePartArr[1] = MultipartBody.Part.createFormData("teacher_certification",fileIcCardFront.getName(),requestBodyICCardFront);
+        filePartArr[2] = MultipartBody.Part.createFormData("teacher_certification",fileIcCardFront.getName(),requestBodyICCardFront);
+        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),teacherCardNo,filePartArr)
+            .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
+                .subscribe(new Consumer<ResTeacherAttestation>() {
+                    @Override
+                    public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
+                        hideLoadingDialog();
+                        int error_code = resTeacherAttestation.getError_code();
+                        if (error_code == 0){
+
+                        }else{
+                            ToastUtil.toastShort(resTeacherAttestation.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        tipServerError();
+                    }
+                })
+        );
     }
 
 
@@ -151,13 +212,26 @@ public class TeacherAttestationActivity extends SimpleActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
-
                     // 图片选择结果回调
                     List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
                     if (null != localMedia && localMedia.size() > 0){
                         String path = localMedia.get(0).getPath();
-                        MyLog.logMy(path);
-                        showLoadingDialog();
+                        switch (currIndex){
+                            case 1:
+                                mICCardFilePathFront = path;
+                                ImageLoader.load(TeacherAttestationActivity.this,path,iv_iccard_front);
+                                break;
+                            case 2:
+                                mICCardFilePathBack = path;
+                                ImageLoader.load(TeacherAttestationActivity.this,path,iv_iccard_back);
+                                break;
+                            case 3:
+                                mTeacherCardFilePath = path;
+                                ImageLoader.load(TeacherAttestationActivity.this,path,iv_teacher_card);
+                                break;
+                        }
+//                        MyLog.logMy(path);
+//                        showLoadingDialog();
 //                        uploadPicture(path);
                     }else{
                         ToastUtil.toastShort("获取图片失败！");

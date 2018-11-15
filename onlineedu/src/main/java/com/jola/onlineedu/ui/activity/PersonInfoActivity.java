@@ -37,11 +37,13 @@ public class PersonInfoActivity extends SimpleActivity {
     public void doClick(View view){
         switch (view.getId()){
             case R.id.rl_modify_info:
+                startActivity(new Intent(this,ModifyProfileInfoActivity.class));
                 break;
             case R.id.rl_modify_password:
                 startActivity(new Intent(this,ModifyPasswordActivity.class));
                 break;
             case R.id.rl_teacher_attestation:
+                startActivity(new Intent(this,TeacherAttestationActivity.class));
                 break;
         }
     }

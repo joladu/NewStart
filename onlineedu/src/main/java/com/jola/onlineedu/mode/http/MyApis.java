@@ -12,6 +12,7 @@ import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResFriendDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
@@ -295,11 +296,44 @@ public interface MyApis {
     @FormUrlEncoded
     @POST("v1/uc/teacherverify/")
     Flowable<ResTeacherAttestation> teacherAttestation(
+            @Header("authorization") String token ,
             @Field("teacher_certification_id") String teacher_certification_id,
             @Field("teacher_certification") String teacher_certification,
             @Field("id_card_front_pic") String id_card_front_pic,
             @Field("teacher_certification_id") String id_card_behind_pic
             );
+
+
+
+//    File file = new File(path);
+//    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//    MultipartBody.Part[]  file = new MultipartBody.Part[2];
+//    file[0] = MultipartBody.Part.createFormData("fileKey", file1.getName(), requestFile);
+//    file[1] = MultipartBody.Part.createFormData("fileKey", file1.getName(), requestFile);
+
+    @POST("v1/uc/teacherverify/")
+    @Multipart
+    Flowable<ResTeacherAttestation> teacherVerify(
+            @Header("authorization") String token,
+            @Field("teacher_certification_id") String teacher_certification_id,
+            @Part MultipartBody.Part[] fileArrPart
+            );
+
+    @GET("v1/fridend/{id}/detail/")
+    Flowable<ResFriendDetailBean> getFriendDetailInfo(
+            @Header("authorization") String token,
+            @Path("id") String id
+    );
+
+    @PUT("v1/uc/changemobile/")
+    Flowable<ResponseSimpleResult> changeMobilePhoneNo(
+            @Header("authorization") String token,
+            @Field("mobile") String mobile,
+            @Field("vcode") String vcode,
+            @Field("captcha_key") String captcha_key,
+            @Field("captcha") String captcha
+
+    );
 
 //  *****************  end  user api *****************
 

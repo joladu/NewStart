@@ -12,6 +12,7 @@ import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResFriendDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
@@ -283,9 +284,25 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResTeacherAttestation> teacherAttestation(String teacher_certification_id, String teacher_certification, String id_card_front_pic, String id_card_behind_pic) {
-        return myApis.teacherAttestation(teacher_certification_id,teacher_certification,id_card_front_pic,id_card_behind_pic);
+    public Flowable<ResTeacherAttestation> teacherAttestation(String token,String teacher_certification_id, String teacher_certification, String id_card_front_pic, String id_card_behind_pic) {
+        return myApis.teacherAttestation(token,teacher_certification_id,teacher_certification,id_card_front_pic,id_card_behind_pic);
     }
+
+    @Override
+    public Flowable<ResTeacherAttestation> teacherVerify(String token, String teacher_certification_id, MultipartBody.Part[] fileArrPart) {
+        return myApis.teacherVerify(token,teacher_certification_id,fileArrPart);
+    }
+
+    @Override
+    public Flowable<ResFriendDetailBean> getFriendDetailInfo(String token, String id) {
+        return myApis.getFriendDetailInfo(token,id);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> changeMobilePhoneNo(String token, String mobile, String vcode, String captcha_key, String captcha) {
+        return myApis.changeMobilePhoneNo(token,mobile,vcode,captcha_key,captcha);
+    }
+
 
     @Override
     public Flowable<String> testHead(String token, String testName) {

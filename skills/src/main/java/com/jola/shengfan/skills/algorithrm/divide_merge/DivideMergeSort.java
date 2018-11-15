@@ -109,34 +109,20 @@ public class DivideMergeSort {
     }
 
     public static void mergeDes(int[] arr,int start,int mid,int end){
-        int sizeLeft = mid - start + 1 + 1;// +1 end flag = max
-        int sizeRight = end - (mid + 1) + 1 + 1 ;// +1 end flag = max
+        int sizeLeft = mid - start + 1 + 1;// +1 start flag = max
+        int sizeRight = end - (mid + 1) + 1 + 1 ;// +1 start flag = max
 
         int[] arrLeft = new int[sizeLeft];
         int[] arrRight = new int[sizeRight];
 
-
-//        System.arraycopy(arr,start,arrLeft,0,sizeLeft - 1);
-//        arrLeft[sizeLeft - 1] = Integer.MAX_VALUE;
         arrLeft[0] = Integer.MAX_VALUE;
         System.arraycopy(arr,start,arrLeft,1,sizeLeft - 1);
 
 
-
-//        System.arraycopy(arr,mid+1,arrRight,0,sizeRight - 1);
-//        arrRight[sizeRight - 1] = Integer.MAX_VALUE;
         arrRight[0] = Integer.MAX_VALUE;
         System.arraycopy(arr,mid+1,arrRight,1,sizeRight - 1);
 
 
-//        int indexLeft = 0,indexRight = 0;
-//        while(start <= end){
-//            if (arrLeft[indexLeft] < arrRight[indexRight]){
-//                arr[start++] = arrLeft[indexLeft++];
-//            }else{
-//                arr[start++] = arrRight[indexRight++];
-//            }
-//        }
         int indexLeft = arrLeft.length - 1,indexRight = arrRight.length - 1;
         while (end >= start){
             if (arrLeft[indexLeft] < arrRight[indexRight]){
