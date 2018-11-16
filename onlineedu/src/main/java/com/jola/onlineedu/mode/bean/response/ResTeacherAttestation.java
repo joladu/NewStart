@@ -75,4 +75,13 @@ public class ResTeacherAttestation {
             this.id_card_front_pic = id_card_front_pic;
         }
     }
+
+    @Override
+    public String toString() {
+        return "ResTeacherAttestation{" +
+                "data=" + data +
+                ", error_code=" + error_code +
+                ", error_msg='" + error_msg + '\'' +
+                '}';
+    }
 }

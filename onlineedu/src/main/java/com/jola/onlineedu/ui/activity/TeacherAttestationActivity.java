@@ -3,6 +3,7 @@ package com.jola.onlineedu.ui.activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -130,18 +132,30 @@ public class TeacherAttestationActivity extends SimpleActivity {
         File fileIcCardBack = new File(mICCardFilePathBack);
         File fileTeacherCard = new File(mTeacherCardFilePath);
 
-        MultipartBody multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("teacher_certification_id", teacherCardNo)
-                .addFormDataPart("teacher_certification", fileTeacherCard.getName(), RequestBody.create(MediaType.parse("image/*"), fileTeacherCard))
-                .addFormDataPart("id_card_front_pic", fileIcCardFront.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardFront))
-                .addFormDataPart("id_card_behind_pic", fileIcCardBack.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardBack))
-                .build();
+        RequestBody requestBodyFront = RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront);
+        MultipartBody.Part.createFormData("id_card_front_pic",fileIcCardFront.getName(),requestBodyFront);
 
-        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),multipartBody)
+
+//        MultipartBody multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+//                .addFormDataPart("teacher_certification_id", teacherCardNo)
+////                .addFormDataPart("id_card_front_pic", fileIcCardFront.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront))
+//                .addFormDataPart("id_card_front_pic", fileIcCardFront.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardFront))
+//                .addFormDataPart("id_card_behind_pic", fileIcCardBack.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardBack))
+//                .addFormDataPart("teacher_certification", fileTeacherCard.getName(), RequestBody.create(MediaType.parse("image/*"), fileTeacherCard))
+//                .build();
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("teacher_certification_id",RequestBody.create(MediaType.parse("application/json"),teacherCardNo));
+        map.put("id_card_front_pic\"; filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardFront));
+        map.put("id_card_behind_pic\"; filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardBack));
+        map.put("teacher_certification\"; filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/png"),fileTeacherCard));
+
+        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),map)
             .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
                 .subscribe(new Consumer<ResTeacherAttestation>() {
                     @Override
                     public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
+                        Log.v("okhttp",resTeacherAttestation.toString());
                         hideLoadingDialog();
                         int error_code = resTeacherAttestation.getError_code();
                         if (error_code == 0){

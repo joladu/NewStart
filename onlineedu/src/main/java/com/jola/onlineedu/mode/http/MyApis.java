@@ -13,6 +13,7 @@ import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResForumListByTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendDetailBean;
+import com.jola.onlineedu.mode.bean.response.ResFriendList;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
@@ -32,14 +33,18 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -53,6 +58,7 @@ public interface MyApis {
 
     String DOMAIN = "http://yunketang.dev.attackt.com";
     String HOST = DOMAIN + "/api/";
+    String TAG_AUTHORIZATION = "authorization";
 
 
     // *****************   begin base api     ***************
@@ -273,11 +279,19 @@ public interface MyApis {
 
 
 
+//    @Multipart
+//    @POST("v1/uc/teacherverify/")
+//    Flowable<ResTeacherAttestation> teacherVerify(
+//            @Header("authorization") String token,
+//            @Part MultipartBody.Part partFront,
+//            );
+
+    @Multipart
     @POST("v1/uc/teacherverify/")
     Flowable<ResTeacherAttestation> teacherVerify(
             @Header("authorization") String token,
-            @Body RequestBody requestBody
-            );
+           @PartMap Map<String ,RequestBody> map
+    );
 
     @GET("v1/fridend/{id}/detail/")
     Flowable<ResFriendDetailBean> getFriendDetailInfo(
@@ -292,8 +306,23 @@ public interface MyApis {
             @Field("vcode") String vcode,
             @Field("captcha_key") String captcha_key,
             @Field("captcha") String captcha
-
     );
+
+
+    @GET("v1/friend/")
+    Flowable<ResFriendList> getFriendList(@Header("authorization") String token);
+
+    @GET("v1/friend/")
+    Flowable<ResFriendList> queryFriendByKey(@Header("authorization") String token, @Query("kw") String keyWord);
+
+    @FormUrlEncoded
+    @POST("v1/friend/add/")
+    Flowable<ResponseSimpleResult> addFriend(@Header(TAG_AUTHORIZATION) String token,@Field("from_user_id") String from_user_id);
+
+    @GET("v1/uc/message/")
+    Flowable<ResponseSimpleResult> getMessageList(@Header(TAG_AUTHORIZATION) String token,@Query("page") String page,@Query("pagesize")String pagesize);
+
+
 
 //  *****************  end  user api *****************
 
@@ -310,7 +339,6 @@ public interface MyApis {
 
 
 
-    //
     @FormUrlEncoded
     @POST("v1/user/tes/t")
     Flowable<String> testHead(@Header("token") String token, String testName);

@@ -290,8 +290,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResTeacherAttestation> teacherVerify(String token, RequestBody requestBody) {
-        return myApis.teacherVerify(token,requestBody);
+    public Flowable<ResTeacherAttestation> teacherVerify(String token, Map<String, RequestBody> map) {
+        return myApis.teacherVerify(token,map);
     }
 
 
