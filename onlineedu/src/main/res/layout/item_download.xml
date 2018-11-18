@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="@dimen/qb_px_15"
+        android:layout_height="@dimen/qb_px_17"
+        android:src="@drawable/download_pdf_x2"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/qb_px_20"
+        android:layout_marginTop="@dimen/qb_px_20"
+        android:layout_marginBottom="@dimen/qb_px_20"
+        />
+    <TextView
+        android:id="@+id/tv_download_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_content_forum_text"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:layout_toEndOf="@+id/iv_icon"
+        android:layout_marginStart="@dimen/qb_px_15"
+        android:layout_centerVertical="true"
+        tools:text="美术文化传统的内涵"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_download_title"
+        android:layout_alignParentEnd="true"
+        android:textSize="12sp"
+        android:textColor="@color/gray_star_score"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        tools:text="刚刚"
+        />
+
+
+
+</RelativeLayout>

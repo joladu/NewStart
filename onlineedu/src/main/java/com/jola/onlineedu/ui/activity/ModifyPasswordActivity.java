@@ -19,6 +19,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class ModifyPasswordActivity extends SimpleActivity {
 
@@ -134,30 +136,64 @@ public class ModifyPasswordActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
+
+//        addSubscribe(
+//                mDataManager.changePassword(mDataManager.getUserToken(),originalPassword,newPassword,passwordAgain)
+//                        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResponseSimpleResult>() {
+//                    @Override
+//                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+//                        hideLoadingDialog();
+//                        int error_code = responseSimpleResult.getError_code();
+//                        if (error_code == 0){
+//                            ToastUtil.toastShort("修改密码成功！");
+//                            ModifyPasswordActivity.this.finish();
+//                        }else{
+//                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        hideLoadingDialog();
+//                        tipServerError();
+//                        hideLoadingDialog();
+//                    }
+//                })
+//        );
+
+
         addSubscribe(
-                mDataManager.changePassword(mDataManager.getUserToken(),originalPassword,newPassword,passwordAgain)
+                mDataManager.changePassword1(mDataManager.getUserToken(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"),originalPassword),
+                        RequestBody.create(MediaType.parse("multipart/form-data"),newPassword),
+                        RequestBody.create(MediaType.parse("multipart/form-data"),passwordAgain))
                         .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
-                .subscribe(new Consumer<ResponseSimpleResult>() {
-                    @Override
-                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
-                        hideLoadingDialog();
-                        int error_code = responseSimpleResult.getError_code();
-                        if (error_code == 0){
-                            ToastUtil.toastShort("修改密码成功！");
-                            ModifyPasswordActivity.this.finish();
-                        }else{
-                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        hideLoadingDialog();
-                        tipServerError();
-                        hideLoadingDialog();
-                    }
-                })
+                        .subscribe(new Consumer<ResponseSimpleResult>() {
+                            @Override
+                            public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                                hideLoadingDialog();
+                                int error_code = responseSimpleResult.getError_code();
+                                if (error_code == 0){
+                                    ToastUtil.toastShort("修改密码成功！");
+                                    ModifyPasswordActivity.this.finish();
+                                }else{
+                                    ToastUtil.toastLong(responseSimpleResult.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                hideLoadingDialog();
+                                tipServerError();
+                                hideLoadingDialog();
+                            }
+                        })
         );
+
+
+
+
 
 
     }

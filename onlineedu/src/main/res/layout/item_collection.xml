@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/civ_head_user"
+        android:layout_width="@dimen/qb_px_90"
+        android:layout_height="@dimen/qb_px_60"
+        android:src="@drawable/image_placeholder_loading"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_20"
+        android:layout_marginBottom="@dimen/qb_px_20"
+        />
+    <TextView
+        android:id="@+id/tv_friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_content_forum_text"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:layout_toEndOf="@+id/civ_head_user"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_20"
+        tools:text="计算机原理"
+        />
+
+    <TextView
+        android:id="@+id/tv_cancel_interest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/cancel_collect"
+        android:textColor="@color/window_bg"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:layout_marginEnd="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_10"
+        android:background="#252C42"
+        android:paddingStart="8dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="8dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_friend_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hint_text_gray"
+        android:textSize="14sp"
+        android:layout_toRightOf="@+id/civ_head_user"
+        android:layout_below="@+id/tv_friend_name"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_8"
+        tools:text="讲师 李老师  课程类别 语文"
+        />
+
+
+
+
+</RelativeLayout>

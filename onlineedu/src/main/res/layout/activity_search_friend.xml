@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jola.onlineedu.ui.activity.SearchFriendActivity"
+    android:background="@color/window_bg">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_radius_gray_search">
+
+            <EditText
+                android:id="@+id/et_hint_search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="帖子搜索 回复搜索"
+                android:lines="1"
+                android:singleLine="true"
+                android:textColor="@color/gray_hint_text_search"
+                android:textSize="@dimen/hint_search_text_size" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="@dimen/margin_content_to_border"
+                android:src="@drawable/search_green_x2" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="#0099E1"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="3dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_tip_no_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="该用户不存在"
+        android:textColor="#C2C2C2"
+        android:textSize="13sp"
+        android:layout_gravity="center"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+
+</LinearLayout>

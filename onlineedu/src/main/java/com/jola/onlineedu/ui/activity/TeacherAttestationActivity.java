@@ -1,6 +1,8 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -83,6 +85,7 @@ public class TeacherAttestationActivity extends SimpleActivity {
 
 
 
+
     @OnClick({
             R.id.iv_upload_ic_card_front,
             R.id.iv_upload_iccard_back,
@@ -144,34 +147,109 @@ public class TeacherAttestationActivity extends SimpleActivity {
 //                .addFormDataPart("teacher_certification", fileTeacherCard.getName(), RequestBody.create(MediaType.parse("image/*"), fileTeacherCard))
 //                .build();
 
-        HashMap<String, RequestBody> map = new HashMap<>();
-        map.put("teacher_certification_id",RequestBody.create(MediaType.parse("application/json"),teacherCardNo));
-        map.put("id_card_front_pic\"; filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardFront));
-        map.put("id_card_behind_pic\"; filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardBack));
-        map.put("teacher_certification\"; filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/png"),fileTeacherCard));
+//        HashMap<String, RequestBody> map = new HashMap<>();
+//        map.put("teacher_certification_id",RequestBody.create(MediaType.parse("application/json"),teacherCardNo));
+//        map.put("id_card_front_pic\"; filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardFront));
+//        map.put("id_card_behind_pic\"; filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardBack));
+//        map.put("teacher_certification\"; filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/png"),fileTeacherCard));
 
-        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),map)
-            .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
-                .subscribe(new Consumer<ResTeacherAttestation>() {
-                    @Override
-                    public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
-                        Log.v("okhttp",resTeacherAttestation.toString());
-                        hideLoadingDialog();
-                        int error_code = resTeacherAttestation.getError_code();
-                        if (error_code == 0){
-                            ToastUtil.toastShort("资料上传成功，请等待审核！");
-                        }else{
-                            ToastUtil.toastLong(resTeacherAttestation.getError_msg());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        hideLoadingDialog();
-                        tipServerError();
-                    }
-                })
+//        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),map)
+//        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),
+////                RequestBody.create(MediaType.parse("application/json"),teacherCardNo),
+////                RequestBody.create(MediaType.parse("text/plain"),teacherCardNo),
+//                RequestBody.create(MediaType.parse("multipart/form-data"),teacherCardNo),
+//                RequestBody.create(MediaType.parse("multipart/form-data"),fileTeacherCard),
+//                RequestBody.create(MediaType.parse("multipart/form-data"),fileIcCardFront),
+//                RequestBody.create(MediaType.parse("multipart/form-data"),fileIcCardBack)
+//                )
+//            .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResTeacherAttestation>() {
+//                    @Override
+//                    public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
+//                        Log.v("okhttp",resTeacherAttestation.toString());
+//                        hideLoadingDialog();
+//                        int error_code = resTeacherAttestation.getError_code();
+//                        if (error_code == 0){
+//                            ToastUtil.toastShort("资料上传成功，请等待审核！");
+//                        }else{
+//                            ToastUtil.toastLong(resTeacherAttestation.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        hideLoadingDialog();
+//                        tipServerError();
+//                    }
+//                })
+//        );
+
+
+
+
+//        HashMap<String, RequestBody> map = new HashMap<>();
+////        "file" + i + "\";filename=\"" + files.getName()
+////         name="file"; filename="test.png"
+//        map.put("id_card_front_pic"+"\";filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardFront));
+//        map.put("id_card_behind_pic" + "\";filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardBack));
+//        map.put("teacher_certification" + "\";filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/*"),fileTeacherCard));
+//        addSubscribe(mDataManager.teacherVerify2(mDataManager.getUserToken(),teacherCardNo, map)
+//                        .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
+//                        .subscribe(new Consumer<ResTeacherAttestation>() {
+//                            @Override
+//                            public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
+//                                Log.v("okhttp",resTeacherAttestation.toString());
+//                                hideLoadingDialog();
+//                                int error_code = resTeacherAttestation.getError_code();
+//                                if (error_code == 0){
+//                                    ToastUtil.toastShort("资料上传成功，请等待审核！");
+//                                }else{
+//                                    ToastUtil.toastLong(resTeacherAttestation.getError_msg());
+//                                }
+//                            }
+//                        }, new Consumer<Throwable>() {
+//                            @Override
+//                            public void accept(Throwable throwable) throws Exception {
+//                                hideLoadingDialog();
+//                                tipServerError();
+//                            }
+//                        })
+//        );
+
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("teacher_certification_id",RequestBody.create(MediaType.parse("text/plain"),teacherCardNo));
+        map.put("id_card_front_pic" + "\";filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardFront));
+        map.put("id_card_behind_pic" + "\";filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardBack));
+        map.put("teacher_certification" + "\";filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/*"),fileTeacherCard));
+        addSubscribe(mDataManager.teacherVerify3(mDataManager.getUserToken(), map)
+                        .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResTeacherAttestation>() {
+                            @Override
+                            public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
+                                Log.v("okhttp",resTeacherAttestation.toString());
+                                hideLoadingDialog();
+                                int error_code = resTeacherAttestation.getError_code();
+                                if (error_code == 0){
+                                    ToastUtil.toastShort("资料上传成功，请等待审核！");
+                                }else{
+                                    ToastUtil.toastLong(resTeacherAttestation.getError_msg());
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                hideLoadingDialog();
+                                tipServerError();
+                            }
+                        })
         );
+
+
+
+
+
+
     }
 
 

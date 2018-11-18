@@ -24,6 +24,18 @@ public interface PreferencesHelper {
     void setUserToken(String userToken);
     String getUserToken();
 
+    void setUserAvater(String userAvater);
+    String getUserAvater();
+
+    void setUserAddress(String address);
+    String getUserAddress();
+
+    void setUserTeachCourse(String teachCourse);
+    String getUserTeachCourse();
+
+    void setUserSchool(String school);
+    String getUserSchool();
+
     boolean getNightModeState();
 
     void setNightModeState(boolean state);

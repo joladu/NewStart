@@ -1,7 +1,9 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.app.ActionBar;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResTeacherBannerBean;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
 import com.jola.onlineedu.ui.adapter.TeacherMasterListAdapter;
 import com.jola.onlineedu.ui.adapter.TestPoolListAdapter;
@@ -135,12 +138,14 @@ public class TeacherMasterActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
+
+        changeFullScreen();
+
         getActivityComponent().inject(this);
         et_hint_search_view.setHint(getString(R.string.hint_search_teacher_master));
 
 
-        vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(this);
-        vp_banner_teacher.setAdapter(vpHomePagerBannerAdapter);
+        loadBannerData();
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -163,6 +168,42 @@ public class TeacherMasterActivity extends SimpleActivity {
 
         loadData();
 
+    }
+
+
+    public void changeFullScreen(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            int option = View.SYSTEM_UI_FLAG_VISIBLE;
+            option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        }
+    }
+
+    private void loadBannerData() {
+        addSubscribe(dataManager.getTeacherBanner()
+        .compose(RxUtil.<ResTeacherBannerBean>rxSchedulerHelper())
+                .subscribe(new Consumer<ResTeacherBannerBean>() {
+                    @Override
+                    public void accept(ResTeacherBannerBean resTeacherBannerBean) throws Exception {
+                        if (resTeacherBannerBean.getCount() > 0){
+                            List<ResTeacherBannerBean.ResultsBean> results = resTeacherBannerBean.getResults();
+                            vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(TeacherMasterActivity.this,results);
+                            vp_banner_teacher.setAdapter(vpHomePagerBannerAdapter);
+                        }else{
+                            vp_banner_teacher.setVisibility(View.GONE);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        tipServerError();
+                    }
+                })
+        );
     }
 
 

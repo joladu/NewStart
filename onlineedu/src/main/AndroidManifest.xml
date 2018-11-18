@@ -58,11 +58,22 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activity.TeacherMasterActivity" />
         <activity android:name=".ui.activity.LoadWebUrlActivity" />
-        <activity android:name=".ui.activity.PersonInfoActivity"/>
+        <activity android:name=".ui.activity.PersonInfoActivity" />
         <activity android:name=".ui.activity.ModifyPasswordActivity" />
         <activity android:name=".ui.activity.TeacherAttestationActivity" />
         <activity android:name=".ui.activity.ModifyProfileInfoActivity" />
         <activity android:name=".ui.activity.ModifyPhoneNoActivity" />
+        <activity android:name=".ui.activity.PersonInfoImproveActivity" />
+        <activity android:name=".ui.activity.CommentsListActivity" />
+        <activity android:name=".ui.activity.MessageDetailActivity" />
+        <activity android:name=".ui.activity.MessageSendActivity" />
+        <activity android:name=".ui.activity.MyDownloadsActivity" />
+        <activity android:name=".ui.activity.MyActivity" />
+        <activity android:name=".ui.activity.MyInterestActivity" />
+        <activity android:name=".ui.activity.MyMessageActivity" />
+        <activity android:name=".ui.activity.MyStudyActivity" />
+        <activity android:name=".ui.activity.TeacherMasterDetailActivity" />
+        <activity android:name=".ui.activity.SearchFriendActivity"></activity>
     </application>
 
 </manifest>

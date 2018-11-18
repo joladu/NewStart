@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar"/>
+
+
+    <TextView
+        android:id="@+id/tv_content_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_text"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/qb_px_20"
+        android:layout_marginEnd="@dimen/qb_px_20"
+        tools:text="如果你无法简洁表达你的想法，那只说明你还不够了解它。"
+        />
+
+    <TextView
+        android:id="@+id/tv_content_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textSize="13sp"
+        android:textColor="@color/gray_star_score"
+        android:layout_marginEnd="@dimen/qb_px_20"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        tools:text="发送时间：2018.08.09     来自小刚"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="190dp"
+        android:gravity="start"
+        android:padding="10dp"
+        android:hint="@string/hint_remain_words"
+        android:layout_marginStart="@dimen/qb_px_20"
+        android:layout_marginTop="@dimen/qb_px_20"
+        android:layout_marginEnd="@dimen/qb_px_20"
+        android:background="#F5F5F5"
+        android:textColorHint="#C2C2C2"
+        android:textColor="@color/title_text"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_register"
+        style="@style/BtnGreenSingleLine"
+        android:layout_width="@dimen/qb_px_235"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="@string/reply_message"
+        />
+
+
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/actionBarSize"
+    android:id="@+id/toolbar_view"
+    android:fitsSystemWindows="true"
+    android:background="@color/window_bg"
+    app:navigationIcon="@mipmap/back_navi_2x"
+    >
+    <TextView
+        android:id="@+id/title_toolbar_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:lines="1"
+        android:textColor="@color/title_text"
+        android:text="首页"
+        android:textSize="@dimen/title_toolbar_text_size"
+        />
+    <ImageView
+        android:id="@+id/send_icon_in_tool"
+        android:layout_width="@dimen/qb_px_25"
+        android:layout_height="@dimen/qb_px_18"
+        android:layout_gravity = "end"
+        android:src="@drawable/send_message_x2"
+        android:layout_marginEnd="@dimen/margin_content_to_border"
+        />
+
+</android.support.v7.widget.Toolbar>

@@ -82,3 +82,10 @@
 -keep class com.pili.pldroid.player.** { *; }
 -keep class com.qiniu.qplayer.mediaEngine.MediaPlayer{*;}
 #end qiliu pull
+
+
+#being address
+-keepattributes InnerClasses,Signature
+-keepattributes *Annotation*
+-keep class cn.addapp.pickers.entity.** { *;}
+#end address

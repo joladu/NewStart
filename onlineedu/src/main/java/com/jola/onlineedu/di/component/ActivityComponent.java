@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.jola.onlineedu.di.module.ActivityModule;
 import com.jola.onlineedu.di.scope.ActivityScope;
+import com.jola.onlineedu.ui.activity.CommentsListActivity;
 import com.jola.onlineedu.ui.activity.CourseDetailActivity;
 import com.jola.onlineedu.ui.activity.ForgetPasswordActivity;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
@@ -15,6 +16,11 @@ import com.jola.onlineedu.ui.activity.MainActivity;
 import com.jola.onlineedu.ui.activity.ModifyPasswordActivity;
 import com.jola.onlineedu.ui.activity.ModifyPhoneNoActivity;
 import com.jola.onlineedu.ui.activity.ModifyProfileInfoActivity;
+import com.jola.onlineedu.ui.activity.MyDownloadsActivity;
+import com.jola.onlineedu.ui.activity.MyInterestActivity;
+import com.jola.onlineedu.ui.activity.MyMessageActivity;
+import com.jola.onlineedu.ui.activity.MyStudyActivity;
+import com.jola.onlineedu.ui.activity.PersonInfoImproveActivity;
 import com.jola.onlineedu.ui.activity.RegisterActivity;
 import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
 import com.jola.onlineedu.ui.activity.TeacherAttestationActivity;
@@ -48,4 +54,10 @@ public interface ActivityComponent {
     void inject(TeacherAttestationActivity teacherAttestationActivity);
     void inject(ModifyProfileInfoActivity modifyProfileInfoActivity);
     void inject(ModifyPhoneNoActivity modifyPhoneNoActivity);
+    void inject(PersonInfoImproveActivity personInfoImproveActivity);
+    void inject(CommentsListActivity commentsListActivity);
+    void inject(MyDownloadsActivity myDownloadsActivity);
+    void inject(MyInterestActivity myInterestActivity);
+    void inject(MyMessageActivity myMessageActivity);
+    void inject(MyStudyActivity myStudyActivity);
 }

@@ -1,10 +1,7 @@
 package com.jola.onlineedu.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.banner.BannerPagerAdapter;
 import com.jola.onlineedu.banner.BannerViewPager;
 import com.jola.onlineedu.base.SimpleFragment;
@@ -28,13 +24,11 @@ import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
 import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
 import com.jola.onlineedu.ui.activity.TestPoolActivity;
 import com.jola.onlineedu.ui.adapter.RVRecommendCourseAdapter;
-import com.jola.onlineedu.ui.adapter.VPHomePagerBannerAdapter;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -220,7 +214,7 @@ public class HomePageFragment extends SimpleFragment {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.e("jola11","bannner  throws Exception ");
+//                        Log.e("jola11","bannner  throws Exception ");
                         vp_banner_home_page.setVisibility(View.INVISIBLE);
                         iv_holder_banner.setVisibility(View.VISIBLE);
                     }

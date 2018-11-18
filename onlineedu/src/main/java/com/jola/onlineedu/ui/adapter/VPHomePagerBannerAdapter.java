@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
+import com.jola.onlineedu.mode.bean.response.ResTeacherBannerBean;
 
 import java.util.List;
 
@@ -24,16 +26,11 @@ import java.util.List;
 public class VPHomePagerBannerAdapter extends PagerAdapter {
 
     private  LayoutInflater layoutInflater;
-    List<ResBannerHomepage> mList;
+    List<ResTeacherBannerBean.ResultsBean> mList;
     Context context;
 
 
-    public VPHomePagerBannerAdapter(Context context) {
-        this.context = context;
-        layoutInflater = LayoutInflater.from(context);
-    }
-
-    public VPHomePagerBannerAdapter(Context context,List<ResBannerHomepage> mList) {
+    public VPHomePagerBannerAdapter(Context context,List<ResTeacherBannerBean.ResultsBean> mList) {
         this.mList = mList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -52,9 +49,30 @@ public class VPHomePagerBannerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = layoutInflater.inflate(R.layout.item_vp_banner_home_page,container,false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_banner_hp);
-        ImageLoader.load(context,mList.get(position).getDomain_img_url(),imageView);
+        View view = layoutInflater.inflate(R.layout.item_vp_banner_teacher,container,false);
+        ImageView iv_teacher_head = (ImageView) view.findViewById(R.id.iv_teacher_head);
+
+        TextView tv_teacher_name = (TextView) view.findViewById(R.id.tv_teacher_name);
+//        TextView tv_teacher_profession = (TextView) view.findViewById(R.id.tv_teacher_profession);
+        TextView tv_school = (TextView) view.findViewById(R.id.tv_school);
+        TextView tv_describe_content = (TextView) view.findViewById(R.id.tv_describe_content);
+
+        /**
+         * id : 1
+         * teacher_id : 1
+         * summary : 新教师
+         * teaching_courses : 语文 数学 英语
+         * school :
+         * name : 李了了
+         * cover_url : http://yunketang.dev.attackt.com/media/cover_1539338871.jpg
+         */
+        ResTeacherBannerBean.ResultsBean resultsBean = mList.get(position);
+
+        ImageLoader.load(context,resultsBean.getCover_url(),iv_teacher_head);
+        tv_teacher_name.setText(resultsBean.getName());
+        tv_school.setText(resultsBean.getTeaching_courses() +"  "+resultsBean.getSchool());
+        tv_describe_content.setText(resultsBean.getSummary());
+
         container.addView(view);
         return view;
     }

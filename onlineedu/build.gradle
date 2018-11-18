@@ -135,6 +135,8 @@ dependencies {
     implementation 'me.yokeyword:fragmentation:0.10.4'
 
 //    address picture
-    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+//    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+
+    implementation 'com.github.addappcn:android-pickers:1.0.3'
 
 }

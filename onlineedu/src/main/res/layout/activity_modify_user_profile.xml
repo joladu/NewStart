@@ -10,7 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/window_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        >
 
 
         <include layout="@layout/view_toolbar"/>
@@ -26,7 +29,6 @@
             android:id="@+id/rl_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             >
 
             <TextView
@@ -312,13 +314,65 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divide_line_gray"
+            />
 
+        <RelativeLayout
+            android:id="@+id/rl_check_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password_check"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_content_forum_text"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                />
+
+            <EditText
+                android:id="@+id/et_input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/modify_profile_size"
+                android:textColor="@color/gray_hint_text_search"
+                android:gravity="start"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="90dp"
+                android:hint="@string/hint_input_password_check"
+                android:background="@null"
+                />
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divide_line_gray"
             />
+
+        <TextView
+            android:id="@+id/tv_modify_info"
+            style="@style/BtnGreenSingleLine"
+            android:layout_width="@dimen/qb_px_225"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="@string/modify_personal_info"
+
+            />
+
+
 
 
     </LinearLayout>

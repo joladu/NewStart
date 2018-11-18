@@ -19,8 +19,10 @@ import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResUploadUserImageBean;
 import com.jola.onlineedu.mode.bean.response.ResUserInfoBean;
 import com.jola.onlineedu.mode.http.MyApis;
+import com.jola.onlineedu.ui.activity.CommentsListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
+import com.jola.onlineedu.ui.activity.MyActivity;
 import com.jola.onlineedu.ui.activity.PersonInfoActivity;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.SystemUtil;
@@ -79,12 +81,20 @@ public class MineFragment extends SimpleFragment {
 
     @OnClick({
             R.id.rl_person_info,
-            R.id.rl_logout
+            R.id.rl_logout,
+            R.id.rl_mine_info,
+            R.id.rl_record_info
     })
     public void clickEvent(View view){
         switch (view.getId()){
             case R.id.rl_person_info:
                 startActivity(new Intent(mActivity, PersonInfoActivity.class));
+                break;
+            case R.id.rl_mine_info:
+                startActivity(new Intent(mActivity, MyActivity.class));
+                break;
+            case R.id.rl_record_info:
+                startActivity(new Intent(mActivity, CommentsListActivity.class));
                 break;
             case R.id.rl_logout:
                 showLogoutView();
@@ -222,8 +232,9 @@ public class MineFragment extends SimpleFragment {
 
                                 ToastUtil.toastShort("图片上传成功");
                                 String avatar = resUploadUserImageBean.getData().getUser().getAvatar();
-                                MyLog.logMy(avatar);
+//                                MyLog.logMy(avatar);
                                 Glide.with(mContext).load(avatar).into(civ_head_user);
+                                dataManager.setUserAvater(avatar);
                             }else{
                                 ToastUtil.toastShort(resUploadUserImageBean.getError_msg());
                             }

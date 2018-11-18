@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:background="@drawable/bg_teacher_banner"
+    >
+
+    <ImageView
+        android:id="@+id/iv_back_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_icon__white_x2"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="20dp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_teacher_head"
+        android:layout_width="105dp"
+        android:layout_height="135dp"
+        android:src="@drawable/image_placeholder"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_right_of_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_teacher_head"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_teacher_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刘培育"
+            android:textSize="17sp"
+            android:textColor="#fff"
+            />
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_teacher_profession"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toRightOf="@+id/tv_teacher_name"-->
+            <!--android:layout_marginStart="10dp"-->
+            <!--android:text="网页设计师"-->
+            <!--android:textSize="17sp"-->
+            <!--android:textColor="#009ADE"-->
+            <!--/>-->
+
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_teacher_name"
+            android:text="高一化学  复旦大学"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_describe_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_school"
+            android:layout_marginEnd="20dp"
+            android:text="精通各种网站制作软件photoshop、Dreamweaver、fireworks、flash等 … "
+            android:textColor="#fff"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#009ADE"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_describe_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:text="查看详情"
+            android:textColor="#fff"
+            android:drawablePadding="10dp"
+            android:paddingStart="15dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="3dp"
+            android:drawableRight="@drawable/more_teacher_master_x2"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

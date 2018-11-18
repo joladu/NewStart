@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_bg_popup_window">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_content_to_border"
+    android:layout_marginStart="@dimen/margin_content_to_border"
+    android:layout_marginTop="@dimen/margin_content_to_border"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_content_to_border"
-        android:layout_marginStart="@dimen/margin_content_to_border"
-        android:layout_marginTop="90dp"
-        android:background="@drawable/shape_radiu_white_bg"
+
+
         android:orientation="vertical">
 
         <TextView
@@ -26,6 +27,7 @@
             />
 
         <EditText
+            android:id="@+id/et_input_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_content_to_border"
@@ -41,8 +43,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal">
 
             <TextView

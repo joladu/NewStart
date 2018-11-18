@@ -21,7 +21,7 @@
 
     <dimen name="margin_between_two">@dimen/qb_px_10</dimen>
     <dimen name="tip_logout_text">15sp</dimen>
-    <dimen name="btn_pop_text_size">22sp</dimen>
+    <dimen name="btn_pop_text_size">18sp</dimen>
 
     <dimen name="hint_search_text_size">13sp</dimen>
 

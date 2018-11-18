@@ -1,11 +1,15 @@
 package com.jola.onlineedu.mode.http;
 
+import android.nfc.Tag;
+
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
+import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
+import com.jola.onlineedu.mode.bean.response.ResDownloadsBean;
 import com.jola.onlineedu.mode.bean.response.ResExamsDetail;
 import com.jola.onlineedu.mode.bean.response.ResExamsList;
 import com.jola.onlineedu.mode.bean.response.ResForumComments;
@@ -15,12 +19,19 @@ import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendList;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
+import com.jola.onlineedu.mode.bean.response.ResInteresListBean;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
+import com.jola.onlineedu.mode.bean.response.ResMessageDetailBean;
+import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResSelectionListBean;
+import com.jola.onlineedu.mode.bean.response.ResStudyListBean;
 import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
+import com.jola.onlineedu.mode.bean.response.ResTeacherBannerBean;
 import com.jola.onlineedu.mode.bean.response.ResTeacherCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
+import com.jola.onlineedu.mode.bean.response.ResUpdatepersonalInfoBean;
 import com.jola.onlineedu.mode.bean.response.ResUploadFourmImageBean;
 import com.jola.onlineedu.mode.bean.response.ResUploadUserImageBean;
 import com.jola.onlineedu.mode.bean.response.ResUserInfoBean;
@@ -116,7 +127,7 @@ public interface MyApis {
     Flowable<ResUploadUserImageBean> uploadUserImage(@Header("authorization") String token,@Field("avatar_binary") String imageBase64Str);
 
     @PUT("v1/user/change/profile/")
-    Flowable<ResponseSimpleResult> updateUserProfile(@QueryMap Map<String,String> map);
+    Flowable<ResUpdatepersonalInfoBean> updateUserProfile(@QueryMap Map<String,String> map);
 
 
 //   ***************** end user api  *****************
@@ -239,6 +250,11 @@ public interface MyApis {
 
     //  *****************  begin teacher api *****************
 
+
+    @GET("v1/teacher/commend/")
+    Flowable<ResTeacherBannerBean> getTeacherBanner();
+
+
     @GET("v1/teacher/")
     Flowable<ResTeacherList> getTeacherList(@Query("page")String page,@Query("page_size")String page_size);
 
@@ -266,15 +282,14 @@ public interface MyApis {
     @PUT("v1/uc/chpwd/")
     Flowable<ResponseSimpleResult> changePassword(@Header("authorization") String token,@Field("oldpwd") String oldpwd,@Field("newpwd") String newpwd,@Field("newpwd2") String newpwd2);
 
-    @FormUrlEncoded
-    @POST("v1/uc/teacherverify/")
-    Flowable<ResTeacherAttestation> teacherAttestation(
-            @Header("authorization") String token ,
-            @Field("teacher_certification_id") String teacher_certification_id,
-            @Field("teacher_certification") String teacher_certification,
-            @Field("id_card_front_pic") String id_card_front_pic,
-            @Field("teacher_certification_id") String id_card_behind_pic
-            );
+
+    @Multipart
+    @PUT("v1/uc/chpwd/")
+    Flowable<ResponseSimpleResult> changePassword1(
+            @Header("authorization") String token,
+            @Part("oldpwd") RequestBody oldpwd,
+            @Part("newpwd") RequestBody newpwd,
+            @Part("newpwd2") RequestBody newpwd2);
 
 
 
@@ -286,12 +301,40 @@ public interface MyApis {
 //            @Part MultipartBody.Part partFront,
 //            );
 
+
+
+//    第一种 官方 ：不行
     @Multipart
     @POST("v1/uc/teacherverify/")
     Flowable<ResTeacherAttestation> teacherVerify(
             @Header("authorization") String token,
-           @PartMap Map<String ,RequestBody> map
+            @Part("teacher_certification_id") RequestBody  requestBodyTeacherCardIc,
+            @Part("teacher_certification") RequestBody requestBodyTeacherCard,
+            @Part("id_card_front_pic") RequestBody requestBodyICCardFront,
+            @Part("id_card_behind_pic") RequestBody requestBodyICCardBack
     );
+
+
+//    第二种
+    @Multipart
+    @POST("v1/uc/teacherverify/")
+    Flowable<ResTeacherAttestation> teacherVerify2(
+            @Header("authorization") String token,
+            @Part("teacher_certification_id")String teacher_certification_id,
+            @PartMap Map<String ,RequestBody> map
+    );
+
+    //    第3种
+    @Multipart
+    @POST("v1/uc/teacherverify/")
+    Flowable<ResTeacherAttestation> teacherVerify3(
+            @Header("authorization") String token,
+            @PartMap Map<String ,RequestBody> map
+    );
+
+
+
+
 
     @GET("v1/fridend/{id}/detail/")
     Flowable<ResFriendDetailBean> getFriendDetailInfo(
@@ -320,8 +363,68 @@ public interface MyApis {
     Flowable<ResponseSimpleResult> addFriend(@Header(TAG_AUTHORIZATION) String token,@Field("from_user_id") String from_user_id);
 
     @GET("v1/uc/message/")
-    Flowable<ResponseSimpleResult> getMessageList(@Header(TAG_AUTHORIZATION) String token,@Query("page") String page,@Query("pagesize")String pagesize);
+    Flowable<ResMessageListBean> getMessageList(@Header(TAG_AUTHORIZATION) String token, @Query("page") int page, @Query("pagesize")int pagesize);
 
+
+    @GET("v1/uc/message/{id}/detail/")
+    Flowable<ResMessageDetailBean> getMessageDetailInfo(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Path("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("v1/uc/message/send/")
+    Flowable<ResponseSimpleResult> sendMessage(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Field("to_user_id") String to_user_id,
+            @Field("content") String content
+    );
+
+    @FormUrlEncoded
+    @POST("v1/uc/message/{id}/reply/")
+    Flowable<ResponseSimpleResult> responseMessage(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Path("id") String id,
+            @Field("content") String content
+
+    );
+
+    @GET("v1/uc/record/favoritecourse/")
+    Flowable<ResCommentListBean> getCommentsList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pageSize") int pagesize
+    );
+
+
+    @GET("v1/uc/record/favoritecourse/")
+    Flowable<ResSelectionListBean> getSelectionList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int  page,
+            @Query("pageSize") int pagesize
+    );
+
+    @GET("v1/uc/resourcedownload/")
+    Flowable<ResDownloadsBean> getDownloadList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pageSize") int pagesize
+    );
+
+
+    @GET("v1/uc/resourcedownload/")
+    Flowable<ResInteresListBean> getInterestList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pageSize") int pagesize
+    );
+
+
+    @GET("v1/uc/mystudy/")
+    Flowable<ResStudyListBean> getMyStudyList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pagesize")int pagesize);
 
 
 //  *****************  end  user api *****************
@@ -334,32 +437,6 @@ public interface MyApis {
 
 //  *****************  end  teacher api *****************
 
-
-
-
-
-
-    @FormUrlEncoded
-    @POST("v1/user/tes/t")
-    Flowable<String> testHead(@Header("token") String token, String testName);
-
-
-
-
-
-//    @GET("AXPay/testJola/{res}")
-//    Flowable<WelcomeBean> getWelcomeInfo(@Path("res") String res);
-
-//    /**
-//     * 表单提交： username=name;age=age
-//     */
-//    @POST("/form")
-//    @FormUrlEncoded
-//    Call<ResponseBody> testFormUrlEncoded1(@Field("username") String name, @Field("age") int age);
-//    Flowable<WelcomeBean> testFormUrlEncoded(@Field("username") String name,@Field("age") int age);
-
-//    @GET("testJola/")
-//    Flowable<WelcomeBean> getWelcomeInfo();
 
 
 //    /**

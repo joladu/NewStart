@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
@@ -41,9 +42,10 @@ public class DialogInputOneConentView extends Dialog {
     private Context context;
 
     private String title;
-    private String message;
     private String buttonLeftText;
     private String buttonRightText;
+
+    EditText et_input_content;
 
     private ClickListenerInterface clickListenerInterface;
 
@@ -62,21 +64,21 @@ public class DialogInputOneConentView extends Dialog {
 
 
 
-    public DialogInputOneConentView(@NonNull Context context, String title, String message,
+    public DialogInputOneConentView(@NonNull Context context, String title,
                                     String buttonLeftText, String buttonRightText) {
-        super(context, R.style.Confirm0rRefuseDialogStyel);
+        super(context);
+//        super(context, R.style.Confirm0rRefuseDialogStyel);
         this.context = context;
         this.title = title;
-        this.message = message;
         this.buttonLeftText = buttonLeftText;
         this.buttonRightText = buttonRightText;
     }
 
-    public DialogInputOneConentView(@NonNull Context context, String title, String message, String buttonLeftText, String buttonRightText, ClickListenerInterface clickListenerInterface){
-        super(context,R.style.Confirm0rRefuseDialogStyel);
+    public DialogInputOneConentView(@NonNull Context context, String title, String buttonLeftText, String buttonRightText, ClickListenerInterface clickListenerInterface){
+        super(context);
+//        super(context,R.style.Confirm0rRefuseDialogStyel);
         this.context = context;
         this.title = title;
-        this.message = message;
         this.buttonLeftText = buttonLeftText;
         this.buttonRightText = buttonRightText;
         this.clickListenerInterface = clickListenerInterface;
@@ -92,7 +94,7 @@ public class DialogInputOneConentView extends Dialog {
     private void init() {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_input_content_one, null, false);
         setContentView(view);
-        TextView tvMessage = (TextView) view.findViewById(R.id.tvMessage);
+        et_input_content = (EditText) view.findViewById(R.id.et_input_content);
         TextView tvLeft = (TextView) view.findViewById(R.id.tvBtnLeft);
         TextView tvRight = (TextView) view.findViewById(R.id.tvBtnRight);
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
@@ -102,7 +104,6 @@ public class DialogInputOneConentView extends Dialog {
         } else {
             tvTitle.setText(title);
         }
-        tvMessage.setText(message);
         if (null == buttonLeftText || buttonLeftText.length() == 0){
             tvLeft.setVisibility(View.GONE);
             view.findViewById(R.id.view_between_two_divider).setVisibility(View.GONE);
@@ -116,11 +117,14 @@ public class DialogInputOneConentView extends Dialog {
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        layoutParams.width = (int)(displayMetrics.widthPixels * 0.8);
+        layoutParams.width = (int)(displayMetrics.widthPixels);
         dialogWindow.setAttributes(layoutParams);
-
-
     }
+
+    public String getInputContent(){
+        return et_input_content.getText().toString();
+    }
+
 
     public class ClickLister implements View.OnClickListener{
 

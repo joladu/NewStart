@@ -23,6 +23,10 @@ public class PreferencesHelperImpl implements PreferencesHelper {
     public static final String  TAG_USER_NAME = "user_name";
     public static final String  TAG_USER_PHONE = "user_phone";
     public static final String  TAG_USER_TOKEN = "user_token";
+    public static final String  TAG_USER_AVATER = "user_avater";
+    public static final String  TAG_USER_ADDRESS = "user_address";
+    public static final String  TAG_USER_TEACH_COURSE = "user_teach_course";
+    public static final String  TAG_USER_SCHOOL = "user_school";
     public static final String  TAG_USER_Password = "user_password";
 
     private static final boolean DEFAULT_NIGHT_MODE = false;
@@ -93,6 +97,48 @@ public class PreferencesHelperImpl implements PreferencesHelper {
     @Override
     public String getUserToken() {
         return mSPrefs.getString(TAG_USER_TOKEN,"");
+    }
+
+    @Override
+    public void setUserAvater(String userAvater) {
+        mSPrefs.edit().putString(TAG_USER_AVATER,userAvater).apply();
+
+    }
+
+    @Override
+    public String getUserAvater() {
+        return mSPrefs.getString(TAG_USER_AVATER,"");
+    }
+
+    @Override
+    public void setUserAddress(String address) {
+        mSPrefs.edit().putString(TAG_USER_ADDRESS,address).apply();
+    }
+
+    @Override
+    public String getUserAddress() {
+        return mSPrefs.getString(TAG_USER_ADDRESS,"");
+
+    }
+
+    @Override
+    public void setUserTeachCourse(String teachCourse) {
+        mSPrefs.edit().putString(TAG_USER_TEACH_COURSE,teachCourse).apply();
+    }
+
+    @Override
+    public String getUserTeachCourse() {
+        return mSPrefs.getString(TAG_USER_TEACH_COURSE,"");
+    }
+
+    @Override
+    public void setUserSchool(String school) {
+        mSPrefs.edit().putString(TAG_USER_SCHOOL,school).apply();
+    }
+
+    @Override
+    public String getUserSchool() {
+        return mSPrefs.getString(TAG_USER_SCHOOL,"");
     }
 
     @Override

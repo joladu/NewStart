@@ -118,7 +118,7 @@ public class ForumListAdapter extends RecyclerView.Adapter<ForumListAdapter.View
         final String describeContent = "板块:"+curBean.getPost_type().getName()+"  楼主: "+curBean.getUser().getUsername()+"  "+curBean.getComment_count()+"条评论  "+ TimeFormatUtil.formatTime(curBean.getCreated());
         holder.tv_type_author.setText("板块:"+curBean.getPost_type().getName()+"  楼主:"+curBean.getUser().getUsername());
         holder.tv_comments_num.setText(curBean.getComment_count()+"条评论");
-        holder.tv_time.setText(TimeFormatUtil.formatTime(curBean.getCreated()));
+        holder.tv_time.setText(TimeFormatUtil.formatTimeSSS(curBean.getCreated()));
 
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

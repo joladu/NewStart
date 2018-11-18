@@ -68,26 +68,24 @@
     <string name="address">地址</string>
     <string name="school">学校</string>
     <string name="teach_course">所教课程</string>
+    <string name="password_check">密码校验</string>
+
+    <string name="teacher">老师</string>
+    <string name="student">学生</string>
 
 
     <!--end personal info-->
 
 
-    <!--begin test string-->
-    <!--<string name="test_forum_title">每天观看直播节目，你们一般会评论什么，内容呢？</string>-->
-    <!--<string name="test_forum_content">目前我司做的你们可能听过的节目有《今晚80后脱口秀》《今夜百乐门》《吐槽大会》。别撇嘴，我知道质量参差不齐，会越来越好的。所以在这个阶段，没有有绝对话语权的主持人，写手与编导团队也都在摸索，所有段子、环节都要一起商量着来，生态还没有建立起来。等到我们把脱口秀在国内的生态建立起来（主语的“我们”意指我们公司笑果文化，这是我司野心我只能跟着这么说，我个人是不愿意说这么不要脸的话的）</string>-->
-    <!--<string name="test_forum_author">陈华山</string>-->
-    <!--<string name="test_forum_describe">发布版块：反馈    发布时间：2018-08-17</string>-->
-    <!--end test string-->
-
-
     <!--login-->
     <string name="hint_input_account">请输入账号</string>
     <string name="hint_input_password">密码</string>
+    <string name="hint_input_password_check">请输入密码</string>
     <string name="login_btn_text">登录</string>
     <string name="tip_no_password_black">如没有账户，请</string>
     <string name="tip_no_password_green">注册</string>
     <string name="tip_input_phone_num">请输入手机号</string>
+    <string name="tip_input_user_name">请输入用户名</string>
     <string name="tip_input_image_code">请输入图形验证码</string>
     <string name="tip_error_image_code">图形验证码错误！</string>
     <string name="tip_input_msg_code">请输入短信验证码</string>
@@ -101,6 +99,7 @@
     <string name="tip_logout_text">真的要退出吗？</string>
     <string name="confirm_logout_text">确认</string>
     <string name="cancel_logout_text">取消</string>
+    <string name="next_step">下一步</string>
 
     <string name="tip_not_fill_all_content">请填写所有输入项，再重试！</string>
 
@@ -114,6 +113,17 @@
     <string name="comment_nums">评论总数:</string>
     <string name="send_comment_hit">发表评论</string>
     <string name="send_comment">发送</string>
+
+    <string name="download">下载</string>
+    <string name="interest">关注</string>
+    <string name="message">私信</string>
+    <string name="study">学习</string>
+
+    <string name="cancel_interest">取消关注</string>
+    <string name="cancel_collect">取消收藏</string>
+    <string name="hint_remain_words">留下你想说的话</string>
+    <string name="reply_message">回复私信</string>
+    <string name="modify_personal_info">修改信息</string>
 
 
 </resources>

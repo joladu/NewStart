@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_main"
+    >
+
+
+    <include layout="@layout/view_toolbar"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/head_logo_gl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+       app:layout_constraintGuide_percent="0.33"
+       />
+
+    <ImageView
+        android:layout_width="@dimen/qb_px_80"
+        android:layout_height="@dimen/qb_px_80"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_logo_splash"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/qb_px_10"
+        android:src="@drawable/logo_only_image_2x"
+        />
+
+
+    <!--750*1334 高距离 438px / 1334 = -->
+    <ImageView
+        android:id="@+id/iv_logo_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/head_logo_gl"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/logo_text_black_x2"
+       />
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/tv_bottom_xuanyan"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:layout_marginBottom="@dimen/qb_px_20"-->
+        <!--android:src="@drawable/icon_easy_learn_x2"-->
+        <!--/>-->
+
+    <android.support.constraint.Guideline
+        android:id="@+id/head_bottom_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"
+        />
+
+    <TextView
+        android:id="@+id/tv_bottom_xuanyan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/head_bottom_text"
+        android:textColor="#252C42"
+        android:textSize="12sp"
+        android:fontFamily="PingFangSC-Light"
+        android:text="益教APP"
+        />
+
+</android.support.constraint.ConstraintLayout>
