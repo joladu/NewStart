@@ -45,9 +45,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
-import io.reactivex.annotations.Nullable;
-import okhttp3.MultipartBody;
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * Created by lenovo on 2018/8/14
@@ -56,17 +56,9 @@ import okhttp3.RequestBody;
 
 public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
 
-//    HttpHelper mHttpHelper;
     DBHelper mDBHelper;
     PreferencesHelper mPreferenceHelper;
     MyApis myApis;
-
-
-//    public DataManager(HttpHelper mHttpHelper, DBHelper mDBHelper, PreferencesHelper mPreferenceHelper) {
-//        this.mHttpHelper = mHttpHelper;
-//        this.mDBHelper = mDBHelper;
-//        this.mPreferenceHelper = mPreferenceHelper;
-//    }
 
     public DataManager(MyApis myApis, DBHelper mDBHelper, PreferencesHelper mPreferenceHelper) {
         this.myApis = myApis;
@@ -74,41 +66,6 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
         this.mPreferenceHelper = mPreferenceHelper;
     }
 
-
-//    @Override
-//    public Flowable<WelcomeBean> fetchWelcomeInfo() {
-//        return myApis.getWelcomeInfo();
-//    }
-//
-//    @Override
-//    public Flowable<ResponseGetQiLiuBean> fetchQiLiuInfo() {
-//        return myApis.getQiLiuInfo();
-//    }
-//
-//    @Override
-//    public Flowable<ResponseSimpleResult> fetchMsgCheckCode(String mobilePhone) {
-//        return myApis.getMsgCheckCode(mobilePhone);
-//    }
-//
-//    @Override
-//    public Flowable<ResGetImageCode> fetchImageCode() {
-//        return myApis.getImageCode();
-//    }
-//
-//    @Override
-//    public Flowable<ResUserLogin> fetchUserLoginInfo(String userName, String userPassword) {
-//        return myApis.getUserLoginInfo(userName,userPassword);
-//    }
-//
-//    @Override
-//    public Flowable<ResUserRegister> fetchUserRegisterInfo(String userName, String mobileNum, String checkCode, String imageCode, String captcha, String password, String passwordConfirm) {
-//        return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,imageCode,captcha,password,passwordConfirm);
-//    }
-//
-//    @Override
-//    public Flowable<ResponseSimpleResult> fetchForgetPassword(String mobilePhone, String password, String msgCode, String captchaKey, String captcha) {
-//        return myApis.getUserForgetPasswrod(mobilePhone,msgCode,captchaKey,captcha,password);
-//    }
 
 
 
@@ -299,24 +256,25 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
         return myApis.changePassword(token,oldpwd,newpwd,newpwd2);
     }
 
+
     @Override
     public Flowable<ResponseSimpleResult> changePassword1(String token, RequestBody oldpwd, RequestBody newpwd, RequestBody newpwd2) {
         return myApis.changePassword1(token,oldpwd,newpwd,newpwd2);
     }
 
     @Override
-    public Flowable<ResTeacherAttestation> teacherVerify(String token, RequestBody teacher_certification_id, RequestBody requestBodyTeacherCard, RequestBody requestBodyICCardFront, RequestBody requestBodyICCardBack) {
-        return myApis.teacherVerify(token,teacher_certification_id,requestBodyTeacherCard,requestBodyICCardFront,requestBodyICCardBack);
+    public Flowable<ResponseSimpleResult> changePassword(String token, Map<String, RequestBody> map) {
+        return myApis.changePassword(token,map);
     }
 
     @Override
-    public Flowable<ResTeacherAttestation> teacherVerify2(String token, String teacher_certification_id, Map<String, RequestBody> map) {
-        return myApis.teacherVerify2(token,teacher_certification_id,map);
+    public Flowable<ResTeacherAttestation> teacherVerify(String token, Map<String, RequestBody> map) {
+        return myApis.teacherVerify(token,map);
     }
 
     @Override
-    public Flowable<ResTeacherAttestation> teacherVerify3(String token, Map<String, RequestBody> map) {
-        return myApis.teacherVerify3(token,map);
+    public Observable<ResTeacherAttestation> teacherVerifyObserable(String token, Map<String, RequestBody> param) {
+        return myApis.teacherVerifyObserable(token,param);
     }
 
 

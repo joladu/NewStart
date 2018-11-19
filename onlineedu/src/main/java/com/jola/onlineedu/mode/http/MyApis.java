@@ -44,9 +44,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
-import okhttp3.MultipartBody;
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -278,11 +278,35 @@ public interface MyApis {
 
     // *****************  begin user api *****************
 
+// no
+//    application/json; charset=UTF-8
+//    @Multipart
+//    @PUT("v1/uc/chpwd/")
+//    Flowable<ResponseSimpleResult> changePassword(
+//            @Header("authorization") String token,
+//            @Part("oldpwd") String oldpwd,
+//            @Part("newpwd") String newpwd,
+//            @Part("newpwd2") String newpwd2);
+
+
+//    no
+// Content-Type: application/x-www-form-urlencoded
+//    oldpwd=654321&newpwd=123456&newpwd2=123456
     @FormUrlEncoded
     @PUT("v1/uc/chpwd/")
-    Flowable<ResponseSimpleResult> changePassword(@Header("authorization") String token,@Field("oldpwd") String oldpwd,@Field("newpwd") String newpwd,@Field("newpwd2") String newpwd2);
+    Flowable<ResponseSimpleResult> changePassword(
+            @Header("authorization") String token,
+            @Field("oldpwd") String oldpwd,
+            @Field("newpwd") String newpwd,
+            @Field("newpwd2") String newpwd2);
 
 
+
+//    no
+//    Content-Disposition: form-data; name="oldpwd"
+//    Content-Transfer-Encoding: binary
+//    Content-Type: multipart/form-data; charset=utf-8
+//    654321
     @Multipart
     @PUT("v1/uc/chpwd/")
     Flowable<ResponseSimpleResult> changePassword1(
@@ -292,45 +316,46 @@ public interface MyApis {
             @Part("newpwd2") RequestBody newpwd2);
 
 
+//no
+//    Content-Disposition: form-data; name="oldpwd"
+//    Content-Transfer-Encoding: binary
+//    Content-Type: multipart/form-data; charset=utf-8
+//    654321
 
-
-//    @Multipart
-//    @POST("v1/uc/teacherverify/")
-//    Flowable<ResTeacherAttestation> teacherVerify(
-//            @Header("authorization") String token,
-//            @Part MultipartBody.Part partFront,
-//            );
-
-
-
-//    第一种 官方 ：不行
     @Multipart
-    @POST("v1/uc/teacherverify/")
-    Flowable<ResTeacherAttestation> teacherVerify(
+    @PUT("v1/uc/chpwd/")
+    Flowable<ResponseSimpleResult> changePassword(
             @Header("authorization") String token,
-            @Part("teacher_certification_id") RequestBody  requestBodyTeacherCardIc,
-            @Part("teacher_certification") RequestBody requestBodyTeacherCard,
-            @Part("id_card_front_pic") RequestBody requestBodyICCardFront,
-            @Part("id_card_behind_pic") RequestBody requestBodyICCardBack
-    );
+            @PartMap Map<String,RequestBody> map
+            );
 
 
-//    第二种
-    @Multipart
-    @POST("v1/uc/teacherverify/")
-    Flowable<ResTeacherAttestation> teacherVerify2(
-            @Header("authorization") String token,
-            @Part("teacher_certification_id")String teacher_certification_id,
-            @PartMap Map<String ,RequestBody> map
-    );
 
     //    第3种
     @Multipart
     @POST("v1/uc/teacherverify/")
-    Flowable<ResTeacherAttestation> teacherVerify3(
+    Flowable<ResTeacherAttestation> teacherVerify(
             @Header("authorization") String token,
             @PartMap Map<String ,RequestBody> map
     );
+
+    @Multipart
+    @POST("v1/uc/teacherverify/")
+    Observable<ResTeacherAttestation> teacherVerifyObserable(
+            @Header("authorization")String token,
+            @PartMap Map<String, RequestBody> param
+    );
+
+
+//
+//    @Multipart
+//    @POST("v1/uc/chpwd/")
+//    Observable<ResponseBody> teacherVerifyObserable(
+//            @Header("authorization")String token,
+//            @PartMap Map<String, RequestBody> param
+//    );
+
+
 
 
 

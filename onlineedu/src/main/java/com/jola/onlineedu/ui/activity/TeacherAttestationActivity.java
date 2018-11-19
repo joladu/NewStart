@@ -1,29 +1,36 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
-import com.jola.onlineedu.app.MyLog;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import org.reactivestreams.Subscriber;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,11 +38,17 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Multipart;
+import okhttp3.ResponseBody;
 
 public class TeacherAttestationActivity extends SimpleActivity {
 
@@ -83,17 +96,14 @@ public class TeacherAttestationActivity extends SimpleActivity {
     }
 
 
-
-
-
     @OnClick({
             R.id.iv_upload_ic_card_front,
             R.id.iv_upload_iccard_back,
             R.id.iv_upload_teacher_card,
             R.id.tv_verify_teacher
     })
-    public void doClick(View view){
-        switch (view.getId()){
+    public void doClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_upload_ic_card_front:
                 currIndex = 1;
                 chooseOrTakePhoto();
@@ -114,91 +124,75 @@ public class TeacherAttestationActivity extends SimpleActivity {
 
     private void confirmVerify() {
         String teacherCardNo = et_input_teacher_iccard.getText().toString();
-        if (TextUtils.isEmpty(teacherCardNo)){
+        if (TextUtils.isEmpty(teacherCardNo)) {
             ToastUtil.toastShort("请填写教师资格证号码后，再重试！");
             return;
         }
-        if (TextUtils.isEmpty(mICCardFilePathFront)){
+        if (TextUtils.isEmpty(mICCardFilePathFront)) {
             ToastUtil.toastShort("请选择身份证正面照后，再重试！");
             return;
         }
-        if (TextUtils.isEmpty(mICCardFilePathBack)){
+        if (TextUtils.isEmpty(mICCardFilePathBack)) {
             ToastUtil.toastShort("请选择身份证背面照后，再重试！");
             return;
         }
-        if (TextUtils.isEmpty(mICCardFilePathFront)){
+        if (TextUtils.isEmpty(mICCardFilePathFront)) {
             ToastUtil.toastShort("请选择教师资格证照片后，再重试！");
             return;
         }
+
         showLoadingDialog();
         File fileIcCardFront = new File(mICCardFilePathFront);
         File fileIcCardBack = new File(mICCardFilePathBack);
         File fileTeacherCard = new File(mTeacherCardFilePath);
 
-        RequestBody requestBodyFront = RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront);
-        MultipartBody.Part.createFormData("id_card_front_pic",fileIcCardFront.getName(),requestBodyFront);
-
-
-//        MultipartBody multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-//                .addFormDataPart("teacher_certification_id", teacherCardNo)
-////                .addFormDataPart("id_card_front_pic", fileIcCardFront.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront))
-//                .addFormDataPart("id_card_front_pic", fileIcCardFront.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardFront))
-//                .addFormDataPart("id_card_behind_pic", fileIcCardBack.getName(), RequestBody.create(MediaType.parse("image/*"), fileIcCardBack))
-//                .addFormDataPart("teacher_certification", fileTeacherCard.getName(), RequestBody.create(MediaType.parse("image/*"), fileTeacherCard))
-//                .build();
 
 //        HashMap<String, RequestBody> map = new HashMap<>();
-//        map.put("teacher_certification_id",RequestBody.create(MediaType.parse("application/json"),teacherCardNo));
-//        map.put("id_card_front_pic\"; filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardFront));
-//        map.put("id_card_behind_pic\"; filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/png"),fileIcCardBack));
-//        map.put("teacher_certification\"; filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/png"),fileTeacherCard));
-
-//        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),map)
-//        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(),
-////                RequestBody.create(MediaType.parse("application/json"),teacherCardNo),
-////                RequestBody.create(MediaType.parse("text/plain"),teacherCardNo),
-//                RequestBody.create(MediaType.parse("multipart/form-data"),teacherCardNo),
-//                RequestBody.create(MediaType.parse("multipart/form-data"),fileTeacherCard),
-//                RequestBody.create(MediaType.parse("multipart/form-data"),fileIcCardFront),
-//                RequestBody.create(MediaType.parse("multipart/form-data"),fileIcCardBack)
-//                )
-//            .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
-//                .subscribe(new Consumer<ResTeacherAttestation>() {
-//                    @Override
-//                    public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
-//                        Log.v("okhttp",resTeacherAttestation.toString());
-//                        hideLoadingDialog();
-//                        int error_code = resTeacherAttestation.getError_code();
-//                        if (error_code == 0){
-//                            ToastUtil.toastShort("资料上传成功，请等待审核！");
-//                        }else{
-//                            ToastUtil.toastLong(resTeacherAttestation.getError_msg());
-//                        }
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        hideLoadingDialog();
-//                        tipServerError();
-//                    }
-//                })
-//        );
+//        map.put("teacher_certification_id", RequestBody.create(MediaType.parse("text/plain"), teacherCardNo));
+//        map.put("id_card_front_pic\";filename=\"" + fileIcCardFront.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardFront));
+//        map.put("id_card_behind_pic\";filename=\"" + fileIcCardBack.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileIcCardBack));
+//        map.put("teacher_certification\";filename=\"" + fileTeacherCard.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileTeacherCard));
 
 
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("teacher_certification_id", teacherCardNo);
+        try {
+            requestParams.put("id_card_front_pic", fileIcCardFront);
+            requestParams.put("id_card_behind_pic", fileIcCardBack);
+            requestParams.put("teacher_certification", fileTeacherCard);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            ToastUtil.toastShort("图片获取异常！");
+            return;
+        }
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, mDataManager.getUserToken());
+        App.getmAsyncHttpClient().post("http://yunketang.dev.attackt.com/api/v1/uc/teacherverify/", requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ResTeacherAttestation resultBean = new Gson().fromJson(new String(responseBody), ResTeacherAttestation.class);
+                hideLoadingDialog();
+                int error_code = resultBean.getError_code();
+                if (error_code == 0) {
+                    ToastUtil.toastShort("资料上传成功，请等待审核！");
+                } else {
+                    ToastUtil.toastLong(resultBean.getError_msg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                hideLoadingDialog();
+                tipServerError();
+            }
+        });
 
 
-//        HashMap<String, RequestBody> map = new HashMap<>();
-////        "file" + i + "\";filename=\"" + files.getName()
-////         name="file"; filename="test.png"
-//        map.put("id_card_front_pic"+"\";filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardFront));
-//        map.put("id_card_behind_pic" + "\";filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardBack));
-//        map.put("teacher_certification" + "\";filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/*"),fileTeacherCard));
-//        addSubscribe(mDataManager.teacherVerify2(mDataManager.getUserToken(),teacherCardNo, map)
+//        addSubscribe(mDataManager.teacherVerify(mDataManager.getUserToken(), map)
 //                        .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
 //                        .subscribe(new Consumer<ResTeacherAttestation>() {
 //                            @Override
 //                            public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
-//                                Log.v("okhttp",resTeacherAttestation.toString());
+//                                Log.e("okhttp",resTeacherAttestation.toString());
 //                                hideLoadingDialog();
 //                                int error_code = resTeacherAttestation.getError_code();
 //                                if (error_code == 0){
@@ -210,44 +204,39 @@ public class TeacherAttestationActivity extends SimpleActivity {
 //                        }, new Consumer<Throwable>() {
 //                            @Override
 //                            public void accept(Throwable throwable) throws Exception {
+//                                Log.e("okhttp",throwable.getCause().toString());
+//                                Log.e("okhttp",throwable.getMessage());
+//                                Log.e("okhttp",throwable.getStackTrace().toString());
 //                                hideLoadingDialog();
 //                                tipServerError();
 //                            }
 //                        })
 //        );
 
-
-        HashMap<String, RequestBody> map = new HashMap<>();
-        map.put("teacher_certification_id",RequestBody.create(MediaType.parse("text/plain"),teacherCardNo));
-        map.put("id_card_front_pic" + "\";filename=\""+fileIcCardFront.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardFront));
-        map.put("id_card_behind_pic" + "\";filename=\""+fileIcCardBack.getName(),RequestBody.create(MediaType.parse("image/*"),fileIcCardBack));
-        map.put("teacher_certification" + "\";filename=\""+fileTeacherCard.getName(),RequestBody.create(MediaType.parse("image/*"),fileTeacherCard));
-        addSubscribe(mDataManager.teacherVerify3(mDataManager.getUserToken(), map)
-                        .compose(RxUtil.<ResTeacherAttestation>rxSchedulerHelper())
-                        .subscribe(new Consumer<ResTeacherAttestation>() {
-                            @Override
-                            public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
-                                Log.v("okhttp",resTeacherAttestation.toString());
-                                hideLoadingDialog();
-                                int error_code = resTeacherAttestation.getError_code();
-                                if (error_code == 0){
-                                    ToastUtil.toastShort("资料上传成功，请等待审核！");
-                                }else{
-                                    ToastUtil.toastLong(resTeacherAttestation.getError_msg());
-                                }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                hideLoadingDialog();
-                                tipServerError();
-                            }
-                        })
-        );
-
-
-
-
+//        Observable<ResTeacherAttestation> observable = mDataManager.teacherVerifyObserable(mDataManager.getUserToken(), map);
+//        observable.subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<ResTeacherAttestation>() {
+//                    @Override
+//                    public void accept(ResTeacherAttestation resTeacherAttestation) throws Exception {
+//                        hideLoadingDialog();
+//                        int error_code = resTeacherAttestation.getError_code();
+//                        if (error_code == 0) {
+//                            ToastUtil.toastShort("资料上传成功，请等待审核！");
+//                        } else {
+//                            ToastUtil.toastLong(resTeacherAttestation.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        Log.e("okhttp", throwable.getCause().toString());
+//                        Log.e("okhttp", throwable.getMessage());
+//                        Log.e("okhttp", throwable.getStackTrace().toString());
+//                        hideLoadingDialog();
+//                        tipServerError();
+//                    }
+//                });
 
 
     }
@@ -300,43 +289,42 @@ public class TeacherAttestationActivity extends SimpleActivity {
     }
 
     @Override
-    public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
                     // 图片选择结果回调
                     List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
-                    if (null != localMedia && localMedia.size() > 0){
+                    if (null != localMedia && localMedia.size() > 0) {
                         String path = localMedia.get(0).getPath();
-                        switch (currIndex){
+                        switch (currIndex) {
                             case 1:
                                 mICCardFilePathFront = path;
-                                ImageLoader.load(TeacherAttestationActivity.this,path,iv_iccard_front);
+                                ImageLoader.load(TeacherAttestationActivity.this, path, iv_iccard_front);
                                 iv_upload_ic_card_front.setImageResource(R.drawable.upload_retry2x);
                                 break;
                             case 2:
                                 mICCardFilePathBack = path;
-                                ImageLoader.load(TeacherAttestationActivity.this,path,iv_iccard_back);
+                                ImageLoader.load(TeacherAttestationActivity.this, path, iv_iccard_back);
                                 iv_upload_iccard_back.setImageResource(R.drawable.upload_retry2x);
                                 break;
                             case 3:
                                 mTeacherCardFilePath = path;
-                                ImageLoader.load(TeacherAttestationActivity.this,path,iv_teacher_card);
+                                ImageLoader.load(TeacherAttestationActivity.this, path, iv_teacher_card);
                                 iv_upload_teacher_card.setImageResource(R.drawable.upload_retry2x);
                                 break;
                         }
 //                        MyLog.logMy(path);
 //                        showLoadingDialog();
 //                        uploadPicture(path);
-                    }else{
+                    } else {
                         ToastUtil.toastShort("获取图片失败！");
                     }
                     break;
             }
         }
     }
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.jola.onlineedu.ui.activity;
 
+import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -7,17 +8,26 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -137,6 +147,37 @@ public class ModifyPasswordActivity extends SimpleActivity {
         }
         showLoadingDialog();
 
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("oldpwd", originalPassword);
+        requestParams.put("newpwd", newPassword);
+        requestParams.put("newpwd2", passwordAgain);
+
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, mDataManager.getUserToken());
+        App.getmAsyncHttpClient().put
+                ("http://yunketang.dev.attackt.com/api/v1/uc/chpwd/", requestParams, new
+                        AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                ResponseSimpleResult resultBean = new Gson().fromJson(new String
+                                        (responseBody), ResponseSimpleResult.class);
+                                hideLoadingDialog();
+                                int error_code = resultBean.getError_code();
+                                if (error_code == 0) {
+                                    ToastUtil.toastShort("密码修改成功！");
+                                } else {
+                                    ToastUtil.toastLong(resultBean.getError_msg());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                hideLoadingDialog();
+                                tipServerError();
+                            }
+                        });
+
+
 //        addSubscribe(
 //                mDataManager.changePassword(mDataManager.getUserToken(),originalPassword,newPassword,passwordAgain)
 //                        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
@@ -163,33 +204,65 @@ public class ModifyPasswordActivity extends SimpleActivity {
 //        );
 
 
-        addSubscribe(
-                mDataManager.changePassword1(mDataManager.getUserToken(),
-                        RequestBody.create(MediaType.parse("multipart/form-data"),originalPassword),
-                        RequestBody.create(MediaType.parse("multipart/form-data"),newPassword),
-                        RequestBody.create(MediaType.parse("multipart/form-data"),passwordAgain))
-                        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
-                        .subscribe(new Consumer<ResponseSimpleResult>() {
-                            @Override
-                            public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
-                                hideLoadingDialog();
-                                int error_code = responseSimpleResult.getError_code();
-                                if (error_code == 0){
-                                    ToastUtil.toastShort("修改密码成功！");
-                                    ModifyPasswordActivity.this.finish();
-                                }else{
-                                    ToastUtil.toastLong(responseSimpleResult.getError_msg());
-                                }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                hideLoadingDialog();
-                                tipServerError();
-                                hideLoadingDialog();
-                            }
-                        })
-        );
+//        addSubscribe(
+//                mDataManager.changePassword1(mDataManager.getUserToken(),
+//                        RequestBody.create(MediaType.parse("multipart/form-data"),originalPassword),
+//                        RequestBody.create(MediaType.parse("multipart/form-data"),newPassword),
+//                        RequestBody.create(MediaType.parse("multipart/form-data"),passwordAgain))
+//                        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+//                        .subscribe(new Consumer<ResponseSimpleResult>() {
+//                            @Override
+//                            public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+//                                hideLoadingDialog();
+//                                int error_code = responseSimpleResult.getError_code();
+//                                if (error_code == 0){
+//                                    ToastUtil.toastShort("修改密码成功！");
+//                                    ModifyPasswordActivity.this.finish();
+//                                }else{
+//                                    ToastUtil.toastLong(responseSimpleResult.getError_msg());
+//                                }
+//                            }
+//                        }, new Consumer<Throwable>() {
+//                            @Override
+//                            public void accept(Throwable throwable) throws Exception {
+//                                hideLoadingDialog();
+//                                tipServerError();
+//                                hideLoadingDialog();
+//                            }
+//                        })
+//        );
+
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), originalPassword);
+//        RequestBody requestBody1 = RequestBody.create(MediaType.parse("multipart/form-data"), newPassword);
+//        RequestBody requestBody2 = RequestBody.create(MediaType.parse("multipart/form-data"), passwordAgain);
+//        HashMap<String, RequestBody> map = new HashMap<>();
+//        map.put("oldpwd",requestBody);
+//        map.put("newpwd",requestBody1);
+//        map.put("newpwd2",requestBody2);
+//        addSubscribe(
+//                mDataManager.changePassword(mDataManager.getUserToken(),map)
+//                        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+//                        .subscribe(new Consumer<ResponseSimpleResult>() {
+//                            @Override
+//                            public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+//                                hideLoadingDialog();
+//                                int error_code = responseSimpleResult.getError_code();
+//                                if (error_code == 0){
+//                                    ToastUtil.toastShort("修改密码成功！");
+//                                    ModifyPasswordActivity.this.finish();
+//                                }else{
+//                                    ToastUtil.toastLong(responseSimpleResult.getError_msg());
+//                                }
+//                            }
+//                        }, new Consumer<Throwable>() {
+//                            @Override
+//                            public void accept(Throwable throwable) throws Exception {
+//                                hideLoadingDialog();
+//                                tipServerError();
+//                                hideLoadingDialog();
+//                            }
+//                        })
+//        );
 
 
 

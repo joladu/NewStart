@@ -9,12 +9,14 @@ import com.jola.onlineedu.di.module.AppModule;
 import com.jola.onlineedu.di.module.HttpModule;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
-import com.kk.taurus.playerbase.entity.DecoderPlan;
+import com.loopj.android.http.AsyncHttpClient;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import io.realm.Realm;
+
+import static com.jola.onlineedu.mode.http.MyApis.TAG_AUTHORIZATION;
 
 
 /**
@@ -22,6 +24,15 @@ import io.realm.Realm;
  */
 
 public class App extends Application {
+
+    public static AsyncHttpClient mAsyncHttpClient;
+
+    public static AsyncHttpClient getmAsyncHttpClient(){
+        if (null == mAsyncHttpClient){
+            mAsyncHttpClient = new AsyncHttpClient();
+        }
+        return mAsyncHttpClient;
+    }
 
 
     public static final int PLAN_ID_IJK = 1;

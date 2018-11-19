@@ -14,13 +14,19 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
+import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.TimeFormatUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -34,6 +40,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 import okhttp3.Interceptor;
@@ -59,7 +66,7 @@ public class MyMessageActivity extends SimpleActivity {
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_comments_list;
+        return R.layout.activity_message_list;
     }
 
     @Override
@@ -83,8 +90,8 @@ public class MyMessageActivity extends SimpleActivity {
             }
         });
 
-        testData();
-//        refreshData();
+//        testData();
+        refreshData();
 
     }
 
@@ -122,7 +129,9 @@ public class MyMessageActivity extends SimpleActivity {
 
 
     private void refreshData() {
-        addSubscribe(dataManager.getMessageList(dataManager.getUserToken(),1,pagesize)
+
+        addSubscribe(
+                dataManager.getMessageList(dataManager.getUserToken(),1,pagesize)
             .compose(RxUtil.<ResMessageListBean>rxSchedulerHelper())
                 .subscribe(new Consumer<ResMessageListBean>() {
                     @Override
@@ -150,7 +159,36 @@ public class MyMessageActivity extends SimpleActivity {
                 })
         );
 
+
+
+
     }
+
+
+//    private void asyncHttpDataRefresh(){
+//        RequestParams requestParams = new RequestParams();
+//        requestParams.put("teacher_certification_id", teacherCardNo);
+//        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
+//        App.getmAsyncHttpClient().post("http://yunketang.dev.attackt.com/api/v1/uc/teacherverify/", requestParams, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                ResTeacherAttestation resultBean = new Gson().fromJson(new String(responseBody), ResTeacherAttestation.class);
+//                hideLoadingDialog();
+//                int error_code = resultBean.getError_code();
+//                if (error_code == 0) {
+//                    ToastUtil.toastShort("资料上传成功，请等待审核！");
+//                } else {
+//                    ToastUtil.toastLong(resultBean.getError_msg());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                hideLoadingDialog();
+//                tipServerError();
+//            }
+//        });
+//    }
 
 
     private void loadMoreData() {
