@@ -16,6 +16,7 @@ import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResUserLogin;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.StatusBarUtil;
+import com.jola.onlineedu.util.SystemUtil;
 import com.jola.onlineedu.util.ToastUtil;
 
 import javax.inject.Inject;
@@ -66,7 +67,12 @@ public class LoginActivity extends SimpleActivity {
             ToastUtil.toastShort("请输入账号和密码后，再重试！");
             return;
         }
-        showLoadingDialog();
+        if (!SystemUtil.isNetworkConnected()) {
+            ToastUtil.toastShort("当前无网络连接！");
+            return;
+        }
+
+            showLoadingDialog();
         addSubscribe(mDataManager.getUserLoginInfo(account,password)
             .compose(RxUtil.<ResUserLogin>rxSchedulerHelper())
             .subscribe(new Consumer<ResUserLogin>() {

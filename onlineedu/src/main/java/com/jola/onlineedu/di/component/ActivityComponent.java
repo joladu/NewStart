@@ -10,12 +10,15 @@ import com.jola.onlineedu.ui.activity.ForgetPasswordActivity;
 import com.jola.onlineedu.ui.activity.ForumDetailActivity;
 import com.jola.onlineedu.ui.activity.ForumListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
+import com.jola.onlineedu.ui.activity.FriendListFromApplyActivity;
+import com.jola.onlineedu.ui.activity.FriendListToApplyActivity;
 import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MainActivity;
 import com.jola.onlineedu.ui.activity.ModifyPasswordActivity;
 import com.jola.onlineedu.ui.activity.ModifyPhoneNoActivity;
 import com.jola.onlineedu.ui.activity.ModifyProfileInfoActivity;
+import com.jola.onlineedu.ui.activity.MyCollectionActivity;
 import com.jola.onlineedu.ui.activity.MyDownloadsActivity;
 import com.jola.onlineedu.ui.activity.MyInterestActivity;
 import com.jola.onlineedu.ui.activity.MyMessageActivity;
@@ -60,4 +63,7 @@ public interface ActivityComponent {
     void inject(MyInterestActivity myInterestActivity);
     void inject(MyMessageActivity myMessageActivity);
     void inject(MyStudyActivity myStudyActivity);
+    void inject(MyCollectionActivity myCollectionActivity);
+    void inject(FriendListToApplyActivity friendListToApplyActivity);
+    void inject(FriendListFromApplyActivity friendListFromApplyActivity);
 }

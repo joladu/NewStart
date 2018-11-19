@@ -47,7 +47,7 @@ public class RVLiveCourseAdapter extends RecyclerView.Adapter <RVLiveCourseAdapt
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final ResLiveCourseList.ResultsBean resultsBean = mList.get(position);
-        ImageLoader.loadWhitPrefix(context,resultsBean.getCover_url(),holder.iv_course_cover);
+        ImageLoader.load(context,resultsBean.getCover_url(),holder.iv_course_cover);
         holder.tv_title_live.setText(resultsBean.getName());
         holder.tv_price_live_course.setText("￥"+resultsBean.getPrice());
         holder.tv_score_num.setText(resultsBean.getEvaluate()+"");

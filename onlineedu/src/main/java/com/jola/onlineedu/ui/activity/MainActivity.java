@@ -61,8 +61,7 @@ public class MainActivity extends SimpleActivity {
         super.onCreate(savedInstanceState);
         if (null != savedInstanceState){
             showFragmentTag = mDataManager.getCurMainFragmentTag();
-            hideFragmentTag = TYPE_HOME_PAGE;
-            showHideFragment(getTargetFragment(showFragmentTag),getTargetFragment(hideFragmentTag));
+            showHideFragment(getTargetFragment(showFragmentTag));
             hideFragmentTag = showFragmentTag;
         }
     }

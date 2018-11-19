@@ -1,5 +1,6 @@
 package com.jola.onlineedu.mode.bean;
 
+import com.jola.onlineedu.mode.bean.response.ResFriendListBean;
 import com.jola.onlineedu.util.Cn2Spell;
 
 /**
@@ -11,6 +12,16 @@ public class User implements Comparable<User> {
     private String pinyin; // 姓名对应的拼音
     private String firstLetter; // 拼音的首字母
 
+    ResFriendListBean.DataBean.FriendsBean friendsBean;
+
+    public ResFriendListBean.DataBean.FriendsBean getFriendsBean() {
+        return friendsBean;
+    }
+
+    public void setFriendsBean(ResFriendListBean.DataBean.FriendsBean friendsBean) {
+        this.friendsBean = friendsBean;
+    }
+
     public User() {
     }
 
@@ -21,6 +32,16 @@ public class User implements Comparable<User> {
         if (!firstLetter.matches("[A-Z]")) { // 如果不在A-Z中则默认为“#”
             firstLetter = "#";
         }
+    }
+
+    public User(String name,ResFriendListBean.DataBean.FriendsBean friendsBean) {
+        this.name = name;
+        pinyin = Cn2Spell.getPinYin(name); // 根据姓名获取拼音
+        firstLetter = pinyin.substring(0, 1).toUpperCase(); // 获取拼音首字母并转成大写
+        if (!firstLetter.matches("[A-Z]")) { // 如果不在A-Z中则默认为“#”
+            firstLetter = "#";
+        }
+        this.friendsBean = friendsBean;
     }
 
     public String getName() {

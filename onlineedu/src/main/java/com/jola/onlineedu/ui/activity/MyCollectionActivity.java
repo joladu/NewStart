@@ -1,29 +1,26 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
-import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
-import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
+import com.jola.onlineedu.mode.bean.response.ResInteresListBean;
+import com.jola.onlineedu.mode.bean.response.ResMyCollectionListBean;
 import com.jola.onlineedu.mode.http.MyApis;
-import com.jola.onlineedu.util.RxUtil;
-import com.jola.onlineedu.util.TimeFormatUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,19 +30,15 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.functions.Consumer;
-import okhttp3.Interceptor;
 
-public class MyMessageActivity extends SimpleActivity {
+public class MyCollectionActivity extends SimpleActivity {
 
     @Inject
     DataManager dataManager;
@@ -58,7 +51,7 @@ public class MyMessageActivity extends SimpleActivity {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    List<ResMessageListBean.DataBean.MessagesBean> mList = new ArrayList<>();
+    List<ResMyCollectionListBean.DataBean.CoursesBean> mList = new ArrayList<>();
     private RecycleListAdapter mAdapter;
     int page = 1;
     int pagesize = 10;
@@ -66,7 +59,7 @@ public class MyMessageActivity extends SimpleActivity {
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_message_list;
+        return R.layout.activity_comments_list;
     }
 
     @Override
@@ -74,13 +67,14 @@ public class MyMessageActivity extends SimpleActivity {
 
         getActivityComponent().inject(this);
 
-        setToolBar(toolbar, "私信");
+        setToolBar(toolbar, "收藏");
 
         smr.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadMoreData();
             }
+
 
 
             @Override
@@ -94,52 +88,44 @@ public class MyMessageActivity extends SimpleActivity {
 
     }
 
-    @OnClick({
-            R.id.send_icon_in_tool
-    })
-    public void clickEvent(View view) {
-        switch (view.getId()) {
-            case R.id.send_icon_in_tool:
-                startActivity(new Intent(this, MessageSendActivity.class));
-                break;
-        }
-    }
-
     private void testData() {
-        ResMessageListBean.DataBean.MessagesBean dataBean = new ResMessageListBean.DataBean.MessagesBean();
-        dataBean.setAvatar_url("https://www.baidu.com/img/bd_logo1.png?where=super");
-        dataBean.setContent("测试：私信内容");
-        dataBean.setCreated("2018-11-16T11:50:02");
-        dataBean.setName("测试：姓名");
-        dataBean.setUsername("测试:用户名");
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
+        ResMyCollectionListBean.DataBean.CoursesBean coursesBean = new ResMyCollectionListBean.DataBean.CoursesBean();
+
+//         * category : null
+//                * name : 数据结构
+//                * cover_url : http://127.0.0.1:8002/media/cover_1537430138.jpeg
+//             * author : 杨老师
+        coursesBean.setCover_url("https://www.baidu.com/img/bd_logo1.png?where=super");
+        coursesBean.setAuthor("测试老师");
+        coursesBean.setName("测试名称");
+        coursesBean.setCategory("测试科目");
+        mList.add(coursesBean);
+        mList.add(coursesBean);
+        mList.add(coursesBean);
+        mList.add(coursesBean);
+        mList.add(coursesBean);
+        mList.add(coursesBean);
+        mList.add(coursesBean);
         mAdapter = new RecycleListAdapter(this);
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         rv.setAdapter(mAdapter);
     }
 
 
-    private void refreshData() {
 
-//        addSubscribe(
-//                dataManager.getMessageList(dataManager.getUserToken(),1,pagesize)
-//            .compose(RxUtil.<ResMessageListBean>rxSchedulerHelper())
-//                .subscribe(new Consumer<ResMessageListBean>() {
+    private void refreshData() {
+//        addSubscribe(dataManager.getInterestList(dataManager.getUserToken(),1,pagesize)
+//            .compose(RxUtil.<ResInteresListBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResInteresListBean>() {
 //                    @Override
-//                    public void accept(ResMessageListBean resCommentListBean) throws Exception {
+//                    public void accept(ResInteresListBean resCommentListBean) throws Exception {
 //                        smr.finishRefresh();
 //                        if (resCommentListBean.getError_code() == 0){
-//                            mList = resCommentListBean.getData().getMessages();
-//                            mAdapter = new RecycleListAdapter(MyMessageActivity.this);
-//                            rv.setLayoutManager(new LinearLayoutManager(MyMessageActivity.this,LinearLayoutManager.VERTICAL,false));
-//                            rv.addItemDecoration(new DividerItemDecoration(MyMessageActivity.this,DividerItemDecoration.VERTICAL));
+//                            mList = resCommentListBean.getData().getDownloads();
+//                            mAdapter = new RecycleListAdapter(MyInterestActivity.this);
+//                            rv.setLayoutManager(new LinearLayoutManager(MyInterestActivity.this,LinearLayoutManager.VERTICAL,false));
+//                            rv.addItemDecoration(new DividerItemDecoration(MyInterestActivity.this,DividerItemDecoration.VERTICAL));
 //                            rv.setAdapter(mAdapter);
 //                            if (mList.size() == 0){
 //                                ToastUtil.toastLong("暂无数据！");
@@ -159,9 +145,7 @@ public class MyMessageActivity extends SimpleActivity {
 
         asyncRefresh();
 
-
     }
-
 
     private void asyncRefresh() {
         showLoadingDialog();
@@ -169,17 +153,17 @@ public class MyMessageActivity extends SimpleActivity {
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/message/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/record/favoritecourse/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishRefresh();
-                ResMessageListBean resultBean = new Gson().fromJson(new String(responseBody), ResMessageListBean.class);
+                ResMyCollectionListBean resultBean = new Gson().fromJson(new String(responseBody), ResMyCollectionListBean.class);
                 if (resultBean.getError_code() == 0) {
-                    mList = resultBean.getData().getMessages();
-                    mAdapter = new RecycleListAdapter(MyMessageActivity.this);
-                    rv.setLayoutManager(new LinearLayoutManager(MyMessageActivity.this, LinearLayoutManager.VERTICAL, false));
-                    rv.addItemDecoration(new DividerItemDecoration(MyMessageActivity.this, DividerItemDecoration.VERTICAL));
+                    mList = resultBean.getData().getCourses();
+                    mAdapter = new RecycleListAdapter(MyCollectionActivity.this);
+                    rv.setLayoutManager(new LinearLayoutManager(MyCollectionActivity.this, LinearLayoutManager.VERTICAL, false));
+                    rv.addItemDecoration(new DividerItemDecoration(MyCollectionActivity.this, DividerItemDecoration.VERTICAL));
                     rv.setAdapter(mAdapter);
                     if (mList.size() == 0) {
                         ToastUtil.toastLong("暂无数据！");
@@ -200,17 +184,18 @@ public class MyMessageActivity extends SimpleActivity {
     }
 
 
+
     private void loadMoreData() {
-//        addSubscribe(dataManager.getMessageList(dataManager.getUserToken(), ++page, pagesize)
-//                .compose(RxUtil.<ResMessageListBean>rxSchedulerHelper())
-//                .subscribe(new Consumer<ResMessageListBean>() {
+//        addSubscribe(dataManager.getInterestList(dataManager.getUserToken(),++page,pagesize)
+//                .compose(RxUtil.<ResInteresListBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResInteresListBean>() {
 //                    @Override
-//                    public void accept(ResMessageListBean resCommentListBean) throws Exception {
+//                    public void accept(ResInteresListBean resCommentListBean) throws Exception {
 //                        smr.finishLoadMore();
-//                        if (resCommentListBean.getError_code() == 0) {
-//                            mList.addAll(resCommentListBean.getData().getMessages());
+//                        if (resCommentListBean.getError_code() == 0){
+//                            mList.addAll(resCommentListBean.getData().getDownloads());
 //                            mAdapter.notifyDataSetChanged();
-//                        } else {
+//                        }else{
 //                            ToastUtil.toastLong(resCommentListBean.getError_msg());
 //                        }
 //                    }
@@ -222,23 +207,22 @@ public class MyMessageActivity extends SimpleActivity {
 //                    }
 //                })
 //        );
-        asyncLoadMore();
+        asyncLoadmore();
     }
 
-
-    private void asyncLoadMore() {
+    private void asyncLoadmore() {
         RequestParams requestParams = new RequestParams();
         requestParams.put("page", ++page);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/message/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/record/favoritecourse/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishLoadMore();
-                ResMessageListBean resultBean = new Gson().fromJson(new String(responseBody), ResMessageListBean.class);
+                ResMyCollectionListBean resultBean = new Gson().fromJson(new String(responseBody), ResMyCollectionListBean.class);
                 if (resultBean.getError_code() == 0) {
-                    mList.addAll(resultBean.getData().getMessages());
+                    mList .addAll( resultBean.getData().getCourses());
                     mAdapter.notifyDataSetChanged();
                     if (mList.size() == 0) {
                         ToastUtil.toastLong("暂无数据！");
@@ -262,7 +246,7 @@ public class MyMessageActivity extends SimpleActivity {
 
 //    begain adapter
 
-    class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.ViewHolder> {
+    class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.ViewHolder>{
 
         LayoutInflater layoutInflater;
 
@@ -273,23 +257,22 @@ public class MyMessageActivity extends SimpleActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(layoutInflater.inflate(R.layout.item_message, parent, false));
+            return new ViewHolder(layoutInflater.inflate(R.layout.item_collection,parent,false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            final ResMessageListBean.DataBean.MessagesBean messagesBean = mList.get(position);
-            holder.tv_content_message.setText(messagesBean.getContent());
-            holder.tv_content_from.setText(messagesBean.getUsername());
-            holder.tv_time.setText(TimeFormatUtil.formatTime(messagesBean.getCreated()));
-            holder.rl_message_list.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MyMessageActivity.this, MessageDetailActivity.class);
-                    intent.putExtra("id", messagesBean.getId());
-                    startActivity(intent);
-                }
-            });
+            ResMyCollectionListBean.DataBean.CoursesBean coursesBean = mList.get(position);
+//              * category : null
+//                * name : 数据结构
+//                * cover_url : http://127.0.0.1:8002/media/cover_1537430138.jpeg
+//             * author : 杨老师
+
+            ImageLoader.load(MyCollectionActivity.this,coursesBean.getCover_url(),holder.iv_course_cover);
+            holder.tv_course_name.setText(coursesBean.getName());
+//            tools:text="讲师 李老师  课程类别 语文"
+            holder.tv_teacher_category.setText("讲师 "+coursesBean.getAuthor() + "  课程类别"+coursesBean.getCategory());
+
         }
 
         @Override
@@ -297,26 +280,32 @@ public class MyMessageActivity extends SimpleActivity {
             return mList == null ? 0 : mList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        class ViewHolder extends RecyclerView.ViewHolder{
 
-            @BindView(R.id.rl_message_list)
-            RelativeLayout rl_message_list;
-            @BindView(R.id.tv_content_message)
-            TextView tv_content_message;
-            @BindView(R.id.tv_content_from)
-            TextView tv_content_from;
-            @BindView(R.id.tv_time)
-            TextView tv_time;
+            @BindView(R.id.iv_course_cover)
+            ImageView iv_course_cover;
+
+            @BindView(R.id.tv_course_name)
+            TextView tv_course_name;
+
+            @BindView(R.id.tv_teacher_category)
+            TextView tv_teacher_category;
+
+            @BindView(R.id.tv_cancel_collection)
+            TextView tv_cancel_collection;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                ButterKnife.bind(this, itemView);
+                ButterKnife.bind(this,itemView);
             }
         }
 
     }
 
 //    end adapter
+
+
+
 
 
 }

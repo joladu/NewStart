@@ -12,14 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResDownloadsBean;
 import com.jola.onlineedu.mode.bean.response.ResInteresListBean;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.TimeFormatUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -31,6 +37,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
@@ -79,8 +86,8 @@ public class MyInterestActivity extends SimpleActivity {
             }
         });
 
-        testData();
-//        refreshData();
+//        testData();
+        refreshData();
 
     }
 
@@ -105,60 +112,133 @@ public class MyInterestActivity extends SimpleActivity {
 
 
     private void refreshData() {
-        addSubscribe(dataManager.getInterestList(dataManager.getUserToken(),1,pagesize)
-            .compose(RxUtil.<ResInteresListBean>rxSchedulerHelper())
-                .subscribe(new Consumer<ResInteresListBean>() {
-                    @Override
-                    public void accept(ResInteresListBean resCommentListBean) throws Exception {
-                        smr.finishRefresh();
-                        if (resCommentListBean.getError_code() == 0){
-                            mList = resCommentListBean.getData().getDownloads();
-                            mAdapter = new RecycleListAdapter(MyInterestActivity.this);
-                            rv.setLayoutManager(new LinearLayoutManager(MyInterestActivity.this,LinearLayoutManager.VERTICAL,false));
-                            rv.addItemDecoration(new DividerItemDecoration(MyInterestActivity.this,DividerItemDecoration.VERTICAL));
-                            rv.setAdapter(mAdapter);
-                            if (mList.size() == 0){
-                                ToastUtil.toastLong("暂无数据！");
-                            }
-                        }else{
-                            ToastUtil.toastLong(resCommentListBean.getError_msg());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        smr.finishRefresh();
-                        tipServerError();
-                    }
-                })
-        );
+//        addSubscribe(dataManager.getInterestList(dataManager.getUserToken(),1,pagesize)
+//            .compose(RxUtil.<ResInteresListBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResInteresListBean>() {
+//                    @Override
+//                    public void accept(ResInteresListBean resCommentListBean) throws Exception {
+//                        smr.finishRefresh();
+//                        if (resCommentListBean.getError_code() == 0){
+//                            mList = resCommentListBean.getData().getDownloads();
+//                            mAdapter = new RecycleListAdapter(MyInterestActivity.this);
+//                            rv.setLayoutManager(new LinearLayoutManager(MyInterestActivity.this,LinearLayoutManager.VERTICAL,false));
+//                            rv.addItemDecoration(new DividerItemDecoration(MyInterestActivity.this,DividerItemDecoration.VERTICAL));
+//                            rv.setAdapter(mAdapter);
+//                            if (mList.size() == 0){
+//                                ToastUtil.toastLong("暂无数据！");
+//                            }
+//                        }else{
+//                            ToastUtil.toastLong(resCommentListBean.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        smr.finishRefresh();
+//                        tipServerError();
+//                    }
+//                })
+//        );
+
+        asyncRefresh();
 
     }
+
+    private void asyncRefresh() {
+        showLoadingDialog();
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("page", 1);
+        requestParams.put("pageSize", 10);
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/resourcedownload/", requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                hideLoadingDialog();
+                smr.finishRefresh();
+                ResInteresListBean resultBean = new Gson().fromJson(new String(responseBody), ResInteresListBean.class);
+                if (resultBean.getError_code() == 0) {
+                    mList = resultBean.getData().getDownloads();
+                    mAdapter = new RecycleListAdapter(MyInterestActivity.this);
+                    rv.setLayoutManager(new LinearLayoutManager(MyInterestActivity.this, LinearLayoutManager.VERTICAL, false));
+                    rv.addItemDecoration(new DividerItemDecoration(MyInterestActivity.this, DividerItemDecoration.VERTICAL));
+                    rv.setAdapter(mAdapter);
+                    if (mList.size() == 0) {
+                        ToastUtil.toastLong("暂无数据！");
+                    }
+                } else {
+                    ToastUtil.toastLong(resultBean.getError_msg());
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                smr.finishRefresh();
+                hideLoadingDialog();
+                tipServerError();
+            }
+        });
+    }
+
 
 
     private void loadMoreData() {
-        addSubscribe(dataManager.getInterestList(dataManager.getUserToken(),++page,pagesize)
-                .compose(RxUtil.<ResInteresListBean>rxSchedulerHelper())
-                .subscribe(new Consumer<ResInteresListBean>() {
-                    @Override
-                    public void accept(ResInteresListBean resCommentListBean) throws Exception {
-                        smr.finishLoadMore();
-                        if (resCommentListBean.getError_code() == 0){
-                            mList.addAll(resCommentListBean.getData().getDownloads());
-                            mAdapter.notifyDataSetChanged();
-                        }else{
-                            ToastUtil.toastLong(resCommentListBean.getError_msg());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        smr.finishLoadMore();
-                        tipServerError();
-                    }
-                })
-        );
+//        addSubscribe(dataManager.getInterestList(dataManager.getUserToken(),++page,pagesize)
+//                .compose(RxUtil.<ResInteresListBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResInteresListBean>() {
+//                    @Override
+//                    public void accept(ResInteresListBean resCommentListBean) throws Exception {
+//                        smr.finishLoadMore();
+//                        if (resCommentListBean.getError_code() == 0){
+//                            mList.addAll(resCommentListBean.getData().getDownloads());
+//                            mAdapter.notifyDataSetChanged();
+//                        }else{
+//                            ToastUtil.toastLong(resCommentListBean.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        smr.finishLoadMore();
+//                        tipServerError();
+//                    }
+//                })
+//        );
+        asyncLoadmore();
     }
+
+    private void asyncLoadmore() {
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("page", ++page);
+        requestParams.put("pageSize", 10);
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/resourcedownload/", requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                hideLoadingDialog();
+                smr.finishLoadMore();
+                ResInteresListBean resultBean = new Gson().fromJson(new String(responseBody), ResInteresListBean.class);
+                if (resultBean.getError_code() == 0) {
+                    mList .addAll( resultBean.getData().getDownloads());
+                    mAdapter.notifyDataSetChanged();
+                    if (mList.size() == 0) {
+                        ToastUtil.toastLong("暂无数据！");
+                    }
+                } else {
+                    ToastUtil.toastLong(resultBean.getError_msg());
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                smr.finishLoadMore();
+                hideLoadingDialog();
+                tipServerError();
+            }
+        });
+    }
+
 
 
 //    begain adapter

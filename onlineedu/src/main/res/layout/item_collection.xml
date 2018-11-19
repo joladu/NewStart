@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/civ_head_user"
+        android:id="@+id/iv_course_cover"
         android:layout_width="@dimen/qb_px_90"
         android:layout_height="@dimen/qb_px_60"
         android:src="@drawable/image_placeholder_loading"
@@ -14,19 +14,19 @@
         android:layout_marginBottom="@dimen/qb_px_20"
         />
     <TextView
-        android:id="@+id/tv_friend_name"
+        android:id="@+id/tv_course_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/gray_content_forum_text"
         android:textSize="@dimen/title_toolbar_text_size"
-        android:layout_toEndOf="@+id/civ_head_user"
+        android:layout_toEndOf="@+id/iv_course_cover"
         android:layout_marginStart="@dimen/qb_px_10"
         android:layout_marginTop="@dimen/qb_px_20"
         tools:text="计算机原理"
         />
 
     <TextView
-        android:id="@+id/tv_cancel_interest"
+        android:id="@+id/tv_cancel_collection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -42,13 +42,13 @@
         />
 
     <TextView
-        android:id="@+id/tv_friend_describe"
+        android:id="@+id/tv_teacher_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/hint_text_gray"
         android:textSize="14sp"
-        android:layout_toRightOf="@+id/civ_head_user"
-        android:layout_below="@+id/tv_friend_name"
+        android:layout_toRightOf="@+id/iv_course_cover"
+        android:layout_below="@+id/tv_course_name"
         android:layout_marginStart="@dimen/qb_px_10"
         android:layout_marginTop="@dimen/qb_px_8"
         tools:text="讲师 李老师  课程类别 语文"

@@ -12,22 +12,28 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResUploadUserImageBean;
 import com.jola.onlineedu.mode.bean.response.ResUserInfoBean;
 import com.jola.onlineedu.mode.http.MyApis;
+import com.jola.onlineedu.ui.activity.AboutActivity;
 import com.jola.onlineedu.ui.activity.CommentsListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MyActivity;
+import com.jola.onlineedu.ui.activity.MyRecordActivity;
 import com.jola.onlineedu.ui.activity.PersonInfoActivity;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.SystemUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.PopupLogoutView;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -39,6 +45,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
@@ -83,7 +90,9 @@ public class MineFragment extends SimpleFragment {
             R.id.rl_person_info,
             R.id.rl_logout,
             R.id.rl_mine_info,
-            R.id.rl_record_info
+            R.id.rl_record_info,
+            R.id.rl_about,
+            R.id.rl_class_info
     })
     public void clickEvent(View view){
         switch (view.getId()){
@@ -94,7 +103,13 @@ public class MineFragment extends SimpleFragment {
                 startActivity(new Intent(mActivity, MyActivity.class));
                 break;
             case R.id.rl_record_info:
-                startActivity(new Intent(mActivity, CommentsListActivity.class));
+                startActivity(new Intent(mActivity, MyRecordActivity.class));
+                break;
+            case R.id.rl_class_info:
+                ToastUtil.toastShort("暂无");
+                break;
+            case R.id.rl_about:
+                startActivity(new Intent(mActivity, AboutActivity.class));
                 break;
             case R.id.rl_logout:
                 showLogoutView();
@@ -118,11 +133,12 @@ public class MineFragment extends SimpleFragment {
     }
 
     private void getUserInfo() {
-        addSubscribe(dataManager.getUserInfo(dataManager.getUserToken())
-        .compose(RxUtil.<ResUserInfoBean>rxSchedulerHelper())
-        .subscribe(new Consumer<ResUserInfoBean>() {
-            @Override
-            public void accept(ResUserInfoBean resUserInfoBean) throws Exception {
+
+//        addSubscribe(dataManager.getUserInfo(dataManager.getUserToken())
+//        .compose(RxUtil.<ResUserInfoBean>rxSchedulerHelper())
+//        .subscribe(new Consumer<ResUserInfoBean>() {
+//            @Override
+//            public void accept(ResUserInfoBean resUserInfoBean) throws Exception {
 //                int error_code = resUserInfoBean.getError_code();
 //                if (error_code == 0){
 //                    tv_user_name.setText(resUserInfoBean.getData().getUser().getUsername());
@@ -131,13 +147,40 @@ public class MineFragment extends SimpleFragment {
 //                }else{
 //                    ToastUtil.toastShort(resUserInfoBean.getError_msg());
 //                }
-            }
-        }, new Consumer<Throwable>() {
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable) throws Exception {
+//                ToastUtil.toastShort(getString(R.string.error_server_message));
+//            }
+//        }));
+
+        asyncUserInfo();
+
+    }
+
+    private void asyncUserInfo() {
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/user/myprofile/", new AsyncHttpResponseHandler() {
             @Override
-            public void accept(Throwable throwable) throws Exception {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ResUserInfoBean resUserInfoBean = new Gson().fromJson(new String(responseBody), ResUserInfoBean.class);
+                int error_code = resUserInfoBean.getError_code();
+                if (error_code == 0){
+                    tv_user_name.setText(resUserInfoBean.getData().getUser().getUsername());
+                    String headImgUrl = resUserInfoBean.getData().getUser().getAvatar();
+                    Glide.with(mActivity).load(headImgUrl).apply(new RequestOptions().placeholder(R.drawable.person_holder_logout_x2).error(R.drawable.person_holder_logout_x2)).into(civ_head_user);
+                    dataManager.setUserAvater(headImgUrl);
+                }else{
+                    ToastUtil.toastShort(resUserInfoBean.getError_msg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 ToastUtil.toastShort(getString(R.string.error_server_message));
             }
-        }));
+        });
     }
 
     @OnClick({R.id.civ_head_user})

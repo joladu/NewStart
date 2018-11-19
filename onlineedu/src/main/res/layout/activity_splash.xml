@@ -15,6 +15,7 @@
        />
 
     <ImageView
+        android:id="@+id/iv_icon_class"
         android:layout_width="@dimen/qb_px_80"
         android:layout_height="@dimen/qb_px_80"
         app:layout_constraintLeft_toLeftOf="parent"

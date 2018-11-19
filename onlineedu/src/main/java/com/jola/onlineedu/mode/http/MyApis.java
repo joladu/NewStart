@@ -1,7 +1,5 @@
 package com.jola.onlineedu.mode.http;
 
-import android.nfc.Tag;
-
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
@@ -46,7 +44,6 @@ import java.util.Map;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

@@ -1,12 +1,8 @@
 package com.jola.onlineedu.di.module;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.jola.onlineedu.BuildConfig;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.mode.http.MyApis;
-import com.jola.onlineedu.mode.prefs.PreferencesHelperImpl;
 import com.jola.onlineedu.util.SystemUtil;
 
 import java.io.File;
@@ -19,7 +15,6 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -61,6 +56,7 @@ public class HttpModule {
     @Singleton
     @Provides
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
+
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -97,18 +93,21 @@ public class HttpModule {
                 return response;
             }
         };
-        Interceptor tokenInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                String token = App.getInstance().getSharedPreferences(PreferencesHelperImpl.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE).getString(PreferencesHelperImpl.TAG_USER_TOKEN, "");
-                request = request.newBuilder().addHeader("authorization", token)
-                        .build();
-                return chain.proceed(request);
-            }
-        };
+
+//        Interceptor tokenInterceptor = new Interceptor() {
+//            @Override
+//            public Response intercept(Chain chain) throws IOException {
+//                Request request = chain.request();
+//                String token = App.getInstance().getSharedPreferences(PreferencesHelperImpl.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE).getString(PreferencesHelperImpl.TAG_USER_TOKEN, "");
+//                request = request.newBuilder().addHeader("authorization", token)
+//                        .build();
+//                return chain.proceed(request);
+//            }
+//        };
 //        设置统一的请求头部参数
-        builder.addInterceptor(tokenInterceptor);
+//        builder.addInterceptor(tokenInterceptor);
+
+
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
@@ -118,7 +117,7 @@ public class HttpModule {
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
         //错误重连
-        builder.retryOnConnectionFailure(true);
+        builder.retryOnConnectionFailure(false);
         return builder.build();
     }
 

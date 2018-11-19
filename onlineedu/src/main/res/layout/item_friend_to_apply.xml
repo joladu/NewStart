@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_head_user"
+        android:layout_width="@dimen/qb_px_50"
+        android:layout_height="@dimen/qb_px_50"
+        android:src="@drawable/person_holder_logout_x2"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_20"
+        />
+    <TextView
+        android:id="@+id/tv_interest_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="陈华山"
+        android:textColor="@color/gray_content_forum_text"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:layout_toEndOf="@+id/civ_head_user"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_20"
+        />
+
+    <TextView
+        android:id="@+id/tv_interest_person_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="文学  民族学  北京交通大学海滨学院"
+        android:textColor="@color/hint_text_gray"
+        android:textSize="14sp"
+        android:layout_toRightOf="@+id/civ_head_user"
+        android:layout_below="@+id/tv_interest_name"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_5"
+        />
+
+    <TextView
+        android:id="@+id/tv_apply_status_pre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="状态"
+        android:textColor="#808288"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/civ_head_user"
+        android:layout_below="@+id/tv_interest_person_describe"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_5"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_apply_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="未处理"
+        android:textColor="#D0021B"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/tv_apply_status_pre"
+        android:layout_below="@+id/tv_interest_person_describe"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_5"
+        android:layout_marginBottom="@dimen/qb_px_10"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_apply_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请时间：刚刚"
+        android:textColor="#808288"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/civ_head_user"
+        android:layout_below="@+id/tv_apply_status_pre"
+        android:layout_marginStart="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_5"
+        android:layout_marginBottom="@dimen/qb_px_10"
+        />
+
+
+</RelativeLayout>

@@ -1,17 +1,14 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -19,10 +16,8 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
-import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
-import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
+import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
 import com.jola.onlineedu.mode.http.MyApis;
-import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.TimeFormatUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,19 +28,17 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
-import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.functions.Consumer;
-import okhttp3.Interceptor;
 
-public class MyMessageActivity extends SimpleActivity {
+/**
+ * 我申请的
+ */
+public class FriendListToApplyActivity extends SimpleActivity {
 
     @Inject
     DataManager dataManager;
@@ -58,7 +51,7 @@ public class MyMessageActivity extends SimpleActivity {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    List<ResMessageListBean.DataBean.MessagesBean> mList = new ArrayList<>();
+    List<ResCommentListBean.DataBean.CommentsBean> mList = new ArrayList<>();
     private RecycleListAdapter mAdapter;
     int page = 1;
     int pagesize = 10;
@@ -66,7 +59,7 @@ public class MyMessageActivity extends SimpleActivity {
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_message_list;
+        return R.layout.activity_comments_list;
     }
 
     @Override
@@ -74,7 +67,7 @@ public class MyMessageActivity extends SimpleActivity {
 
         getActivityComponent().inject(this);
 
-        setToolBar(toolbar, "私信");
+        setToolBar(toolbar, "我申请添加的");
 
         smr.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -83,63 +76,49 @@ public class MyMessageActivity extends SimpleActivity {
             }
 
 
+
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 refreshData();
             }
         });
 
-//        testData();
-        refreshData();
+        testData();
+//        refreshData();
 
-    }
-
-    @OnClick({
-            R.id.send_icon_in_tool
-    })
-    public void clickEvent(View view) {
-        switch (view.getId()) {
-            case R.id.send_icon_in_tool:
-                startActivity(new Intent(this, MessageSendActivity.class));
-                break;
-        }
     }
 
     private void testData() {
-        ResMessageListBean.DataBean.MessagesBean dataBean = new ResMessageListBean.DataBean.MessagesBean();
-        dataBean.setAvatar_url("https://www.baidu.com/img/bd_logo1.png?where=super");
-        dataBean.setContent("测试：私信内容");
-        dataBean.setCreated("2018-11-16T11:50:02");
-        dataBean.setName("测试：姓名");
-        dataBean.setUsername("测试:用户名");
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
-        mList.add(dataBean);
+        ResCommentListBean.DataBean.CommentsBean commentsBean = new ResCommentListBean.DataBean.CommentsBean();
+        commentsBean.setContent("测试评论内容");
+        mList.add(commentsBean);
+        commentsBean.setCreated("2018-11-16T11:50:02");
+        mList.add(commentsBean);
+        mList.add(commentsBean);
+        mList.add(commentsBean);
+        mList.add(commentsBean);
+        mList.add(commentsBean);
+        mList.add(commentsBean);
         mAdapter = new RecycleListAdapter(this);
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         rv.setAdapter(mAdapter);
     }
 
 
-    private void refreshData() {
 
-//        addSubscribe(
-//                dataManager.getMessageList(dataManager.getUserToken(),1,pagesize)
-//            .compose(RxUtil.<ResMessageListBean>rxSchedulerHelper())
-//                .subscribe(new Consumer<ResMessageListBean>() {
+    private void refreshData() {
+//        addSubscribe(dataManager.getCommentsList(dataManager.getUserToken(),1,pagesize)
+//            .compose(RxUtil.<ResCommentListBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResCommentListBean>() {
 //                    @Override
-//                    public void accept(ResMessageListBean resCommentListBean) throws Exception {
+//                    public void accept(ResCommentListBean resCommentListBean) throws Exception {
 //                        smr.finishRefresh();
 //                        if (resCommentListBean.getError_code() == 0){
-//                            mList = resCommentListBean.getData().getMessages();
-//                            mAdapter = new RecycleListAdapter(MyMessageActivity.this);
-//                            rv.setLayoutManager(new LinearLayoutManager(MyMessageActivity.this,LinearLayoutManager.VERTICAL,false));
-//                            rv.addItemDecoration(new DividerItemDecoration(MyMessageActivity.this,DividerItemDecoration.VERTICAL));
+//                            mList = resCommentListBean.getData().getComments();
+//                            mAdapter = new RecycleListAdapter(CommentsListActivity.this);
+//                            rv.setLayoutManager(new LinearLayoutManager(CommentsListActivity.this,LinearLayoutManager.VERTICAL,false));
+//                            rv.addItemDecoration(new DividerItemDecoration(CommentsListActivity.this,DividerItemDecoration.VERTICAL));
 //                            rv.setAdapter(mAdapter);
 //                            if (mList.size() == 0){
 //                                ToastUtil.toastLong("暂无数据！");
@@ -156,9 +135,7 @@ public class MyMessageActivity extends SimpleActivity {
 //                    }
 //                })
 //        );
-
         asyncRefresh();
-
 
     }
 
@@ -169,22 +146,22 @@ public class MyMessageActivity extends SimpleActivity {
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/message/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/record/coursecomment/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishRefresh();
-                ResMessageListBean resultBean = new Gson().fromJson(new String(responseBody), ResMessageListBean.class);
-                if (resultBean.getError_code() == 0) {
-                    mList = resultBean.getData().getMessages();
-                    mAdapter = new RecycleListAdapter(MyMessageActivity.this);
-                    rv.setLayoutManager(new LinearLayoutManager(MyMessageActivity.this, LinearLayoutManager.VERTICAL, false));
-                    rv.addItemDecoration(new DividerItemDecoration(MyMessageActivity.this, DividerItemDecoration.VERTICAL));
+                ResCommentListBean resultBean = new Gson().fromJson(new String(responseBody), ResCommentListBean.class);
+                if (resultBean.getError_code() == 0){
+                    mList = resultBean.getData().getComments();
+                    mAdapter = new RecycleListAdapter(FriendListToApplyActivity.this);
+                    rv.setLayoutManager(new LinearLayoutManager(FriendListToApplyActivity.this,LinearLayoutManager.VERTICAL,false));
+                    rv.addItemDecoration(new DividerItemDecoration(FriendListToApplyActivity.this,DividerItemDecoration.VERTICAL));
                     rv.setAdapter(mAdapter);
-                    if (mList.size() == 0) {
+                    if (mList.size() == 0){
                         ToastUtil.toastLong("暂无数据！");
                     }
-                } else {
+                }else{
                     ToastUtil.toastLong(resultBean.getError_msg());
                 }
 
@@ -201,16 +178,16 @@ public class MyMessageActivity extends SimpleActivity {
 
 
     private void loadMoreData() {
-//        addSubscribe(dataManager.getMessageList(dataManager.getUserToken(), ++page, pagesize)
-//                .compose(RxUtil.<ResMessageListBean>rxSchedulerHelper())
-//                .subscribe(new Consumer<ResMessageListBean>() {
+//        addSubscribe(dataManager.getCommentsList(dataManager.getUserToken(),++page,pagesize)
+//                .compose(RxUtil.<ResCommentListBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResCommentListBean>() {
 //                    @Override
-//                    public void accept(ResMessageListBean resCommentListBean) throws Exception {
+//                    public void accept(ResCommentListBean resCommentListBean) throws Exception {
 //                        smr.finishLoadMore();
-//                        if (resCommentListBean.getError_code() == 0) {
-//                            mList.addAll(resCommentListBean.getData().getMessages());
+//                        if (resCommentListBean.getError_code() == 0){
+//                            mList.addAll(resCommentListBean.getData().getComments());
 //                            mAdapter.notifyDataSetChanged();
-//                        } else {
+//                        }else{
 //                            ToastUtil.toastLong(resCommentListBean.getError_msg());
 //                        }
 //                    }
@@ -222,28 +199,27 @@ public class MyMessageActivity extends SimpleActivity {
 //                    }
 //                })
 //        );
-        asyncLoadMore();
+        asyncLoadmore();
     }
 
-
-    private void asyncLoadMore() {
+    private void asyncLoadmore() {
         RequestParams requestParams = new RequestParams();
         requestParams.put("page", ++page);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/message/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/record/coursecomment/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishLoadMore();
-                ResMessageListBean resultBean = new Gson().fromJson(new String(responseBody), ResMessageListBean.class);
-                if (resultBean.getError_code() == 0) {
-                    mList.addAll(resultBean.getData().getMessages());
+                ResCommentListBean resultBean = new Gson().fromJson(new String(responseBody), ResCommentListBean.class);
+                if (resultBean.getError_code() == 0){
+                    mList .addAll(resultBean.getData().getComments());
                     mAdapter.notifyDataSetChanged();
-                    if (mList.size() == 0) {
+                    if (mList.size() == 0){
                         ToastUtil.toastLong("暂无数据！");
                     }
-                } else {
+                }else{
                     ToastUtil.toastLong(resultBean.getError_msg());
                 }
 
@@ -259,10 +235,9 @@ public class MyMessageActivity extends SimpleActivity {
     }
 
 
-
 //    begain adapter
 
-    class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.ViewHolder> {
+    class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.ViewHolder>{
 
         LayoutInflater layoutInflater;
 
@@ -273,23 +248,15 @@ public class MyMessageActivity extends SimpleActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(layoutInflater.inflate(R.layout.item_message, parent, false));
+            return new ViewHolder(layoutInflater.inflate(R.layout.item_friend_to_apply,parent,false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            final ResMessageListBean.DataBean.MessagesBean messagesBean = mList.get(position);
-            holder.tv_content_message.setText(messagesBean.getContent());
-            holder.tv_content_from.setText(messagesBean.getUsername());
-            holder.tv_time.setText(TimeFormatUtil.formatTime(messagesBean.getCreated()));
-            holder.rl_message_list.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MyMessageActivity.this, MessageDetailActivity.class);
-                    intent.putExtra("id", messagesBean.getId());
-                    startActivity(intent);
-                }
-            });
+//            ResCommentListBean.DataBean.CommentsBean commentsBean = mList.get(position);
+//            holder.tv_comment_content.setText(commentsBean.getContent());
+////            holder.tv_time.setText(commentsBean.getCreated());
+//            holder.tv_time.setText(TimeFormatUtil.formatTime(commentsBean.getCreated()));
         }
 
         @Override
@@ -297,26 +264,25 @@ public class MyMessageActivity extends SimpleActivity {
             return mList == null ? 0 : mList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        class ViewHolder extends RecyclerView.ViewHolder{
 
-            @BindView(R.id.rl_message_list)
-            RelativeLayout rl_message_list;
-            @BindView(R.id.tv_content_message)
-            TextView tv_content_message;
-            @BindView(R.id.tv_content_from)
-            TextView tv_content_from;
-            @BindView(R.id.tv_time)
-            TextView tv_time;
+//            @BindView(R.id.tv_comment_content)
+//            TextView tv_comment_content;
+//            @BindView(R.id.tv_time)
+//            TextView tv_time;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                ButterKnife.bind(this, itemView);
+                ButterKnife.bind(this,itemView);
             }
         }
 
     }
 
 //    end adapter
+
+
+
 
 
 }

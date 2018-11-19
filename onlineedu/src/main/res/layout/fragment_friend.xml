@@ -90,6 +90,7 @@
             android:background="@color/divide_line_gray"
             />
         <RelativeLayout
+            android:id="@+id/rl_friend_apply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -97,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我申请添加的"
+                android:text="好友申请"
                 android:textColor="@color/title_text"
                 android:textSize="@dimen/title_toolbar_text_size"
                 />
@@ -111,10 +112,11 @@
                 android:src="@drawable/icon_right_enter_x2"
                 />
             <TextView
+                android:id="@+id/tv_wait_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="0"
+                android:text=""
                 android:textColor="@color/title_text"
                 android:layout_toLeftOf="@+id/iv_enter_apply_friend"
                 android:textSize="@dimen/title_toolbar_text_size"
@@ -133,6 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:visibility="gone"
             >
             <TextView
                 android:layout_width="wrap_content"

@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.component.ImageLoader;
@@ -19,11 +21,14 @@ import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResUpdatepersonalInfoBean;
 import com.jola.onlineedu.mode.bean.response.ResUploadUserImageBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.AddressPickTask;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.SystemUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.DialogInputOneConentView;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -39,6 +44,7 @@ import butterknife.OnClick;
 import cn.addapp.pickers.entity.City;
 import cn.addapp.pickers.entity.County;
 import cn.addapp.pickers.entity.Province;
+import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
@@ -75,9 +81,9 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
     private final int Tag_Phoneno = 2;
     private final int Tag_School = 3;
     private final int Tag_Teach_Course = 4;
-    private String province;
-    private String city;
-    private String area;
+    private String provinceText;
+    private String cityText;
+    private String areaText;
     private String provinceCode;
     private String cityCode;
     private String areaCode;
@@ -160,7 +166,7 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
             task.setCallback(new AddressPickTask.Callback() {
                 @Override
                 public void onAddressInitFailed() {
-                    ToastUtil.toastShort("数据初始化失败");
+                    ToastUtil.toastShort("地址数据初始化失败");
                 }
 
                 @Override
@@ -168,13 +174,17 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
                     if (county == null) {
                         ToastUtil.toastShort(province.getAreaName() + city.getAreaName());
                     } else {
-                        String areaIdprovince = province.getAreaId();
-                        String areaIdCity = city.getAreaId();
-                        String areaIdCounty = county.getAreaId();
+                        provinceCode = province.getAreaId();
+                        provinceText = province.getAreaName();
 
-                        ToastUtil.toastShort(province.getAreaName() +areaIdprovince + city.getAreaName()+areaIdCity + county.getAreaName()+areaIdCounty);
+                        cityText = city.getAreaName();
+                        cityCode = city.getAreaId();
 
-                        tv_address.setText(province.getAreaName() +" " + city.getAreaName()+" " + county.getAreaName());
+                        areaText = county.getAreaName();
+                        areaCode = county.getAreaId();
+
+                        tv_address.setText(provinceText + " "+cityText + " "+ areaText);
+
                     }
                 }
             });
@@ -201,51 +211,99 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
             return;
         }
 
-        HashMap<String, String> map = new HashMap<>();
+
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("mobile",phoneno);
+//        map.put("name",petName);
+//        map.put("avatar",userAvater);
+//        map.put("password",passwordInput);
+//        map.put("teaching_courses",teachCourse);
+//        map.put("school_name",schoolInput);
+//        map.put("province_text",province);
+//        map.put("city_text",city);
+//        map.put("cdistrict_text",area);
+//        map.put("province",provinceCode);
+//        map.put("city",cityCode);
+//        map.put("district",areaCode);
+//        showLoadingDialog();
+//        addSubscribe(mDataManager.updateUserProfile(map)
+//        .compose(RxUtil.<ResUpdatepersonalInfoBean>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResUpdatepersonalInfoBean>() {
+//                    @Override
+//                    public void accept(ResUpdatepersonalInfoBean responseSimpleResult) throws Exception {
+//                        hideLoadingDialog();
+//                        if (responseSimpleResult.getError_code() == 0){
+//                            ToastUtil.toastShort("资料修改成功！");
+//                            ResUpdatepersonalInfoBean.DataBean data = responseSimpleResult.getData();
+//                            String token = data.getToken();
+//                            mDataManager.setUserToken(token);
+//                            ResUpdatepersonalInfoBean.DataBean.UserBean user = data.getUser();
+//                            String name = user.getName();
+//                            mDataManager.setUserName(name);
+//                            mDataManager.setUserAvater(user.getAvatar());
+//                            mDataManager.setUserTeachCourse(user.getTeaching_courses());
+//                            mDataManager.setUserPhone(user.getMobile());
+//                            ResUpdatepersonalInfoBean.DataBean.UserBean.SchoolBean school = user.getSchool();
+//                            mDataManager.setUserAddress(school.getProvince_text() +"  "+school.getCity_text() +"  "+school.getDistrict_text());
+//                        }else {
+//                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        hideLoadingDialog();
+//                        tipServerError();
+//                    }
+//                })
+//        );
+
+
+        showLoadingDialog();
+        RequestParams map = new RequestParams();
         map.put("mobile",phoneno);
         map.put("name",petName);
         map.put("avatar",userAvater);
         map.put("password",passwordInput);
         map.put("teaching_courses",teachCourse);
         map.put("school_name",schoolInput);
-        map.put("province_text",province);
-        map.put("city_text",city);
-        map.put("cdistrict_text",area);
+        map.put("province_text",provinceText);
+        map.put("city_text",cityText);
+        map.put("cdistrict_text",areaText);
         map.put("province",provinceCode);
         map.put("city",cityCode);
         map.put("district",areaCode);
-        showLoadingDialog();
-        addSubscribe(mDataManager.updateUserProfile(map)
-        .compose(RxUtil.<ResUpdatepersonalInfoBean>rxSchedulerHelper())
-                .subscribe(new Consumer<ResUpdatepersonalInfoBean>() {
-                    @Override
-                    public void accept(ResUpdatepersonalInfoBean responseSimpleResult) throws Exception {
-                        hideLoadingDialog();
-                        if (responseSimpleResult.getError_code() == 0){
-                            ToastUtil.toastShort("资料修改成功！");
-                            ResUpdatepersonalInfoBean.DataBean data = responseSimpleResult.getData();
-                            String token = data.getToken();
-                            mDataManager.setUserToken(token);
-                            ResUpdatepersonalInfoBean.DataBean.UserBean user = data.getUser();
-                            String name = user.getName();
-                            mDataManager.setUserName(name);
-                            mDataManager.setUserAvater(user.getAvatar());
-                            mDataManager.setUserTeachCourse(user.getTeaching_courses());
-                            mDataManager.setUserPhone(user.getMobile());
-                            ResUpdatepersonalInfoBean.DataBean.UserBean.SchoolBean school = user.getSchool();
-                            mDataManager.setUserAddress(school.getProvince_text() +"  "+school.getCity_text() +"  "+school.getDistrict_text());
-                        }else {
-                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        hideLoadingDialog();
-                        tipServerError();
-                    }
-                })
-        );
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, mDataManager.getUserToken());
+        App.getmAsyncHttpClient().put("http://yunketang.dev.attackt.com/api/v1/user/change/profile/", map, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ResUpdatepersonalInfoBean resultBean = new Gson().fromJson(new String(responseBody), ResUpdatepersonalInfoBean.class);
+                hideLoadingDialog();
+                if (resultBean.getError_code() == 0){
+                    ToastUtil.toastShort("资料修改成功！");
+                    ResUpdatepersonalInfoBean.DataBean data = resultBean.getData();
+                    String token = data.getToken();
+                    mDataManager.setUserToken(token);
+                    ResUpdatepersonalInfoBean.DataBean.UserBean user = data.getUser();
+                    String name = user.getName();
+                    mDataManager.setUserName(name);
+                    mDataManager.setUserAvater(user.getAvatar());
+                    mDataManager.setUserTeachCourse(user.getTeaching_courses());
+                    mDataManager.setUserPhone(user.getMobile());
+                    ResUpdatepersonalInfoBean.DataBean.UserBean.SchoolBean school = user.getSchool();
+                    mDataManager.setUserAddress(school.getProvince_text() +"  "+school.getCity_text() +"  "+school.getDistrict_text());
+                }else {
+                    ToastUtil.toastLong(resultBean.getError_msg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                hideLoadingDialog();
+                tipServerError();
+            }
+        });
+
 
     }
 

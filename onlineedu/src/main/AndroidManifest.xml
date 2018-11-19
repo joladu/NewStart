@@ -73,7 +73,13 @@
         <activity android:name=".ui.activity.MyMessageActivity" />
         <activity android:name=".ui.activity.MyStudyActivity" />
         <activity android:name=".ui.activity.TeacherMasterDetailActivity" />
-        <activity android:name=".ui.activity.SearchFriendActivity"></activity>
+        <activity android:name=".ui.activity.SearchFriendActivity"/>
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.MyCollectionActivity" />
+        <activity android:name=".ui.activity.MyRecordActivity" />
+        <activity android:name=".ui.activity.FriendApplyActivity" />
+        <activity android:name=".ui.activity.FriendListToApplyActivity" />
+        <activity android:name=".ui.activity.FriendListFromApplyActivity" />
     </application>
 
 </manifest>
