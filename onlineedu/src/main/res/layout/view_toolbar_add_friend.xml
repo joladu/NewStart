@@ -24,7 +24,7 @@
         android:textSize="@dimen/title_toolbar_text_size"
         />
     <ImageView
-        android:id="@+id/add_icon_in_tool"
+        android:id="@+id/iv_add_friend"
         android:layout_width="@dimen/qb_px_20"
         android:layout_height="@dimen/qb_px_20"
         android:layout_gravity = "end"

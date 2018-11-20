@@ -1,23 +1,21 @@
 package com.jola.onlineedu.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.google.gson.Gson;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
-import com.jola.onlineedu.app.MyLog;
 import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.User;
 import com.jola.onlineedu.mode.bean.response.ResFriendListBean;
 import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.ui.activity.FriendApplyActivity;
+import com.jola.onlineedu.ui.activity.SearchFriendActivity;
 import com.jola.onlineedu.ui.adapter.SortAdapter;
 import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.widget.SideBar;
@@ -50,6 +48,8 @@ public class FriendFragment extends SimpleFragment {
     SideBar sideBar;
     private ArrayList<User> list;
 
+    @BindView(R.id.et_input_search)
+    EditText et_input_search;
     @BindView(R.id.tv_wait_answer)
     TextView tv_wait_answer;
 
@@ -87,11 +87,13 @@ public class FriendFragment extends SimpleFragment {
 
     }
 
-    private void loadFriendData(String kw) {
-
+    private void loadFriendData(final String kw) {
+        showLoadingDialog();
         RequestParams requestParams = new RequestParams();
         if (null != kw && kw.length() > 0){
             requestParams.add("kw",kw);
+        }else{
+            requestParams.add("kw","");
         }
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
         App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/friend/",requestParams, new AsyncHttpResponseHandler() {
@@ -102,16 +104,23 @@ public class FriendFragment extends SimpleFragment {
                     int friends_apply = resultBean.getData().getFriends_apply();
                     tv_wait_answer.setText(friends_apply+"");
                     List<ResFriendListBean.DataBean.FriendsBean> friends = resultBean.getData().getFriends();
-                    initFriendAdapter(friends);
+                    if (friends.size() > 0){
+                        initFriendAdapter(friends);
+                    }else{
+                        if (null != kw && kw.length() > 0){
+                            ToastUtil.toastShort("未搜索到相关好友");
+                        }
+                    }
                 }else{
                     ToastUtil.toastShort("获取朋友列表失败！");
                 }
-
+                hideLoadingDialog();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                hideLoadingDialog();
+                ToastUtil.toastShort("请求失败！");
             }
         });
 
@@ -120,14 +129,27 @@ public class FriendFragment extends SimpleFragment {
 
 
     @OnClick({
+            R.id.iv_add_friend,
             R.id.rl_friend_apply,
+            R.id.iv_search,
     })
     public void clickEvent(View view){
         switch (view.getId()){
+            case R.id.iv_add_friend:
+                startActivity(new Intent(getActivity(), SearchFriendActivity.class));
+                break;
             case R.id.rl_friend_apply:
                 startActivity(new Intent(getActivity(), FriendApplyActivity.class));
                 break;
+            case R.id.iv_search:
+                searchFriend();
+                break;
         }
+    }
+
+    private void searchFriend() {
+        String kw = et_input_search.getText().toString();
+        loadFriendData(kw);
     }
 
 
@@ -139,7 +161,7 @@ public class FriendFragment extends SimpleFragment {
         Collections.sort(list); // 对list进行排序，需要让User实现Comparable接口重写compareTo方法
         SortAdapter adapter = new SortAdapter(getContext(), list);
         listView.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
     }
 
 

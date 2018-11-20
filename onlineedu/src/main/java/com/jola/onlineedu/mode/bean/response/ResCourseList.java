@@ -8,11 +8,12 @@ import java.util.List;
 
 public class ResCourseList {
 
+
     /**
-     * count : 1
-     * next : http://localhost:8000/api/v1/course/?page=2&page_size=1
-     * previous :
-     * results : [{"id":1,"user":4,"name":"课程1","author":"MCE","cover":"","pay_type":0,"price":100,"see_count":1,"recommend_count":1,"share_count":1,"collect_count":1,"praise_count":1,"score":5,"summary":"","is_recommend":0,"categories":[{"id":1,"name":"小学"}]}]
+     * count : 2
+     * next : null
+     * previous : null
+     * results : [{"id":1,"user":6,"name":"高二物理","author":"李老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","pay_type":1,"price":23,"see_count":1,"recommend_count":1,"share_count":1,"summary":"物理课。","score":1,"is_recommend":1,"categories":[{"id":2,"name":"物理"}]},{"id":2,"user":6,"name":"数据结构","author":"韩老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1538986737.png","pay_type":0,"price":0,"see_count":1,"recommend_count":1,"share_count":1,"summary":"专业讲授","score":1,"is_recommend":1,"categories":[{"id":3,"name":"计算机"}]}]
      */
 
     private int count;
@@ -55,37 +56,33 @@ public class ResCourseList {
     public static class ResultsBean {
         /**
          * id : 1
-         * user : 4
-         * name : 课程1
-         * author : MCE
-         * cover :
-         * pay_type : 0
-         * price : 100
+         * user : 6
+         * name : 高二物理
+         * author : 李老师
+         * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
+         * pay_type : 1
+         * price : 23
          * see_count : 1
          * recommend_count : 1
          * share_count : 1
-         * collect_count : 1
-         * praise_count : 1
-         * score : 5
-         * summary :
-         * is_recommend : 0
-         * categories : [{"id":1,"name":"小学"}]
+         * summary : 物理课。
+         * score : 1
+         * is_recommend : 1
+         * categories : [{"id":2,"name":"物理"}]
          */
 
         private int id;
         private int user;
         private String name;
         private String author;
-        private String cover;
+        private String cover_url;
         private int pay_type;
         private int price;
         private int see_count;
         private int recommend_count;
         private int share_count;
-        private int collect_count;
-        private int praise_count;
-        private int score;
         private String summary;
+        private int score;
         private int is_recommend;
         private List<CategoriesBean> categories;
 
@@ -121,12 +118,12 @@ public class ResCourseList {
             this.author = author;
         }
 
-        public String getCover() {
-            return cover;
+        public String getCover_url() {
+            return cover_url;
         }
 
-        public void setCover(String cover) {
-            this.cover = cover;
+        public void setCover_url(String cover_url) {
+            this.cover_url = cover_url;
         }
 
         public int getPay_type() {
@@ -169,20 +166,12 @@ public class ResCourseList {
             this.share_count = share_count;
         }
 
-        public int getCollect_count() {
-            return collect_count;
+        public String getSummary() {
+            return summary;
         }
 
-        public void setCollect_count(int collect_count) {
-            this.collect_count = collect_count;
-        }
-
-        public int getPraise_count() {
-            return praise_count;
-        }
-
-        public void setPraise_count(int praise_count) {
-            this.praise_count = praise_count;
+        public void setSummary(String summary) {
+            this.summary = summary;
         }
 
         public int getScore() {
@@ -191,14 +180,6 @@ public class ResCourseList {
 
         public void setScore(int score) {
             this.score = score;
-        }
-
-        public String getSummary() {
-            return summary;
-        }
-
-        public void setSummary(String summary) {
-            this.summary = summary;
         }
 
         public int getIs_recommend() {
@@ -219,8 +200,8 @@ public class ResCourseList {
 
         public static class CategoriesBean {
             /**
-             * id : 1
-             * name : 小学
+             * id : 2
+             * name : 物理
              */
 
             private int id;

@@ -54,7 +54,7 @@ public class MyInterestActivity extends SimpleActivity {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    List<ResInteresListBean.DataBean.DownloadsBean> mList = new ArrayList<>();
+    List<ResInteresListBean.DataBean.FollowsBean> mList = new ArrayList<>();
     private RecycleListAdapter mAdapter;
     int page = 1;
     int pagesize = 10;
@@ -92,9 +92,9 @@ public class MyInterestActivity extends SimpleActivity {
     }
 
     private void testData() {
-        ResInteresListBean.DataBean.DownloadsBean downloadsBean = new ResInteresListBean.DataBean.DownloadsBean();
-        downloadsBean.setCover_url("https://www.baidu.com/img/bd_logo1.png?where=super");
-        downloadsBean.setCreated("2018-11-16T11:50:02");
+        ResInteresListBean.DataBean.FollowsBean downloadsBean = new ResInteresListBean.DataBean.FollowsBean();
+        downloadsBean.setAvatar_url("https://www.baidu.com/img/bd_logo1.png?where=super");
+//        downloadsBean.set("2018-11-16T11:50:02");
         downloadsBean.setName("测试名称");
         mList.add(downloadsBean);
         mList.add(downloadsBean);
@@ -150,14 +150,14 @@ public class MyInterestActivity extends SimpleActivity {
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/resourcedownload/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/follow/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishRefresh();
                 ResInteresListBean resultBean = new Gson().fromJson(new String(responseBody), ResInteresListBean.class);
                 if (resultBean.getError_code() == 0) {
-                    mList = resultBean.getData().getDownloads();
+                    mList = resultBean.getData().getFollows();
                     mAdapter = new RecycleListAdapter(MyInterestActivity.this);
                     rv.setLayoutManager(new LinearLayoutManager(MyInterestActivity.this, LinearLayoutManager.VERTICAL, false));
                     rv.addItemDecoration(new DividerItemDecoration(MyInterestActivity.this, DividerItemDecoration.VERTICAL));
@@ -219,7 +219,7 @@ public class MyInterestActivity extends SimpleActivity {
                 smr.finishLoadMore();
                 ResInteresListBean resultBean = new Gson().fromJson(new String(responseBody), ResInteresListBean.class);
                 if (resultBean.getError_code() == 0) {
-                    mList .addAll( resultBean.getData().getDownloads());
+                    mList .addAll( resultBean.getData().getFollows());
                     mAdapter.notifyDataSetChanged();
                     if (mList.size() == 0) {
                         ToastUtil.toastLong("暂无数据！");

@@ -80,6 +80,7 @@
         <activity android:name=".ui.activity.FriendApplyActivity" />
         <activity android:name=".ui.activity.FriendListToApplyActivity" />
         <activity android:name=".ui.activity.FriendListFromApplyActivity" />
+        <activity android:name=".ui.activity.UserDetailActivity" />
     </application>
 
 </manifest>

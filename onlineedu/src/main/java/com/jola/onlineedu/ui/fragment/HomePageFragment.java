@@ -19,6 +19,7 @@ import com.jola.onlineedu.base.SimpleFragment;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
+import com.jola.onlineedu.mode.bean.response.ResCourseRecommendBean;
 import com.jola.onlineedu.ui.activity.ForumListActivity;
 import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
 import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
@@ -72,12 +73,12 @@ public class HomePageFragment extends SimpleFragment {
 
     private BannerPagerAdapter vpHomePagerBannerAdapter;
 
-    private List<ResCourseList.ResultsBean> mList = new ArrayList<>();
+    private List<ResCourseRecommendBean> mList = new ArrayList<>();
     private RVRecommendCourseAdapter rvRecommendCourseAdapter;
 
     private int page = 1;
     private int page_size = 10;
-    private String mNextUrlCourse;
+//    private String mNextUrlCourse;
 
     private void stateLoading(){
         showLoadingDialog();
@@ -227,18 +228,18 @@ public class HomePageFragment extends SimpleFragment {
         page = 1;
         mList.clear();
         addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")
-        .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
-                .subscribe(new Consumer<ResCourseList>() {
+        .compose(RxUtil.<List<ResCourseRecommendBean>>rxSchedulerHelper())
+                .subscribe(new Consumer<List<ResCourseRecommendBean>>() {
                     @Override
-                    public void accept(ResCourseList resCourseList) throws Exception {
-                        if (resCourseList.getCount() > 0){
-                            List<ResCourseList.ResultsBean> results = resCourseList.getResults();
-                            mList.addAll(results);
+                    public void accept(List<ResCourseRecommendBean> resCourseList) throws Exception {
+                        if (resCourseList.size() > 0){
+//                            List<ResCourseList.ResultsBean> results = resCourseList.getResults();
+                            mList.addAll(resCourseList);
                             if (mList.size() > 0){
                                 stateMain();
                                 recyclerView.setAdapter(rvRecommendCourseAdapter);
                                 rvRecommendCourseAdapter.notifyDataSetChanged();
-                                mNextUrlCourse = resCourseList.getNext();
+//                                mNextUrlCourse = resCourseList.getNext();
                             }else{
                                 stateEmpty();
                             }
@@ -257,22 +258,19 @@ public class HomePageFragment extends SimpleFragment {
 
 
     private void loadDataMore() {
-        if (null == mNextUrlCourse || mNextUrlCourse.length() == 0){
-            smartRefreshLayout.finishLoadMore();
-            ToastUtil.toastShort("暂无更多内容");
-            return;
-        }
+//        if (null == mNextUrlCourse || mNextUrlCourse.length() == 0){
+//            smartRefreshLayout.finishLoadMore();
+//            ToastUtil.toastShort("暂无更多内容");
+//            return;
+//        }
         addSubscribe(dataManager.getCourseRecommendList((page++)+"",page_size+"")
-                .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
-                .subscribe(new Consumer<ResCourseList>() {
+                .compose(RxUtil.<List<ResCourseRecommendBean>> rxSchedulerHelper())
+                .subscribe(new Consumer<List<ResCourseRecommendBean>>() {
                     @Override
-                    public void accept(ResCourseList resCourseList) throws Exception {
-                        if (resCourseList.getCount() > 0){
-                            List<ResCourseList.ResultsBean> results = resCourseList.getResults();
-                            if (null != results && results.size() > 0){
-                                mList.addAll(results);
-                                rvRecommendCourseAdapter.notifyDataSetChanged();
-                            }
+                    public void accept(List<ResCourseRecommendBean> resCourseList) throws Exception {
+                        if (resCourseList.size() > 0){
+                            mList.addAll(resCourseList);
+                            rvRecommendCourseAdapter.notifyDataSetChanged();
                         }
                         smartRefreshLayout.finishLoadMore();
                     }

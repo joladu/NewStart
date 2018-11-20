@@ -64,7 +64,7 @@ public class SearchFriendActivity extends SimpleActivity {
     RecyclerView rv;
 
     RecycleListAdapter mAdapter;
-    List<ResSearchFriendBean.DataBean.UsersBean> mList =  new ArrayList<>();
+    List<ResSearchFriendBean.DataBean.UsersBean> mList = new ArrayList<>();
 
     int page = 1;
     String kw;
@@ -80,13 +80,13 @@ public class SearchFriendActivity extends SimpleActivity {
         getActivityComponent().inject(this);
         setToolBar(toolbar, getString(R.string.search_friend_text));
         setAdapter();
-        loadFriendPageIndex(null,1);
+        loadFriendPageIndex(null, 1);
     }
 
     private void setAdapter() {
         mAdapter = new RecycleListAdapter(SearchFriendActivity.this);
-        rv.setLayoutManager(new LinearLayoutManager(SearchFriendActivity.this,LinearLayoutManager.VERTICAL,false));
-        rv.addItemDecoration(new DividerItemDecoration(SearchFriendActivity.this,DividerItemDecoration.VERTICAL));
+        rv.setLayoutManager(new LinearLayoutManager(SearchFriendActivity.this, LinearLayoutManager.VERTICAL, false));
+        rv.addItemDecoration(new DividerItemDecoration(SearchFriendActivity.this, DividerItemDecoration.VERTICAL));
         rv.setAdapter(mAdapter);
 
         smr.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -102,46 +102,49 @@ public class SearchFriendActivity extends SimpleActivity {
         });
     }
 
-    private void refreshData(){
+    private void refreshData() {
         kw = et_hint_search_view.getText().toString();
         page = 1;
-        loadFriendPageIndex(kw,page);
+        loadFriendPageIndex(kw, page);
     }
 
-    private void loadmoreData(){
-        loadFriendPageIndex(kw,++page);
+    private void loadmoreData() {
+        loadFriendPageIndex(kw, ++page);
     }
 
     private void loadFriendPageIndex(String kw, final int page) {
         showLoadingDialog();
+        if (page == 1){
+            mList.clear();
+            rv.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
         isSearching = true;
         RequestParams requestParams = new RequestParams();
-        if (null == kw || kw.length() == 0){
-            requestParams.put("kw",kw);
+        if (null == kw || kw.length() == 0) {
+            requestParams.put("kw", "");
+        }else{
+            requestParams.put("kw", kw);
         }
-        requestParams.put("page",page);
-        requestParams.put("pageSize",10);
-        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION,dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/common/usersearch/",requestParams, new AsyncHttpResponseHandler() {
+        requestParams.put("page", page);
+        requestParams.put("pageSize", 10);
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/common/usersearch/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ResSearchFriendBean resultBean = new Gson().fromJson(new String(responseBody), ResSearchFriendBean.class);
                 smr.finishRefresh();
                 smr.finishRefresh();
                 hideLoadingDialog();
-                if (resultBean.getError_code() == 0){
+                if (resultBean.getError_code() == 0) {
                     tv_tip_no_user.setVisibility(View.GONE);
                     List<ResSearchFriendBean.DataBean.UsersBean> usersList = resultBean.getData().getUsers();
-                    if (page == 1){
-                        mList = usersList;
-                    }else{
-                        mList.addAll(usersList);
-                    }
+                    mList.addAll(usersList);
                     mAdapter.notifyDataSetChanged();
-                    if (mList.size() == 0){
+                    if (mList.size() == 0) {
                         tv_tip_no_user.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     ToastUtil.toastShort(resultBean.getError_msg());
                 }
                 tv_cancel_search.setText("确定");
@@ -164,36 +167,33 @@ public class SearchFriendActivity extends SimpleActivity {
             R.id.iv_search,
             R.id.tv_cancel_search,
     })
-    public void clickEvent(View view){
-        switch (view.getId()){
+    public void clickEvent(View view) {
+        switch (view.getId()) {
             case R.id.iv_search:
                 String searchContent = et_hint_search_view.getText().toString();
                 page = 1;
-                loadFriendPageIndex(searchContent,page);
+                loadFriendPageIndex(searchContent, page);
                 break;
             case R.id.tv_cancel_search:
-                if (isSearching){
+                if (isSearching) {
                     App.getmAsyncHttpClient().cancelAllRequests(true);
                     hideLoadingDialog();
                     ToastUtil.toastShort("已取消搜索");
                     tv_cancel_search.setText("确定");
                     isSearching = false;
-                }else{
+                } else {
                     refreshData();
                     tv_cancel_search.setText("取消");
                     isSearching = true;
                 }
-
                 break;
         }
     }
 
 
-
-
 //    begain adapter
 
-    class RecycleListAdapter extends RecyclerView.Adapter<SearchFriendActivity.RecycleListAdapter.ViewHolder>{
+    class RecycleListAdapter extends RecyclerView.Adapter<SearchFriendActivity.RecycleListAdapter.ViewHolder> {
 
         LayoutInflater layoutInflater;
 
@@ -204,19 +204,19 @@ public class SearchFriendActivity extends SimpleActivity {
         @NonNull
         @Override
         public SearchFriendActivity.RecycleListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new SearchFriendActivity.RecycleListAdapter.ViewHolder(layoutInflater.inflate(R.layout.item_friend_search,parent,false));
+            return new SearchFriendActivity.RecycleListAdapter.ViewHolder(layoutInflater.inflate(R.layout.item_friend_search, parent, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull SearchFriendActivity.RecycleListAdapter.ViewHolder holder, int position) {
-            ResSearchFriendBean.DataBean.UsersBean usersBean = mList.get(position);
-            ImageLoader.load(SearchFriendActivity.this,usersBean.getAvatar_url(),holder.civ_head_user);
+            final ResSearchFriendBean.DataBean.UsersBean usersBean = mList.get(position);
+            ImageLoader.load(SearchFriendActivity.this, usersBean.getAvatar_url(), holder.civ_head_user);
             holder.tv_friend_name.setText(usersBean.getUsername());
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
 //          文学  民族学  北京交通大学海滨学院
             List<String> courses = usersBean.getCourses();
-            for (String tempCourse : courses){
-                sb.append(tempCourse+" ");
+            for (String tempCourse : courses) {
+                sb.append(tempCourse + " ");
             }
             sb.append(usersBean.getSchool_name());
             holder.tv_friend_describe.setText(sb.toString());
@@ -224,7 +224,13 @@ public class SearchFriendActivity extends SimpleActivity {
             holder.rl_friend_info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    new Intent(SearchFriendActivity.this,)
+                    Intent intent = new Intent(SearchFriendActivity.this, UserDetailActivity.class);
+                    intent.putExtra("userId",usersBean.getId());
+                    intent.putExtra("headImgUrl",usersBean.getAvatar_url());
+                    intent.putExtra("userName",usersBean.getUsername());
+                    intent.putExtra("describe",sb.toString());
+                    intent.putExtra("area","unknow");
+                    startActivity(intent);
                 }
             });
         }
@@ -234,7 +240,7 @@ public class SearchFriendActivity extends SimpleActivity {
             return mList == null ? 0 : mList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder{
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             @BindView(R.id.rl_friend_info)
             RelativeLayout rl_friend_info;
@@ -247,18 +253,13 @@ public class SearchFriendActivity extends SimpleActivity {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                ButterKnife.bind(this,itemView);
+                ButterKnife.bind(this, itemView);
             }
         }
 
     }
 
 //    end adapter
-
-
-
-
-
 
 
 }

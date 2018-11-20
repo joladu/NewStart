@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/window_bg">
 
 
@@ -10,98 +10,98 @@
         android:id="@+id/toolbar_view"
         layout="@layout/view_toolbar_add_friend"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/shape_radius_gray_search"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_view"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_view"
+        android:orientation="horizontal"
         >
 
         <EditText
-            android:id="@+id/et_hint_search_view"
-            android:layout_width="match_parent"
+            android:id="@+id/et_input_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="帖子搜索 回复搜索"
-            android:textSize="@dimen/hint_search_text_size"
-            android:textColor="@color/gray_hint_text_search"
             android:gravity="center"
+            android:hint="   好友搜索"
             android:lines="1"
             android:singleLine="true"
-            />
+            android:textColor="@color/gray_hint_text_search"
+            android:textSize="@dimen/hint_search_text_size" />
+
         <ImageView
             android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/search_gray_2x"
-            android:layout_marginEnd="@dimen/margin_content_to_border"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            />
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/qb_px_10"
+            android:layout_marginEnd="@dimen/qb_px_5"
+            android:src="@drawable/search_gray_2x" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <!--<include-->
-        <!--android:id="@+id/search_view"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/toolbar_view"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--android:id="@+id/search_view"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/toolbar_view"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
 
-        <!--layout="@layout/view_search"/>-->
+    <!--layout="@layout/view_search"/>-->
 
 
     <!--<TextView-->
-        <!--android:id="@+id/title_toolbar_tv"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--android:gravity="center"-->
-        <!--android:textColor="@color/title_text"-->
-        <!--android:text="好友申请"-->
-        <!--android:textSize="@dimen/title_toolbar_text_size"-->
-        <!--android:background="@color/window_bg"-->
-        <!--android:padding="10dp"-->
-        <!--/>-->
+    <!--android:id="@+id/title_toolbar_tv"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--android:gravity="center"-->
+    <!--android:textColor="@color/title_text"-->
+    <!--android:text="好友申请"-->
+    <!--android:textSize="@dimen/title_toolbar_text_size"-->
+    <!--android:background="@color/window_bg"-->
+    <!--android:padding="10dp"-->
+    <!--/>-->
 
     <LinearLayout
         android:id="@+id/ll_friend_apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/window_bg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_search"
-        app:layout_constraintRight_toRightOf="parent"
         android:orientation="vertical"
-        >
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_search">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divide_line_gray"
-            />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/divide_line_gray" />-->
+
         <RelativeLayout
             android:id="@+id/rl_friend_apply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            >
+            android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="好友申请"
                 android:textColor="@color/title_text"
-                android:textSize="@dimen/title_toolbar_text_size"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
 
             <ImageView
                 android:id="@+id/iv_enter_apply_friend"
@@ -109,41 +109,38 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/icon_right_enter_x2"
-                />
+                android:src="@drawable/icon_right_enter_x2" />
+
             <TextView
                 android:id="@+id/tv_wait_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/iv_enter_apply_friend"
                 android:text=""
                 android:textColor="@color/title_text"
-                android:layout_toLeftOf="@+id/iv_enter_apply_friend"
-                android:textSize="@dimen/title_toolbar_text_size"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
 
         </RelativeLayout>
-
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/divide_line_gray"
-            />
+            android:background="@color/divide_line_gray" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="申请添加我的"
                 android:textColor="@color/title_text"
-                android:textSize="@dimen/title_toolbar_text_size"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
 
             <ImageView
                 android:id="@+id/iv_enter_apply_by_friend"
@@ -151,17 +148,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/icon_right_enter_x2"
-                />
+                android:src="@drawable/icon_right_enter_x2" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/iv_enter_apply_by_friend"
                 android:text="3"
                 android:textColor="@color/title_text"
-                android:layout_toLeftOf="@+id/iv_enter_apply_by_friend"
-                android:textSize="@dimen/title_toolbar_text_size"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -169,22 +165,21 @@
         android:id="@+id/lv_friends"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_friend_apply"
-        app:layout_constraintRight_toRightOf="parent"
         android:divider="@color/divide_line_gray"
         android:dividerHeight="1dp"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_friend_apply" />
 
     <com.jola.onlineedu.widget.SideBar
         android:id="@+id/side_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_friend_apply"
         android:layout_marginTop="@dimen/qb_px_190"
         android:paddingRight="10dp"
         android:textColor="@color/colorAccent"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/ll_friend_apply" />
 
 
 </android.support.constraint.ConstraintLayout>

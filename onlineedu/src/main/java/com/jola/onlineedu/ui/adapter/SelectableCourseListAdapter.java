@@ -60,7 +60,7 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ResCourseList.ResultsBean resultsBean = list.get(position);
         final int id = resultsBean.getId();
-        String coverUrl = resultsBean.getCover();
+        String coverUrl = resultsBean.getCover_url();
 //        Glide.with(context).load(coverUrl).apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder)).into(holder.iv_course_cover);
         ImageLoader.load(context,coverUrl,holder.iv_course_cover);
         if (resultsBean.getPay_type() == 1){

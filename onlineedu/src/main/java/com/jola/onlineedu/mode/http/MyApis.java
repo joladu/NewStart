@@ -6,6 +6,7 @@ import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
+import com.jola.onlineedu.mode.bean.response.ResCourseRecommendBean;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.mode.bean.response.ResDownloadsBean;
 import com.jola.onlineedu.mode.bean.response.ResExamsDetail;
@@ -203,7 +204,7 @@ public interface MyApis {
     Flowable<ResCourseList> getCourseList(@Query("page") String page,@Query("page_size")String page_size);
 
     @GET("v1/course/recommend/")
-    Flowable<ResCourseList> getCourseRecommendList(@Query("page") String page,@Query("page_size")String page_size);
+    Flowable<List<ResCourseRecommendBean>> getCourseRecommendList(@Query("page") String page, @Query("page_size")String page_size);
 
     @GET("v1/course/{id}/detail/")
     Flowable<ResCourseDetail> getCourseDetail(@Path("id") String id);

@@ -31,7 +31,7 @@ public class AboutActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
 
-        setToolBar(toolbar, "收藏");
+        setToolBar(toolbar, "关于");
 
 
 //        ImmersionBar.with(this)

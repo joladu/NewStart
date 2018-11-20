@@ -11,13 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.component.ImageLoader;
-import com.jola.onlineedu.mode.bean.response.ResCourseList;
+import com.jola.onlineedu.mode.bean.response.ResCourseRecommendBean;
 import com.jola.onlineedu.ui.activity.CourseDetailActivity;
-import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.widget.StarBar;
 
 import java.util.List;
@@ -33,10 +30,10 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter <RVRecommendC
 
 
     Context context;
-    List<ResCourseList.ResultsBean> mList;
+    List<ResCourseRecommendBean> mList;
     LayoutInflater layoutInflater;
 
-    public RVRecommendCourseAdapter(Context context, List<ResCourseList.ResultsBean> mList) {
+    public RVRecommendCourseAdapter(Context context, List<ResCourseRecommendBean> mList) {
         this.context = context;
         this.mList = mList;
         layoutInflater = LayoutInflater.from(context);
@@ -51,11 +48,12 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter <RVRecommendC
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final ResCourseList.ResultsBean resultsBean = mList.get(position);
+//        final ResCourseList.ResultsBean resultsBean = mList.get(position);
+        final ResCourseRecommendBean resultsBean = mList.get(position);
 //        Glide.with(context).load(resultsBean.getCover())
 //                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
 //                .into(holder.iv_course_cover);
-        ImageLoader.load(context,resultsBean.getCover(),holder.iv_course_cover);
+        ImageLoader.load(context,resultsBean.getCover_url(),holder.iv_course_cover);
 
 
         if (resultsBean.getPay_type() == 1){

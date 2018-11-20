@@ -8,8 +8,9 @@ import java.util.List;
 
 public class ResInteresListBean {
 
+
     /**
-     * data : {"downloads":[{"name":"资源1","cover_url":"http://127.0.0.1:8002/media/xx","created":"2018-11-17T11:28:01"}],"page":1,"pageSize":10,"pageCount":1}
+     * data : {"follows":[{"courses":["数据结构","高二物理"],"avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","follow_number":1,"name":"张三","school_name":"郑州一中"}],"page":1,"pageSize":10,"pageCount":1}
      * error_code : 0
      * error_msg : success
      */
@@ -44,7 +45,7 @@ public class ResInteresListBean {
 
     public static class DataBean {
         /**
-         * downloads : [{"name":"资源1","cover_url":"http://127.0.0.1:8002/media/xx","created":"2018-11-17T11:28:01"}]
+         * follows : [{"courses":["数据结构","高二物理"],"avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","follow_number":1,"name":"张三","school_name":"郑州一中"}]
          * page : 1
          * pageSize : 10
          * pageCount : 1
@@ -53,7 +54,7 @@ public class ResInteresListBean {
         private int page;
         private int pageSize;
         private int pageCount;
-        private List<DownloadsBean> downloads;
+        private List<FollowsBean> follows;
 
         public int getPage() {
             return page;
@@ -79,24 +80,44 @@ public class ResInteresListBean {
             this.pageCount = pageCount;
         }
 
-        public List<DownloadsBean> getDownloads() {
-            return downloads;
+        public List<FollowsBean> getFollows() {
+            return follows;
         }
 
-        public void setDownloads(List<DownloadsBean> downloads) {
-            this.downloads = downloads;
+        public void setFollows(List<FollowsBean> follows) {
+            this.follows = follows;
         }
 
-        public static class DownloadsBean {
+        public static class FollowsBean {
             /**
-             * name : 资源1
-             * cover_url : http://127.0.0.1:8002/media/xx
-             * created : 2018-11-17T11:28:01
+             * courses : ["数据结构","高二物理"]
+             * avatar_url : http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg
+             * follow_number : 1
+             * name : 张三
+             * school_name : 郑州一中
              */
 
+            private String avatar_url;
+            private int follow_number;
             private String name;
-            private String cover_url;
-            private String created;
+            private String school_name;
+            private List<String> courses;
+
+            public String getAvatar_url() {
+                return avatar_url;
+            }
+
+            public void setAvatar_url(String avatar_url) {
+                this.avatar_url = avatar_url;
+            }
+
+            public int getFollow_number() {
+                return follow_number;
+            }
+
+            public void setFollow_number(int follow_number) {
+                this.follow_number = follow_number;
+            }
 
             public String getName() {
                 return name;
@@ -106,20 +127,20 @@ public class ResInteresListBean {
                 this.name = name;
             }
 
-            public String getCover_url() {
-                return cover_url;
+            public String getSchool_name() {
+                return school_name;
             }
 
-            public void setCover_url(String cover_url) {
-                this.cover_url = cover_url;
+            public void setSchool_name(String school_name) {
+                this.school_name = school_name;
             }
 
-            public String getCreated() {
-                return created;
+            public List<String> getCourses() {
+                return courses;
             }
 
-            public void setCreated(String created) {
-                this.created = created;
+            public void setCourses(List<String> courses) {
+                this.courses = courses;
             }
         }
     }

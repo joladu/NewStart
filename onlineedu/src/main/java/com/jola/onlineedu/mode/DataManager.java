@@ -6,6 +6,7 @@ import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseList;
+import com.jola.onlineedu.mode.bean.response.ResCourseRecommendBean;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.mode.bean.response.ResDownloadsBean;
 import com.jola.onlineedu.mode.bean.response.ResExamsDetail;
@@ -187,8 +188,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResCourseList> getCourseRecommendList(String page, String page_size) {
-        return myApis.getCourseList(page,page_size);
+    public Flowable<List<ResCourseRecommendBean>> getCourseRecommendList(String page, String page_size) {
+        return myApis.getCourseRecommendList(page,page_size);
     }
 
     @Override
