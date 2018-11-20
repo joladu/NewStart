@@ -25,6 +25,7 @@ import com.jola.onlineedu.ui.activity.MyMessageActivity;
 import com.jola.onlineedu.ui.activity.MyStudyActivity;
 import com.jola.onlineedu.ui.activity.PersonInfoImproveActivity;
 import com.jola.onlineedu.ui.activity.RegisterActivity;
+import com.jola.onlineedu.ui.activity.SearchFriendActivity;
 import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
 import com.jola.onlineedu.ui.activity.TeacherAttestationActivity;
 import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
@@ -66,4 +67,5 @@ public interface ActivityComponent {
     void inject(MyCollectionActivity myCollectionActivity);
     void inject(FriendListToApplyActivity friendListToApplyActivity);
     void inject(FriendListFromApplyActivity friendListFromApplyActivity);
+    void inject(SearchFriendActivity searchFriendActivity);
 }

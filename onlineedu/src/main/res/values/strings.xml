@@ -16,6 +16,9 @@
     <string name="friend_text">好友</string>
     <string name="mine_text">账号</string>
 
+    <string name="search_friend_text">好友搜索</string>
+
+
     <string name="excellent_course">精品课程</string>
     <string name="search_excellent_course">精品课程搜索</string>
     <string name="forum">论坛</string>
