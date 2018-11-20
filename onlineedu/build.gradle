@@ -75,7 +75,7 @@ dependencies {
 //    rxpermission
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
     //    gson
-    implementation 'com.google.code.gson:gson:2.7'
+//    implementation 'com.google.code.gson:gson:2.7'
     //    retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
