@@ -218,7 +218,7 @@ public class HomePageFragment extends SimpleFragment {
     }
 
     private void loadData() {
-        stateLoading();
+//        stateLoading();
         page = 1;
         mList.clear();
         addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")

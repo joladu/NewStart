@@ -24,6 +24,7 @@ import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.ui.activity.AboutActivity;
 import com.jola.onlineedu.ui.activity.CommentsListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
+import com.jola.onlineedu.ui.activity.GroupChatActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MyActivity;
 import com.jola.onlineedu.ui.activity.MyRecordActivity;
@@ -106,7 +107,7 @@ public class MineFragment extends SimpleFragment {
                 startActivity(new Intent(mActivity, MyRecordActivity.class));
                 break;
             case R.id.rl_class_info:
-                ToastUtil.toastShort("暂无");
+                startActivity(new Intent(mActivity, GroupChatActivity.class));
                 break;
             case R.id.rl_about:
                 startActivity(new Intent(mActivity, AboutActivity.class));

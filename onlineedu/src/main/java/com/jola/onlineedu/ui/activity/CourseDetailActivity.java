@@ -192,9 +192,10 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
         if(mVideoView.isInPlaybackState()){
             if(!userPause)
                 mVideoView.resume();
-        }else{
-            mVideoView.rePlay(0);
         }
+//        else{
+//            mVideoView.rePlay(0);
+//        }
         initPlay();
     }
 

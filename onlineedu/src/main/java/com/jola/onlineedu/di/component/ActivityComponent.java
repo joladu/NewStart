@@ -12,6 +12,7 @@ import com.jola.onlineedu.ui.activity.ForumListActivity;
 import com.jola.onlineedu.ui.activity.ForumPublishActivity;
 import com.jola.onlineedu.ui.activity.FriendListFromApplyActivity;
 import com.jola.onlineedu.ui.activity.FriendListToApplyActivity;
+import com.jola.onlineedu.ui.activity.GroupChatActivity;
 import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MainActivity;
@@ -70,4 +71,5 @@ public interface ActivityComponent {
     void inject(FriendListFromApplyActivity friendListFromApplyActivity);
     void inject(SearchFriendActivity searchFriendActivity);
     void inject(UserDetailActivity userDetailActivity);
+    void inject(GroupChatActivity groupChatActivity);
 }

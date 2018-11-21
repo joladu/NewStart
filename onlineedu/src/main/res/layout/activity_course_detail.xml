@@ -80,7 +80,7 @@
             android:textSize="15sp"
             android:layout_margin="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_live_image"
+            app:layout_constraintTop_toBottomOf="@+id/fl_course_video"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintEnd_toStartOf="@+id/tv_chapter_title"
             />
@@ -96,7 +96,7 @@
             android:layout_margin="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_brief_title"
-            app:layout_constraintTop_toBottomOf="@+id/fl_live_image"
+            app:layout_constraintTop_toBottomOf="@+id/fl_course_video"
             />
 
 

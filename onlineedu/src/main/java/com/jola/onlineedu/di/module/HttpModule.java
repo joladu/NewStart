@@ -113,9 +113,9 @@ public class HttpModule {
         builder.addInterceptor(cacheInterceptor);
         builder.cache(cache);
         //设置超时
-        builder.connectTimeout(10, TimeUnit.SECONDS);
+        builder.connectTimeout(15, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
-        builder.writeTimeout(20, TimeUnit.SECONDS);
+        builder.writeTimeout(30, TimeUnit.SECONDS);
         //错误重连
         builder.retryOnConnectionFailure(true);
         return builder.build();

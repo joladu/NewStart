@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_head_user"
+        android:layout_width="@dimen/qb_px_50"
+        android:layout_height="@dimen/qb_px_50"
+        android:src="@drawable/person_holder_logout_x2"
+        android:layout_marginTop="@dimen/qb_px_20"
+        android:layout_toStartOf="@+id/tv_name_to"
+        android:layout_marginEnd="@dimen/qb_px_10"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_name_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_content_forum_text"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:layout_alignLeft="@+id/tv_time"
+        android:layout_marginTop="@dimen/qb_px_20"
+        tools:text="陈华山"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hint_text_gray"
+        android:textSize="14sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_name_to"
+        android:layout_marginEnd="@dimen/qb_px_10"
+        android:layout_marginTop="@dimen/qb_px_5"
+        tools:text="2010-10-28 08:27"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_content_forum_text"
+        android:background="@drawable/send_msg_bg"
+        android:padding="8dp"
+        android:textSize="@dimen/title_toolbar_text_size"
+        android:layout_below="@+id/civ_head_user"
+        android:layout_marginStart="@dimen/qb_px_20"
+        android:layout_marginTop="@dimen/qb_px_5"
+        android:layout_marginEnd="@dimen/qb_px_20"
+        android:layout_marginBottom="@dimen/qb_px_20"
+        tools:text="如果你无法简洁表达你的想法，那只说明你还不够了解它。如果你无法简洁表达你的想法"
+        />
+
+
+
+
+</RelativeLayout>

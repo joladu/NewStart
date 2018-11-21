@@ -81,6 +81,7 @@
         <activity android:name=".ui.activity.FriendListToApplyActivity" />
         <activity android:name=".ui.activity.FriendListFromApplyActivity" />
         <activity android:name=".ui.activity.UserDetailActivity" />
+        <activity android:name=".ui.activity.GroupChatActivity" />
     </application>
 
 </manifest>
