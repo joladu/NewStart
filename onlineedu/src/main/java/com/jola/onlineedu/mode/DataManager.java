@@ -213,8 +213,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> publishCourseComment(String id, String content) {
-        return myApis.publishCourseComment(id,content);
+    public Flowable<ResponseSimpleResult> publishCourseComment(int id,String userId, String content) {
+        return myApis.publishCourseComment(id,userId,content);
     }
 
     @Override

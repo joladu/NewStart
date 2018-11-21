@@ -219,8 +219,8 @@ public interface MyApis {
     Flowable<ResCouserCommentList> getCourseCommentList(@Path("course_id")String course_id,@Query("page")String page,@Query("page_size")String page_size);
 
     @FormUrlEncoded
-    @POST("v1/bbs/posts/{id}/comments/")
-    Flowable<ResponseSimpleResult> publishCourseComment(@Path("id")String id,@Field("content")String content);
+    @POST("v1/coursecomment/create/")
+    Flowable<ResponseSimpleResult> publishCourseComment(@Field("course")int  courseId,@Field("user")String  userId,@Field("content")String content);
 
     @PUT("v1/bbs/comments/{id}/praise/")
     Flowable<ResponseSimpleResult> praiseCommentCourse(@Path("id")String id);

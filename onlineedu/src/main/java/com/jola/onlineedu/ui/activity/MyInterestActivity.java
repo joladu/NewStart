@@ -147,6 +147,7 @@ public class MyInterestActivity extends SimpleActivity {
     private void asyncRefresh() {
         showLoadingDialog();
         RequestParams requestParams = new RequestParams();
+        page = 1;
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
@@ -212,17 +213,19 @@ public class MyInterestActivity extends SimpleActivity {
         requestParams.put("page", ++page);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/resourcedownload/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/follow/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishLoadMore();
                 ResInteresListBean resultBean = new Gson().fromJson(new String(responseBody), ResInteresListBean.class);
                 if (resultBean.getError_code() == 0) {
-                    mList .addAll( resultBean.getData().getFollows());
-                    mAdapter.notifyDataSetChanged();
-                    if (mList.size() == 0) {
-                        ToastUtil.toastLong("暂无数据！");
+                    List<ResInteresListBean.DataBean.FollowsBean> followsList = resultBean.getData().getFollows();
+                    if (followsList.size() == 0) {
+                        ToastUtil.toastLong("无更多数据！");
+                    }else{
+                        mList .addAll(followsList);
+                        mAdapter.notifyDataSetChanged();
                     }
                 } else {
                     ToastUtil.toastLong(resultBean.getError_msg());
@@ -259,6 +262,26 @@ public class MyInterestActivity extends SimpleActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            ResInteresListBean.DataBean.FollowsBean followsBean = mList.get(position);
+//            followsBean.getAvatar_url()
+            ImageLoader.load(MyInterestActivity.this,followsBean.getAvatar_url(),holder.civ_head_user);
+            holder.tv_interest_name.setText(followsBean.getName());
+//            文学  民族学  北京交通大学海滨学院
+            List<String> courses = followsBean.getCourses();
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String tempCourse : courses){
+                stringBuilder.append(tempCourse + " ");
+            }
+            stringBuilder.append(followsBean.getSchool_name());
+            holder.tv_interest_person_describe.setText(stringBuilder.toString());
+//            关注：50    已关注
+            holder.tv_interest_num.setText("关注: "+followsBean.getFollow_number()+"     已关注");
+            holder.tv_cancel_interest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.toastShort("暂无相关功能！");
+                }
+            });
         }
 
         @Override
@@ -284,7 +307,6 @@ public class MyInterestActivity extends SimpleActivity {
                 ButterKnife.bind(this,itemView);
             }
         }
-
     }
 
 //    end adapter

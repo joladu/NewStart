@@ -30,6 +30,7 @@ import com.jola.onlineedu.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class HomePageFragment extends SimpleFragment {
 
     private void stateLoading(){
         showLoadingDialog();
-        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        smartRefreshLayout.setVisibility(View.INVISIBLE);
         relativeLayoutStateInfo.setVisibility(View.VISIBLE);
         iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
         tv_stateText.setText(getString(R.string.state_loading_tip));
@@ -90,7 +91,7 @@ public class HomePageFragment extends SimpleFragment {
 
     private void stateEmpty(){
         hideLoadingDialog();
-        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        smartRefreshLayout.setVisibility(View.INVISIBLE);
         relativeLayoutStateInfo.setVisibility(View.VISIBLE);
         iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
         tv_stateText.setText(getString(R.string.state_empty_tip));
@@ -98,7 +99,7 @@ public class HomePageFragment extends SimpleFragment {
 
     private void stateError(){
         hideLoadingDialog();
-        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        smartRefreshLayout.setVisibility(View.INVISIBLE);
         relativeLayoutStateInfo.setVisibility(View.VISIBLE);
         iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
         tv_stateText.setText(getString(R.string.state_error_server_tip));
@@ -106,7 +107,7 @@ public class HomePageFragment extends SimpleFragment {
 
     private void stateMain(){
         hideLoadingDialog();
-        smartRefreshLayout.setVisibility(View.VISIBLE);
+//        smartRefreshLayout.setVisibility(View.VISIBLE);
         relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
     }
 
@@ -115,6 +116,8 @@ public class HomePageFragment extends SimpleFragment {
     public void retry(View view){
         loadData();
     }
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home_page;
@@ -136,28 +139,20 @@ public class HomePageFragment extends SimpleFragment {
 
         loadData();
 
-//
-//        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-//            @Override
-//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-//                loadDataMore();
-//            }
-//
-//            @Override
-//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-//                mList.clear();
-//                loadData();
-//            }
-//        });
-
-        smartRefreshLayout.setEnableRefresh(false);
-
-        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+        smartRefreshLayout.setEnableLoadMore(false);
+        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 loadDataMore();
             }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mList.clear();
+                loadData();
+            }
         });
+
 
     }
 
@@ -191,8 +186,7 @@ public class HomePageFragment extends SimpleFragment {
                     @Override
                     public void accept(List<ResBannerHomepage> resBannerHomepage) throws Exception {
                         if (resBannerHomepage != null){
-                            Log.e("jola11","bannner  accept(ResBannerHomepage resBannerHomepage");
-
+//                            Log.e("jola11","bannner  accept(ResBannerHomepage resBannerHomepage");
 //                            ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
 //                            listBanner.add(resBannerHomepage);
                             vpHomePagerBannerAdapter = new BannerPagerAdapter(getContext(),resBannerHomepage);
@@ -232,6 +226,7 @@ public class HomePageFragment extends SimpleFragment {
                 .subscribe(new Consumer<List<ResCourseRecommendBean>>() {
                     @Override
                     public void accept(List<ResCourseRecommendBean> resCourseList) throws Exception {
+                        smartRefreshLayout.finishRefresh();
                         if (resCourseList.size() > 0){
 //                            List<ResCourseList.ResultsBean> results = resCourseList.getResults();
                             mList.addAll(resCourseList);
@@ -250,6 +245,7 @@ public class HomePageFragment extends SimpleFragment {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        smartRefreshLayout.finishRefresh();
                         stateError();
                     }
                 })

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -19,7 +21,11 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
+import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
+import com.jola.onlineedu.ui.adapter.RVLiveCourseAdapter;
+import com.jola.onlineedu.ui.adapter.RelativeCourseAdapter;
+import com.jola.onlineedu.ui.adapter.RelativeLiveAdapter;
 import com.jola.onlineedu.util.DataUtils;
 import com.jola.onlineedu.util.PUtil;
 import com.jola.onlineedu.util.RxUtil;
@@ -32,7 +38,10 @@ import com.kk.taurus.playerbase.entity.DataSource;
 import com.kk.taurus.playerbase.event.OnPlayerEventListener;
 import com.kk.taurus.playerbase.player.IPlayer;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
+import com.kk.taurus.playerbase.render.AspectRatio;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -62,6 +71,8 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     TextView tv_content_brief;
     @BindView(R.id.tv_content_brief_teacher)
     TextView tv_content_brief_teacher;
+    @BindView(R.id.rv_relative_live)
+    RecyclerView rv_relative_live;
 
     @BindView(R.id.base_video_view)
     BaseVideoView mVideoView;
@@ -146,11 +157,14 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
 
     private void initPlay(){
         if(!hasStart){
-//            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_01));
+            mVideoView.setAspectRatio(AspectRatio.AspectRatio_MATCH_PARENT);
             mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
-            mVideoView.start();
-            hasStart = true;
         }
+    }
+
+    private void startPlay(){
+        mVideoView.start();
+        hasStart = true;
     }
 
     private OnVideoViewEventHandler onVideoViewEventHandler = new OnVideoViewEventHandler(){
@@ -180,6 +194,15 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
         }
     };
 
+    @Override
+    public void onPlayerEvent(int eventCode, Bundle bundle) {
+        switch (eventCode){
+            case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
+
+                break;
+        }
+    }
+
 
 
     private void loadData() {
@@ -189,14 +212,23 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
                 .subscribe(new Consumer<ResLiveCourseDetail>() {
                     @Override
                     public void accept(ResLiveCourseDetail resLiveCourseDetail) throws Exception {
+                        Log.e("okhttp1",resLiveCourseDetail.toString());
+
+                        hideLoadingDialog();
                         String cover_url = resLiveCourseDetail.getCover_url();
-                        ImageLoader.loadWhitPrefix(LiveDetailActivity.this,cover_url,iv_cover_live);
+                        ImageLoader.load(LiveDetailActivity.this,cover_url,iv_cover_live);
                         tv_title_live_item.setText(resLiveCourseDetail.getName());
                         star_bar_score.setStarMark(resLiveCourseDetail.getEvaluate());
                         tv_score_num.setText(resLiveCourseDetail.getEvaluate()+"");
                         tv_price_live_course.setText("￥"+resLiveCourseDetail.getPrice());
                         tv_content_brief.setText(resLiveCourseDetail.getIntro());
-                        hideLoadingDialog();
+
+                        List<ResLiveCourseDetail.ReleatedCoursesBean> releated_courses = resLiveCourseDetail.getReleated_courses();
+                        RelativeLiveAdapter relativeLiveAdapter = new RelativeLiveAdapter(LiveDetailActivity.this, releated_courses);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(LiveDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                        rv_relative_live.setLayoutManager(linearLayoutManager);
+                        rv_relative_live.setAdapter(relativeLiveAdapter);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -226,9 +258,9 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
                 this.finish();
                 break;
             case R.id.iv_play_icon:
-                initPlay();
                 fl_live_image.setVisibility(View.INVISIBLE);
                 mVideoView.setVisibility(View.VISIBLE);
+                startPlay();
                 break;
         }
     }
@@ -270,17 +302,9 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     }
 
 
-    @Override
-    public void onPlayerEvent(int eventCode, Bundle bundle) {
-        switch (eventCode){
-            case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
 
-                break;
-        }
-    }
 
     private void replay(){
-//        mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_01));
         mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
         mVideoView.start();
     }

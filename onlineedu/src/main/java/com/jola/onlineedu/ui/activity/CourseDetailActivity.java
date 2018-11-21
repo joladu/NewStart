@@ -1,15 +1,22 @@
 package com.jola.onlineedu.ui.activity;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.Group;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -17,17 +24,31 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
+import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.ui.adapter.CourseChapterListAdapter;
 import com.jola.onlineedu.ui.adapter.CourseDetailCommentsAdapter;
 import com.jola.onlineedu.ui.adapter.ForumListDetailAdapter;
 import com.jola.onlineedu.ui.adapter.RelativeCourseAdapter;
+import com.jola.onlineedu.util.DataUtils;
+import com.jola.onlineedu.util.PUtil;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.jola.onlineedu.video.play.DataInter;
+import com.jola.onlineedu.video.play.ReceiverGroupManager;
 import com.jola.onlineedu.widget.StarBar;
+import com.kk.taurus.playerbase.assist.InterEvent;
+import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
+import com.kk.taurus.playerbase.entity.DataSource;
+import com.kk.taurus.playerbase.event.OnPlayerEventListener;
+import com.kk.taurus.playerbase.player.IPlayer;
+import com.kk.taurus.playerbase.receiver.ReceiverGroup;
+import com.kk.taurus.playerbase.render.AspectRatio;
+import com.kk.taurus.playerbase.widget.BaseVideoView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -42,7 +63,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
-public class CourseDetailActivity extends SimpleActivity {
+public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEventListener{
 
     @Inject
     DataManager dataManager;
@@ -51,43 +72,6 @@ public class CourseDetailActivity extends SimpleActivity {
     private int page = 1;
     private int page_size = 10;
 
-
-//    tv_title_live_item,
-//    tv_course_author,
-//    star_bar_score,
-//    tv_score_num,
-//    tv_share_num,
-//    tv_praise_num,
-//    tv_heart_num,
-//    tv_price_live_course,
-
-//    view_divide_below_price,
-
-//    tv_brief,
-
-
-//    tv_content_brief,
-
-
-//    view_divide_below_teacher,
-
-
-//    tv_relative_course,
-
-//    tv_comment_project,
-
-//    ed_input_comment,
-
-//    tv_send_comment,
-
-
-//    smart_refresh_layout,
-//    rv_relative_course,
-//    et_input_comment
-
-
-//    @BindView(R.id.sv_root)
-//    ScrollView sv_root;
 
     @BindView(R.id.iv_play_course)
     ImageView iv_play_course;
@@ -130,7 +114,16 @@ public class CourseDetailActivity extends SimpleActivity {
     Group group_brief_container;
     @BindView(R.id.rv_course_chapters)
     RecyclerView rv_course_chapters;
+    @BindView(R.id.fl_course_video)
+    FrameLayout fl_course_video;
+    @BindView(R.id.base_video_view)
+    BaseVideoView mVideoView;
 
+
+    private ReceiverGroup mReceiverGroup;
+    private boolean userPause;
+    private boolean isLandscape;
+    private boolean hasStart;
 
 
     private List<ResCouserCommentList.ResultsBean> commentList;
@@ -163,7 +156,9 @@ public class CourseDetailActivity extends SimpleActivity {
                 loadMoreComments();
             }
         });
+
         loadCourseChaptersData();
+
 //        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
 //            @Override
 //            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -175,7 +170,129 @@ public class CourseDetailActivity extends SimpleActivity {
 //                loadComments();
 //            }
 //        });
+
+        //        changeFullScreen();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
+//        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
+        mVideoView.setReceiverGroup(mReceiverGroup);
+        mVideoView.setEventHandler(onVideoViewEventHandler);
+        mVideoView.setOnPlayerEventListener(this);
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int state = mVideoView.getState();
+        if(state == IPlayer.STATE_PLAYBACK_COMPLETE)
+            return;
+        if(mVideoView.isInPlaybackState()){
+            if(!userPause)
+                mVideoView.resume();
+        }else{
+            mVideoView.rePlay(0);
+        }
+        initPlay();
+    }
+
+    private void initPlay(){
+        if(!hasStart){
+            mVideoView.setAspectRatio(AspectRatio.AspectRatio_MATCH_PARENT);
+            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
+        }
+    }
+
+    private void startPlay(){
+        mVideoView.start();
+        hasStart = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mVideoView){
+            mVideoView.stopPlayback();
+        }
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        if(isLandscape){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            return;
+        }
+        super.onBackPressedSupport();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            isLandscape = true;
+            updateVideo(true);
+        }else{
+            isLandscape = false;
+            updateVideo(false);
+        }
+        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_LANDSCAPE, isLandscape);
+    }
+
+    private void updateVideo(boolean landscape){
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mVideoView.getLayoutParams();
+        if(landscape){
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.setMargins(0, 0, 0, 0);
+        }else{
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = PUtil.dip2px(this,180);
+            layoutParams.setMargins(0, 0, 0, 0);
+        }
+        mVideoView.setLayoutParams(layoutParams);
+    }
+
+
+
+    private OnVideoViewEventHandler onVideoViewEventHandler = new OnVideoViewEventHandler(){
+        @Override
+        public void onAssistHandle(BaseVideoView assist, int eventCode, Bundle bundle) {
+            super.onAssistHandle(assist, eventCode, bundle);
+            switch (eventCode){
+                case InterEvent.CODE_REQUEST_PAUSE:
+                    userPause = true;
+                    break;
+                case DataInter.Event.EVENT_CODE_REQUEST_BACK:
+                    if(isLandscape){
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }else{
+                        finish();
+                    }
+                    break;
+                case DataInter.Event.EVENT_CODE_REQUEST_TOGGLE_SCREEN:
+                    setRequestedOrientation(isLandscape ?
+                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    break;
+                case DataInter.Event.EVENT_CODE_ERROR_SHOW:
+                    mVideoView.stop();
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public void onPlayerEvent(int eventCode, Bundle bundle) {
+        switch (eventCode){
+            case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
+
+                break;
+        }
+    }
+
+
 
     private void loadCourseChaptersData() {
         addSubscribe(dataManager.getCourseCapterList(id+"",page_chapter+"",PageSizeChapter+"")
@@ -210,12 +327,7 @@ public class CourseDetailActivity extends SimpleActivity {
                     public void accept(ResCourseDetail resCourseDetail) throws Exception {
                         hideLoadingDialog();
                         String cover = resCourseDetail.getCover_url();
-                        if (null != cover && cover.length() > 0){
-                            Glide.with(CourseDetailActivity.this)
-                                    .load(cover)
-                                    .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
-                                    .into(iv_play_course);
-                        }
+                        ImageLoader.load(CourseDetailActivity.this,cover,iv_play_course);
                         tv_title_live_item.setText(resCourseDetail.getName());
 //                        android:text="主讲：王仁杰  播放量：100"
                         tv_course_author.setText("主讲："+resCourseDetail.getAuthor()+"  播放量："+resCourseDetail.getSee_count());
@@ -247,6 +359,7 @@ public class CourseDetailActivity extends SimpleActivity {
     }
 
     private void loadComments(){
+        page = 1;
         addSubscribe(dataManager.getCourseCommentList(id+"",page+"",page_size+"")
             .compose(RxUtil.<ResCouserCommentList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCouserCommentList>() {
@@ -268,12 +381,17 @@ public class CourseDetailActivity extends SimpleActivity {
     }
 
     private void loadMoreComments(){
-        addSubscribe(dataManager.getCourseCommentList(id+"",(page++)+"",page_size+"")
+        addSubscribe(dataManager.getCourseCommentList(id+"",(++page)+"",page_size+"")
                 .compose(RxUtil.<ResCouserCommentList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCouserCommentList>() {
                     @Override
                     public void accept(ResCouserCommentList resCouserCommentList) throws Exception {
-                        commentList.addAll(resCouserCommentList.getResults());
+                        List<ResCouserCommentList.ResultsBean> results = resCouserCommentList.getResults();
+                        if (null == results || results.size() == 0){
+                            ToastUtil.toastShort("暂无更多评论");
+                        }else{
+                            commentList.addAll(results);
+                        }
                         if (null != adapter){
                             adapter.notifyDataSetChanged();
                         }
@@ -298,13 +416,22 @@ public class CourseDetailActivity extends SimpleActivity {
         }
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_send_comment,R.id.tv_brief_title,R.id.tv_chapter_title,R.id.iv_play_video})
+    @OnClick({
+            R.id.iv_back,
+            R.id.tv_send_comment,
+            R.id.tv_brief_title,
+            R.id.tv_chapter_title,
+            R.id.iv_play_video,
+    })
     public void doClick(View view){
         switch (view.getId()){
             case R.id.iv_play_video:
+                fl_course_video.setVisibility(View.INVISIBLE);
+                mVideoView.setVisibility(View.VISIBLE);
+                startPlay();
                 break;
             case R.id.iv_back:
-                this.finish();
+                super.onBackPressedSupport();
                 break;
             case R.id.tv_send_comment:
                 confirmComment();
@@ -320,6 +447,9 @@ public class CourseDetailActivity extends SimpleActivity {
                 view_indication_chapter.setVisibility(View.VISIBLE);
                 group_brief_container.setVisibility(View.INVISIBLE);
                 rv_course_chapters.setVisibility(View.VISIBLE);
+                if (null == mChapterList || mChapterList.size() == 0){
+                    ToastUtil.toastShort("暂无章节相关内容！");
+                }
                 break;
         }
     }
@@ -329,11 +459,41 @@ public class CourseDetailActivity extends SimpleActivity {
         if (commentContent.length() ==0){
             ToastUtil.toastShort("请输入评价内容！");
         }
-
-        ToastUtil.toastShort("无评价接口！");
-
-//        showLoadingDialog();
-//        addSubscribe(dataManager.publishCourseComment());
+        String userId = dataManager.getUserId();
+        showLoadingDialog();
+        addSubscribe(dataManager.publishCourseComment(id,userId,commentContent)
+        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                .subscribe(new Consumer<ResponseSimpleResult>() {
+                    @Override
+                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                        if (responseSimpleResult.getError_code() == 0){
+                            ToastUtil.toastShort("评论成功！");
+                        }else {
+                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        tipServerError();
+                    }
+                })
+        );
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

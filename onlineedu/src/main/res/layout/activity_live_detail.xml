@@ -4,6 +4,7 @@
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/window_bg">
 
 
@@ -167,11 +168,11 @@
                 android:layout_marginTop="@dimen/qb_px_5"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="王传军的直播直播间"
                 android:textColor="@color/title_text"
                 android:textSize="@dimen/title_toolbar_text_size"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fl_live_image" />
+                tools:text="王传军的直播直播间"
+                />
 
 
             <com.jola.onlineedu.widget.StarBar
@@ -195,11 +196,12 @@
                 android:layout_alignTop="@+id/star_bar_score"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="-3dp"
-                android:text="4.8"
                 android:textColor="@color/gray_star_score"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toRightOf="@+id/star_bar_score"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item"
+                tools:text="4.8"
+                />
 
             <TextView
                 android:id="@+id/tv_persons_watched"
@@ -207,26 +209,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 android:layout_marginLeft="@dimen/qb_px_10"
-
                 android:drawableLeft="@drawable/person_watched_course_x2"
-
                 android:drawablePadding="@dimen/qb_px_5"
                 android:maxLength="6"
-                android:text="250000人"
                 android:textColor="@color/gray_star_score"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toRightOf="@+id/tv_score_num"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item"
+                tools:text="250000人"
+                />
 
             <TextView
                 android:id="@+id/tv_price_live_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/qb_px_10"
-                android:text="￥120.00"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item"
+                tools:text="￥120.00"
+                />
 
             <View
                 android:id="@+id/view_divide_below_price"
@@ -253,12 +255,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/qb_px_10"
-                android:text="数学上，二元关系用于讨论两个数学对象的联系。诸如算术中的「大于」及「等于」，几何学中的"
                 android:textColor="@color/gray_content_forum_text"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_brief" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_brief"
+                tools:text="数学上，二元关系用于讨论两个数学对象的联系。诸如算术中的「大于」及「等于」，几何学中的"
+
+                />
 
 
             <TextView
@@ -290,12 +294,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/qb_px_10"
                 android:layout_marginStart="@dimen/qb_px_10"
-                android:text="  名校志向塾致力于为学生铺设一条通向一流大学的捷径，重视培养学生学习能力同时提高学生的专门知识水平，从而赋予学生核心竞争力，在今后的学习及就业中发挥决定性优势。"
                 android:textColor="@color/gray_content_forum_text"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@+id/civ_head_user"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher"
+                tools:text="名校志向塾致力于为学生铺设一条通向一流大学的捷径，重视培养学生学习能力同时提高学生的专门知识水平，从而赋予学生核心竞争力，在今后的学习及就业中发挥决定性优势。"
+                />
 
             <View
                 android:id="@+id/view_divide_below_teacher"
@@ -328,6 +333,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_relative_course" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_relative_live"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

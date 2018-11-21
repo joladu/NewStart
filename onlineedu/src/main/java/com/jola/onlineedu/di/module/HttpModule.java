@@ -117,7 +117,7 @@ public class HttpModule {
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
         //错误重连
-        builder.retryOnConnectionFailure(false);
+        builder.retryOnConnectionFailure(true);
         return builder.build();
     }
 

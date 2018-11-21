@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     android:id="@+id/sv_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +17,7 @@
         android:background="@color/window_bg">
 
         <FrameLayout
-            android:id="@+id/fl_live_image"
+            android:id="@+id/fl_course_video"
             android:layout_width="match_parent"
             android:layout_height="@dimen/qb_px_235">
 
@@ -53,6 +52,13 @@
             <!--android:text="正在直播"-->
             <!--android:textColor="@color/window_bg" />-->
         </FrameLayout>
+
+
+        <com.kk.taurus.playerbase.widget.BaseVideoView
+            android:id="@+id/base_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_235"
+            android:visibility="visible" />
 
         <!--<LinearLayout-->
         <!--android:id="@+id/ly_tab_brief_chapter"-->

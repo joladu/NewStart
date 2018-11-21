@@ -13,7 +13,7 @@ public class ResLiveCourseDetail {
      * id : 1
      * user : 1
      * name : 物理课程直播
-     * cover_url : /media/cover_1539338864.jpg
+     * cover_url : http://yunketang.dev.attackt.com/media/cover_1539338864.jpg
      * see_count : 1
      * speaker : 李先生
      * hot : 0
@@ -25,7 +25,7 @@ public class ResLiveCourseDetail {
      3、总结
      * intro : 直播天体运动
      * categories : [{"id":2,"name":"物理"}]
-     * releated_courses : [{"id":2,"user":1,"name":"直播操作系统课程","cover_url":"/media/cover_1539338871.jpg","see_count":1,"speaker":"张老师","hot":0,"evaluate":0,"price":"58.0","duration":"","menu":"1、绪论\r\n2、正文\r\n3、总结","intro":"计算机操作系统概论","categories":[{"id":3,"name":"计算机"}]}]
+     * releated_courses : [{"id":2,"user":1,"name":"直播操作系统课程","cover_url":"http://yunketang.dev.attackt.com/media/cover_1539338871.jpg","see_count":2,"speaker":"张老师","hot":0,"evaluate":0,"price":"58.0","duration":"","menu":"1、绪论\r\n2、正文\r\n3、总结","intro":"计算机操作系统概论","categories":[{"id":3,"name":"计算机"}]}]
      * share_resources : []
      * teacher_profile : {"username":"","name":"","avatar":"","sex":null,"teacher_certification_id":"","teacher_certification":"","id_card_front_pic":"","id_card_behind_pic":"","summary":"","teaching_courses":"","hot":null,"score":null}
      */
@@ -332,8 +332,8 @@ public class ResLiveCourseDetail {
          * id : 2
          * user : 1
          * name : 直播操作系统课程
-         * cover_url : /media/cover_1539338871.jpg
-         * see_count : 1
+         * cover_url : http://yunketang.dev.attackt.com/media/cover_1539338871.jpg
+         * see_count : 2
          * speaker : 张老师
          * hot : 0
          * evaluate : 0
@@ -489,5 +489,27 @@ public class ResLiveCourseDetail {
                 this.name = name;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ResLiveCourseDetail{" +
+                "id=" + id +
+                ", user=" + user +
+                ", name='" + name + '\'' +
+                ", cover_url='" + cover_url + '\'' +
+                ", see_count=" + see_count +
+                ", speaker='" + speaker + '\'' +
+                ", hot=" + hot +
+                ", evaluate=" + evaluate +
+                ", price='" + price + '\'' +
+                ", duration='" + duration + '\'' +
+                ", menu='" + menu + '\'' +
+                ", intro='" + intro + '\'' +
+                ", teacher_profile=" + teacher_profile +
+                ", categories=" + categories +
+                ", releated_courses=" + releated_courses +
+                ", share_resources=" + share_resources +
+                '}';
     }
 }
