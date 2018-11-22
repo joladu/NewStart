@@ -204,7 +204,7 @@ public interface MyApis {
     Flowable<ResCourseList> getCourseList(@Query("page") String page,@Query("page_size")String page_size);
 
     @GET("v1/course/recommend/")
-    Flowable<List<ResCourseRecommendBean>> getCourseRecommendList(@Query("page") String page, @Query("page_size")String page_size);
+    Flowable<ResCourseRecommendBean> getCourseRecommendList(@Query("page") String page, @Query("page_size")String page_size);
 
     @GET("v1/course/{id}/detail/")
     Flowable<ResCourseDetail> getCourseDetail(@Path("id") String id);

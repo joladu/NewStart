@@ -74,7 +74,7 @@ public class HomePageFragment extends SimpleFragment {
 
     private BannerPagerAdapter vpHomePagerBannerAdapter;
 
-    private List<ResCourseRecommendBean> mList = new ArrayList<>();
+    private List<ResCourseRecommendBean.ResultsBean> mList = new ArrayList<>();
     private RVRecommendCourseAdapter rvRecommendCourseAdapter;
 
     private int page = 1;
@@ -139,7 +139,7 @@ public class HomePageFragment extends SimpleFragment {
 
         loadData();
 
-        smartRefreshLayout.setEnableLoadMore(false);
+//        smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -222,14 +222,14 @@ public class HomePageFragment extends SimpleFragment {
         page = 1;
         mList.clear();
         addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")
-        .compose(RxUtil.<List<ResCourseRecommendBean>>rxSchedulerHelper())
-                .subscribe(new Consumer<List<ResCourseRecommendBean>>() {
+        .compose(RxUtil.<ResCourseRecommendBean>rxSchedulerHelper())
+                .subscribe(new Consumer<ResCourseRecommendBean>() {
                     @Override
-                    public void accept(List<ResCourseRecommendBean> resCourseList) throws Exception {
+                    public void accept(ResCourseRecommendBean resCourseList) throws Exception {
                         smartRefreshLayout.finishRefresh();
-                        if (resCourseList.size() > 0){
-//                            List<ResCourseList.ResultsBean> results = resCourseList.getResults();
-                            mList.addAll(resCourseList);
+                        List<ResCourseRecommendBean.ResultsBean> results = resCourseList.getResults();
+                        if (results.size() > 0){
+                            mList.addAll(results);
                             if (mList.size() > 0){
                                 stateMain();
                                 recyclerView.setAdapter(rvRecommendCourseAdapter);
@@ -259,15 +259,14 @@ public class HomePageFragment extends SimpleFragment {
 //            ToastUtil.toastShort("暂无更多内容");
 //            return;
 //        }
-        addSubscribe(dataManager.getCourseRecommendList((page++)+"",page_size+"")
-                .compose(RxUtil.<List<ResCourseRecommendBean>> rxSchedulerHelper())
-                .subscribe(new Consumer<List<ResCourseRecommendBean>>() {
+        page++;
+        addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")
+                .compose(RxUtil.<ResCourseRecommendBean> rxSchedulerHelper())
+                .subscribe(new Consumer<ResCourseRecommendBean>() {
                     @Override
-                    public void accept(List<ResCourseRecommendBean> resCourseList) throws Exception {
-                        if (resCourseList.size() > 0){
-                            mList.addAll(resCourseList);
-                            rvRecommendCourseAdapter.notifyDataSetChanged();
-                        }
+                    public void accept(ResCourseRecommendBean resCourseList) throws Exception {
+                        mList.addAll(resCourseList.getResults());
+                        rvRecommendCourseAdapter.notifyDataSetChanged();
                         smartRefreshLayout.finishLoadMore();
                     }
                 }, new Consumer<Throwable>() {

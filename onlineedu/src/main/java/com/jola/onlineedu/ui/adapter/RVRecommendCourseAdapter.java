@@ -30,10 +30,10 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter <RVRecommendC
 
 
     Context context;
-    List<ResCourseRecommendBean> mList;
+    List<ResCourseRecommendBean.ResultsBean> mList;
     LayoutInflater layoutInflater;
 
-    public RVRecommendCourseAdapter(Context context, List<ResCourseRecommendBean> mList) {
+    public RVRecommendCourseAdapter(Context context, List<ResCourseRecommendBean.ResultsBean> mList) {
         this.context = context;
         this.mList = mList;
         layoutInflater = LayoutInflater.from(context);
@@ -48,11 +48,7 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter <RVRecommendC
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        final ResCourseList.ResultsBean resultsBean = mList.get(position);
-        final ResCourseRecommendBean resultsBean = mList.get(position);
-//        Glide.with(context).load(resultsBean.getCover())
-//                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
-//                .into(holder.iv_course_cover);
+        final ResCourseRecommendBean.ResultsBean resultsBean = mList.get(position);
         ImageLoader.load(context,resultsBean.getCover_url(),holder.iv_course_cover);
 
 

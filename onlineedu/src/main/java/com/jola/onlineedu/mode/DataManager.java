@@ -188,7 +188,7 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<List<ResCourseRecommendBean>> getCourseRecommendList(String page, String page_size) {
+    public Flowable<ResCourseRecommendBean> getCourseRecommendList(String page, String page_size) {
         return myApis.getCourseRecommendList(page,page_size);
     }
 
