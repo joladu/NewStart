@@ -21,9 +21,12 @@ public class UiAdapterActivity extends AppCompatActivity {
     }
 
     private void touTiaoAdapterSolution(){
-//        px = dp * density = dp * (dpi / 160)
-//        宽度：1080px;匹配 xxhdpi 1dp = 3px; 宽度 1080px/3(pd/dp) = 360dp(屏幕宽度一般范围 300-460)
+
+//        px = dp * density = dp * (dpi / 160) ==> dp = px/density  = px/(dpi/160) =  160 * px / dpi  (dpi [300-460])
+
+//        宽度：1080px;匹配 xxhdpi 1dp = 3px; 宽度 1080px/3(px/dp) = 360dp(屏幕宽度一般范围 300-460)
 //         设计图px,android使用dp，为保持px 与 dp 对应关系不变，只有动态修改density（系统默认density = dpi/160）
+
     }
 
 
@@ -54,8 +57,6 @@ public class UiAdapterActivity extends AppCompatActivity {
     }
 
 
-
-
     public static void cancelAdapte(Activity activity){
         DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
         DisplayMetrics appDm = application.getResources().getDisplayMetrics();
@@ -68,7 +69,6 @@ public class UiAdapterActivity extends AppCompatActivity {
         activityDm.density = systemDm.density;
         activityDm.scaledDensity = systemDm.scaledDensity;
         activityDm.densityDpi = systemDm.densityDpi;
-
     }
 
     public static boolean isScreenAdapted(){

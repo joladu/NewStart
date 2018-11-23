@@ -4,21 +4,21 @@ import java.util.List;
 
 /**
  * Created by lenovo on 2018/9/10.
+ * private int play_status = 1 playing   ; ！1 pause
  */
 
 public class ResCourseCapterList {
-
 
     /**
      * count : 1
      * next : null
      * previous : null
-     * results : [{"id":1,"name":"机械原理","author":"韩彬","video":"o_1cih68kuj1ol36ma1q6n5rp1ug49.flv","video_duration":"5\u203214\u2033","play_count":1,"share_count":1}]
+     * results : [{"id":1,"name":"热力动能","author":"王花花","video_url":"http://yunketang.dev.attackt.com/media/12738271321.mp4","video_duration":"12\u201811","play_count":1,"share_count":1}]
      */
 
     private int count;
-    private Object next;
-    private Object previous;
+    private String next;
+    private String previous;
     private List<ResultsBean> results;
 
     public int getCount() {
@@ -29,19 +29,19 @@ public class ResCourseCapterList {
         this.count = count;
     }
 
-    public Object getNext() {
+    public String getNext() {
         return next;
     }
 
-    public void setNext(Object next) {
+    public void setNext(String next) {
         this.next = next;
     }
 
-    public Object getPrevious() {
+    public String getPrevious() {
         return previous;
     }
 
-    public void setPrevious(Object previous) {
+    public void setPrevious(String previous) {
         this.previous = previous;
     }
 
@@ -56,10 +56,10 @@ public class ResCourseCapterList {
     public static class ResultsBean {
         /**
          * id : 1
-         * name : 机械原理
-         * author : 韩彬
-         * video : o_1cih68kuj1ol36ma1q6n5rp1ug49.flv
-         * video_duration : 5′14″
+         * name : 热力动能
+         * author : 王花花
+         * video_url : http://yunketang.dev.attackt.com/media/12738271321.mp4
+         * video_duration : 12‘11
          * play_count : 1
          * share_count : 1
          */
@@ -67,10 +67,19 @@ public class ResCourseCapterList {
         private int id;
         private String name;
         private String author;
-        private String video;
+        private String video_url;
         private String video_duration;
         private int play_count;
         private int share_count;
+        private int play_status;
+
+        public int getPlay_status() {
+            return play_status;
+        }
+
+        public void setPlay_status(int play_status) {
+            this.play_status = play_status;
+        }
 
         public int getId() {
             return id;
@@ -96,12 +105,12 @@ public class ResCourseCapterList {
             this.author = author;
         }
 
-        public String getVideo() {
-            return video;
+        public String getVideo_url() {
+            return video_url;
         }
 
-        public void setVideo(String video) {
-            this.video = video;
+        public void setVideo_url(String video_url) {
+            this.video_url = video_url;
         }
 
         public String getVideo_duration() {

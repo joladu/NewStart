@@ -113,6 +113,16 @@ public interface MyApis {
                                                          @Field("captcha") String imageCode,
                                                          @Field("password") String password);
 
+    @FormUrlEncoded
+    @PUT("v1/uc/changemobile/")
+    Flowable<ResponseSimpleResult> modifyPhoneNo(
+                                                        @Header(TAG_AUTHORIZATION) String token,
+                                                         @Field("mobile") String mobilePhone,
+                                                         @Field("v_code") String msgCode,
+                                                         @Field("captcha_key") String imageCodeKey,
+                                                         @Field("captcha") String imageCode
+                                                         );
+
 
     @GET("v1/user/myprofile/")
     Flowable<ResUserInfoBean> getUserInfo(@Header("authorization") String token);
@@ -173,6 +183,14 @@ public interface MyApis {
     @POST("v1/bbs/posts/")
     @FormUrlEncoded
     Flowable<ResponseSimpleResult> publishForumContent(@Header("authorization")String token,@Field("type") String type, @Field("title") String title, @Field("content") String content, @Field("imgs") List<String> imageUrlList);
+
+
+    @Multipart
+    @POST("v1/bbs/posts/")
+    Flowable<ResponseSimpleResult> publishForumNew(@Header("authorization") String token,
+                                                   @PartMap Map<String,RequestBody> map
+                                                   );
+
 
 
 

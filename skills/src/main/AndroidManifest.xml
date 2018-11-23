@@ -42,7 +42,8 @@
         <activity android:name=".ui_adapter.UiAdapterActivity" />
         <activity android:name=".jetpacket.databinding.DatabindActivity" />
         <activity android:name=".video_playbase.VideoPlayActivity" />
-        <activity android:name=".pull_refresh_custom.CustomPullRefreshActivity"/>
+        <activity android:name=".pull_refresh_custom.CustomPullRefreshActivity" />
+        <activity android:name=".collapsing_toolbar_layout.CollapsingToolbarLayoutActivity"/>
     </application>
 
 </manifest>

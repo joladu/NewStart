@@ -201,11 +201,69 @@ public class ForumPublishActivity extends SimpleActivity {
 
     @OnClick(R.id.send_icon_in_tool)
     public void confirmSendForum(View view){
-        if (null != selectList && selectList.size() > 0){
-           uploadImages();
-        }else{
-            publishforumContent();
+//        if (null != selectList && selectList.size() > 0){
+//           uploadImages();
+//        }else{
+//            publishforumContent();
+//        }
+        publishForumNew();
+    }
+
+    private void publishForumNew() {
+
+        if (null == curForumTypeId || curForumTypeId.length() == 0){
+            ToastUtil.toastShort(getString(R.string.tip_no_forum_type_selected));
+            hideLoadingDialog();
+            return;
         }
+        String title = et_input_title_forum.getText().toString();
+        if (TextUtils.isEmpty(title)){
+            ToastUtil.toastShort(getString(R.string.tip_no_forum_title));
+            hideLoadingDialog();
+            return;
+        }
+        String content = et_input_content_forum.getText().toString();
+        if (TextUtils.isEmpty(title)){
+            ToastUtil.toastShort(getString(R.string.tip_no_forum_content));
+            hideLoadingDialog();
+            return;
+        }
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+
+        map.put("type",RequestBody.create(MediaType.parse("text/plain"),curForumTypeId));
+        map.put("title",RequestBody.create(MediaType.parse("text/plain"),title));
+        map.put("content",RequestBody.create(MediaType.parse("text/plain"),content));
+
+//   map.put("teacher_certification\";filename=\"" + fileTeacherCard.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileTeacherCard));
+
+        for (int i = 0 ; i < selectList.size() ; i++){
+            String path = selectList.get(i).getPath();
+            File file = new File(path);
+            map.put("img\";filename=\""+file.getName(),RequestBody.create(MediaType.parse("multipart/form-data"),file));
+        }
+        showLoadingDialog();
+        addSubscribe(dataManager.publishForumNew(dataManager.getUserToken(),map)
+            .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                .subscribe(new Consumer<ResponseSimpleResult>() {
+                    @Override
+                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                        hideLoadingDialog();
+                        if (responseSimpleResult.getError_code() == 0){
+                            ToastUtil.toastLong("帖子发布成功！");
+                        }else{
+                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        tipServerError();
+                    }
+                })
+        );
+
     }
 
     private void publishforumContent(){
@@ -320,6 +378,9 @@ public class ForumPublishActivity extends SimpleActivity {
         }
 
     }
+
+
+
 
 
     private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {

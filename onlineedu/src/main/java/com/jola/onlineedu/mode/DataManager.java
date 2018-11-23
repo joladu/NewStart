@@ -101,6 +101,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResponseSimpleResult> modifyPhoneNo(String token,String mobilePhone, String msgCode, String imageCodeKey, String imageCode) {
+        return myApis.modifyPhoneNo(token,mobilePhone,msgCode,imageCodeKey,imageCode);
+    }
+
+    @Override
     public Flowable<ResUserInfoBean> getUserInfo(String token) {
         return myApis.getUserInfo(token);
     }
@@ -165,6 +170,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResponseSimpleResult> publishForumContent(String token,String type, String title, String content, List<String> imageUrlList) {
         return myApis.publishForumContent(token,type,title,content,imageUrlList);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> publishForumNew(String token, Map<String, RequestBody> map) {
+        return myApis.publishForumNew(token,map);
     }
 
     @Override

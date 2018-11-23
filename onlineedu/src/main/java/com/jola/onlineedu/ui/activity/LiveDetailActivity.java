@@ -201,6 +201,10 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
             case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
 
                 break;
+
+            case OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE:
+
+                break;
         }
     }
 

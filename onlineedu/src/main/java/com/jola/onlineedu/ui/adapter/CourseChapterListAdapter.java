@@ -3,6 +3,7 @@ package com.jola.onlineedu.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class CourseChapterListAdapter extends RecyclerView.Adapter<CourseChapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.rl_item_chapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,12 +57,24 @@ public class CourseChapterListAdapter extends RecyclerView.Adapter<CourseChapter
                 currentPlayingPosition = holder.getAdapterPosition();
             }
         });
-        holder.tv_chapter_name.setText(mList.get(position).getName());
-        if (position == currentPlayingPosition){
+        ResCourseCapterList.ResultsBean resultsBean = mList.get(position);
+        holder.tv_chapter_name.setText(resultsBean.getName());
+
+//        if (resultsBean.getPlay_status() == 1){
+//            holder.iv_play_icon.setVisibility(View.VISIBLE);
+//        }else{
+//            holder.iv_play_icon.setVisibility(View.INVISIBLE);
+//        }
+
+        if (currentPlayingPosition == position){
             holder.iv_play_icon.setVisibility(View.VISIBLE);
         }else{
             holder.iv_play_icon.setVisibility(View.INVISIBLE);
         }
+        Log.e("okhttp123","position:"+position);
+        Log.e("okhttp123","currentPlayingPosition:"+currentPlayingPosition);
+
+
     }
 
     @Override

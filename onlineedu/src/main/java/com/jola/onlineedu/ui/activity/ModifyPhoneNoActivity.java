@@ -62,7 +62,7 @@ public class ModifyPhoneNoActivity extends SimpleActivity {
 
     @Override
     protected void initEventAndData() {
-        setToolBar(toolbar, "手机找回密码");
+        setToolBar(toolbar, "修改手机号");
 //        iv_ImageCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
         getActivityComponent().inject(this);
 
@@ -186,14 +186,14 @@ public class ModifyPhoneNoActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
-        addSubscribe(dataManager.getUserForgetPasswrod(phoneNum, password, checkCode, captcha_key, imageCode)
+        addSubscribe(dataManager.modifyPhoneNo(dataManager.getUserToken(),phoneNum, checkCode, captcha_key, imageCode)
                 .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper()).subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
                         hideLoadingDialog();
                         int error_code = responseSimpleResult.getError_code();
                         if (error_code == 0) {
-                            ToastUtil.toastShort("重置密码成功！");
+                            ToastUtil.toastShort("手机号修改成功！");
                             ModifyPhoneNoActivity.this.finish();
                         } else {
                             ToastUtil.toastShort(responseSimpleResult.getError_msg());

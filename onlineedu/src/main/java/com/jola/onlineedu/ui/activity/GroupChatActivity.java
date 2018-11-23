@@ -53,7 +53,7 @@ public class GroupChatActivity extends SimpleActivity {
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_comments_list;
+        return R.layout.activity_group_chat;
     }
 
     @Override

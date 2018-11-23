@@ -63,7 +63,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
-public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEventListener{
+public class CourseDetailActivity extends SimpleActivity implements OnPlayerEventListener {
 
     @Inject
     DataManager dataManager;
@@ -146,7 +146,7 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
         changeFullScreen();
         id = getIntent().getIntExtra("id", 0);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         loadData();
         loadComments();
         smartRefreshLayout.setEnableRefresh(false);
@@ -173,7 +173,7 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
 
         //        changeFullScreen();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
 //        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
@@ -187,10 +187,10 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
     protected void onResume() {
         super.onResume();
         int state = mVideoView.getState();
-        if(state == IPlayer.STATE_PLAYBACK_COMPLETE)
+        if (state == IPlayer.STATE_PLAYBACK_COMPLETE)
             return;
-        if(mVideoView.isInPlaybackState()){
-            if(!userPause)
+        if (mVideoView.isInPlaybackState()) {
+            if (!userPause)
                 mVideoView.resume();
         }
 //        else{
@@ -199,14 +199,24 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
         initPlay();
     }
 
-    private void initPlay(){
-        if(!hasStart){
+    private void initPlay() {
+        if (!hasStart) {
             mVideoView.setAspectRatio(AspectRatio.AspectRatio_MATCH_PARENT);
-            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
+//            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
         }
     }
 
-    private void startPlay(){
+    private void startPlay(int position) {
+        hideVideoView(true);
+        if (mChapterList == null || mChapterList.size() == 0){
+            ToastUtil.toastShort("该课程暂无相关章节信息，无法播放");
+            return;
+        }
+        if (position >= mChapterList.size()){
+            ToastUtil.toastShort("该课程无该章节信息，无法播放");
+            return;
+        }
+        mVideoView.setDataSource(new DataSource(mChapterList.get(position).getVideo_url()));
         mVideoView.start();
         hasStart = true;
     }
@@ -214,14 +224,14 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (null != mVideoView){
+        if (null != mVideoView) {
             mVideoView.stopPlayback();
         }
     }
 
     @Override
     public void onBackPressedSupport() {
-        if(isLandscape){
+        if (isLandscape) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             return;
         }
@@ -231,50 +241,49 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             isLandscape = true;
             updateVideo(true);
-        }else{
+        } else {
             isLandscape = false;
             updateVideo(false);
         }
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_LANDSCAPE, isLandscape);
     }
 
-    private void updateVideo(boolean landscape){
+    private void updateVideo(boolean landscape) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mVideoView.getLayoutParams();
-        if(landscape){
+        if (landscape) {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.setMargins(0, 0, 0, 0);
-        }else{
+        } else {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            layoutParams.height = PUtil.dip2px(this,180);
+            layoutParams.height = PUtil.dip2px(this, 180);
             layoutParams.setMargins(0, 0, 0, 0);
         }
         mVideoView.setLayoutParams(layoutParams);
     }
 
 
-
-    private OnVideoViewEventHandler onVideoViewEventHandler = new OnVideoViewEventHandler(){
+    private OnVideoViewEventHandler onVideoViewEventHandler = new OnVideoViewEventHandler() {
         @Override
         public void onAssistHandle(BaseVideoView assist, int eventCode, Bundle bundle) {
             super.onAssistHandle(assist, eventCode, bundle);
-            switch (eventCode){
+            switch (eventCode) {
                 case InterEvent.CODE_REQUEST_PAUSE:
                     userPause = true;
                     break;
                 case DataInter.Event.EVENT_CODE_REQUEST_BACK:
-                    if(isLandscape){
+                    if (isLandscape) {
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                    }else{
+                    } else {
                         finish();
                     }
                     break;
                 case DataInter.Event.EVENT_CODE_REQUEST_TOGGLE_SCREEN:
                     setRequestedOrientation(isLandscape ?
-                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
+                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT :
                             ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     break;
                 case DataInter.Event.EVENT_CODE_ERROR_SHOW:
@@ -286,7 +295,7 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
 
     @Override
     public void onPlayerEvent(int eventCode, Bundle bundle) {
-        switch (eventCode){
+        switch (eventCode) {
             case OnPlayerEventListener.PLAYER_EVENT_ON_VIDEO_RENDER_START:
 
                 break;
@@ -294,20 +303,25 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
     }
 
 
-
     private void loadCourseChaptersData() {
-        addSubscribe(dataManager.getCourseCapterList(id+"",page_chapter+"",PageSizeChapter+"")
-            .compose(RxUtil.<ResCourseCapterList>rxSchedulerHelper())
+        addSubscribe(dataManager.getCourseCapterList(id + "", page_chapter + "", PageSizeChapter + "")
+                .compose(RxUtil.<ResCourseCapterList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseCapterList>() {
                     @Override
                     public void accept(ResCourseCapterList resCourseCapterList) throws Exception {
-                       mChapterList = resCourseCapterList.getResults();
+                        mChapterList = resCourseCapterList.getResults();
+                        mChapterList.addAll(resCourseCapterList.getResults());
                         mCourseChapterListAdapter = new CourseChapterListAdapter(mContext, mChapterList, new CourseChapterListAdapter.IPlayingListener() {
                             @Override
                             public void playPosition(int position) {
-                                ToastUtil.toastLong(mChapterList.get(position).getName()+" should be played");
+//                                ToastUtil.toastLong(mChapterList.get(position).getName() + " should be played");
+                                startPlay(position);
+
+                                mCourseChapterListAdapter.notifyDataSetChanged();
                             }
                         });
+                        rv_course_chapters.setLayoutManager(new LinearLayoutManager(CourseDetailActivity.this,LinearLayoutManager.VERTICAL,false));
+                        rv_course_chapters.addItemDecoration(new DividerItemDecoration(CourseDetailActivity.this,DividerItemDecoration.VERTICAL));
                         rv_course_chapters.setAdapter(mCourseChapterListAdapter);
                     }
                 }, new Consumer<Throwable>() {
@@ -321,79 +335,79 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
 
     private void loadData() {
         showLoadingDialog();
-        addSubscribe(dataManager.getCourseDetail(id+"")
-            .compose(RxUtil.<ResCourseDetail>rxSchedulerHelper())
-                .subscribe(new Consumer<ResCourseDetail>() {
-                    @Override
-                    public void accept(ResCourseDetail resCourseDetail) throws Exception {
-                        hideLoadingDialog();
-                        String cover = resCourseDetail.getCover_url();
-                        ImageLoader.load(CourseDetailActivity.this,cover,iv_play_course);
-                        tv_title_live_item.setText(resCourseDetail.getName());
+        addSubscribe(dataManager.getCourseDetail(id + "")
+                        .compose(RxUtil.<ResCourseDetail>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResCourseDetail>() {
+                            @Override
+                            public void accept(ResCourseDetail resCourseDetail) throws Exception {
+                                hideLoadingDialog();
+                                String cover = resCourseDetail.getCover_url();
+                                ImageLoader.load(CourseDetailActivity.this, cover, iv_play_course);
+                                tv_title_live_item.setText(resCourseDetail.getName());
 //                        android:text="主讲：王仁杰  播放量：100"
-                        tv_course_author.setText("主讲："+resCourseDetail.getAuthor()+"  播放量："+resCourseDetail.getSee_count());
-                        tv_price_live_course.setText("￥"+resCourseDetail.getPrice());
-                        tv_content_brief.setText(resCourseDetail.getSummary());
-                        tv_share_num.setText(resCourseDetail.getShare_count()+"");
-                        tv_praise_num.setText(resCourseDetail.getPraise_count()+"");
-                        tv_heart_num.setText(resCourseDetail.getCollect_count()+"");
-                        tv_score_num.setText(resCourseDetail.getScore()+"");
-                        star_bar_score.setStarMark(resCourseDetail.getScore());
+                                tv_course_author.setText("主讲：" + resCourseDetail.getAuthor() + "  播放量：" + resCourseDetail.getSee_count());
+                                tv_price_live_course.setText("￥" + resCourseDetail.getPrice());
+                                tv_content_brief.setText(resCourseDetail.getSummary());
+                                tv_share_num.setText(resCourseDetail.getShare_count() + "");
+                                tv_praise_num.setText(resCourseDetail.getPraise_count() + "");
+                                tv_heart_num.setText(resCourseDetail.getCollect_count() + "");
+                                tv_score_num.setText(resCourseDetail.getScore() + "");
+                                star_bar_score.setStarMark(resCourseDetail.getScore());
 
 //                        加载相关课程
-                        List<ResCourseDetail.ReleatedCoursesBean> releated_courses = resCourseDetail.getReleated_courses();
-                        mAdapterRelativeCourse = new RelativeCourseAdapter(CourseDetailActivity.this, releated_courses);
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
-                        rv_relativeCourse.setLayoutManager(linearLayoutManager);
-                        rv_relativeCourse.setAdapter(mAdapterRelativeCourse);
+                                List<ResCourseDetail.ReleatedCoursesBean> releated_courses = resCourseDetail.getReleated_courses();
+                                mAdapterRelativeCourse = new RelativeCourseAdapter(CourseDetailActivity.this, releated_courses);
+                                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                                rv_relativeCourse.setLayoutManager(linearLayoutManager);
+                                rv_relativeCourse.setAdapter(mAdapterRelativeCourse);
 
 
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        hideLoadingDialog();
-                        tipServerError();
-                    }
-                })
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                hideLoadingDialog();
+                                tipServerError();
+                            }
+                        })
         );
     }
 
-    private void loadComments(){
+    private void loadComments() {
         page = 1;
-        addSubscribe(dataManager.getCourseCommentList(id+"",page+"",page_size+"")
-            .compose(RxUtil.<ResCouserCommentList>rxSchedulerHelper())
-                .subscribe(new Consumer<ResCouserCommentList>() {
-                    @Override
-                    public void accept(ResCouserCommentList resCouserCommentList) throws Exception {
-                        commentList = resCouserCommentList.getResults();
-                        adapter = new CourseDetailCommentsAdapter(CourseDetailActivity.this, commentList, dataManager);
-                        recyclerView.setAdapter(adapter);
-                        smartRefreshLayout.finishRefresh();
+        addSubscribe(dataManager.getCourseCommentList(id + "", page + "", page_size + "")
+                        .compose(RxUtil.<ResCouserCommentList>rxSchedulerHelper())
+                        .subscribe(new Consumer<ResCouserCommentList>() {
+                            @Override
+                            public void accept(ResCouserCommentList resCouserCommentList) throws Exception {
+                                commentList = resCouserCommentList.getResults();
+                                adapter = new CourseDetailCommentsAdapter(CourseDetailActivity.this, commentList, dataManager);
+                                recyclerView.setAdapter(adapter);
+                                smartRefreshLayout.finishRefresh();
 //                        tv_num_comments.setText(commentList == null ? 0 : commentList.size());
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        smartRefreshLayout.finishRefresh();
-                    }
-                })
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                smartRefreshLayout.finishRefresh();
+                            }
+                        })
         );
     }
 
-    private void loadMoreComments(){
-        addSubscribe(dataManager.getCourseCommentList(id+"",(++page)+"",page_size+"")
+    private void loadMoreComments() {
+        addSubscribe(dataManager.getCourseCommentList(id + "", (++page) + "", page_size + "")
                 .compose(RxUtil.<ResCouserCommentList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCouserCommentList>() {
                     @Override
                     public void accept(ResCouserCommentList resCouserCommentList) throws Exception {
                         List<ResCouserCommentList.ResultsBean> results = resCouserCommentList.getResults();
-                        if (null == results || results.size() == 0){
+                        if (null == results || results.size() == 0) {
                             ToastUtil.toastShort("暂无更多评论");
-                        }else{
+                        } else {
                             commentList.addAll(results);
                         }
-                        if (null != adapter){
+                        if (null != adapter) {
                             adapter.notifyDataSetChanged();
                         }
                         smartRefreshLayout.finishLoadMore();
@@ -407,13 +421,13 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
         );
     }
 
-    public void changeFullScreen(){
+    public void changeFullScreen() {
         if (Build.VERSION.SDK_INT >= 21) {
-                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-                View decorView = getWindow().getDecorView();
-                decorView.setSystemUiVisibility(option);
-                getWindow().setStatusBarColor(Color.TRANSPARENT);
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
     }
 
@@ -424,12 +438,10 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
             R.id.tv_chapter_title,
             R.id.iv_play_video,
     })
-    public void doClick(View view){
-        switch (view.getId()){
+    public void doClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_play_video:
-                fl_course_video.setVisibility(View.INVISIBLE);
-                mVideoView.setVisibility(View.VISIBLE);
-                startPlay();
+                startPlay(0);
                 break;
             case R.id.iv_back:
                 super.onBackPressedSupport();
@@ -448,28 +460,38 @@ public class CourseDetailActivity extends SimpleActivity implements  OnPlayerEve
                 view_indication_chapter.setVisibility(View.VISIBLE);
                 group_brief_container.setVisibility(View.INVISIBLE);
                 rv_course_chapters.setVisibility(View.VISIBLE);
-                if (null == mChapterList || mChapterList.size() == 0){
+                if (null == mChapterList || mChapterList.size() == 0) {
                     ToastUtil.toastShort("暂无章节相关内容！");
                 }
                 break;
         }
     }
 
+    private void hideVideoView(boolean hideOrNo){
+        if (hideOrNo){
+            fl_course_video.setVisibility(View.INVISIBLE);
+            mVideoView.setVisibility(View.VISIBLE);
+        }else{
+            fl_course_video.setVisibility(View.VISIBLE);
+            mVideoView.setVisibility(View.INVISIBLE);
+        }
+    }
+
     private void confirmComment() {
         String commentContent = et_input_comment.getText().toString();
-        if (commentContent.length() ==0){
+        if (commentContent.length() == 0) {
             ToastUtil.toastShort("请输入评价内容！");
         }
         String userId = dataManager.getUserId();
         showLoadingDialog();
-        addSubscribe(dataManager.publishCourseComment(id,userId,commentContent)
-        .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+        addSubscribe(dataManager.publishCourseComment(id, userId, commentContent)
+                .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
-                        if (responseSimpleResult.getError_code() == 0){
+                        if (responseSimpleResult.getError_code() == 0) {
                             ToastUtil.toastShort("评论成功！");
-                        }else {
+                        } else {
                             ToastUtil.toastLong(responseSimpleResult.getError_msg());
                         }
                     }

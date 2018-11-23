@@ -260,7 +260,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_brief"
-                tools:text="数学上，二元关系用于讨论两个数学对象的联系。诸如算术中的「大于」及「等于」，几何学中的"
+                tools:text="简介内容"
 
                 />
 

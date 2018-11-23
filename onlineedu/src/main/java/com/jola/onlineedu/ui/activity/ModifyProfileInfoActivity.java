@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
@@ -20,6 +21,7 @@ import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResUpdatepersonalInfoBean;
 import com.jola.onlineedu.mode.bean.response.ResUploadUserImageBean;
+import com.jola.onlineedu.mode.bean.response.ResUserInfoBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.AddressPickTask;
@@ -67,8 +69,9 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
     TextView tv_school;
     @BindView(R.id.tv_teach_course)
     TextView tv_teach_course;
-    @BindView(R.id.et_input_password)
-    EditText et_input_password;
+
+//    @BindView(R.id.et_input_password)
+//    EditText et_input_password;
 
     @BindView(R.id.civ_head_user)
     CircleImageView civ_head_user;
@@ -99,7 +102,6 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         setToolBar(toolbar, getString(R.string.modify_person_info));
         getActivityComponent().inject(this);
         initData();
-
     }
 
     private void initData() {
@@ -112,6 +114,34 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         tv_teach_course.setText(mDataManager.getUserTeachCourse());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        asyncUserInfo();
+    }
+
+    private void asyncUserInfo() {
+        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, mDataManager.getUserToken());
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/user/myprofile/", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ResUserInfoBean resUserInfoBean = new Gson().fromJson(new String(responseBody), ResUserInfoBean.class);
+                int error_code = resUserInfoBean.getError_code();
+                if (error_code == 0){
+                    String mobile = resUserInfoBean.getData().getUser().getMobile();
+                    tv_phone_no.setText(mobile);
+                    mDataManager.setUserPhone(mobile);
+                }else{
+                    ToastUtil.toastShort(resUserInfoBean.getError_msg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                ToastUtil.toastShort(getString(R.string.error_server_message));
+            }
+        });
+    }
 
     @OnClick({
             R.id.rl_head,
@@ -134,10 +164,10 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
                 showInpuDialog();
                 break;
             case R.id.rl_phone_no:
-                mCurrentIndex = Tag_Phoneno;
-                mTitle = "请输入手机号";
-                showInpuDialog();
-
+//                mCurrentIndex = Tag_Phoneno;
+//                mTitle = "请输入手机号";
+//                showInpuDialog();
+                startActivity(new Intent(this,ModifyPhoneNoActivity.class));
                 break;
             case R.id.rl_address:
                 showAddressChoose();
@@ -198,14 +228,14 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         String address = tv_address.getText().toString();
         final String schoolInput = tv_school.getText().toString();
         String teachCourse = tv_teach_course.getText().toString();
-        String passwordInput = et_input_password.getText().toString();
+//        String passwordInput = et_input_password.getText().toString();
         if (TextUtils.isEmpty(userAvater)
                 ||TextUtils.isEmpty(petName)
                 ||TextUtils.isEmpty(phoneno)
                 ||TextUtils.isEmpty(address)
                 ||TextUtils.isEmpty(schoolInput)
                 ||TextUtils.isEmpty(teachCourse)
-                ||TextUtils.isEmpty(passwordInput)
+//                ||TextUtils.isEmpty(passwordInput)
                 ){
             ToastUtil.toastShort("请完成所有输入项后，再确认修改！");
             return;
@@ -261,10 +291,10 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
 
         showLoadingDialog();
         RequestParams map = new RequestParams();
-        map.put("mobile",phoneno);
+//        map.put("mobile",phoneno);
         map.put("name",petName);
         map.put("avatar",userAvater);
-        map.put("password",passwordInput);
+//        map.put("password",passwordInput);
         map.put("teaching_courses",teachCourse);
         map.put("school_name",schoolInput);
         map.put("province_text",provinceText);

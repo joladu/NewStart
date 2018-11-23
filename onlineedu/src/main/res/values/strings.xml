@@ -88,6 +88,7 @@
     <string name="tip_no_password_black">如没有账户，请</string>
     <string name="tip_no_password_green">注册</string>
     <string name="tip_input_phone_num">请输入手机号</string>
+    <string name="confirm_modify_phoneno">确认修改</string>
     <string name="tip_input_user_name">请输入用户名</string>
     <string name="tip_input_image_code">请输入图形验证码</string>
     <string name="tip_error_image_code">图形验证码错误！</string>
@@ -132,7 +133,7 @@
     <string name="cancel_collect">取消收藏</string>
     <string name="hint_remain_words">留下你想说的话</string>
     <string name="reply_message">回复私信</string>
-    <string name="modify_personal_info">修改信息</string>
+    <string name="modify_personal_info">确认修改</string>
 
 
 </resources>

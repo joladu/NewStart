@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:id="@+id/rl_item_chapter"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_item_chapter">
 
     <TextView
         android:id="@+id/tv_chapter_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/iv_play_icon"
         android:layout_marginStart="@dimen/qb_px_10"
         android:layout_marginTop="@dimen/qb_px_10"
-        android:text="ga欧登数学ga欧登数学ga欧登数学ga欧登数学ga欧登数学ga欧登数学ga欧登数学ga欧登数学ga欧登数学ga欧登数学"
         android:lines="1"
         android:textSize="15sp"
         android:ellipsize="end"
         android:textColor="@color/gray_content_forum_text"
+        tools:text="欧登数学"
         />
 
     <ImageView
