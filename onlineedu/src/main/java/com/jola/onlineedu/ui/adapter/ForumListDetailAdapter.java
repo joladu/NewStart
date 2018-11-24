@@ -10,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResForumComments;
 import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.TimeFormatUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.jola.onlineedu.widget.DialogLoadingView;
 
 import java.util.List;
 
@@ -30,6 +33,8 @@ import io.reactivex.functions.Consumer;
 
 public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetailAdapter.ViewHolder> {
 
+
+    DialogLoadingView dialogLoadingView;
 
     DataManager dataManager;
     private LayoutInflater inflater;
@@ -61,21 +66,35 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ResForumComments.DataBean.CommentsBean curBean = mList.get(position);
-        holder.tv_name.setText(curBean.getUser().getUsername());
+        final ResForumComments.DataBean.CommentsBean curBean = mList.get(position);
+
+        ResForumComments.DataBean.CommentsBean.UserBean user = curBean.getUser();
+        ImageLoader.load(mContext,user.getAvatar_url(),holder.circleImageView_head);
+        holder.tv_name.setText(user.getUsername());
         holder.tv_forum_content.setText(curBean.getContent());
-        holder.tv_num_praise.setText(curBean.getPraise_count());
+        holder.tv_num_praise.setText(curBean.getPraise_count()+"");
+        holder.tv_comment_time_ago.setText(TimeFormatUtil.formatTimeSSS(curBean.getCreated()));
+
         final int id = curBean.getId();
 
-        holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_no_2x));
+        if (curBean.getHas_praise() != 1){
+            holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_no_2x));
+        }else{
+            holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_yes_2x));
+        }
+
+
+
         holder.iv_handPraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataManager.praiseComment(id+"")
+                showLoadingDialog();
+                dataManager.praiseComment(dataManager.getUserToken(),id+"")
                         .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                         .subscribe(new Consumer<ResponseSimpleResult>() {
                             @Override
                             public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                                hideLoadingDialog();
                                 if (0 == responseSimpleResult.getError_code()){
                                     holder.iv_handPraise.setImageDrawable(mContext.getResources().getDrawable(R.drawable.hand_praise_yes_2x));
                                     ToastUtil.toastShort("点赞成功!");
@@ -86,6 +105,7 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
+                                hideLoadingDialog();
                                 ToastUtil.toastShort(mContext.getString(R.string.error_server_message));
                             }
                         });
@@ -121,6 +141,18 @@ public class ForumListDetailAdapter extends RecyclerView.Adapter<ForumListDetail
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+        }
+    }
+
+    protected void showLoadingDialog(){
+        if (null == dialogLoadingView){
+            dialogLoadingView = new DialogLoadingView(mContext);
+        }
+        dialogLoadingView.show();
+    }
+    protected void hideLoadingDialog(){
+        if (null != dialogLoadingView){
+            dialogLoadingView.dismiss();
         }
     }
 }

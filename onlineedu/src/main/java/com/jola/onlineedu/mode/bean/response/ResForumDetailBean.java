@@ -10,7 +10,7 @@ public class ResForumDetailBean {
 
 
     /**
-     * data : {"post":{"content":"发过火家家户户","is_top":1,"is_essence":1,"title":"法国刚给他","images":[],"is_hot":1,"created":"2018-10-10T23:22:07.531","id":13,"is_new":0},"post_type":{"id":1,"name":"灌水"},"user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15396902624908.jpg","name":""}}
+     * data : {"post":{"content":"新的学期，新的征程，新的成就。","is_top":1,"is_essence":1,"title":"发帖带图片上传\b测试","images":[{"order_no":1,"name":"","imgurl":"http://yunketang.dev.attackt.com/media/bbsimg/15393251548355.png"},{"order_no":1,"name":"","imgurl":"http://yunketang.dev.attackt.com/media/bbsimg/15393251549940.jpg"}],"is_hot":1,"created":"2018-10-12T14:19:14.562","id":15,"is_new":0},"post_type":{"id":2,"name":"提问"},"user":{"username":"test","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"张三"}}
      * error_code : 0
      * error_msg : success
      */
@@ -45,9 +45,9 @@ public class ResForumDetailBean {
 
     public static class DataBean {
         /**
-         * post : {"content":"发过火家家户户","is_top":1,"is_essence":1,"title":"法国刚给他","images":[],"is_hot":1,"created":"2018-10-10T23:22:07.531","id":13,"is_new":0}
-         * post_type : {"id":1,"name":"灌水"}
-         * user : {"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15396902624908.jpg","name":""}
+         * post : {"content":"新的学期，新的征程，新的成就。","is_top":1,"is_essence":1,"title":"发帖带图片上传\b测试","images":[{"order_no":1,"name":"","imgurl":"http://yunketang.dev.attackt.com/media/bbsimg/15393251548355.png"},{"order_no":1,"name":"","imgurl":"http://yunketang.dev.attackt.com/media/bbsimg/15393251549940.jpg"}],"is_hot":1,"created":"2018-10-12T14:19:14.562","id":15,"is_new":0}
+         * post_type : {"id":2,"name":"提问"}
+         * user : {"username":"test","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"张三"}
          */
 
         private PostBean post;
@@ -80,14 +80,14 @@ public class ResForumDetailBean {
 
         public static class PostBean {
             /**
-             * content : 发过火家家户户
+             * content : 新的学期，新的征程，新的成就。
              * is_top : 1
              * is_essence : 1
-             * title : 法国刚给他
-             * images : []
+             * title : 发帖带图片上传测试
+             * images : [{"order_no":1,"name":"","imgurl":"http://yunketang.dev.attackt.com/media/bbsimg/15393251548355.png"},{"order_no":1,"name":"","imgurl":"http://yunketang.dev.attackt.com/media/bbsimg/15393251549940.jpg"}]
              * is_hot : 1
-             * created : 2018-10-10T23:22:07.531
-             * id : 13
+             * created : 2018-10-12T14:19:14.562
+             * id : 15
              * is_new : 0
              */
 
@@ -99,7 +99,7 @@ public class ResForumDetailBean {
             private String created;
             private int id;
             private int is_new;
-            private List<String> images;
+            private List<ImagesBean> images;
 
             public String getContent() {
                 return content;
@@ -165,19 +165,55 @@ public class ResForumDetailBean {
                 this.is_new = is_new;
             }
 
-            public List<String> getImages() {
+            public List<ImagesBean> getImages() {
                 return images;
             }
 
-            public void setImages(List<String> images) {
+            public void setImages(List<ImagesBean> images) {
                 this.images = images;
+            }
+
+            public static class ImagesBean {
+                /**
+                 * order_no : 1
+                 * name :
+                 * imgurl : http://yunketang.dev.attackt.com/media/bbsimg/15393251548355.png
+                 */
+
+                private int order_no;
+                private String name;
+                private String imgurl;
+
+                public int getOrder_no() {
+                    return order_no;
+                }
+
+                public void setOrder_no(int order_no) {
+                    this.order_no = order_no;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getImgurl() {
+                    return imgurl;
+                }
+
+                public void setImgurl(String imgurl) {
+                    this.imgurl = imgurl;
+                }
             }
         }
 
         public static class PostTypeBean {
             /**
-             * id : 1
-             * name : 灌水
+             * id : 2
+             * name : 提问
              */
 
             private int id;
@@ -202,9 +238,9 @@ public class ResForumDetailBean {
 
         public static class UserBean {
             /**
-             * username : duzi
-             * avatar_url : http://yunketang.dev.attackt.com/media/avatar/15396902624908.jpg
-             * name :
+             * username : test
+             * avatar_url : http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg
+             * name : 张三
              */
 
             private String username;

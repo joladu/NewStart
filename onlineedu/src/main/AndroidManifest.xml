@@ -53,9 +53,12 @@
         <activity
             android:name=".ui.activity.LiveDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
+
         <activity
             android:name=".ui.activity.CourseDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".ui.activity.TeacherMasterActivity" />
         <activity android:name=".ui.activity.LoadWebUrlActivity" />
         <activity android:name=".ui.activity.PersonInfoActivity" />

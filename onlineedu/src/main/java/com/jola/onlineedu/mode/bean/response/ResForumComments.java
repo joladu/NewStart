@@ -8,8 +8,9 @@ import java.util.List;
 
 public class ResForumComments {
 
+
     /**
-     * data : {"page":1,"pageSize":10,"pageCount":28,"comments":[{"created":"2018-10-12T15:16:13","has_praise":1,"content":"评论3 分威锋网发问","user":{"username":"khaki","avatar_url":"http://127.0.0.1:8002/media/avatar/22","name":""},"praise_count":5,"id":6},{"created":"2018-10-12T15:16:07","has_praise":1,"content":"评论2","user":{"username":"khaki","avatar_url":"http://127.0.0.1:8002/media/avatar/22","name":""},"praise_count":2,"id":5}]}
+     * data : {"comments":[{"created":"2018-11-24T15:01:51.901","has_praise":0,"content":"chvvvvvhh","user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"duzi"},"praise_count":0,"id":26},{"created":"2018-11-24T14:58:52.579","has_praise":0,"content":"fjkasdjfksdjf","user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"duzi"},"praise_count":0,"id":25},{"created":"2018-10-12T15:55:16.729","has_praise":0,"content":"测试发布帖子评论","user":{"username":"test","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"张三"},"praise_count":1,"id":12},{"created":"2018-10-12T15:54:12.237","has_praise":0,"content":"评论帖子","user":{"username":"test","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"张三"},"praise_count":1,"id":11}],"page":1,"pageSize":10,"pageCount":4}
      * error_code : 0
      * error_msg : success
      */
@@ -44,10 +45,10 @@ public class ResForumComments {
 
     public static class DataBean {
         /**
+         * comments : [{"created":"2018-11-24T15:01:51.901","has_praise":0,"content":"chvvvvvhh","user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"duzi"},"praise_count":0,"id":26},{"created":"2018-11-24T14:58:52.579","has_praise":0,"content":"fjkasdjfksdjf","user":{"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"duzi"},"praise_count":0,"id":25},{"created":"2018-10-12T15:55:16.729","has_praise":0,"content":"测试发布帖子评论","user":{"username":"test","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"张三"},"praise_count":1,"id":12},{"created":"2018-10-12T15:54:12.237","has_praise":0,"content":"评论帖子","user":{"username":"test","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"张三"},"praise_count":1,"id":11}]
          * page : 1
          * pageSize : 10
-         * pageCount : 28
-         * comments : [{"created":"2018-10-12T15:16:13","has_praise":1,"content":"评论3 分威锋网发问","user":{"username":"khaki","avatar_url":"http://127.0.0.1:8002/media/avatar/22","name":""},"praise_count":5,"id":6},{"created":"2018-10-12T15:16:07","has_praise":1,"content":"评论2","user":{"username":"khaki","avatar_url":"http://127.0.0.1:8002/media/avatar/22","name":""},"praise_count":2,"id":5}]
+         * pageCount : 4
          */
 
         private int page;
@@ -89,12 +90,12 @@ public class ResForumComments {
 
         public static class CommentsBean {
             /**
-             * created : 2018-10-12T15:16:13
-             * has_praise : 1
-             * content : 评论3 分威锋网发问
-             * user : {"username":"khaki","avatar_url":"http://127.0.0.1:8002/media/avatar/22","name":""}
-             * praise_count : 5
-             * id : 6
+             * created : 2018-11-24T15:01:51.901
+             * has_praise : 0
+             * content : chvvvvvhh
+             * user : {"username":"duzi","avatar_url":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","name":"duzi"}
+             * praise_count : 0
+             * id : 26
              */
 
             private String created;
@@ -154,9 +155,9 @@ public class ResForumComments {
 
             public static class UserBean {
                 /**
-                 * username : khaki
-                 * avatar_url : http://127.0.0.1:8002/media/avatar/22
-                 * name :
+                 * username : duzi
+                 * avatar_url : http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg
+                 * name : duzi
                  */
 
                 private String username;

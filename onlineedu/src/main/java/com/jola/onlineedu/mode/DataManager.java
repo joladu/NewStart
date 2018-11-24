@@ -143,18 +143,18 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResForumComments> getForumComments(String id, int page) {
-        return myApis.getForumComments(id,page);
+    public Flowable<ResForumComments> getForumComments(String id, int page,int pageSize) {
+        return myApis.getForumComments(id,page,pageSize);
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> commentForum(String id, String content) {
-        return myApis.commentForum(id,content);
+    public Flowable<ResponseSimpleResult> commentForum(String token,String id, String content) {
+        return myApis.commentForum(token,id,content);
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> praiseComment(String id) {
-        return myApis.praiseComment(id);
+    public Flowable<ResponseSimpleResult> praiseComment(String token,String id) {
+        return myApis.praiseComment(token,id);
     }
 
     @Override
@@ -223,8 +223,13 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> publishCourseComment(int id,String userId, String content) {
-        return myApis.publishCourseComment(id,userId,content);
+    public Flowable<ResponseSimpleResult> publishCourseComment(String token,int id,String userId, String content) {
+        return myApis.publishCourseComment(token,id,userId,content);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> publishCourseComment(String token, Map<String, RequestBody> map) {
+        return myApis.publishCourseComment(token,map);
     }
 
     @Override

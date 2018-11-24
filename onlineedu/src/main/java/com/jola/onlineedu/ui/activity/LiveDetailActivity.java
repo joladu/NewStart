@@ -47,6 +47,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
 public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventListener{
@@ -69,6 +70,8 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     TextView tv_price_live_course;
     @BindView(R.id.tv_content_brief)
     TextView tv_content_brief;
+    @BindView(R.id.civ_head_user)
+    CircleImageView civ_head_user;
     @BindView(R.id.tv_content_brief_teacher)
     TextView tv_content_brief_teacher;
     @BindView(R.id.rv_relative_live)
@@ -150,20 +153,19 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
         super.onDestroy();
         if (null != mVideoView){
             mVideoView.stopPlayback();
+            mVideoView.stop();
         }
     }
-
-
 
 
     private void initPlay(){
         if(!hasStart){
             mVideoView.setAspectRatio(AspectRatio.AspectRatio_MATCH_PARENT);
-            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
         }
     }
 
     private void startPlay(){
+        mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
         mVideoView.start();
         hasStart = true;
     }
@@ -217,16 +219,18 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
                 .subscribe(new Consumer<ResLiveCourseDetail>() {
                     @Override
                     public void accept(ResLiveCourseDetail resLiveCourseDetail) throws Exception {
-                        Log.e("okhttp1",resLiveCourseDetail.toString());
-
+//                        Log.e("okhttp1",resLiveCourseDetail.toString());
                         hideLoadingDialog();
                         String cover_url = resLiveCourseDetail.getCover_url();
                         ImageLoader.load(LiveDetailActivity.this,cover_url,iv_cover_live);
+                        String avatarUserHead = resLiveCourseDetail.getTeacher_profile().getAvatar();
+                        ImageLoader.load(LiveDetailActivity.this,avatarUserHead,civ_head_user);
                         tv_title_live_item.setText(resLiveCourseDetail.getName());
                         star_bar_score.setStarMark(resLiveCourseDetail.getEvaluate());
                         tv_score_num.setText(resLiveCourseDetail.getEvaluate()+"");
                         tv_price_live_course.setText("￥"+resLiveCourseDetail.getPrice());
                         tv_content_brief.setText(resLiveCourseDetail.getIntro());
+                        tv_content_brief_teacher.setText(resLiveCourseDetail.getTeacher_profile().getSummary());
 
                         List<ResLiveCourseDetail.ReleatedCoursesBean> releated_courses = resLiveCourseDetail.getReleated_courses();
                         RelativeLiveAdapter relativeLiveAdapter = new RelativeLiveAdapter(LiveDetailActivity.this, releated_courses);

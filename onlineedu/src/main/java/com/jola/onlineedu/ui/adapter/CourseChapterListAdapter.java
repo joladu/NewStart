@@ -28,7 +28,7 @@ public class CourseChapterListAdapter extends RecyclerView.Adapter<CourseChapter
     private final LayoutInflater layoutInflater;
     private Context mContext;
     private List<ResCourseCapterList.ResultsBean> mList;
-    private int currentPlayingPosition = -1;
+//    private int currentPlayingPosition = -1;
     private IPlayingListener iPlayingListener;
 
     public interface IPlayingListener{
@@ -54,25 +54,28 @@ public class CourseChapterListAdapter extends RecyclerView.Adapter<CourseChapter
             @Override
             public void onClick(View v) {
                 iPlayingListener.playPosition(holder.getAdapterPosition());
-                currentPlayingPosition = holder.getAdapterPosition();
+//                currentPlayingPosition = holder.getAdapterPosition();
             }
         });
         ResCourseCapterList.ResultsBean resultsBean = mList.get(position);
         holder.tv_chapter_name.setText(resultsBean.getName());
 
-//        if (resultsBean.getPlay_status() == 1){
-//            holder.iv_play_icon.setVisibility(View.VISIBLE);
-//        }else{
-//            holder.iv_play_icon.setVisibility(View.INVISIBLE);
-//        }
+        Log.e("okhttp123","resultsBean.getPlay_status():"+resultsBean.getPlay_status());
 
-        if (currentPlayingPosition == position){
+
+        if (resultsBean.getPlay_status() == 1){
             holder.iv_play_icon.setVisibility(View.VISIBLE);
         }else{
             holder.iv_play_icon.setVisibility(View.INVISIBLE);
         }
-        Log.e("okhttp123","position:"+position);
-        Log.e("okhttp123","currentPlayingPosition:"+currentPlayingPosition);
+
+//        if (currentPlayingPosition == position){
+//            holder.iv_play_icon.setVisibility(View.VISIBLE);
+//        }else{
+//            holder.iv_play_icon.setVisibility(View.INVISIBLE);
+//        }
+//        Log.e("okhttp123","position:"+position);
+//        Log.e("okhttp123","currentPlayingPosition:"+currentPlayingPosition);
 
 
     }

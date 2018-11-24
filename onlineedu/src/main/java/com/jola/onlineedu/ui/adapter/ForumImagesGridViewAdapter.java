@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.component.ImageLoader;
+import com.jola.onlineedu.mode.bean.response.ResForumDetailBean;
 
 import java.util.List;
 
@@ -21,10 +23,10 @@ public class ForumImagesGridViewAdapter extends BaseAdapter {
 
 
     private Context context;
-    private List<String> mList;
+    private List<ResForumDetailBean.DataBean.PostBean.ImagesBean> mList;
     private LayoutInflater layoutInflater;
 
-    public ForumImagesGridViewAdapter(Context context, List<String> mList) {
+    public ForumImagesGridViewAdapter(Context context, List<ResForumDetailBean.DataBean.PostBean.ImagesBean> mList) {
         this.context = context;
         this.mList = mList;
         layoutInflater = LayoutInflater.from(context);
@@ -56,10 +58,11 @@ public class ForumImagesGridViewAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Glide.with(context)
-                .load(mList.get(position))
-                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder_loading).error(R.drawable.image_placeholder_fail))
-                .into(viewHolder.imageView);
+//        Glide.with(context)
+//                .load(mList.get(position))
+//                .apply(new RequestOptions().placeholder(R.drawable.image_placeholder_loading).error(R.drawable.image_placeholder_fail))
+//                .into(viewHolder.imageView);
+        ImageLoader.load(context,mList.get(position).getImgurl(),viewHolder.imageView);
         return convertView;
     }
 

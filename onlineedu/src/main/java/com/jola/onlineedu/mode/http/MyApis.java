@@ -160,16 +160,25 @@ public interface MyApis {
     @GET("v1/bbs/posts/{id}/")
     Flowable<ResForumDetailBean> getForumDetail(@Path("id") String id);
 
-    @GET("v1/bbs/posts/{id}/commments/")
-    Flowable<ResForumComments> getForumComments(@Path("id") String id, @Query("page") int page);
+    @GET("v1/bbs/posts/{id}/comments/")
+    Flowable<ResForumComments> getForumComments(
+            @Path("id") String id,
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize
+    );
 
     @POST("v1/bbs/posts/{id}/comments/")
     @FormUrlEncoded
-    Flowable<ResponseSimpleResult> commentForum(@Path("id") String id,@Field("content") String content);
+    Flowable<ResponseSimpleResult> commentForum(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Path("id") String id,
+            @Field("content") String content);
 
 
     @PUT("v1/bbs/comments/{id}/praise/")
-    Flowable<ResponseSimpleResult> praiseComment(@Path("id") String id);
+    Flowable<ResponseSimpleResult> praiseComment(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Path("id") String id);
 
 
     /**
@@ -238,7 +247,15 @@ public interface MyApis {
 
     @FormUrlEncoded
     @POST("v1/coursecomment/create/")
-    Flowable<ResponseSimpleResult> publishCourseComment(@Field("course")int  courseId,@Field("user")String  userId,@Field("content")String content);
+    Flowable<ResponseSimpleResult> publishCourseComment(@Header(TAG_AUTHORIZATION) String token,
+                                                        @Field("course")int  courseId,
+                                                        @Field("user")String  userId,
+                                                        @Field("content")String content);
+
+    @Multipart
+    @POST("v1/coursecomment/create/")
+    Flowable<ResponseSimpleResult> publishCourseComment(@Header(TAG_AUTHORIZATION) String token,
+                                                        @PartMap Map<String,RequestBody> map);
 
     @PUT("v1/bbs/comments/{id}/praise/")
     Flowable<ResponseSimpleResult> praiseCommentCourse(@Path("id")String id);

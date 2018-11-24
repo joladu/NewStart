@@ -51,7 +51,7 @@
         android:id="@+id/base_video_view"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
 
     <ScrollView
@@ -299,7 +299,6 @@
                 app:layout_constraintLeft_toRightOf="@+id/civ_head_user"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher"
-                tools:text="名校志向塾致力于为学生铺设一条通向一流大学的捷径，重视培养学生学习能力同时提高学生的专门知识水平，从而赋予学生核心竞争力，在今后的学习及就业中发挥决定性优势。"
                 />
 
             <View
@@ -309,7 +308,7 @@
                 android:layout_marginTop="@dimen/qb_px_10"
                 android:background="@color/divide_line_gray"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_content_brief_teacher" />
+                app:layout_constraintTop_toBottomOf="@+id/civ_head_user" />
 
             <TextView
                 android:id="@+id/tv_relative_course"

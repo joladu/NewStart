@@ -38,6 +38,7 @@
         android:text="67"
         android:textSize="14sp"
         android:textColor="#808288"
+        android:visibility="invisible"
         />
     <ImageView
         android:id="@+id/iv_praise_hand"
@@ -47,6 +48,7 @@
         android:layout_toLeftOf="@+id/tv_num_praise"
         android:layout_alignTop="@+id/tv_num_praise"
         android:layout_marginRight="10dp"
+        android:visibility="invisible"
         />
 
 
@@ -75,6 +77,7 @@
         android:text="回复"
         android:textColor="#808288"
         android:textSize="14sp"
+        android:visibility="invisible"
         />
 
     <TextView
@@ -87,6 +90,7 @@
         android:text="1分钟前"
         android:textColor="#808288"
         android:textSize="14sp"
+        android:visibility="invisible"
         />
 
 </RelativeLayout>

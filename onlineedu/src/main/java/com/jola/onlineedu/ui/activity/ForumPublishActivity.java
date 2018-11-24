@@ -240,7 +240,7 @@ public class ForumPublishActivity extends SimpleActivity {
         for (int i = 0 ; i < selectList.size() ; i++){
             String path = selectList.get(i).getPath();
             File file = new File(path);
-            map.put("img\";filename=\""+file.getName(),RequestBody.create(MediaType.parse("multipart/form-data"),file));
+            map.put("imgs\";filename=\""+file.getName(),RequestBody.create(MediaType.parse("multipart/form-data"),file));
         }
         showLoadingDialog();
         addSubscribe(dataManager.publishForumNew(dataManager.getUserToken(),map)

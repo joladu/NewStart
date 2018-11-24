@@ -8,9 +8,9 @@ public class ResUserLogin {
 
 
     /**
-     * data : {"token":"fhbjhryruh","user":{"genre":1,"mobile":"18513516234","realname":"姓名","user_id":1}}
+     * data : {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlU5ODEyMDE1Mzc0MzgxNzEiLCJ1c2VyX2lkIjozLCJlbWFpbCI6IiIsImV4cCI6MzExOTgyNTgzOX0.-teZyYCWjhM6XVtL5l7ocmA0JY6sihV3RL3wX-GifmY","user":{"username":"duzi","mobile":"13135657378","id":3}}
      * error_code : 0
-     * error_msg : success
+     * error_msg : 登录成功
      */
 
     private DataBean data;
@@ -43,8 +43,8 @@ public class ResUserLogin {
 
     public static class DataBean {
         /**
-         * token : fhbjhryruh
-         * user : {"genre":1,"mobile":"18513516234","realname":"姓名","user_id":1}
+         * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlU5ODEyMDE1Mzc0MzgxNzEiLCJ1c2VyX2lkIjozLCJlbWFpbCI6IiIsImV4cCI6MzExOTgyNTgzOX0.-teZyYCWjhM6XVtL5l7ocmA0JY6sihV3RL3wX-GifmY
+         * user : {"username":"duzi","mobile":"13135657378","id":3}
          */
 
         private String token;
@@ -68,23 +68,21 @@ public class ResUserLogin {
 
         public static class UserBean {
             /**
-             * genre : 1
-             * mobile : 18513516234
-             * realname : 姓名
-             * user_id : 1
+             * username : duzi
+             * mobile : 13135657378
+             * id : 3
              */
 
-            private int genre;
+            private String username;
             private String mobile;
-            private String realname;
-            private int user_id;
+            private int id;
 
-            public int getGenre() {
-                return genre;
+            public String getUsername() {
+                return username;
             }
 
-            public void setGenre(int genre) {
-                this.genre = genre;
+            public void setUsername(String username) {
+                this.username = username;
             }
 
             public String getMobile() {
@@ -95,20 +93,12 @@ public class ResUserLogin {
                 this.mobile = mobile;
             }
 
-            public String getRealname() {
-                return realname;
+            public int getId() {
+                return id;
             }
 
-            public void setRealname(String realname) {
-                this.realname = realname;
-            }
-
-            public int getUser_id() {
-                return user_id;
-            }
-
-            public void setUser_id(int user_id) {
-                this.user_id = user_id;
+            public void setId(int id) {
+                this.id = id;
             }
         }
     }

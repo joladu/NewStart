@@ -84,10 +84,10 @@ public class LoginActivity extends SimpleActivity {
                         ToastUtil.toastShort("登陆成功！");
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         mDataManager.setUserPhone(resUserLogin.getData().getUser().getMobile());
-                        mDataManager.setUserId(resUserLogin.getData().getUser().getUser_id()+"");
+                        mDataManager.setUserId(resUserLogin.getData().getUser().getId()+"");
                         mDataManager.setUserToken(resUserLogin.getData().getToken());
                         if (cb_remember_password.isChecked()){
-                            mDataManager.setUserName(account);
+                            mDataManager.setUserName(resUserLogin.getData().getUser().getUsername());
                             mDataManager.setUserPassword(password);
                         }
                         LoginActivity.this.finish();

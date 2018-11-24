@@ -22,7 +22,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
@@ -30,6 +32,7 @@ import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
 import com.jola.onlineedu.mode.bean.response.ResCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResCouserCommentList;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.ui.adapter.CourseChapterListAdapter;
 import com.jola.onlineedu.ui.adapter.CourseDetailCommentsAdapter;
 import com.jola.onlineedu.ui.adapter.ForumListDetailAdapter;
@@ -49,19 +52,25 @@ import com.kk.taurus.playerbase.player.IPlayer;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.kk.taurus.playerbase.render.AspectRatio;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class CourseDetailActivity extends SimpleActivity implements OnPlayerEventListener {
 
@@ -131,6 +140,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     private RelativeCourseAdapter mAdapterRelativeCourse;
     private int page_chapter = 1;
     private int PageSizeChapter = 10;
+    private int mLastPlayingIndex  = 0;
     private List<ResCourseCapterList.ResultsBean> mChapterList;
     private CourseChapterListAdapter mCourseChapterListAdapter;
 
@@ -143,7 +153,18 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     @Override
     protected void initEventAndData() {
         getActivityComponent().inject(this);
-        changeFullScreen();
+
+        //        changeFullScreen();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
+//        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
+        mVideoView.setReceiverGroup(mReceiverGroup);
+        mVideoView.setEventHandler(onVideoViewEventHandler);
+        mVideoView.setOnPlayerEventListener(this);
+
+
         id = getIntent().getIntExtra("id", 0);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -170,17 +191,6 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
 //                loadComments();
 //            }
 //        });
-
-        //        changeFullScreen();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
-//        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
-        mVideoView.setReceiverGroup(mReceiverGroup);
-        mVideoView.setEventHandler(onVideoViewEventHandler);
-        mVideoView.setOnPlayerEventListener(this);
-
     }
 
     @Override
@@ -202,7 +212,6 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     private void initPlay() {
         if (!hasStart) {
             mVideoView.setAspectRatio(AspectRatio.AspectRatio_MATCH_PARENT);
-//            mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_MY_01));
         }
     }
 
@@ -216,9 +225,24 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
             ToastUtil.toastShort("该课程无该章节信息，无法播放");
             return;
         }
-        mVideoView.setDataSource(new DataSource(mChapterList.get(position).getVideo_url()));
+//        test play address
+        mVideoView.setDataSource(new DataSource(DataUtils.VIDEO_URL_02));
+//        mVideoView.setDataSource(new DataSource(mChapterList.get(position).getVideo_url()));
         mVideoView.start();
         hasStart = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        int state = mVideoView.getState();
+        if(state == IPlayer.STATE_PLAYBACK_COMPLETE)
+            return;
+        if(mVideoView.isInPlaybackState()){
+            mVideoView.pause();
+        }else{
+            mVideoView.stop();
+        }
     }
 
     @Override
@@ -226,6 +250,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
         super.onDestroy();
         if (null != mVideoView) {
             mVideoView.stopPlayback();
+            mVideoView.stop();
         }
     }
 
@@ -310,14 +335,24 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                     @Override
                     public void accept(ResCourseCapterList resCourseCapterList) throws Exception {
                         mChapterList = resCourseCapterList.getResults();
-                        mChapterList.addAll(resCourseCapterList.getResults());
+//                        for testing data
+//                        ResCourseCapterList.ResultsBean resultsBean = new ResCourseCapterList.ResultsBean();
+//                        resultsBean.setPlay_status(-1);
+//                        mChapterList.add(resultsBean);
+
                         mCourseChapterListAdapter = new CourseChapterListAdapter(mContext, mChapterList, new CourseChapterListAdapter.IPlayingListener() {
                             @Override
                             public void playPosition(int position) {
 //                                ToastUtil.toastLong(mChapterList.get(position).getName() + " should be played");
+
                                 startPlay(position);
 
+                                mChapterList.get(mLastPlayingIndex).setPlay_status(-1);
+                                mChapterList.get(position).setPlay_status(1);
+
                                 mCourseChapterListAdapter.notifyDataSetChanged();
+
+                                mLastPlayingIndex = position;
                             }
                         });
                         rv_course_chapters.setLayoutManager(new LinearLayoutManager(CourseDetailActivity.this,LinearLayoutManager.VERTICAL,false));
@@ -484,11 +519,40 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
         }
         String userId = dataManager.getUserId();
         showLoadingDialog();
-        addSubscribe(dataManager.publishCourseComment(id, userId, commentContent)
+
+
+//        addSubscribe(dataManager.publishCourseComment(dataManager.getUserToken(),id, userId, commentContent)
+//                .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+//                .subscribe(new Consumer<ResponseSimpleResult>() {
+//                    @Override
+//                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+//                        hideLoadingDialog();
+//                        if (responseSimpleResult.getError_code() == 0) {
+//                            ToastUtil.toastShort("评论成功！");
+//                        } else {
+//                            ToastUtil.toastLong(responseSimpleResult.getError_msg());
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        hideLoadingDialog();
+//                        tipServerError();
+//                    }
+//                })
+//        );
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("course",RequestBody.create(MediaType.parse("text/plain"),id+""));
+        map.put("user",RequestBody.create(MediaType.parse("text/plain"),userId+""));
+        map.put("content",RequestBody.create(MediaType.parse("text/plain"),commentContent+""));
+
+        addSubscribe(dataManager.publishCourseComment(dataManager.getUserToken(),map)
                 .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
                 .subscribe(new Consumer<ResponseSimpleResult>() {
                     @Override
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                        hideLoadingDialog();
                         if (responseSimpleResult.getError_code() == 0) {
                             ToastUtil.toastShort("评论成功！");
                         } else {
@@ -503,6 +567,33 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                     }
                 })
         );
+
+
+//        RequestParams requestParams = new RequestParams();
+//        requestParams.put("course",id);
+//        requestParams.put("user",userId);
+//        requestParams.put("course",commentContent);
+//        App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION,dataManager.getUserToken());
+//        App.getmAsyncHttpClient().post("http://yunketang.dev.attackt.com/api/v1/coursecomment/create/", requestParams, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                ResponseSimpleResult responseSimpleResult = new Gson().fromJson(new String(responseBody), ResponseSimpleResult.class);
+//                hideLoadingDialog();
+//                if (responseSimpleResult.getError_code() == 0) {
+//                    ToastUtil.toastShort("评论成功！");
+//                } else {
+//                    ToastUtil.toastLong(responseSimpleResult.getError_msg());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                hideLoadingDialog();
+//                tipServerError();
+//            }
+//        });
+
+
     }
 
 }
