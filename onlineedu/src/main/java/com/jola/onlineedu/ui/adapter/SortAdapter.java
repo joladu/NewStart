@@ -1,6 +1,7 @@
 package com.jola.onlineedu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.User;
 import com.jola.onlineedu.mode.bean.response.ResFriendListBean;
+import com.jola.onlineedu.ui.activity.MessageSendActivity;
 
 import java.util.List;
 
@@ -77,6 +79,21 @@ public class SortAdapter extends BaseAdapter{
         }
         sb.append(user.getFriendsBean().getSchool_name());
         viewHolder.tv_friend_describe.setText(sb.toString());
+
+        view.findViewById(R.id.rl_friend_info).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = user.getFriendsBean().getUsername();
+                String avatar_url = user.getFriendsBean().getAvatar_url();
+                int id = user.getFriendsBean().getId();
+//                new MessageSendActivity()
+                Intent intent = new Intent(mContext, MessageSendActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("username",username);
+                intent.putExtra("avatar_url",avatar_url);
+                mContext.startActivity(intent);
+            }
+        });
 
         return view;
 

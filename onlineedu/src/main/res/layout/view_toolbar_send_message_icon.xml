@@ -27,6 +27,7 @@
         android:layout_gravity = "end"
         android:src="@drawable/send_message_x2"
         android:layout_marginEnd="@dimen/margin_content_to_border"
+        android:visibility="invisible"
         />
 
 </android.support.v7.widget.Toolbar>

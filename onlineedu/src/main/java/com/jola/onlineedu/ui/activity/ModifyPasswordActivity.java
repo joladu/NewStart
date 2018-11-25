@@ -1,5 +1,6 @@
 package com.jola.onlineedu.ui.activity;
 
+import android.content.Intent;
 import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -164,7 +165,9 @@ public class ModifyPasswordActivity extends SimpleActivity {
                                 hideLoadingDialog();
                                 int error_code = resultBean.getError_code();
                                 if (error_code == 0) {
-                                    ToastUtil.toastShort("密码修改成功！");
+                                    ToastUtil.toastLong("密码修改成功,请用新密码重新登录！");
+                                    startActivity(new Intent(ModifyPasswordActivity.this,LoginActivity.class));
+                                    ModifyPasswordActivity.this.finish();
                                 } else {
                                     ToastUtil.toastLong(resultBean.getError_msg());
                                 }

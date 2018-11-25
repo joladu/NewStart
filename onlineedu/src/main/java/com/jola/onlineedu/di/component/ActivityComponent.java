@@ -16,6 +16,8 @@ import com.jola.onlineedu.ui.activity.GroupChatActivity;
 import com.jola.onlineedu.ui.activity.LiveDetailActivity;
 import com.jola.onlineedu.ui.activity.LoginActivity;
 import com.jola.onlineedu.ui.activity.MainActivity;
+import com.jola.onlineedu.ui.activity.MessageDetailActivity;
+import com.jola.onlineedu.ui.activity.MessageSendActivity;
 import com.jola.onlineedu.ui.activity.ModifyPasswordActivity;
 import com.jola.onlineedu.ui.activity.ModifyPhoneNoActivity;
 import com.jola.onlineedu.ui.activity.ModifyProfileInfoActivity;
@@ -30,6 +32,7 @@ import com.jola.onlineedu.ui.activity.SearchFriendActivity;
 import com.jola.onlineedu.ui.activity.SelectableCourseActivity;
 import com.jola.onlineedu.ui.activity.TeacherAttestationActivity;
 import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
+import com.jola.onlineedu.ui.activity.TeacherMasterDetailActivity;
 import com.jola.onlineedu.ui.activity.TestPoolActivity;
 import com.jola.onlineedu.ui.activity.UserDetailActivity;
 
@@ -72,4 +75,7 @@ public interface ActivityComponent {
     void inject(SearchFriendActivity searchFriendActivity);
     void inject(UserDetailActivity userDetailActivity);
     void inject(GroupChatActivity groupChatActivity);
+    void inject(TeacherMasterDetailActivity teacherMasterDetailActivity);
+    void inject(MessageDetailActivity messageDetailActivity);
+    void inject(MessageSendActivity messageSendActivity);
 }

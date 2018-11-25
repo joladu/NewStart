@@ -96,7 +96,7 @@ public class FriendFragment extends SimpleFragment {
             requestParams.add("kw","");
         }
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/friend/",requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/friend/",requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ResFriendListBean resultBean = new Gson().fromJson(new String(responseBody), ResFriendListBean.class);

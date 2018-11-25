@@ -17,16 +17,53 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <include
+    <!--<include-->
+    <!--android:id="@+id/search_view"-->
+    <!--layout="@layout/view_search"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--android:layout_marginStart="10dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />-->
+
+
+    <LinearLayout
         android:id="@+id/search_view"
-        layout="@layout/view_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:background="@drawable/shape_radius_gray_search"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_view" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_view">
+
+        <EditText
+            android:id="@+id/et_input_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="   题库资源搜索"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/gray_hint_text_search"
+            android:textSize="@dimen/hint_search_text_size" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/qb_px_5"
+            android:layout_marginStart="@dimen/qb_px_10"
+            android:src="@drawable/search_gray_2x" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -35,6 +72,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_view">
@@ -43,100 +81,96 @@
             android:id="@+id/rl_tab_select_first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <TextView
                 android:id="@+id/tv_tab_class1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_item_class"
                 android:gravity="center"
-                android:textSize="@dimen/title_toolbar_text_size"
+                android:text="@string/tab_item_class"
                 android:textColor="@color/hint_text_gray"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
+
             <ImageView
                 android:layout_width="@dimen/qb_px_10"
                 android:layout_height="@dimen/qb_px_10"
-                android:src="@drawable/down_select_other_x3"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/tv_tab_class1"
                 android:layout_marginStart="0dp"
-                />
+                android:layout_toRightOf="@+id/tv_tab_class1"
+                android:src="@drawable/down_select_other_x3" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_tab_select_second"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <TextView
                 android:id="@+id/tv_tab_class2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_item_class"
                 android:gravity="center"
-                android:textSize="@dimen/title_toolbar_text_size"
+                android:text="@string/tab_item_class"
                 android:textColor="@color/hint_text_gray"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
+
             <ImageView
                 android:layout_width="@dimen/qb_px_10"
                 android:layout_height="@dimen/qb_px_10"
-                android:src="@drawable/down_select_other_x3"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/tv_tab_class2"
                 android:layout_marginStart="0dp"
-                />
+                android:layout_toRightOf="@+id/tv_tab_class2"
+                android:src="@drawable/down_select_other_x3" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_tab_select_third"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <TextView
                 android:id="@+id/tv_tab_class3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_item_class"
                 android:gravity="center"
-                android:textSize="@dimen/title_toolbar_text_size"
+                android:text="@string/tab_item_class"
                 android:textColor="@color/hint_text_gray"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
+
             <ImageView
                 android:layout_width="@dimen/qb_px_10"
                 android:layout_height="@dimen/qb_px_10"
-                android:src="@drawable/down_select_other_x3"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/tv_tab_class3"
                 android:layout_marginStart="0dp"
-                />
+                android:layout_toRightOf="@+id/tv_tab_class3"
+                android:src="@drawable/down_select_other_x3" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_tab_select_fourth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <TextView
                 android:id="@+id/tv_tab_class4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_item_class"
                 android:gravity="center"
-                android:textSize="@dimen/title_toolbar_text_size"
+                android:text="@string/tab_item_class"
                 android:textColor="@color/hint_text_gray"
-                />
+                android:textSize="@dimen/title_toolbar_text_size" />
+
             <ImageView
                 android:layout_width="@dimen/qb_px_10"
                 android:layout_height="@dimen/qb_px_10"
-                android:src="@drawable/down_select_other_x3"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/tv_tab_class4"
                 android:layout_marginStart="0dp"
-                />
+                android:layout_toRightOf="@+id/tv_tab_class4"
+                android:src="@drawable/down_select_other_x3" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -153,12 +187,11 @@
         android:id="@+id/srl_test_pool_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner"
-        android:visibility="invisible"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner">
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
@@ -181,30 +214,28 @@
         android:id="@+id/rl_state_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner"
-        android:visibility="visible"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_spinner">
 
         <ImageView
             android:id="@+id/iv_tip_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/state_loading"
             android:layout_centerInParent="true"
-            />
+            android:src="@drawable/state_loading" />
+
         <TextView
             android:id="@+id/tv_state_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
             android:layout_below="@+id/iv_tip_state"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/qb_px_20"
             android:text="@string/state_loading_tip"
-            />
+            android:textColor="@color/colorAccent" />
 
     </RelativeLayout>
 

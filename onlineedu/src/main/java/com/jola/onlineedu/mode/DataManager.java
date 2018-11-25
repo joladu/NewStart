@@ -183,8 +183,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResExamsList> getExamsList() {
-        return myApis.getExamsList();
+    public Flowable<ResExamsList> getExamsList(String kw,int page,int pageSize) {
+        return myApis.getExamsList(kw,page,pageSize);
     }
 
     @Override
@@ -253,12 +253,12 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResTeacherList> getTeacherList(String page, String page_size) {
-        return myApis.getTeacherList(page,page_size);
+    public Flowable<ResTeacherList> getTeacherList(String kw,String page, String page_size) {
+        return myApis.getTeacherList(kw,page,page_size);
     }
 
     @Override
-    public Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(String id) {
+    public Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(int id) {
         return myApis.getTeacherCourseDetail(id);
     }
 
@@ -315,8 +315,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> addFriend(String token, String from_user_id) {
-        return myApis.addFriend(token,from_user_id);
+    public Flowable<ResponseSimpleResult> addFriend(String token, int to_user_id) {
+        return myApis.addFriend(token,to_user_id);
     }
 
     @Override

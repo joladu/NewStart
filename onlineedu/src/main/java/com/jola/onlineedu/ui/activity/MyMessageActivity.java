@@ -287,6 +287,9 @@ public class MyMessageActivity extends SimpleActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MyMessageActivity.this, MessageDetailActivity.class);
                     intent.putExtra("id", messagesBean.getId());
+                    intent.putExtra("content",messagesBean.getContent());
+                    intent.putExtra("time",messagesBean.getCreated());
+                    intent.putExtra("name",messagesBean.getUsername());
                     startActivity(intent);
                 }
             });

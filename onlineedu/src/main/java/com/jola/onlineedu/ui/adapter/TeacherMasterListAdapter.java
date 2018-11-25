@@ -1,17 +1,20 @@
 package com.jola.onlineedu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
+import com.jola.onlineedu.ui.activity.TeacherMasterDetailActivity;
 
 import java.util.List;
 
@@ -55,7 +58,7 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        ResTeacherList.ResultsBean resultsBean = mList.get(position);
+        final ResTeacherList.ResultsBean resultsBean = mList.get(position);
         Glide.with(mContext)
                 .load(resultsBean.getAvatar())
                 .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
@@ -65,14 +68,14 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
         holder.tv_teacher_describe.setText(resultsBean.getTeaching_courses());
         holder.tv_latest_course.setText(resultsBean.getTeaching_courses());
 
-//        holder.tv_titleTest.setText(position+":"+mList.get(position));
-//        holder.tv_describeTest.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mContext.startActivity(new Intent(mContext, ForumDetailActivity.class));
-//            }
-//        });
-//        holder.relativeLayout.setOnClickListener();
+        holder.rl_item_teacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, TeacherMasterDetailActivity.class);
+                intent.putExtra("id",resultsBean.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -83,6 +86,8 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.rl_item_teacher)
+        RelativeLayout rl_item_teacher;
         @BindView(R.id.civ_head_user)
         CircleImageView civ_head_user;
         @BindView(R.id.tv_teacher_name)

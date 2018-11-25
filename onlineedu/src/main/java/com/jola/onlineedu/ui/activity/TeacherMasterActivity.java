@@ -1,6 +1,7 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,6 +54,9 @@ public class TeacherMasterActivity extends SimpleActivity {
     @Inject
     DataManager dataManager;
 
+    @BindView(R.id.iv_back_finish)
+    ImageView iv_back_finish;
+
     @BindView(R.id.vp_banner_teacher)
     ViewPager vp_banner_teacher;
 
@@ -68,19 +73,18 @@ public class TeacherMasterActivity extends SimpleActivity {
 
 
 
+    @BindView(R.id.et_input_search)
+    EditText et_input_search;
 
 
-    @BindView(R.id.et_hint_search_view)
-    EditText et_hint_search_view;
-
-    @BindView(R.id.tv_tab_class1)
-    TextView tv_tab_class1;
-    @BindView(R.id.tv_tab_class2)
-    TextView tv_tab_class2;
-    @BindView(R.id.tv_tab_class3)
-    TextView tv_tab_class3;
-    @BindView(R.id.tv_tab_class4)
-    TextView tv_tab_class4;
+//    @BindView(R.id.tv_tab_class1)
+//    TextView tv_tab_class1;
+//    @BindView(R.id.tv_tab_class2)
+//    TextView tv_tab_class2;
+//    @BindView(R.id.tv_tab_class3)
+//    TextView tv_tab_class3;
+//    @BindView(R.id.tv_tab_class4)
+//    TextView tv_tab_class4;
 
     private int mCurrentIndex = 1;
     private PopupWindow popupWindow;
@@ -91,9 +95,12 @@ public class TeacherMasterActivity extends SimpleActivity {
     private ListView lv_tabList;
 
     private VPHomePagerBannerAdapter vpHomePagerBannerAdapter;
+    List<ResTeacherBannerBean.ResultsBean> listTeacherBanner;
 
     private int page = 1;
     private int page_size = 10;
+
+    String searchContent = "";
 
 
     private void stateLoading(){
@@ -142,7 +149,7 @@ public class TeacherMasterActivity extends SimpleActivity {
         changeFullScreen();
 
         getActivityComponent().inject(this);
-        et_hint_search_view.setHint(getString(R.string.hint_search_teacher_master));
+//        et_hint_search_view.setHint(getString(R.string.hint_search_teacher_master));
 
 
         loadBannerData();
@@ -168,6 +175,8 @@ public class TeacherMasterActivity extends SimpleActivity {
 
         loadData();
 
+        iv_back_finish.bringToFront();
+
     }
 
 
@@ -190,8 +199,8 @@ public class TeacherMasterActivity extends SimpleActivity {
                     @Override
                     public void accept(ResTeacherBannerBean resTeacherBannerBean) throws Exception {
                         if (resTeacherBannerBean.getCount() > 0){
-                            List<ResTeacherBannerBean.ResultsBean> results = resTeacherBannerBean.getResults();
-                            vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(TeacherMasterActivity.this,results);
+                            listTeacherBanner = resTeacherBannerBean.getResults();
+                            vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(TeacherMasterActivity.this, listTeacherBanner);
                             vp_banner_teacher.setAdapter(vpHomePagerBannerAdapter);
                         }else{
                             vp_banner_teacher.setVisibility(View.GONE);
@@ -209,7 +218,11 @@ public class TeacherMasterActivity extends SimpleActivity {
 
     private void loadData(){
         stateLoading();
-        addSubscribe(dataManager.getTeacherList(page+"",page_size+"")
+        page = 1;
+        if (searchContent == null){
+            searchContent = "";
+        }
+        addSubscribe(dataManager.getTeacherList(searchContent,page+"",page_size+"")
             .compose(RxUtil.<ResTeacherList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResTeacherList>() {
                     @Override
@@ -218,6 +231,13 @@ public class TeacherMasterActivity extends SimpleActivity {
                         if (resTeacherList.getCount() > 0){
                             stateMain();
                             mList = resTeacherList.getResults();
+//                            for testing
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+
                             mAdapter = new TeacherMasterListAdapter(TeacherMasterActivity.this,mList);
                             recyclerView.setAdapter(mAdapter);
                         }else{
@@ -235,7 +255,11 @@ public class TeacherMasterActivity extends SimpleActivity {
     }
 
     private void loadDataMore(){
-        addSubscribe(dataManager.getTeacherList((page++)+"",page_size+"")
+        page ++;
+        if (null == searchContent){
+            searchContent = "";
+        }
+        addSubscribe(dataManager.getTeacherList(searchContent,page+"",page_size+"")
                 .compose(RxUtil.<ResTeacherList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResTeacherList>() {
                     @Override
@@ -258,121 +282,120 @@ public class TeacherMasterActivity extends SimpleActivity {
     }
 
 
-
-
-
-
-    @OnClick(R.id.rl_tab_select_first)
-    public void tabSelectFirst(View view){
-        mCurrentIndex = 1;
-        List<String> list_tabs = new ArrayList<>();
-        list_tabs.add("1class1 1class1 1class1");
-        list_tabs.add("1class2");
-        list_tabs.add("1class3");
-        list_tabs.add("1class4");
-        list_tabs.add("1class5");
-//        showSelectTabView(tv_tab_class1,list_tabs,tv_tab_class1.getWidth());
-        showSelectTabView(view,list_tabs);
-    }
-
-    @OnClick(R.id.rl_tab_select_second)
-    public void tabSelectSecond(View view){
-        mCurrentIndex = 2;
-        List<String> list_tabs = new ArrayList<>();
-        list_tabs.add("2class1");
-        list_tabs.add("2class2");
-        list_tabs.add("2class3");
-        list_tabs.add("2class4");
-        list_tabs.add("2class5");
-        showSelectTabView(view,list_tabs);
-    }
-
-    @OnClick(R.id.rl_tab_select_third)
-    public void tabSelectThird(View view){
-        mCurrentIndex = 3;
-        List<String> list_tabs = new ArrayList<>();
-        list_tabs.add("3class1");
-        list_tabs.add("3class2");
-        list_tabs.add("3class3");
-        list_tabs.add("3class4");
-        list_tabs.add("3class5");
-        showSelectTabView(view,list_tabs);
-    }
-
-    @OnClick(R.id.rl_tab_select_fourth)
-    public void tabSelectFourth(View view){
-        mCurrentIndex = 4;
-        List<String> list_tabs = new ArrayList<>();
-        list_tabs.add("4class1");
-        list_tabs.add("4class2");
-        list_tabs.add("4class3");
-        list_tabs.add("4class4");
-        list_tabs.add("4class5");
-        showSelectTabView(view,list_tabs);
-    }
-
-
-
-
-    private void showSelectTabView(View view, final List<String> mSelectableList){
-        lv_tabList = new ListView(this);
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(this, R.layout.item_tab_select, mSelectableList);
-        lv_tabList.setAdapter(stringArrayAdapter);
-        lv_tabList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String clickContent = mSelectableList.get(position);
-                switch (mCurrentIndex){
-                    case 1:
-                        tv_tab_class1.setText(clickContent);
-                        break;
-                    case 2:
-                        tv_tab_class2.setText(clickContent);
-                        break;
-                    case 3:
-                        tv_tab_class3.setText(clickContent);
-                        break;
-                    case 4:
-                        tv_tab_class4.setText(clickContent);
-                        break;
+    @OnClick({
+            R.id.iv_search,
+            R.id.iv_back_finish,
+    })
+    public void clickEvent(View view){
+        switch (view.getId()){
+            case R.id.iv_search:
+                searchContent = et_input_search.getText().toString();
+                if (TextUtils.isEmpty(searchContent)){
+                    ToastUtil.toastShort("请输入搜索内容后，再试！");
+                    return;
                 }
-                popupWindow.dismiss();
-            }
-        });
-
-        popupWindow = new PopupWindow(lv_tabList, view.getWidth(), ActionBar.LayoutParams.WRAP_CONTENT);
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.shape_radiu_green_border);
-        popupWindow.setBackgroundDrawable(drawable);
-        popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                popupWindow.dismiss();
-            }
-        });
-        popupWindow.showAsDropDown(view,0,10, Gravity.CENTER);
+                loadData();
+                break;
+            case R.id.iv_back_finish:
+                this.finish();
+                break;
+        }
     }
 
 
 
 
 
+//    @OnClick(R.id.rl_tab_select_first)
+//    public void tabSelectFirst(View view){
+//        mCurrentIndex = 1;
+//        List<String> list_tabs = new ArrayList<>();
+//        list_tabs.add("1class1 1class1 1class1");
+//        list_tabs.add("1class2");
+//        list_tabs.add("1class3");
+//        list_tabs.add("1class4");
+//        list_tabs.add("1class5");
+////        showSelectTabView(tv_tab_class1,list_tabs,tv_tab_class1.getWidth());
+//        showSelectTabView(view,list_tabs);
+//    }
+//
+//    @OnClick(R.id.rl_tab_select_second)
+//    public void tabSelectSecond(View view){
+//        mCurrentIndex = 2;
+//        List<String> list_tabs = new ArrayList<>();
+//        list_tabs.add("2class1");
+//        list_tabs.add("2class2");
+//        list_tabs.add("2class3");
+//        list_tabs.add("2class4");
+//        list_tabs.add("2class5");
+//        showSelectTabView(view,list_tabs);
+//    }
+//
+//    @OnClick(R.id.rl_tab_select_third)
+//    public void tabSelectThird(View view){
+//        mCurrentIndex = 3;
+//        List<String> list_tabs = new ArrayList<>();
+//        list_tabs.add("3class1");
+//        list_tabs.add("3class2");
+//        list_tabs.add("3class3");
+//        list_tabs.add("3class4");
+//        list_tabs.add("3class5");
+//        showSelectTabView(view,list_tabs);
+//    }
+//
+//    @OnClick(R.id.rl_tab_select_fourth)
+//    public void tabSelectFourth(View view){
+//        mCurrentIndex = 4;
+//        List<String> list_tabs = new ArrayList<>();
+//        list_tabs.add("4class1");
+//        list_tabs.add("4class2");
+//        list_tabs.add("4class3");
+//        list_tabs.add("4class4");
+//        list_tabs.add("4class5");
+//        showSelectTabView(view,list_tabs);
+//    }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+//    private void showSelectTabView(View view, final List<String> mSelectableList){
+//        lv_tabList = new ListView(this);
+//        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(this, R.layout.item_tab_select, mSelectableList);
+//        lv_tabList.setAdapter(stringArrayAdapter);
+//        lv_tabList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String clickContent = mSelectableList.get(position);
+//                switch (mCurrentIndex){
+//                    case 1:
+//                        tv_tab_class1.setText(clickContent);
+//                        break;
+//                    case 2:
+//                        tv_tab_class2.setText(clickContent);
+//                        break;
+//                    case 3:
+//                        tv_tab_class3.setText(clickContent);
+//                        break;
+//                    case 4:
+//                        tv_tab_class4.setText(clickContent);
+//                        break;
+//                }
+//                popupWindow.dismiss();
+//            }
+//        });
+//
+//        popupWindow = new PopupWindow(lv_tabList, view.getWidth(), ActionBar.LayoutParams.WRAP_CONTENT);
+//        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.shape_radiu_green_border);
+//        popupWindow.setBackgroundDrawable(drawable);
+//        popupWindow.setFocusable(true);
+//        popupWindow.setOutsideTouchable(true);
+//        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//            @Override
+//            public void onDismiss() {
+//                popupWindow.dismiss();
+//            }
+//        });
+//        popupWindow.showAsDropDown(view,0,10, Gravity.CENTER);
+//   }
 
 }

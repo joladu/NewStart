@@ -6,27 +6,28 @@ package com.jola.onlineedu.mode.bean.response;
 
 public class ResTeacherCourseDetail {
 
+
     /**
      * id : 1
-     * username : 13407539951
-     * name : 李薇薇
-     * avatar :
-     * sex : 2
-     * teacher_certification_id :
-     * teacher_certification :
-     * id_card_front_pic :
-     * id_card_behind_pic :
-     * summary :
-     * teaching_courses :
-     * hot : 100
-     * score : 100
+     * username : test
+     * name : 张三
+     * avatar : http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg
+     * sex : 1
+     * teacher_certification_id : x78dsa78d7a87
+     * teacher_certification : http://yunketang.dev.attackt.com/media/cover_1539332559.jpg
+     * id_card_front_pic : http://yunketang.dev.attackt.com/media/cover_1539332559.jpg
+     * id_card_behind_pic : http://yunketang.dev.attackt.com/media/cover_1539332559.jpg
+     * summary : 新教师
+     * teaching_courses : 语文 数学 英语
+     * hot : 0
+     * score : 0
      */
 
     private int id;
     private String username;
     private String name;
     private String avatar;
-    private String sex;
+    private int sex;
     private String teacher_certification_id;
     private String teacher_certification;
     private String id_card_front_pic;
@@ -68,11 +69,11 @@ public class ResTeacherCourseDetail {
         this.avatar = avatar;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

@@ -1,6 +1,7 @@
 package com.jola.onlineedu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,8 @@ import com.jola.onlineedu.R;
 import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResTeacherBannerBean;
+import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
+import com.jola.onlineedu.ui.activity.TeacherMasterDetailActivity;
 
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class VPHomePagerBannerAdapter extends PagerAdapter {
     Context context;
 
 
-    public VPHomePagerBannerAdapter(Context context,List<ResTeacherBannerBean.ResultsBean> mList) {
+    public VPHomePagerBannerAdapter(Context context, List<ResTeacherBannerBean.ResultsBean> mList) {
         this.mList = mList;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -48,7 +51,7 @@ public class VPHomePagerBannerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull final ViewGroup container, int position) {
         View view = layoutInflater.inflate(R.layout.item_vp_banner_teacher,container,false);
         ImageView iv_teacher_head = (ImageView) view.findViewById(R.id.iv_teacher_head);
 
@@ -56,22 +59,27 @@ public class VPHomePagerBannerAdapter extends PagerAdapter {
 //        TextView tv_teacher_profession = (TextView) view.findViewById(R.id.tv_teacher_profession);
         TextView tv_school = (TextView) view.findViewById(R.id.tv_school);
         TextView tv_describe_content = (TextView) view.findViewById(R.id.tv_describe_content);
-
-        /**
-         * id : 1
-         * teacher_id : 1
-         * summary : 新教师
-         * teaching_courses : 语文 数学 英语
-         * school :
-         * name : 李了了
-         * cover_url : http://yunketang.dev.attackt.com/media/cover_1539338871.jpg
-         */
-        ResTeacherBannerBean.ResultsBean resultsBean = mList.get(position);
+        final ResTeacherBannerBean.ResultsBean resultsBean = mList.get(position);
 
         ImageLoader.load(context,resultsBean.getCover_url(),iv_teacher_head);
         tv_teacher_name.setText(resultsBean.getName());
         tv_school.setText(resultsBean.getTeaching_courses() +"  "+resultsBean.getSchool());
         tv_describe_content.setText(resultsBean.getSummary());
+
+//        view.findViewById(R.id.iv_back_finish).setOnClickListener(clickListener);
+        view.findViewById(R.id.tv_search_detail).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.tv_search_detail:
+                        int id = resultsBean.getId();
+                        Intent intent = new Intent(context, TeacherMasterDetailActivity.class);
+                        intent.putExtra("id",id);
+                        context.startActivity(intent);
+                        break;
+                }
+            }
+        });
 
         container.addView(view);
         return view;

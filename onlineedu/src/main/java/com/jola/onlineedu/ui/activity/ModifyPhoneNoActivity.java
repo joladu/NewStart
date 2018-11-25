@@ -41,14 +41,18 @@ public class ModifyPhoneNoActivity extends SimpleActivity {
     ImageView iv_ImageCode;
     @BindView(R.id.tv_getCheckCode)
     TextView tv_getCheckCode;
+
     @BindView(R.id.et_phone_num)
     EditText et_phone_num;
+
     @BindView(R.id.et_image_code)
     EditText et_image_code;
+
     @BindView(R.id.et_input_check_code)
     EditText et_input_check_code;
-    @BindView(R.id.et_input_password)
-    EditText et_input_password;
+
+
+
     private Disposable disposableCountDown;
 
     private String captcha_img;
@@ -166,21 +170,16 @@ public class ModifyPhoneNoActivity extends SimpleActivity {
         );
     }
 
-    @OnClick(R.id.tv_find_password)
+    @OnClick(R.id.tv_confirm_change)
     public void findPasswordBack(View view) {
         String phoneNum = et_phone_num.getText().toString();
         String imageCode = et_image_code.getText().toString();
         String checkCode = et_input_check_code.getText().toString();
-        String password = et_input_password.getText().toString();
 
-        if (TextUtils.isEmpty(phoneNum) || TextUtils.isEmpty(imageCode) || TextUtils.isEmpty(checkCode) || TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(phoneNum) || TextUtils.isEmpty(imageCode) || TextUtils.isEmpty(checkCode)) {
             ToastUtil.toastShort(getString(R.string.tip_not_fill_all_content));
             return;
         }
-//        String realCode = CodeUtils.getInstance().getCode();
-//        if (!realCode.equals(imageCode)){
-//            ToastUtil.toastShort(getString(R.string.tip_error_image_code));
-//        }
         if (TextUtils.isEmpty(phoneNum) || phoneNum.length() != 11) {
             ToastUtil.toastShort("请输入11位数字手机号码！");
             return;

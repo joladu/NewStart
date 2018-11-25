@@ -133,6 +133,7 @@
     <string name="cancel_collect">取消收藏</string>
     <string name="hint_remain_words">留下你想说的话</string>
     <string name="reply_message">回复私信</string>
+    <string name="send_message">发送</string>
     <string name="modify_personal_info">确认修改</string>
 
 

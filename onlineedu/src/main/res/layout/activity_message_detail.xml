@@ -33,6 +33,7 @@
         />
 
     <EditText
+        android:id="@+id/et_input_replay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="190dp"
@@ -49,7 +50,7 @@
 
 
     <TextView
-        android:id="@+id/tv_register"
+        android:id="@+id/tv_replay_message"
         style="@style/BtnGreenSingleLine"
         android:layout_width="@dimen/qb_px_235"
         android:layout_height="wrap_content"

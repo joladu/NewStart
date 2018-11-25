@@ -14,6 +14,17 @@
         android:background="@drawable/bg_teacher_master_datail_x2"
         >
 
+
+        <ImageView
+            android:id="@+id/iv_back_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_balck_x64"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="20dp"
+            />
+
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_head_user"
             android:layout_width="@dimen/qb_px_75"
@@ -30,9 +41,9 @@
             android:layout_below="@+id/civ_head_user"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="陈华山"
             android:textSize="22sp"
             android:textColor="#252D41"
+            tools:text="陈华山"
             />
 
         <TextView
@@ -42,9 +53,9 @@
             android:layout_below="@+id/tv_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="四年级  语文    北京交通大学海滨学院  "
             android:textSize="14sp"
             android:textColor="#252D41"
+            tools:text="四年级  语文    北京交通大学海滨学院  "
             />
 
         <LinearLayout
@@ -59,35 +70,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关注数："
+                android:text="热度："
                 android:textColor="#555555"
                 android:textSize="14sp"
                 />
 
             <TextView
+                android:id="@+id/tv_hot_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
                 android:textColor="#0099E1"
                 android:textSize="14sp"
+                tools:text="20"
                 />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="课程数："
+                android:text="评分："
                 android:textColor="#555555"
                 android:textSize="14sp"
                 android:layout_marginStart="15dp"
                 />
 
             <TextView
+                android:id="@+id/tv_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
                 android:textColor="#0099E1"
                 android:textSize="14sp"
+                tools:text="5"
                 />
 
 
@@ -125,9 +138,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
-            android:text="中共党员，本科学历，小学高级教师。作为语文学科带头人被学校派往昆明进行课题骨干培训，使自己的专业水平得以提升。"
             android:textColor="#252D41"
             android:textSize="14sp"
+            tools:text="中共党员，本科学历，小学高级教师。作为语文学科带头人被学校派往昆明进行课题骨干培训，使自己的专业水平得以提升。"
             />
 
     </RelativeLayout>

@@ -120,7 +120,7 @@
 
 
     <TextView
-        android:id="@+id/tv_find_password"
+        android:id="@+id/tv_confirm_change"
         android:layout_width="@dimen/qb_px_225"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

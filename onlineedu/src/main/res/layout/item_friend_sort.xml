@@ -29,6 +29,7 @@
         <!--/>-->
 
     <RelativeLayout
+        android:id="@+id/rl_friend_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/qb_px_10"

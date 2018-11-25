@@ -214,7 +214,7 @@ public interface MyApis {
     Flowable<ResQuestionTypeBean> getQuestionType();
 
     @GET("v1/exams/")
-    Flowable<ResExamsList> getExamsList();
+    Flowable<ResExamsList> getExamsList(@Query("kw")String kw,@Query("page")int page,@Query("pageSize") int pageSize);
 
     @GET("v1/exams/{id}/")
     Flowable<ResExamsDetail> getExamsDetail(@Path("id") String id);
@@ -289,10 +289,12 @@ public interface MyApis {
 
 
     @GET("v1/teacher/")
-    Flowable<ResTeacherList> getTeacherList(@Query("page")String page,@Query("page_size")String page_size);
+    Flowable<ResTeacherList> getTeacherList(@Query("kw")String kw,@Query("page")String page,@Query("page_size")String page_size);
 
     @GET("v1/teacher/{id}/detail/")
-    Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(@Path("id")String id);
+    Flowable<ResTeacherCourseDetail> getTeacherCourseDetail(@Path("id")int id);
+
+
 
 //  *****************  end  teacher api *****************
 //
@@ -410,15 +412,15 @@ public interface MyApis {
     );
 
 
-    @GET("v1/friend/")
+    @GET("v1/uc/friend/")
     Flowable<ResFriendList> getFriendList(@Header("authorization") String token);
 
-    @GET("v1/friend/")
+    @GET("v1/uc/friend/")
     Flowable<ResFriendList> queryFriendByKey(@Header("authorization") String token, @Query("kw") String keyWord);
 
     @FormUrlEncoded
-    @POST("v1/friend/add/")
-    Flowable<ResponseSimpleResult> addFriend(@Header(TAG_AUTHORIZATION) String token,@Field("from_user_id") String from_user_id);
+    @POST("v1/uc/friend/add/")
+    Flowable<ResponseSimpleResult> addFriend(@Header(TAG_AUTHORIZATION) String token,@Field("to_user_id") int to_user_id);
 
     @GET("v1/uc/message/")
     Flowable<ResMessageListBean> getMessageList(@Header(TAG_AUTHORIZATION) String token, @Query("page") int page, @Query("pagesize")int pagesize);
@@ -439,7 +441,7 @@ public interface MyApis {
     );
 
     @FormUrlEncoded
-    @POST("v1/uc/message/{id}/reply/")
+    @POST("v1/uc/message/{id}/reply/")                  //v1/uc/message/id/reply/
     Flowable<ResponseSimpleResult> responseMessage(
             @Header(TAG_AUTHORIZATION) String token,
             @Path("id") String id,
