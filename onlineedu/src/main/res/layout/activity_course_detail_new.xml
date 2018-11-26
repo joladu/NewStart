@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/window_bg">
+
+
+    <FrameLayout
+        android:id="@+id/fl_course_video"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <ImageView
+            android:id="@+id/iv_play_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_gray_bg" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/qb_px_25"
+            android:layout_height="@dimen/qb_px_25"
+            android:layout_marginStart="@dimen/qb_px_20"
+            android:layout_marginTop="@dimen/qb_px_40"
+            android:src="@drawable/back_icon__white_x2" />
+
+        <ImageView
+            android:id="@+id/iv_play_video"
+            android:layout_width="@dimen/qb_px_60"
+            android:layout_height="@dimen/qb_px_60"
+            android:layout_gravity="center"
+            android:src="@drawable/play_icon_x2" />
+
+    </FrameLayout>
+
+
+    <com.kk.taurus.playerbase.widget.BaseVideoView
+        android:id="@+id/base_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:visibility="invisible" />
+
+
+    <ScrollView
+        android:id="@+id/sv_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/base_video_view"
+        android:layout_marginTop="10dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/window_bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/tv_brief_title"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="课程简介"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_chapter_title"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_chapter_title"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="课程章节"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_brief_title" />
+
+
+            <View
+                android:id="@+id/view_indication_brief"
+                android:layout_width="80dp"
+                android:layout_height="3dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintBottom_toTopOf="@+id/divide_below_tab"
+                app:layout_constraintStart_toStartOf="@+id/tv_brief_title" />
+
+            <View
+                android:id="@+id/view_indication_chapter"
+                android:layout_width="80dp"
+                android:layout_height="3dp"
+                android:background="@color/colorAccent"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/divide_below_tab"
+                app:layout_constraintStart_toStartOf="@+id/tv_chapter_title" />
+
+            <View
+                android:id="@+id/divide_below_tab"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/divide_line_gray"
+                app:layout_constraintTop_toBottomOf="@+id/tv_chapter_title" />
+
+
+            <!--group 来统一管理隐藏和现实多个平行级别控件-->
+
+            <!--<android.support.constraint.Group-->
+                <!--android:id="@+id/group_brief_container"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="visible"-->
+                <!--app:constraint_referenced_ids="-->
+                <!--tv_title_live_item,-->
+                <!--tv_course_author,-->
+                <!--star_bar_score,-->
+                <!--tv_score_num,-->
+                <!--tv_share_num,-->
+                <!--tv_praise_num,-->
+                <!--tv_heart_num,-->
+                <!--tv_price_live_course,-->
+                <!--view_divide_below_price,-->
+                <!--tv_brief,-->
+                <!--tv_content_brief,-->
+                <!--view_divide_below_teacher,-->
+                <!--tv_relative_course,-->
+                <!--tv_comment_project,-->
+                <!--ed_input_comment,-->
+                <!--tv_send_comment,-->
+                <!--smart_refresh_layout,-->
+                <!--rv_relative_course,-->
+                <!--et_input_comment-->
+                <!--" />-->
+
+
+            <!--course list-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_course_chapters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@+id/divide_below_tab"
+                />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_course_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/divide_below_tab">
+
+
+                <!--养宠教学-->
+                <TextView
+                    android:id="@+id/tv_title_live_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text=""
+                    android:textColor="@color/title_text"
+                    android:textSize="@dimen/title_toolbar_text_size"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                   />
+
+                <!--android:text="主讲：王仁杰  播放量：100"-->
+                <TextView
+                    android:id="@+id/tv_course_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:textColor="@color/gray_content_forum_text"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />
+
+
+                <com.jola.onlineedu.widget.StarBar
+                    android:id="@+id/star_bar_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:clickable="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_course_author"
+                    ratingbar:starCount="5"
+                    ratingbar:starDistance="0dp"
+                    ratingbar:starEmpty="@drawable/star_no_x2"
+                    ratingbar:starFill="@drawable/star_yes_x2"
+                    ratingbar:starSize="11dp" />
+
+                <!--android:text="4.8"-->
+                <TextView
+                    android:id="@+id/tv_score_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/star_bar_score"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="@dimen/qb_px_6"
+                    android:textColor="@color/gray_star_score"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@+id/star_bar_score"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_course_author" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_persons_watched"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="3dp"-->
+                <!--android:layout_marginLeft="@dimen/qb_px_10"-->
+
+                <!--android:drawableLeft="@drawable/person_watched_course_x2"-->
+                <!--android:text="4.8"-->
+                <!--android:drawablePadding="@dimen/qb_px_5"-->
+                <!--android:maxLength="6"-->
+                <!--android:textColor="@color/gray_star_score"-->
+                <!--android:textSize="13sp"-->
+                <!--app:layout_constraintLeft_toRightOf="@+id/tv_score_num"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />-->
+
+
+                <!--android:text="200"-->
+                <TextView
+                    android:id="@+id/tv_share_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:drawableLeft="@drawable/icon_share_x2"
+                    android:drawablePadding="5dp"
+                    android:textColor="#808288"
+                    android:textSize="12sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divide_below_tab" />
+
+                <!--android:text="200"-->
+                <TextView
+                    android:id="@+id/tv_praise_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:drawableLeft="@drawable/icon_praise_x2"
+                    android:drawablePadding="5dp"
+                    android:textColor="#808288"
+                    android:textSize="12sp"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_share_num"
+                    app:layout_constraintTop_toBottomOf="@+id/divide_below_tab" />
+
+                <!--200-->
+                <TextView
+                    android:id="@+id/tv_heart_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:drawableLeft="@drawable/icon_heart_x2"
+                    android:drawablePadding="5dp"
+                    android:text=""
+                    android:textColor="#808288"
+                    android:textSize="12sp"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_praise_num"
+                    app:layout_constraintTop_toBottomOf="@+id/divide_below_tab" />
+
+                <!--android:text="￥120.00"-->
+                <TextView
+                    android:id="@+id/tv_price_live_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/qb_px_10"
+                    android:text=""
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />
+                <!--￥120-->
+
+                <View
+                    android:id="@+id/view_divide_below_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:background="@color/divide_line_gray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/star_bar_score" />
+
+                <TextView
+                    android:id="@+id/tv_brief"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/qb_px_10"
+                    android:text="@string/course_brief"
+                    android:textColor="@color/gray_content_forum_text"
+                    android:textSize="@dimen/title_toolbar_text_size"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_divide_below_price" />
+
+                <!--android:text="数学上，二元关系用于讨论两个数学对象的联系。诸如算术中的「大于」及「等于」，几何学中的"-->
+                <TextView
+                    android:id="@+id/tv_content_brief"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/qb_px_10"
+                    android:textColor="@color/gray_content_forum_text"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_brief"
+
+                    />
+
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_brief_teacher"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="@dimen/qb_px_10"-->
+                <!--android:text="讲师简介"-->
+                <!--android:textColor="@color/gray_content_forum_text"-->
+                <!--android:textSize="@dimen/title_toolbar_text_size"-->
+                <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/tv_content_brief" />-->
+
+
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:id="@+id/civ_head_user"-->
+                <!--android:layout_width="@dimen/qb_px_55"-->
+                <!--android:layout_height="@dimen/qb_px_55"-->
+                <!--android:src="@drawable/person_holder_logout_x2"-->
+                <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher"-->
+                <!--android:layout_marginTop="@dimen/qb_px_10"-->
+                <!--android:layout_marginStart="@dimen/qb_px_10"-->
+                <!--/>-->
+
+
+                <!--&lt;!&ndash;android:text="  名校志向塾致力于为学生铺设一条通向一流大学的捷径，重视培养学生学习能力同时提高学生的专门知识水平，从而赋予学生核心竞争力，在今后的学习及就业中发挥决定性优势。"&ndash;&gt;-->
+                <!--<TextView-->
+                <!--android:id="@+id/tv_content_brief_teacher"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="@dimen/qb_px_10"-->
+                <!--android:textColor="@color/gray_content_forum_text"-->
+                <!--android:textSize="14sp"-->
+                <!--app:layout_constraintLeft_toRightOf="@+id/civ_head_user"-->
+                <!--app:layout_constraintRight_toRightOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher"-->
+                <!--android:layout_marginStart="@dimen/qb_px_10"-->
+                <!--/>-->
+
+                <View
+                    android:id="@+id/view_divide_below_teacher"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:background="@color/divide_line_gray"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_content_brief" />
+
+                <TextView
+                    android:id="@+id/tv_relative_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/qb_px_10"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    android:text="@string/course_relative"
+                    android:textColor="@color/gray_content_forum_text"
+                    android:textSize="@dimen/title_toolbar_text_size"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_divide_below_teacher" />
+
+                <!--<View-->
+                <!--android:id="@+id/view_divide_below_relative"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/qb_px_5"-->
+                <!--android:layout_marginTop="@dimen/qb_px_10"-->
+                <!--android:background="@color/divide_line_gray"-->
+                <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/tv_relative_course" />-->
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_relative_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/divide_line_gray"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/qb_px_5"
+                    android:paddingTop="@dimen/qb_px_5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_relative_course" />
+
+                <TextView
+                    android:id="@+id/tv_comment_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_content_to_border"
+                    android:layout_marginTop="10dp"
+                    android:text="课程评论"
+                    android:textColor="@color/title_text"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_relative_course" />
+
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:text="评论总数:"-->
+                <!--android:textColor="@color/title_text"-->
+                <!--android:textSize="16sp"-->
+                <!--app:layout_constraintRight_toLeftOf="@+id/tv_num_comments"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/tv_comment_project" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_num_comments"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="16sp"-->
+                <!--app:layout_constraintRight_toRightOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/tv_comment_project" />-->
+                <!--android:text="9990"-->
+
+
+                <EditText
+                    android:id="@+id/et_input_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_content_to_border"
+                    android:layout_marginStart="@dimen/margin_content_to_border"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_rectangle_white_gray"
+                    android:gravity="start"
+                    android:hint="发表评论"
+                    android:minHeight="60dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_comment_project" />
+
+                <TextView
+                    android:id="@+id/tv_send_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_content_to_border"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorAccent"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="5dp"
+                    android:text="发送"
+                    android:textColor="@color/window_bg"
+                    android:textSize="15sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_input_comment" />
+
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/smart_refresh_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_content_to_border"
+                    android:layout_marginStart="@dimen/margin_content_to_border"
+                    android:layout_marginTop="@dimen/qb_px_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_send_comment">
+
+                    <!--<com.scwang.smartrefresh.layout.header.ClassicsHeader-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/view_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</RelativeLayout>

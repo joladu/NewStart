@@ -60,61 +60,6 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <!--<FrameLayout-->
-                <!--android:id="@+id/fl_course_video"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/qb_px_235">-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/iv_play_course"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:scaleType="fitXY"-->
-                    <!--android:src="@drawable/shape_gray_bg" />-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/iv_back"-->
-                    <!--android:layout_width="@dimen/qb_px_25"-->
-                    <!--android:layout_height="@dimen/qb_px_25"-->
-                    <!--android:layout_marginStart="@dimen/qb_px_20"-->
-                    <!--android:layout_marginTop="@dimen/qb_px_40"-->
-                    <!--android:src="@drawable/back_icon__white_x2" />-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/iv_play_video"-->
-                    <!--android:layout_width="@dimen/qb_px_60"-->
-                    <!--android:layout_height="@dimen/qb_px_60"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:src="@drawable/play_icon_x2" />-->
-
-                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_gravity="bottom|right"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_margin="5dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:background="@drawable/shape_bg_black_live_status"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:text="正在直播"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:textColor="@color/window_bg" />&ndash;&gt;-->
-            <!--</FrameLayout>-->
-
-
-            <!--&lt;!&ndash;qb_px_235&ndash;&gt;-->
-            <!--<com.kk.taurus.playerbase.widget.BaseVideoView-->
-                <!--android:id="@+id/base_video_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/qb_px_235"-->
-                <!--android:visibility="visible" />-->
-
-            <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/ly_tab_brief_chapter"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
-            <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-
-            <!--&lt;!&ndash;&ndash;&gt;-->
-            <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
-
             <TextView
                 android:id="@+id/tv_brief_title"
                 android:layout_width="80dp"

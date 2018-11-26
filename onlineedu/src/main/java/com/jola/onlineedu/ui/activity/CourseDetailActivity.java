@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -119,8 +120,13 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     View view_indication_brief;
     @BindView(R.id.view_indication_chapter)
     View view_indication_chapter;
-    @BindView(R.id.group_brief_container)
-    Group group_brief_container;
+
+//    @BindView(R.id.group_brief_container)
+//    Group group_brief_container;
+
+    @BindView(R.id.cl_course_detail)
+    ConstraintLayout cl_course_detail;
+
     @BindView(R.id.rv_course_chapters)
     RecyclerView rv_course_chapters;
     @BindView(R.id.fl_course_video)
@@ -147,7 +153,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_course_detail;
+        return R.layout.activity_course_detail_new;
     }
 
     @Override
@@ -488,12 +494,18 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                 view_indication_chapter.setVisibility(View.INVISIBLE);
                 view_indication_brief.setVisibility(View.VISIBLE);
                 rv_course_chapters.setVisibility(View.INVISIBLE);
-                group_brief_container.setVisibility(View.VISIBLE);
+
+//                group_brief_container.setVisibility(View.VISIBLE);
+                cl_course_detail.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.tv_chapter_title:
                 view_indication_brief.setVisibility(View.INVISIBLE);
                 view_indication_chapter.setVisibility(View.VISIBLE);
-                group_brief_container.setVisibility(View.INVISIBLE);
+
+//                group_brief_container.setVisibility(View.INVISIBLE);
+                cl_course_detail.setVisibility(View.INVISIBLE);
+
                 rv_course_chapters.setVisibility(View.VISIBLE);
                 if (null == mChapterList || mChapterList.size() == 0) {
                     ToastUtil.toastShort("暂无章节相关内容！");

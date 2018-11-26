@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sv_root_mine_fragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/sv_root_mine_fragment"
+    android:background="@color/window_bg"
     >
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/iv_bg_mine_info"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:background="@drawable/bg_mine_info_x2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="-20dp"
-        />
+        android:layout_height="wrap_content">
 
-    <!--<ImageView-->
+        <ImageView
+            android:id="@+id/iv_bg_mine_info"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginTop="-20dp"
+            android:background="@drawable/bg_mine_info_x2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<ImageView-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_marginStart="@dimen/margin_content_to_border"-->
@@ -32,131 +31,126 @@
         <!--app:layout_constraintLeft_toLeftOf="parent"-->
         <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_content_to_border"
-        android:layout_marginTop="@dimen/qb_px_40"
-        android:src="@drawable/setting_icon_white_x2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_head_user"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/person_holder_logout_x2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/qb_px_80"
-        />
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录"
-        android:textSize="@dimen/title_text_size"
-        android:textColor="@color/window_bg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/civ_head_user"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/qb_px_10"
-        />
-
-    <View
-        android:id="@+id/view_divide_below_head"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/divide_line_gray"
-        app:layout_constraintTop_toBottomOf="@+id/iv_bg_mine_info"
-        />
-
-    <RelativeLayout
-        android:id="@+id/rl_person_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divide_below_head"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="个人信息"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_right_enter_x2"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_content_to_border"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="30dp"
-            />
-    </RelativeLayout>
+            android:layout_marginEnd="@dimen/margin_content_to_border"
+            android:layout_marginTop="@dimen/qb_px_40"
+            android:src="@drawable/setting_icon_white_x2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_head_user"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/qb_px_80"
+            android:src="@drawable/person_holder_logout_x2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/rl_mine_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_person_info"
-        >
         <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="我的"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_right_enter_x2"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_content_to_border"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
+            android:layout_marginTop="@dimen/qb_px_10"
+            android:text="登录"
+            android:textColor="@color/window_bg"
+            android:textSize="@dimen/title_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/civ_head_user" />
 
-    <RelativeLayout
-        android:id="@+id/rl_money_order_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_mine_info"
-        android:visibility="gone"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+        <View
+            android:id="@+id/view_divide_below_head"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="@color/divide_line_gray"
+            app:layout_constraintTop_toBottomOf="@+id/iv_bg_mine_info" />
+
+        <RelativeLayout
+            android:id="@+id/rl_person_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="钱包/订单"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <!--<ImageView-->
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_divide_below_head">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="个人信息"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_content_to_border"
+                android:src="@drawable/icon_right_enter_x2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_mine_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_person_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="我的"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_content_to_border"
+                android:src="@drawable/icon_right_enter_x2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_money_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_mine_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="钱包/订单"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+            <!--<ImageView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:src="@drawable/icon_right_enter_x2"-->
@@ -164,67 +158,64 @@
             <!--android:layout_centerVertical="true"-->
             <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
             <!--/>-->
-        <View
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_record_info"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_money_order_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="记录"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_content_to_border"
+                android:src="@drawable/icon_right_enter_x2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/rl_record_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_money_order_info"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="记录"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_right_enter_x2"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_content_to_border"
-            />
-        <View
+        <RelativeLayout
+            android:id="@+id/rl_class_info"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_class_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_record_info"
-        >
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="班级群"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <!--<ImageView-->
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_record_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="班级群"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+            <!--<ImageView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:src="@drawable/icon_right_enter_x2"-->
@@ -232,34 +223,32 @@
             <!--android:layout_centerVertical="true"-->
             <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
             <!--/>-->
-        <View
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_mine_live"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_mine_live"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_class_info"
-        android:visibility="gone"
-        >
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="我的直播"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <!--<ImageView-->
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_class_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="我的直播"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+            <!--<ImageView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:src="@drawable/icon_right_enter_x2"-->
@@ -267,86 +256,78 @@
             <!--android:layout_centerVertical="true"-->
             <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
             <!--/>-->
-        <View
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_about"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_mine_live"
-        >
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="关于"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/icon_right_enter_x2"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
-        <!--/>-->
-        <View
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_mine_live">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="关于"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/icon_right_enter_x2"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
+            <!--/>-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_logout"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_about"
-        >
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/qb_px_10"
-            android:text="退出"
-            android:textColor="@color/gray_content_forum_text"
-            android:textSize="@dimen/title_toolbar_text_size"
-            />
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/icon_right_enter_x2"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
-        <!--/>-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/divide_line_gray"
-            android:layout_marginBottom="@dimen/qb_px_30"
-            />
-    </RelativeLayout>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_about">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/qb_px_10"
+                android:text="退出"
+                android:textColor="@color/gray_content_forum_text"
+                android:textSize="@dimen/title_toolbar_text_size" />
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/icon_right_enter_x2"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/margin_content_to_border"-->
+            <!--/>-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/qb_px_30"
+                android:background="@color/divide_line_gray" />
+        </RelativeLayout>
 
 
-
-
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
