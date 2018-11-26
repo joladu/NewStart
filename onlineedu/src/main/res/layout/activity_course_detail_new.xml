@@ -155,7 +155,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@+id/divide_below_tab">
+                app:layout_constraintTop_toBottomOf="@+id/divide_below_tab"
+                android:layout_marginTop="10dp"
+                >
 
 
                 <!--养宠教学-->
@@ -243,7 +245,7 @@
                     android:textColor="#808288"
                     android:textSize="12sp"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divide_below_tab" />
+                    />
 
                 <!--android:text="200"-->
                 <TextView
@@ -257,7 +259,7 @@
                     android:textColor="#808288"
                     android:textSize="12sp"
                     app:layout_constraintRight_toLeftOf="@+id/tv_share_num"
-                    app:layout_constraintTop_toBottomOf="@+id/divide_below_tab" />
+                    />
 
                 <!--200-->
                 <TextView
@@ -272,7 +274,7 @@
                     android:textColor="#808288"
                     android:textSize="12sp"
                     app:layout_constraintRight_toLeftOf="@+id/tv_praise_num"
-                    app:layout_constraintTop_toBottomOf="@+id/divide_below_tab" />
+                    />
 
                 <!--android:text="￥120.00"-->
                 <TextView
