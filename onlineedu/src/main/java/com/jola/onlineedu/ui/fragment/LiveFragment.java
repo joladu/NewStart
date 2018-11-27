@@ -14,6 +14,7 @@ import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
 import com.jola.onlineedu.ui.adapter.RVLiveCourseAdapter;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -46,7 +47,7 @@ public class LiveFragment extends SimpleFragment {
     @BindView(R.id.tv_state_tip)
     TextView tv_stateText;
 
-    int mStartIndex = 1;
+//    int mStartIndex = 1;
 //    private LiveCourseListAdapter mAdapter;
     private RVLiveCourseAdapter mAdapter;
 
@@ -101,6 +102,8 @@ public class LiveFragment extends SimpleFragment {
     @Override
     protected void initEventAndData() {
         getFragmentComponent().inject(this);
+
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
 //     testData();
@@ -118,32 +121,19 @@ public class LiveFragment extends SimpleFragment {
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-//                for (int i= mStartIndex;i < mStartIndex + 10;i++){
-//                    mList.add("每天观看直播节目，你们一般会评论什么，内容呢？：第"+i+"条");
-//                }
-                mStartIndex += 10;
-                smartRefreshLayout.finishLoadMore(2000);
-                mAdapter.notifyDataSetChanged();
+                loadDataMore();
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mList.clear();
-                mStartIndex = 1;
-//                for (int i= mStartIndex;i < mStartIndex + 10;i++){
-//                    mList.add("每天观看直播节目，你们一般会评论什么，内容呢？：第"+i+"条");
-//                }
-                mStartIndex += 10;
-
-                smartRefreshLayout.finishRefresh(2000);
-                mAdapter.notifyDataSetChanged();
-
+              loadData();
             }
         });
 
     }
 
     private void loadData() {
+        page = 1;
         stateLoading();
         addSubscribe(dataManager.getLiveCourseList(page+"",page_size+"")
             .compose(RxUtil.<ResLiveCourseList>rxSchedulerHelper())
@@ -169,7 +159,32 @@ public class LiveFragment extends SimpleFragment {
                     }
                 })
         );
+    }
 
+    private void loadDataMore() {
+        page ++;
+        addSubscribe(dataManager.getLiveCourseList(page+"",page_size+"")
+                .compose(RxUtil.<ResLiveCourseList>rxSchedulerHelper())
+                .subscribe(new Consumer<ResLiveCourseList>() {
+                    @Override
+                    public void accept(ResLiveCourseList resLiveCourseList) throws Exception {
+                        smartRefreshLayout.finishLoadMore();
+                        if (resLiveCourseList.getCount() > 0){
+                            mList.addAll(resLiveCourseList.getResults());
+                            mAdapter.notifyDataSetChanged();
+                            nextUrl = resLiveCourseList.getNext();
+                        }else{
+                            ToastUtil.toastShort("未获取到更多内容！");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        smartRefreshLayout.finishLoadMore();
+                        ToastUtil.toastShort("未获取到更多内容！");
+                    }
+                })
+        );
     }
 
 //    private void testData(){

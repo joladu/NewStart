@@ -24,7 +24,6 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class MainActivity extends SimpleActivity {
 
 
-
     @Inject
     DataManager mDataManager;
 
@@ -59,7 +58,7 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (null != savedInstanceState){
+        if (null != savedInstanceState) {
             showFragmentTag = mDataManager.getCurMainFragmentTag();
             showHideFragment(getTargetFragment(showFragmentTag));
             hideFragmentTag = showFragmentTag;
@@ -86,7 +85,7 @@ public class MainActivity extends SimpleActivity {
         switch (view.getId()) {
             case R.id.tv_home_navi:
                 tv_home_navi.setSelected(true);
-             showFragmentTag = TYPE_HOME_PAGE;
+                showFragmentTag = TYPE_HOME_PAGE;
                 break;
             case R.id.tv_live_navi:
                 tv_live_navi.setSelected(true);
@@ -101,27 +100,27 @@ public class MainActivity extends SimpleActivity {
                 showFragmentTag = TYPE_MINE;
                 break;
         }
-        showHideFragment(getTargetFragment(showFragmentTag),getTargetFragment(hideFragmentTag));
+        showHideFragment(getTargetFragment(showFragmentTag), getTargetFragment(hideFragmentTag));
         hideFragmentTag = showFragmentTag;
         changeFullScreen();
         mDataManager.setCurMainFragmentTag(showFragmentTag);
     }
 
-    public void changeFullScreen(){
+    public void changeFullScreen() {
         if (Build.VERSION.SDK_INT >= 21) {
             int option = View.SYSTEM_UI_FLAG_VISIBLE;
-            if (showFragmentTag == TYPE_MINE){
+            if (showFragmentTag == TYPE_MINE) {
                 option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
                 View decorView = getWindow().getDecorView();
                 decorView.setSystemUiVisibility(option);
                 getWindow().setStatusBarColor(Color.TRANSPARENT);
-            }else{
-                if (Build.VERSION.SDK_INT < 23){
+            } else {
+                if (Build.VERSION.SDK_INT < 23) {
                     View decorView = getWindow().getDecorView();
                     decorView.setSystemUiVisibility(option);
                     getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
-                }else{
+                } else {
                     View decorView = getWindow().getDecorView();
 //                    option |= View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     option = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -132,15 +131,15 @@ public class MainActivity extends SimpleActivity {
     }
 
 
-    private void clearnSelectedStatus(){
+    private void clearnSelectedStatus() {
         tv_home_navi.setSelected(false);
         tv_live_navi.setSelected(false);
         tv_friend_navi.setSelected(false);
         tv_mine_navi.setSelected(false);
     }
 
-    private SupportFragment getTargetFragment(int type){
-        switch (type){
+    private SupportFragment getTargetFragment(int type) {
+        switch (type) {
             case TYPE_HOME_PAGE:
                 return mHomePageFragment;
             case TYPE_LIVE:

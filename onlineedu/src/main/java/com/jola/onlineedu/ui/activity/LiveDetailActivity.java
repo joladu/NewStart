@@ -108,7 +108,7 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mReceiverGroup = ReceiverGroupManager.getInstance().getReceiverGroup(this);
-//        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
+        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
         mVideoView.setReceiverGroup(mReceiverGroup);
         mVideoView.setEventHandler(onVideoViewEventHandler);
         mVideoView.setOnPlayerEventListener(this);

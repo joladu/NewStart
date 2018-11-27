@@ -207,7 +207,7 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/srl_home_page"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/qb_px_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -218,10 +218,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/view_main"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+
+            <com.jola.onlineedu.widget.CustomRecycleViewHeightMax
                 android:id="@+id/view_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"/>
 
             <com.scwang.smartrefresh.layout.footer.ClassicsFooter
                 android:layout_width="match_parent"
@@ -239,7 +244,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_recommend_course"
-            android:visibility="visible"
+            android:visibility="invisible"
             >
 
             <ImageView
