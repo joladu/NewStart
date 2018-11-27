@@ -1,6 +1,7 @@
 package com.jola.onlineedu.mode.db;
 
 import com.jola.onlineedu.mode.bean.ReadStateBean;
+import com.jola.onlineedu.mode.bean.db.PraiseCommentOfCourseStatus;
 
 import javax.inject.Inject;
 
@@ -33,4 +34,23 @@ public class RealmHelper implements DBHelper {
         mRealm.copyToRealmOrUpdate(bean);
         mRealm.commitTransaction();
     }
+
+    @Override
+    public boolean hasPraiseCommentOfCourse(int commentId) {
+        PraiseCommentOfCourseStatus praiseCommentOfCourseStatus = new PraiseCommentOfCourseStatus();
+        praiseCommentOfCourseStatus.setId(commentId);
+        PraiseCommentOfCourseStatus resultBean = mRealm.where(PraiseCommentOfCourseStatus.class).equalTo("id", commentId).findFirst();
+        return null != resultBean;
+    }
+
+    @Override
+    public void praiseCommentOfCourse(int commentId) {
+        PraiseCommentOfCourseStatus praiseCommentOfCourseStatus = new PraiseCommentOfCourseStatus();
+        praiseCommentOfCourseStatus.setId(commentId);
+        mRealm.beginTransaction();
+        mRealm.copyToRealm(praiseCommentOfCourseStatus);
+        mRealm.commitTransaction();
+    }
+
+
 }

@@ -233,8 +233,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResponseSimpleResult> praiseCommentCourse(String id) {
-        return myApis.praiseCommentCourse(id);
+    public Flowable<ResponseSimpleResult> praiseCommentCourse(String token,int id) {
+        return myApis.praiseCommentCourse(token,id);
     }
 
     @Override
@@ -368,6 +368,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public void insertNewsId(int id) {
         mDBHelper.insertNewsId(id);
+    }
+
+    @Override
+    public boolean hasPraiseCommentOfCourse(int commentId) {
+        return mDBHelper.hasPraiseCommentOfCourse(commentId);
+    }
+
+    @Override
+    public void praiseCommentOfCourse(int commentId) {
+        mDBHelper.praiseCommentOfCourse(commentId);
     }
 
     @Override

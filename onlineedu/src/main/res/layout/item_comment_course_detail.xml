@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_forum_list_activity"
-    android:background="@color/window_bg"
-    >
+    android:background="@color/window_bg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ci_head_img"
@@ -35,10 +35,10 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/margin_content_to_border"
         android:layout_alignTop="@+id/ci_head_img"
-        android:text="67"
         android:textSize="14sp"
         android:textColor="#808288"
-        android:visibility="invisible"
+        android:visibility="visible"
+        tools:text="67"
         />
     <ImageView
         android:id="@+id/iv_praise_hand"
@@ -48,7 +48,7 @@
         android:layout_toLeftOf="@+id/tv_num_praise"
         android:layout_alignTop="@+id/tv_num_praise"
         android:layout_marginRight="10dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         />
 
 

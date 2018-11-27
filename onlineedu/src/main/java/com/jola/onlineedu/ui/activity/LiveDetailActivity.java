@@ -29,6 +29,7 @@ import com.jola.onlineedu.ui.adapter.RelativeLiveAdapter;
 import com.jola.onlineedu.util.DataUtils;
 import com.jola.onlineedu.util.PUtil;
 import com.jola.onlineedu.util.RxUtil;
+import com.jola.onlineedu.util.ToastUtil;
 import com.jola.onlineedu.video.play.DataInter;
 import com.jola.onlineedu.video.play.ReceiverGroupManager;
 import com.jola.onlineedu.widget.StarBar;
@@ -263,8 +264,11 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
     public void doClick(View view){
         switch (view.getId()){
             case R.id.iv_back:
-                mVideoView.stop();
-                this.finish();
+//                mVideoView.stop();
+//                this.finish();
+//                onBackPressedSupport();
+                super.onBackPressedSupport();
+//                ToastUtil.toastShort("返回点击了");
                 break;
             case R.id.iv_play_icon:
                 fl_live_image.setVisibility(View.INVISIBLE);

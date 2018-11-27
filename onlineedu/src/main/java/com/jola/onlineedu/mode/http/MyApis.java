@@ -257,8 +257,8 @@ public interface MyApis {
     Flowable<ResponseSimpleResult> publishCourseComment(@Header(TAG_AUTHORIZATION) String token,
                                                         @PartMap Map<String,RequestBody> map);
 
-    @PUT("v1/bbs/comments/{id}/praise/")
-    Flowable<ResponseSimpleResult> praiseCommentCourse(@Path("id")String id);
+    @POST("v1/coursecomment/{id}/praise/")
+    Flowable<ResponseSimpleResult> praiseCommentCourse(@Header(TAG_AUTHORIZATION) String token,@Path("id")int id);
 
 
 //  *****************  end  course api *****************

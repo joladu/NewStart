@@ -134,7 +134,8 @@ public class HomePageFragment extends SimpleFragment {
 
 
         rvRecommendCourseAdapter = new RVRecommendCourseAdapter(getContext(), mList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
 
         loadData();

@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/window_bg">
 
 
@@ -20,13 +20,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/shape_gray_bg" />
 
-        <!--<ImageView-->
-        <!--android:id="@+id/iv_back"-->
-        <!--android:layout_width="@dimen/qb_px_15"-->
-        <!--android:layout_height="@dimen/qb_px_25"-->
-        <!--android:layout_marginStart="@dimen/qb_px_20"-->
-        <!--android:layout_marginTop="@dimen/qb_px_40"-->
-        <!--android:src="@drawable/back_icon__white_x2" />-->
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/qb_px_25"
+            android:layout_height="@dimen/qb_px_25"
+            android:layout_marginStart="@dimen/qb_px_20"
+            android:layout_marginTop="@dimen/qb_px_30"
+            android:src="@drawable/back_icon__white_x2" />
 
         <ImageView
             android:id="@+id/iv_play_icon"
@@ -66,100 +66,6 @@
             android:background="@color/window_bg">
 
 
-            <!--<FrameLayout-->
-            <!--android:id="@+id/fl_live_image"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent">-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/iv_cover_live"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scaleType="fitXY"-->
-            <!--android:src="@drawable/shape_gray_bg" />-->
-
-            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/iv_back"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="@dimen/qb_px_15"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="@dimen/qb_px_25"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_marginStart="@dimen/qb_px_20"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_marginTop="@dimen/qb_px_40"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:src="@drawable/back_icon__white_x2" />&ndash;&gt;-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/iv_play_icon"-->
-            <!--android:layout_width="@dimen/qb_px_60"-->
-            <!--android:layout_height="@dimen/qb_px_60"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:src="@drawable/play_icon_x2" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/tv_tip_msg"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="bottom|right"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:background="@drawable/shape_bg_black_live_status"-->
-            <!--android:text="正在直播"-->
-            <!--android:textColor="@color/window_bg" />-->
-            <!--</FrameLayout>-->
-
-            <!--<android.support.constraint.Group-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--app:constraint_referenced_ids="-->
-            <!--fl_live_image,-->
-            <!--tv_title_live_item,-->
-            <!--star_bar_score,-->
-            <!--tv_score_num,-->
-            <!--tv_persons_watched,-->
-
-            <!--tv_price_live_course,-->
-            <!--fl_live_image,-->
-            <!--fl_live_image,-->
-            <!--fl_live_image,-->
-            <!--fl_live_image,-->
-
-            <!--"-->
-            <!--android:visibility="gone"-->
-            <!--/>-->
-
-
-            <!--<com.kk.taurus.playerbase.widget.BaseVideoView-->
-            <!--android:id="@+id/base_video_view"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-
-
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:visibility="visible"-->
-            <!--/>-->
-            <!--<FrameLayout-->
-            <!--android:id="@+id/fl_container"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--/>-->
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="@dimen/qb_px_15"
-                android:layout_height="@dimen/qb_px_25"
-
-                android:layout_marginStart="@dimen/qb_px_20"
-                android:layout_marginTop="@dimen/qb_px_20"
-
-                android:src="@drawable/back_icon__white_x2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
             <TextView
                 android:id="@+id/tv_title_live_item"
                 android:layout_width="wrap_content"
@@ -171,8 +77,7 @@
                 android:textColor="@color/title_text"
                 android:textSize="@dimen/title_toolbar_text_size"
                 app:layout_constraintLeft_toLeftOf="parent"
-                tools:text="王传军的直播直播间"
-                />
+                tools:text="王传军的直播直播间" />
 
 
             <com.jola.onlineedu.widget.StarBar
@@ -200,8 +105,7 @@
                 android:textSize="13sp"
                 app:layout_constraintLeft_toRightOf="@+id/star_bar_score"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item"
-                tools:text="4.8"
-                />
+                tools:text="4.8" />
 
             <TextView
                 android:id="@+id/tv_persons_watched"
@@ -216,8 +120,7 @@
                 android:textSize="13sp"
                 app:layout_constraintLeft_toRightOf="@+id/tv_score_num"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item"
-                tools:text="250000人"
-                />
+                tools:text="250000人" />
 
             <TextView
                 android:id="@+id/tv_price_live_course"
@@ -227,8 +130,7 @@
                 android:textColor="@color/colorAccent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item"
-                tools:text="￥120.00"
-                />
+                tools:text="￥120.00" />
 
             <View
                 android:id="@+id/view_divide_below_price"
@@ -298,8 +200,7 @@
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@+id/civ_head_user"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/tv_brief_teacher" />
 
             <View
                 android:id="@+id/view_divide_below_teacher"
