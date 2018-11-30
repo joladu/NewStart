@@ -261,12 +261,12 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     }
 
     @Override
-    public void onBackPressedSupport() {
+    public void onBackPressed() {
         if (isLandscape) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             return;
         }
-        super.onBackPressedSupport();
+        super.onBackPressed();
     }
 
     @Override
@@ -485,7 +485,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                 startPlay(0);
                 break;
             case R.id.iv_back:
-                super.onBackPressedSupport();
+                onBackPressed();
                 break;
             case R.id.tv_send_comment:
                 confirmComment();

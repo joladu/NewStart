@@ -121,6 +121,7 @@ public class HomePageFragment extends SimpleFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home_page;
+//        return R.layout.fragment_home_page_new;
     }
 
     @Override

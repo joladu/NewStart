@@ -267,7 +267,7 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
 //                mVideoView.stop();
 //                this.finish();
 //                onBackPressedSupport();
-                super.onBackPressedSupport();
+                super.onBackPressed();
 //                ToastUtil.toastShort("返回点击了");
                 break;
             case R.id.iv_play_icon:
@@ -278,13 +278,14 @@ public class LiveDetailActivity extends SimpleActivity implements OnPlayerEventL
         }
     }
 
+
     @Override
-    public void onBackPressedSupport() {
+    public void onBackPressed() {
         if(isLandscape){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             return;
         }
-        super.onBackPressedSupport();
+        super.onBackPressed();
     }
 
     @Override

@@ -50,6 +50,8 @@ import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.functions.Consumer;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by jola on 2018/9/6.
  */
