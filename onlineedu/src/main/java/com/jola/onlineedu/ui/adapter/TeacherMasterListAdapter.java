@@ -64,7 +64,7 @@ public class TeacherMasterListAdapter extends RecyclerView.Adapter<TeacherMaster
                 .apply(new RequestOptions().placeholder(R.drawable.image_placeholder).error(R.drawable.image_placeholder_fail))
                 .into(holder.civ_head_user);
 
-        holder.tv_teacher_name.setText(resultsBean.getName());
+        holder.tv_teacher_name.setText(resultsBean.getUsername());
         holder.tv_teacher_describe.setText(resultsBean.getTeaching_courses());
         holder.tv_latest_course.setText(resultsBean.getTeaching_courses());
 

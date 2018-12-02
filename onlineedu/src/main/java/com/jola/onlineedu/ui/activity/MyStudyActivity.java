@@ -148,7 +148,7 @@ public class MyStudyActivity extends SimpleActivity {
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/mystudy/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get(" http://yunketang.dev.attackt.com/api/v1/uc/studycourse/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();

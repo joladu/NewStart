@@ -54,9 +54,24 @@ public class RegisterActivity extends SimpleActivity {
     @BindView(R.id.et_input_username)
     EditText et_input_username;
 
+//    @BindView(R.id.tv_type_student)
+//    TextView tv_type_student;
+//    @BindView(R.id.tv_type_teacher)
+//    TextView tv_type_teacher;
+
+    @BindView(R.id.iv_choose_teacher)
+    ImageView iv_choose_teacher;
+    @BindView(R.id.iv_choose_student)
+    ImageView iv_choose_student;
+
+
+
     private Disposable disposableCountDown;
     private String captcha_img;
     private String captcha_key;
+    public static final String Role_Student_Tag = "1";
+    public static final String Role_Teacher_Tag = "2";
+    private String role = "1";
 
     @Override
     protected int getLayout() {
@@ -129,6 +144,21 @@ public class RegisterActivity extends SimpleActivity {
         );
     }
 
+    @OnClick({R.id.tv_type_teacher,R.id.iv_choose_teacher})
+    public void choseTeacherRole(View view){
+        role = Role_Teacher_Tag;
+        iv_choose_student.setImageDrawable(getResources().getDrawable(R.drawable.oval_gray_ring_64));
+        iv_choose_teacher.setImageDrawable(getResources().getDrawable(R.drawable.oval_green_64));
+    }
+
+
+    @OnClick({R.id.tv_type_student,R.id.iv_choose_student})
+    public void choseStudentRole(View view){
+        role = Role_Student_Tag;
+        iv_choose_teacher.setImageDrawable(getResources().getDrawable(R.drawable.oval_gray_ring_64));
+        iv_choose_student.setImageDrawable(getResources().getDrawable(R.drawable.oval_green_64));
+    }
+
     @OnClick(R.id.tv_back)
     public void backToLogin(View view){
         this.finish();
@@ -157,7 +187,7 @@ public class RegisterActivity extends SimpleActivity {
             return;
         }
         showLoadingDialog();
-        addSubscribe(dataManager.getUserRegisterInfo(userName,phoneNum,msgCheckCode,captcha_key,imageCode,password,passwordConfirm)
+        addSubscribe(dataManager.getUserRegisterInfo(userName,phoneNum,msgCheckCode,captcha_key,imageCode,password,passwordConfirm,role)
             .compose(RxUtil.<ResUserRegister>rxSchedulerHelper())
                 .subscribe(new Consumer<ResUserRegister>() {
                     @Override
@@ -165,6 +195,7 @@ public class RegisterActivity extends SimpleActivity {
                         hideLoadingDialog();
                         int error_code = resUserRegister.getError_code();
                         if (error_code == 0) {
+                            ToastUtil.toastShort("注册成功!");
                             ResUserRegister.DataBean data = resUserRegister.getData();
                             String token = data.getToken();
                             int user_id = data.getUser().getUser_id();
@@ -174,8 +205,8 @@ public class RegisterActivity extends SimpleActivity {
                             dataManager.setUserToken(token);
                             dataManager.setUserName(realname);
                             dataManager.setUserPhone(mobile);
+                            dataManager.setUserRole(Integer.parseInt(role));
 //                            ToastUtil.toastShort("注册成功：" + "token:" + token + " ; user_id" + user_id);
-                            ToastUtil.toastShort("注册成功!");
                             RegisterActivity.this.finish();
                         } else {
                             ToastUtil.toastShort("注册失败：" + resUserRegister.getError_msg());
@@ -253,5 +284,7 @@ public class RegisterActivity extends SimpleActivity {
                 })
         );
     }
+
+
 
 }

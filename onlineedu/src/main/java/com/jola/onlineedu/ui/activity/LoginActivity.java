@@ -116,11 +116,11 @@ public class LoginActivity extends SimpleActivity {
         startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
     }
 
-    @OnClick(R.id.iv_ali_login)
-    public void aliLogin(View view){
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
-    }
+//    @OnClick(R.id.iv_ali_login)
+//    public void aliLogin(View view){
+//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+////        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
+//    }
 
     @OnClick(R.id.iv_qq_login)
     public void qqLogin(View view){

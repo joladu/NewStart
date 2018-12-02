@@ -1,22 +1,14 @@
 package com.jola.onlineedu.ui.activity;
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,7 +22,6 @@ import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResTeacherBannerBean;
 import com.jola.onlineedu.mode.bean.response.ResTeacherList;
 import com.jola.onlineedu.ui.adapter.TeacherMasterListAdapter;
-import com.jola.onlineedu.ui.adapter.TestPoolListAdapter;
 import com.jola.onlineedu.ui.adapter.VPHomePagerBannerAdapter;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
@@ -155,7 +146,8 @@ public class TeacherMasterActivity extends SimpleActivity {
         loadBannerData();
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
 //        mAdapter = new TeacherMasterListAdapter(this, mList);
@@ -231,6 +223,14 @@ public class TeacherMasterActivity extends SimpleActivity {
                         if (resTeacherList.getCount() > 0){
                             stateMain();
                             mList = resTeacherList.getResults();
+
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
+//                            mList.addAll(resTeacherList.getResults());
 //                            for testing
 //                            mList.addAll(resTeacherList.getResults());
 //                            mList.addAll(resTeacherList.getResults());

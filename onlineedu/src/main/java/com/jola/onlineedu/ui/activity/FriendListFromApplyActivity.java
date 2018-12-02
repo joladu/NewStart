@@ -1,6 +1,7 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +10,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
+import com.jola.onlineedu.mode.bean.response.ResFriendFromApplayBean;
 import com.jola.onlineedu.mode.http.MyApis;
+import com.jola.onlineedu.util.TimeFormatUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -32,6 +38,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 申请加我的
@@ -49,7 +56,7 @@ public class FriendListFromApplyActivity extends SimpleActivity {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    List<ResCommentListBean.DataBean.CommentsBean> mList = new ArrayList<>();
+    List<ResFriendFromApplayBean.DataBean.FriendsBean> mList = new ArrayList<>();
     private RecycleListAdapter mAdapter;
     int page = 1;
     int pagesize = 10;
@@ -81,27 +88,27 @@ public class FriendListFromApplyActivity extends SimpleActivity {
             }
         });
 
-        testData();
-//        refreshData();
+//        testData();
+        refreshData();
 
     }
 
-    private void testData() {
-        ResCommentListBean.DataBean.CommentsBean commentsBean = new ResCommentListBean.DataBean.CommentsBean();
-        commentsBean.setContent("测试评论内容");
-        mList.add(commentsBean);
-        commentsBean.setCreated("2018-11-16T11:50:02");
-        mList.add(commentsBean);
-        mList.add(commentsBean);
-        mList.add(commentsBean);
-        mList.add(commentsBean);
-        mList.add(commentsBean);
-        mList.add(commentsBean);
-        mAdapter = new RecycleListAdapter(this);
-        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        rv.setAdapter(mAdapter);
-    }
+//    private void testData() {
+//        ResCommentListBean.DataBean.CommentsBean commentsBean = new ResCommentListBean.DataBean.CommentsBean();
+//        commentsBean.setContent("测试评论内容");
+//        mList.add(commentsBean);
+//        commentsBean.setCreated("2018-11-16T11:50:02");
+//        mList.add(commentsBean);
+//        mList.add(commentsBean);
+//        mList.add(commentsBean);
+//        mList.add(commentsBean);
+//        mList.add(commentsBean);
+//        mList.add(commentsBean);
+//        mAdapter = new RecycleListAdapter(this);
+//        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+//        rv.setAdapter(mAdapter);
+//    }
 
 
 
@@ -144,14 +151,14 @@ public class FriendListFromApplyActivity extends SimpleActivity {
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/record/coursecomment/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/friend/fans/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishRefresh();
-                ResCommentListBean resultBean = new Gson().fromJson(new String(responseBody), ResCommentListBean.class);
+                ResFriendFromApplayBean resultBean = new Gson().fromJson(new String(responseBody), ResFriendFromApplayBean.class);
                 if (resultBean.getError_code() == 0){
-                    mList = resultBean.getData().getComments();
+                    mList = resultBean.getData().getFriends();
                     mAdapter = new RecycleListAdapter(FriendListFromApplyActivity.this);
                     rv.setLayoutManager(new LinearLayoutManager(FriendListFromApplyActivity.this,LinearLayoutManager.VERTICAL,false));
                     rv.addItemDecoration(new DividerItemDecoration(FriendListFromApplyActivity.this,DividerItemDecoration.VERTICAL));
@@ -205,17 +212,19 @@ public class FriendListFromApplyActivity extends SimpleActivity {
         requestParams.put("page", ++page);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
-        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/record/coursecomment/", requestParams, new AsyncHttpResponseHandler() {
+        App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/uc/friend/fans/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishLoadMore();
-                ResCommentListBean resultBean = new Gson().fromJson(new String(responseBody), ResCommentListBean.class);
+                ResFriendFromApplayBean resultBean = new Gson().fromJson(new String(responseBody), ResFriendFromApplayBean.class);
                 if (resultBean.getError_code() == 0){
-                    mList .addAll(resultBean.getData().getComments());
-                    mAdapter.notifyDataSetChanged();
-                    if (mList.size() == 0){
-                        ToastUtil.toastLong("暂无数据！");
+                    List<ResFriendFromApplayBean.DataBean.FriendsBean> friends = resultBean.getData().getFriends();
+                    if (null != friends && friends.size() > 0){
+                        mList .addAll(friends);
+                        mAdapter.notifyDataSetChanged();
+                    } else{
+                        ToastUtil.toastLong("暂无更多数据！");
                     }
                 }else{
                     ToastUtil.toastLong(resultBean.getError_msg());
@@ -251,10 +260,47 @@ public class FriendListFromApplyActivity extends SimpleActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//            ResCommentListBean.DataBean.CommentsBean commentsBean = mList.get(position);
-//            holder.tv_comment_content.setText(commentsBean.getContent());
-////            holder.tv_time.setText(commentsBean.getCreated());
-//            holder.tv_time.setText(TimeFormatUtil.formatTime(commentsBean.getCreated()));
+            final ResFriendFromApplayBean.DataBean.FriendsBean friendsBean = mList.get(position);
+            ImageLoader.load(mContext ,friendsBean.getAvatar_url(),holder.civ_head_user);
+            holder.tv_name_apply.setText(friendsBean.getUsername());
+            holder.tv_describe_friend.setText(friendsBean.getSchool_name());
+            String statusText = "待处理";
+            int status = friendsBean.getStatus();
+            if (status == 1){
+                statusText = "已通过";
+            }else if (status == 2){
+                statusText = "被拒绝";
+            }else if (status == 3){
+                statusText = "被忽略";
+            }
+            holder.tv_apply_status.setText(statusText);
+            String formatTimeSSS = TimeFormatUtil.formatTimeSSS(friendsBean.getCreated());
+//            申请时间：刚刚
+            String time = "申请时间："+ formatTimeSSS;
+            holder.tv_apply_time.setText(time);
+//
+            final StringBuilder sb = new StringBuilder();
+//          文学  民族学  北京交通大学海滨学院
+            List<String> courses = friendsBean.getCourses();
+            for (String tempCourse : courses) {
+                sb.append(tempCourse + " ");
+            }
+            sb.append(friendsBean.getSchool_name());
+            final int id = friendsBean.getId();
+            holder.rl_detail_info.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, FriendFromApplyDetailActivity.class);
+                    intent.putExtra("id",id);
+                    intent.putExtra("userId",friendsBean.getId());
+                    intent.putExtra("headImgUrl",friendsBean.getAvatar_url());
+                    intent.putExtra("userName",friendsBean.getUsername());
+                    intent.putExtra("describe",sb.toString());
+                    intent.putExtra("area","unknow");
+                    mContext.startActivity(intent);
+                }
+            });
+
         }
 
         @Override
@@ -264,10 +310,19 @@ public class FriendListFromApplyActivity extends SimpleActivity {
 
         class ViewHolder extends RecyclerView.ViewHolder{
 
-//            @BindView(R.id.tv_comment_content)
-//            TextView tv_comment_content;
-//            @BindView(R.id.tv_time)
-//            TextView tv_time;
+            @BindView(R.id.rl_detail_info)
+            RelativeLayout rl_detail_info;
+            @BindView(R.id.civ_head_user)
+            CircleImageView civ_head_user;
+            @BindView(R.id.tv_name_apply)
+            TextView tv_name_apply;
+            @BindView(R.id.tv_describe_friend)
+            TextView tv_describe_friend;
+            @BindView(R.id.tv_apply_status)
+            TextView tv_apply_status;
+            @BindView(R.id.tv_apply_time)
+            TextView tv_apply_time;
+
 
             public ViewHolder(View itemView) {
                 super(itemView);

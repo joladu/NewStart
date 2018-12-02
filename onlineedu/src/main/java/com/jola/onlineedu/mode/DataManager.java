@@ -1,6 +1,7 @@
 package com.jola.onlineedu.mode;
 
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
+import com.jola.onlineedu.mode.bean.response.ResClassListBean;
 import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
@@ -18,12 +19,15 @@ import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendList;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
+import com.jola.onlineedu.mode.bean.response.ResGradeListBean;
 import com.jola.onlineedu.mode.bean.response.ResInteresListBean;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
+import com.jola.onlineedu.mode.bean.response.ResMajorListBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResSchoolListBean;
 import com.jola.onlineedu.mode.bean.response.ResSelectionListBean;
 import com.jola.onlineedu.mode.bean.response.ResStudyListBean;
 import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
@@ -91,8 +95,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResUserRegister> getUserRegisterInfo(String userName, String mobileNum, String checkCode, String captcha_key, String captcha, String password, String passwordConfirm) {
-        return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,captcha_key,captcha,password,passwordConfirm);
+    public Flowable<ResUserRegister> getUserRegisterInfo(String userName, String mobileNum, String checkCode, String captcha_key, String captcha, String password, String passwordConfirm,String role) {
+        return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,captcha_key,captcha,password,passwordConfirm,role);
     }
 
     @Override
@@ -320,6 +324,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResponseSimpleResult> handFriendApply(String id, String token,int status) {
+        return myApis.handFriendApply(id,token,status);
+    }
+
+    @Override
     public Flowable<ResMessageListBean> getMessageList(String token, int page, int pagesize) {
         return myApis.getMessageList(token,page,pagesize);
     }
@@ -362,6 +371,31 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResStudyListBean> getMyStudyList(String token, int page, int pagesize) {
         return myApis.getMyStudyList(token,page,pagesize);
+    }
+
+    @Override
+    public Flowable<ResSchoolListBean> getSchoolList(String token, int page, int pagesize) {
+        return myApis.getSchoolList(token,page,pagesize);
+    }
+
+    @Override
+    public Flowable<ResGradeListBean> getGradeList(String token, int page, int pagesize) {
+        return myApis.getGradeList(token,page,pagesize);
+    }
+
+    @Override
+    public Flowable<ResClassListBean> getClassList(String token, int page, int pagesize) {
+        return myApis.getClassList(token,page,pagesize);
+    }
+
+    @Override
+    public Flowable<ResMajorListBean> getMajorList(String token, int page, int pagesize) {
+        return myApis.getMajorList(token,page,pagesize);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> sendGroupMsg(String token, String content) {
+        return myApis.sendGroupMsg(token,content);
     }
 
 
@@ -408,6 +442,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public String getUserId() {
         return mPreferenceHelper.getUserId();
+    }
+
+    @Override
+    public void setUserRole(int role) {
+        mPreferenceHelper.setUserRole(role);
+    }
+
+    @Override
+    public int getUserRole() {
+        return mPreferenceHelper.getUserRole();
     }
 
     @Override
@@ -478,6 +522,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public String getUserSchool() {
         return mPreferenceHelper.getUserSchool();
+    }
+
+    @Override
+    public void setUserInfoJson(String userInfoBeanString) {
+        mPreferenceHelper.setUserInfoJson(userInfoBeanString);
+    }
+
+    @Override
+    public String getUserInfoJson() {
+        return mPreferenceHelper.getUserInfoJson();
     }
 
     @Override

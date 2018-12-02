@@ -67,35 +67,46 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
-            <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@drawable/oval_white_x2"-->
-                <!--/>-->
-
-            <TextView
-                android:id="@+id/tv_type_teacher"
+            <ImageView
+                android:id="@+id/iv_choose_teacher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/teacher"
-                android:textColor="@color/hint_text_gray"
-                android:textSize="15sp"
-                android:drawableLeft="@drawable/oval_white_x2"
-                android:drawablePadding="10dp"
+                android:src="@drawable/oval_gray_ring_64"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 />
 
             <TextView
-                android:id="@+id/tv_type_student"
-                android:layout_toEndOf="@+id/tv_type_teacher"
+                android:id="@+id/tv_type_teacher"
+                android:layout_toRightOf="@+id/iv_choose_teacher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teacher"
                 android:textColor="@color/hint_text_gray"
                 android:textSize="15sp"
-                android:drawableLeft="@drawable/oval_green_x2"
-                android:drawablePadding="10dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_choose_student"
+                android:layout_toRightOf="@+id/tv_type_teacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/oval_green_64"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_type_student"
+                android:layout_toEndOf="@+id/iv_choose_student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/student"
+                android:textColor="@color/hint_text_gray"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
                 />
 
 

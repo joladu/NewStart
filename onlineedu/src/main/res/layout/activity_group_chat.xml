@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/window_bg"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:focusableInTouchMode="true">
 
-    <include layout="@layout/view_toolbar" />
+    <include
+        android:id="@+id/toolbar_view"
+        layout="@layout/view_toolbar" />
 
     <View
+        android:id="@+id/view_divide"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/toolbar_view"
         android:layout_marginTop="5dp"
         android:background="@color/divide_line_gray" />
 
@@ -19,23 +22,64 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_input_msg"
+        android:layout_below="@+id/view_divide">
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
+    <RelativeLayout
+        android:id="@+id/rl_input_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/qb_px_10"
+        >
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/et_input_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/qb_px_20"
+            android:layout_marginStart="@dimen/qb_px_20"
+            android:layout_marginTop="@dimen/qb_px_20"
+            android:background="#F5F5F5"
+            android:gravity="start"
+            android:hint="请输入消息内容"
+            android:minHeight="20dp"
+            android:padding="10dp"
+            android:textColor="@color/title_text"
+            android:textColorHint="#C2C2C2" />
+
+
+        <TextView
+            android:id="@+id/tv_send_message"
+            style="@style/BtnGreenSingleLine"
+            android:layout_width="@dimen/qb_px_235"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="@string/send_message"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_input_message"
+            />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -231,7 +231,15 @@ public class HomePageFragment extends SimpleFragment {
                         smartRefreshLayout.finishRefresh();
                         List<ResCourseRecommendBean.ResultsBean> results = resCourseList.getResults();
                         if (results.size() > 0){
+
+//                            mList.add(results.get(0));
+
+
                             mList.addAll(results);
+
+//                            mList.addAll(results);
+//                            mList.addAll(results);
+//                            mList.addAll(results);
                             if (mList.size() > 0){
                                 stateMain();
                                 recyclerView.setAdapter(rvRecommendCourseAdapter);

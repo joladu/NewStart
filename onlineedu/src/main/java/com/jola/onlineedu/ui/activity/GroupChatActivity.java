@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
@@ -12,8 +14,10 @@ import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResGroupChatBean;
+import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.ui.adapter.GroupChatAdapter;
+import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -27,7 +31,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by jola on 2018/11/21.
@@ -44,6 +50,12 @@ public class GroupChatActivity extends SimpleActivity {
     SmartRefreshLayout smr;
     @BindView(R.id.rv)
     RecyclerView rv;
+
+    @BindView(R.id.et_input_message)
+    EditText et_input_message;
+
+    boolean isSend = false;
+
 
     private List<ResGroupChatBean.DataBean.ChatsBean> mList = new ArrayList<>();
     private GroupChatAdapter mAdapter;
@@ -117,6 +129,7 @@ public class GroupChatActivity extends SimpleActivity {
 
 
     private void loadGroupChats() {
+        mList.clear();
         showLoadingDialog();
         page = 1;
         final RequestParams requestParams = new RequestParams();
@@ -134,6 +147,10 @@ public class GroupChatActivity extends SimpleActivity {
                     mAdapter.notifyDataSetChanged();
                     if (mList.size() == 0){
                         ToastUtil.toastShort("暂无聊天信息");
+                    }else{
+//                        if (isSend){
+//                            rv.scrollToPosition(mList.size() - 1);
+//                        }
                     }
                 }else{
                     ToastUtil.toastLong(resGroupChatBean.getError_msg());
@@ -148,6 +165,41 @@ public class GroupChatActivity extends SimpleActivity {
                 smr.finishRefresh();
             }
         });
+    }
+
+    @OnClick(R.id.tv_send_message)
+    public void sendMsg(){
+
+        String msg = et_input_message.getText().toString();
+        if (TextUtils.isEmpty(msg)){
+            ToastUtil.toastShort("请输入聊天信息，再发送！");
+            return;
+        }
+        showLoadingDialog();
+        dataManager.sendGroupMsg(dataManager.getUserToken(),msg)
+                .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                .subscribe(new Consumer<ResponseSimpleResult>() {
+                    @Override
+                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                        hideLoadingDialog();
+                        if (responseSimpleResult.getError_code() == 0){
+                            ToastUtil.toastShort("发送成功！");
+                            loadGroupChats();
+
+                        }else{
+                            ToastUtil.toastShort(responseSimpleResult.getError_msg());
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        tipServerError();
+                    }
+                });
+
+
     }
 
 

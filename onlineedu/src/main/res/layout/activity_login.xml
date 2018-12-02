@@ -164,17 +164,26 @@
     <!--app:layout_constraintGuide_percent="0.76"-->
     <!--/>-->
 
-    <ImageView
-        android:id="@+id/iv_ali_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ali_logo_login"
-        app:layout_constraintBottom_toTopOf="@+id/gl_margin_bottom"
-        app:layout_constraintEnd_toStartOf="@+id/iv_qq_login"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_ali_login"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:src="@drawable/ali_logo_login"-->
+        <!---->
+        <!--app:layout_constraintBottom_toTopOf="@+id/gl_margin_bottom"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/iv_qq_login"-->
+        <!--app:layout_constraintHorizontal_bias="0.5"-->
+        <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!---->
+        <!--/>-->
+
+
+    <!--app:layout_constraintBottom_toTopOf="@+id/gl_margin_bottom"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/iv_weibo_login"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/iv_ali_login"-->
+
 
     <ImageView
         android:id="@+id/iv_qq_login"
@@ -184,7 +193,10 @@
         android:src="@drawable/qq_logo_login"
         app:layout_constraintBottom_toTopOf="@+id/gl_margin_bottom"
         app:layout_constraintEnd_toStartOf="@+id/iv_weibo_login"
-        app:layout_constraintStart_toEndOf="@+id/iv_ali_login" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <ImageView
         android:id="@+id/iv_weibo_login"
@@ -206,6 +218,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_weibo_login" />
 
+
+
     <TextView
         android:id="@+id/tv_tip_login_other_way"
         android:layout_width="wrap_content"
@@ -214,7 +228,7 @@
         android:text="其他帐号登录"
         android:textColor="#999999"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/iv_ali_login"
+        app:layout_constraintBottom_toTopOf="@+id/iv_qq_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -225,7 +239,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="10dp"
         android:background="#979797"
-        app:layout_constraintBottom_toTopOf="@+id/iv_ali_login"
+        app:layout_constraintBottom_toTopOf="@+id/iv_qq_login"
         app:layout_constraintEnd_toStartOf="@+id/tv_tip_login_other_way" />
 
     <View
@@ -235,7 +249,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginStart="10dp"
         android:background="#979797"
-        app:layout_constraintBottom_toTopOf="@+id/iv_ali_login"
+        app:layout_constraintBottom_toTopOf="@+id/iv_qq_login"
         app:layout_constraintStart_toEndOf="@+id/tv_tip_login_other_way" />
 
 

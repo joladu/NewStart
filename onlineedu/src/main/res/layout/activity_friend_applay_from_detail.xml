@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/window_bg"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/view_toolbar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divide_line_gray"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/qb_px_20"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_head_user"
+            android:layout_width="@dimen/qb_px_65"
+            android:layout_height="@dimen/qb_px_65"
+            android:src="@drawable/person_holder_logout_x2"
+            />
+        <TextView
+            android:id="@+id/tv_friend_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_content_forum_text"
+            android:textSize="15sp"
+            android:layout_toRightOf="@+id/civ_head_user"
+            android:layout_marginStart="@dimen/qb_px_10"
+            android:layout_marginTop="@dimen/qb_px_5"
+            android:drawableEnd="@drawable/student_icon_x2"
+            android:drawablePadding="@dimen/qb_px_5"
+            tools:text="陈华山"
+            />
+
+        <TextView
+            android:id="@+id/tv_friend_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/hint_text_gray"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/civ_head_user"
+            android:layout_below="@+id/tv_friend_name"
+            android:layout_marginStart="@dimen/qb_px_10"
+            android:layout_marginTop="@dimen/qb_px_10"
+            tools:text="文学  民族学  北京交通大学海滨学院"
+            />
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="关注：50    已关注"-->
+            <!--android:textColor="@color/gray_star_score"-->
+            <!--android:textSize="12sp"-->
+            <!--android:layout_toRightOf="@+id/civ_head_user"-->
+            <!--android:layout_below="@+id/tv_friend_describe"-->
+            <!--android:layout_marginStart="@dimen/qb_px_10"-->
+            <!--android:layout_marginTop="@dimen/qb_px_5"-->
+            <!--android:visibility="gone"-->
+            <!--/>-->
+
+
+    </RelativeLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/divide_line_gray"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/qb_px_20"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地区"
+            android:textSize="15sp"
+            android:textColor="#555555"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_area_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#555555"
+            tools:text="北京 通州"
+            android:layout_marginStart="@dimen/qb_px_25"
+            />
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divide_line_gray"
+        />
+
+    <TextView
+        android:id="@+id/tv_add_friend"
+        style="@style/BtnGreenSingleLine"
+        android:layout_width="@dimen/qb_px_225"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="@string/add_as_friend"
+        />
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="@dimen/qb_px_20"
+       >
+
+       <View
+           android:layout_width="0dp"
+           android:layout_height="1dp"
+           android:layout_weight="1"
+           />
+
+       <TextView
+           android:id="@+id/tv_ignore"
+           android:layout_width="@dimen/qb_px_100"
+           android:layout_height="wrap_content"
+           android:padding="10dp"
+           android:text="忽略"
+            android:background="@drawable/shape_bg_hand_friend_apply"
+           android:gravity="center"
+           />
+
+       <View
+           android:layout_width="@dimen/qb_px_25"
+           android:layout_height="1dp"/>
+
+       <TextView
+           android:id="@+id/tv_refuse"
+           android:layout_width="@dimen/qb_px_100"
+           android:layout_height="wrap_content"
+           android:padding="10dp"
+           android:text="拒绝"
+           android:background="@drawable/shape_bg_hand_friend_apply"
+           android:gravity="center"
+           />
+
+       <View
+           android:layout_width="0dp"
+           android:layout_height="1dp"
+           android:layout_weight="1"
+           />
+
+
+   </LinearLayout>
+
+
+
+
+</LinearLayout>

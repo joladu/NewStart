@@ -71,6 +71,8 @@ public class MineFragment extends SimpleFragment {
     private int themeId = R.style.picture_default_style;
     private PopupLogoutView mPopupLogoutView;
 
+    int role = 1;
+
 
     @Override
     protected int getLayoutId() {
@@ -94,7 +96,9 @@ public class MineFragment extends SimpleFragment {
     public void clickEvent(View view){
         switch (view.getId()){
             case R.id.rl_person_info:
-                startActivity(new Intent(mActivity, PersonInfoActivity.class));
+                Intent intent = new Intent(mActivity, PersonInfoActivity.class);
+                intent.putExtra("role",role);
+                startActivity(intent);
                 break;
             case R.id.rl_mine_info:
                 startActivity(new Intent(mActivity, MyActivity.class));
@@ -161,13 +165,18 @@ public class MineFragment extends SimpleFragment {
         App.getmAsyncHttpClient().get("http://yunketang.dev.attackt.com/api/v1/user/myprofile/", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                ResUserInfoBean resUserInfoBean = new Gson().fromJson(new String(responseBody), ResUserInfoBean.class);
+                String resultJsonStr = new String(responseBody);
+                ResUserInfoBean resUserInfoBean = new Gson().fromJson(resultJsonStr, ResUserInfoBean.class);
                 int error_code = resUserInfoBean.getError_code();
                 if (error_code == 0){
                     tv_user_name.setText(resUserInfoBean.getData().getUser().getUsername());
                     String headImgUrl = resUserInfoBean.getData().getUser().getAvatar();
                     Glide.with(mActivity).load(headImgUrl).apply(new RequestOptions().placeholder(R.drawable.person_holder_logout_x2).error(R.drawable.person_holder_logout_x2)).into(civ_head_user);
                     dataManager.setUserAvater(headImgUrl);
+
+                    role = resUserInfoBean.getData().getUser().getRole();
+                    dataManager.setUserInfoJson(resultJsonStr);
+
                 }else{
                     ToastUtil.toastShort(resUserInfoBean.getError_msg());
                 }

@@ -134,7 +134,7 @@ public class SearchFriendActivity extends SimpleActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ResSearchFriendBean resultBean = new Gson().fromJson(new String(responseBody), ResSearchFriendBean.class);
                 smr.finishRefresh();
-                smr.finishRefresh();
+                smr.finishLoadMore();
                 hideLoadingDialog();
                 if (resultBean.getError_code() == 0) {
                     tv_tip_no_user.setVisibility(View.GONE);
@@ -154,7 +154,7 @@ public class SearchFriendActivity extends SimpleActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 smr.finishRefresh();
-                smr.finishRefresh();
+                smr.finishLoadMore();
                 hideLoadingDialog();
                 tipServerError();
                 tv_cancel_search.setText("确定");

@@ -12,8 +12,8 @@
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!--android O update app -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <!-- android O update app -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".app.App"
@@ -23,15 +23,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
-        android:usesCleartextTraffic="true"
-
-        >
-
-        <!--resolve android P (9.0) https restrict-->
-        <!--android:networkSecurityConfig="@xml/network_security_config"-->
-        <!--android:usesCleartextTraffic="true"-->
-        
+        <!-- resolve android P (9.0) https restrict -->
+        <!-- android:networkSecurityConfig="@xml/network_security_config" -->
+        <!-- android:usesCleartextTraffic="true" -->
 
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
@@ -66,12 +62,10 @@
         <activity
             android:name=".ui.activity.LiveDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-
         <activity
             android:name=".ui.activity.CourseDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".ui.activity.TeacherMasterActivity" />
         <activity android:name=".ui.activity.LoadWebUrlActivity" />
         <activity android:name=".ui.activity.PersonInfoActivity" />
@@ -89,7 +83,7 @@
         <activity android:name=".ui.activity.MyMessageActivity" />
         <activity android:name=".ui.activity.MyStudyActivity" />
         <activity android:name=".ui.activity.TeacherMasterDetailActivity" />
-        <activity android:name=".ui.activity.SearchFriendActivity"/>
+        <activity android:name=".ui.activity.SearchFriendActivity" />
         <activity android:name=".ui.activity.AboutActivity" />
         <activity android:name=".ui.activity.MyCollectionActivity" />
         <activity android:name=".ui.activity.MyRecordActivity" />
@@ -98,6 +92,8 @@
         <activity android:name=".ui.activity.FriendListFromApplyActivity" />
         <activity android:name=".ui.activity.UserDetailActivity" />
         <activity android:name=".ui.activity.GroupChatActivity" />
+        <activity android:name=".ui.activity.ChooseSchoolActivity"></activity>
+        <activity android:name=".ui.activity.FriendFromApplyDetailActivity" />
     </application>
 
 </manifest>

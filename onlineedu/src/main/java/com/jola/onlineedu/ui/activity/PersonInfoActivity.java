@@ -3,6 +3,7 @@ package com.jola.onlineedu.ui.activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
@@ -16,6 +17,10 @@ public class PersonInfoActivity extends SimpleActivity {
     @BindView(R.id.toolbar_view)
     Toolbar toolbar;
 
+    @BindView(R.id.rl_teacher_attestation)
+    RelativeLayout rl_teacher_attestation;
+    private int role;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_person_info;
@@ -24,6 +29,10 @@ public class PersonInfoActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
         setToolBar(toolbar, getString(R.string.person_info));
+        role = getIntent().getIntExtra("role",1);
+        if (role != 1){
+            rl_teacher_attestation.setVisibility(View.VISIBLE);
+        }
     }
 
 

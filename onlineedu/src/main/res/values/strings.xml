@@ -70,6 +70,11 @@
     <string name="phone_no">手机号</string>
     <string name="address">地址</string>
     <string name="school">学校</string>
+    <string name="major">专业</string>
+    <string name="grade">年级</string>
+    <string name="the_class">班级</string>
+    <string name="department">系/科</string>
+    <string name="student_id">学号</string>
     <string name="teach_course">所教课程</string>
     <string name="password_check">密码校验</string>
 

@@ -1,6 +1,7 @@
 package com.jola.onlineedu.mode.http;
 
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
+import com.jola.onlineedu.mode.bean.response.ResClassListBean;
 import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterDetail;
 import com.jola.onlineedu.mode.bean.response.ResCourseCapterList;
@@ -18,12 +19,15 @@ import com.jola.onlineedu.mode.bean.response.ResForumTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResFriendList;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
+import com.jola.onlineedu.mode.bean.response.ResGradeListBean;
 import com.jola.onlineedu.mode.bean.response.ResInteresListBean;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseDetail;
 import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
+import com.jola.onlineedu.mode.bean.response.ResMajorListBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
+import com.jola.onlineedu.mode.bean.response.ResSchoolListBean;
 import com.jola.onlineedu.mode.bean.response.ResSelectionListBean;
 import com.jola.onlineedu.mode.bean.response.ResStudyListBean;
 import com.jola.onlineedu.mode.bean.response.ResTeacherAttestation;
@@ -102,7 +106,9 @@ public interface MyApis {
                                                   @Field("captcha_key") String captcha_key,
                                                   @Field("captcha") String captcha,
                                                   @Field("password") String password,
-                                                  @Field("re_password") String passwordConfirm);
+                                                  @Field("re_password") String passwordConfirm,
+                                                  @Field("role") String role
+    );
 
 
     @FormUrlEncoded
@@ -422,6 +428,15 @@ public interface MyApis {
     @POST("v1/uc/friend/add/")
     Flowable<ResponseSimpleResult> addFriend(@Header(TAG_AUTHORIZATION) String token,@Field("to_user_id") int to_user_id);
 
+
+    @FormUrlEncoded
+    @PUT("v1/uc/friend/apply/{id}/operate/")
+    Flowable<ResponseSimpleResult> handFriendApply(@Path("id") String id,
+                                                   @Header(TAG_AUTHORIZATION) String token,
+                                                   @Field("status") int status
+
+    );
+
     @GET("v1/uc/message/")
     Flowable<ResMessageListBean> getMessageList(@Header(TAG_AUTHORIZATION) String token, @Query("page") int page, @Query("pagesize")int pagesize);
 
@@ -485,6 +500,40 @@ public interface MyApis {
             @Header(TAG_AUTHORIZATION) String token,
             @Query("page") int page,
             @Query("pagesize")int pagesize);
+
+
+    @GET("v1/school/search/")
+    Flowable<ResSchoolListBean> getSchoolList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pagesize")int pagesize);
+
+
+    @GET("v1/common/grade/")
+    Flowable<ResGradeListBean> getGradeList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pagesize")int pagesize);
+
+
+    @GET("v1/common/class/")
+    Flowable<ResClassListBean> getClassList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pagesize")int pagesize);
+
+
+    @GET("v1/common/major/")
+    Flowable<ResMajorListBean> getMajorList(
+            @Header(TAG_AUTHORIZATION) String token,
+            @Query("page") int page,
+            @Query("pagesize")int pagesize);
+
+    @POST("v1/uc/chat/add/")
+    @FormUrlEncoded
+    Flowable<ResponseSimpleResult> sendGroupMsg(@Header(TAG_AUTHORIZATION)String token,
+                                                @Field("content")String content
+                                                );
 
 
 //  *****************  end  user api *****************
