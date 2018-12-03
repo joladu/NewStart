@@ -84,7 +84,8 @@ public class HomePageFragment extends SimpleFragment {
 
     private int page = 1;
     private int page_size = 10;
-//    private String mNextUrlCourse;
+    private String inputSearchContent;
+    //    private String mNextUrlCourse;
 
 //    private void stateLoading(){
 //        showLoadingDialog();
@@ -212,6 +213,7 @@ public class HomePageFragment extends SimpleFragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.iv_excellent_course:
+                    case R.id.et_hint_search_view:
                         startActivity(new Intent(getContext(), SelectableCourseActivity.class));
                         break;
                     case R.id.iv_forum:
@@ -223,12 +225,19 @@ public class HomePageFragment extends SimpleFragment {
                     case R.id.iv_test_pool:
                         startActivity(new Intent(getContext(), TestPoolActivity.class));
                         break;
+//                    case R.id.iv_search:
+//                        inputSearchContent = rvRecommendCourseAdapter.getInputSearchContent();
+//                        loadData();
+//                        break;
+
                 }
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.shape_item_divide_single_line));
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(rvRecommendCourseAdapter);
 
         hideLoadingDialog();
@@ -243,14 +252,20 @@ public class HomePageFragment extends SimpleFragment {
                 .subscribe(new Consumer<ResCourseRecommendBean>() {
                     @Override
                     public void accept(ResCourseRecommendBean resCourseList) throws Exception {
-                        mList.addAll(resCourseList.getResults());
-                        rvRecommendCourseAdapter.notifyDataSetChanged();
+                        List<ResCourseRecommendBean.ResultsBean> results = resCourseList.getResults();
+                        if (null != results && results.size() > 0){
+                            mList.addAll(results);
+                            rvRecommendCourseAdapter.notifyDataSetChanged();
+                        }else{
+                            ToastUtil.toastShort("暂无更多内容！");
+                        }
                         smartRefreshLayout.finishLoadMore();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         smartRefreshLayout.finishLoadMore();
+                        ToastUtil.toastShort("暂无更多内容！");
                     }
                 })
         );

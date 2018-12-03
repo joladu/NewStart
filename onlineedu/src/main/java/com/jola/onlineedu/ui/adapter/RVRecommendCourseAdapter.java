@@ -51,6 +51,8 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter<RecyclerView.
     private static final int Type_Head = 1;
     private static final int Type_Body = 2;
 
+
+
     public RVRecommendCourseAdapter(Context context, List<ResCourseRecommendBean.ResultsBean> mList, List<ResBannerHomepage> resBannerHomepage , View.OnClickListener clickListener) {
         this.context = context;
         this.mList = mList;
@@ -99,6 +101,7 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter<RecyclerView.
             hoderHead.iv_forum.setOnClickListener(clickListener);
             hoderHead.iv_teacher_master.setOnClickListener(clickListener);
             hoderHead.iv_test_pool.setOnClickListener(clickListener);
+            hoderHead.et_hint_search_view.setOnClickListener(clickListener);
 
         } else if (holder instanceof  ViewHolderBody){
 
@@ -147,7 +150,8 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter<RecyclerView.
     public class ViewHolderHead extends RecyclerView.ViewHolder {
 
         @BindView(R.id.et_hint_search_view)
-        EditText et_hint_search_view;
+        TextView et_hint_search_view;
+
         @BindView(R.id.vp_banner_home_page)
         BannerViewPager vp_banner_home_page;
         @BindView(R.id.iv_holder_banner)
@@ -168,6 +172,7 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter<RecyclerView.
         public ViewHolderHead(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            et_hint_search_view.setHint("课程搜索");
         }
 
     }

@@ -19,6 +19,10 @@ public class PersonInfoActivity extends SimpleActivity {
 
     @BindView(R.id.rl_teacher_attestation)
     RelativeLayout rl_teacher_attestation;
+    @BindView(R.id.view_end_line)
+    View view_end_line;
+
+
     private int role;
 
     @Override
@@ -32,6 +36,7 @@ public class PersonInfoActivity extends SimpleActivity {
         role = getIntent().getIntExtra("role",1);
         if (role != 1){
             rl_teacher_attestation.setVisibility(View.VISIBLE);
+            view_end_line.setVisibility(View.VISIBLE);
         }
     }
 

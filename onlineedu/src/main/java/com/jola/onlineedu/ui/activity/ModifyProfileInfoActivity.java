@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -174,11 +175,11 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         String userInfoJson = mDataManager.getUserInfoJson();
         ResUserInfoBean resUserInfoBean = new Gson().fromJson(userInfoJson, ResUserInfoBean.class);
 
+//        Log.e("jola","init_modify:"+userInfoJson);
+
         user = resUserInfoBean.getData().getUser();
 
         ImageLoader.load(this,user.getAvatar(),civ_head_user);
-
-        tv_address.setText(mDataManager.getUserAddress());
 
         tv_pet_name.setText(user.getUsername());
 
@@ -188,10 +189,13 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         mSchoolId = user.getSchool().getId();
         tv_major.setText(user.getMajor().getName());
         mMajorId = (user.getMajor().getId());
+
         tv_grade.setText(user.getGrade().getName());
         mGradeId = (user.getGrade().getId());
+
         tv_the_class.setText(user.getClassX().getName());
         mClassId = (user.getClassX().getId());
+
         tv_department.setText(user.getDepartment());
         tv_student_id.setText(user.getStudent_code());
 
@@ -205,6 +209,8 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         areaCode = user.getDistrict() +"";
         areaText = user.getDistrict_text();
 
+//        tv_address.setText(mDataManager.getUserAddress());
+        tv_address.setText(provinceText+" "+cityText + " "+areaText);
 
     }
 
@@ -449,8 +455,15 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
 
         ArrayList<String> list = new ArrayList<>();
 
+        boolean isAdd = false;
         for (Map.Entry<String,Integer> entry :map.entrySet()){
-            list.add(entry.getKey());
+            if (!isAdd){
+                list.add(""+entry.getKey()+"       ");
+                isAdd = true;
+            }else{
+                list.add(""+entry.getKey()+"    ");
+            }
+
         }
         SinglePicker<String> picker = new SinglePicker<>(this, list);
         picker.setCanLoop(false);//不禁用循环
@@ -460,7 +473,7 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
         picker.setWheelModeEnable(false);
         //启用权重 setWeightWidth 才起作用
         picker.setLabel("");
-        picker.setWeightEnable(false);
+        picker.setWeightEnable(true);
         picker.setWeightWidth(1);
         picker.setSelectedTextColor(Color.GREEN);//前四位值是透明度
         picker.setUnSelectedTextColor(Color.GRAY);
@@ -474,6 +487,7 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
             @Override
             public void onItemPicked(int index, String item) {
 //                ToastUtil.toastShort("index=" + index + ", item=" + item);
+                item = item.trim();
                 Integer key = map.get(item);
                 switch (mChooseType){
                     case Tag_School:
@@ -650,26 +664,34 @@ public class ModifyProfileInfoActivity extends SimpleActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String resultJsonStr = new String(responseBody);
+
+//                Log.e("jola","update_modify:"+resultJsonStr);
+
                 ResUpdatepersonalInfoBean resultBean = new Gson().fromJson(resultJsonStr, ResUpdatepersonalInfoBean.class);
                 hideLoadingDialog();
                 if (resultBean.getError_code() == 0){
+
                     ToastUtil.toastShort("资料修改成功！");
 
-                    ResUpdatepersonalInfoBean.DataBean data = resultBean.getData();
+                    ResUpdatepersonalInfoBean.DataBean data =resultBean.getData();
+//                    ResUserInfoBean.DataBean data = resultBean.getData();
 
                     String token = data.getToken();
                     mDataManager.setUserToken(token);
 
-                    ResUpdatepersonalInfoBean.DataBean.UserBean user = data.getUser();
-                    String name = user.getName();
-                    mDataManager.setUserName(name);
-                    mDataManager.setUserAvater(user.getAvatar());
-                    mDataManager.setUserTeachCourse(user.getTeaching_courses());
-                    mDataManager.setUserPhone(user.getMobile());
-                    ResUpdatepersonalInfoBean.DataBean.UserBean.SchoolBean school = user.getSchool();
-                    mDataManager.setUserAddress(school.getProvince_text() +"  "+school.getCity_text() +"  "+school.getDistrict_text());
-
-                    mDataManager.setUserInfoJson(resultJsonStr);
+//                    ResUpdatepersonalInfoBean.DataBean.UserBean user = data.getUser();
+////                    ResUserInfoBean.DataBean.UserBean user = data.getUser();
+//                    String name = user.getName();
+//                    mDataManager.setUserName(name);
+//                    mDataManager.setUserAvater(user.getAvatar());
+//                    mDataManager.setUserTeachCourse(user.getTeaching_courses());
+//                    mDataManager.setUserPhone(user.getMobile());
+//                    ResUpdatepersonalInfoBean.DataBean.UserBean.SchoolBean school = user.getSchool();
+////                    ResUserInfoBean.DataBean.UserBean.SchoolBean school = user.getSchool();
+////                    user.get
+//
+//                    mDataManager.setUserAddress(school.getProvince_text() +"  "+school.getCity_text() +"  "+school.getDistrict_text());
+//                    mDataManager.setUserInfoJson(resultJsonStr);
 
                 }else {
                     ToastUtil.toastLong(resultBean.getError_msg());

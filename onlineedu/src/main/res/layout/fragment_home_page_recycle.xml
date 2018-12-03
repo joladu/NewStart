@@ -3,6 +3,7 @@
     android:id="@+id/srl_home_page"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/window_bg"
     >
 
     <com.scwang.smartrefresh.layout.header.ClassicsHeader

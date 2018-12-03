@@ -38,7 +38,9 @@
             android:layout_marginTop="@dimen/qb_px_40"
             android:src="@drawable/setting_icon_white_x2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"
+            />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_head_user"

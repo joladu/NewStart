@@ -114,9 +114,11 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/view_end_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divide_line_gray"
+        android:visibility="invisible"
         />
 
 </LinearLayout>

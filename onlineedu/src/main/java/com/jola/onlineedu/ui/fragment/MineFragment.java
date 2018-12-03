@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ScrollView;
@@ -82,6 +83,16 @@ public class MineFragment extends SimpleFragment {
     @Override
     protected void initEventAndData() {
         getFragmentComponent().inject(this);
+//        getUserInfo();
+
+        Glide.with(mActivity).load(dataManager.getUserAvater()).apply(new RequestOptions().placeholder(R.drawable.person_holder_logout_x2).error(R.drawable.person_holder_logout_x2)).into(civ_head_user);
+        tv_user_name.setText(dataManager.getUserName());
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getUserInfo();
     }
 
@@ -166,6 +177,9 @@ public class MineFragment extends SimpleFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String resultJsonStr = new String(responseBody);
+
+//                Log.e("jola","userInfo:"+resultJsonStr);
+
                 ResUserInfoBean resUserInfoBean = new Gson().fromJson(resultJsonStr, ResUserInfoBean.class);
                 int error_code = resUserInfoBean.getError_code();
                 if (error_code == 0){

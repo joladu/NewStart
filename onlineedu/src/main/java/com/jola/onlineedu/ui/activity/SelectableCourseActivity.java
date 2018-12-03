@@ -56,10 +56,8 @@ public class SelectableCourseActivity extends SimpleActivity {
     TextView tv_stateText;
 
 
-
-
-    @BindView(R.id.et_hint_search_view)
-    EditText et_hint_search_view;
+    @BindView(R.id.et_input_search)
+    EditText et_input_search;
 
 //    @BindView(R.id.tv_tab_class1)
 //    TextView tv_tab_class1;
@@ -83,6 +81,8 @@ public class SelectableCourseActivity extends SimpleActivity {
     private int pageSize = 10;
     private String nextUrl;
 
+    private String inputSearchContent = "";
+
     @Override
     protected int getLayout() {
         return R.layout.activity_selectable_course;
@@ -92,7 +92,8 @@ public class SelectableCourseActivity extends SimpleActivity {
     protected void initEventAndData() {
         getActivityComponent().inject(this);
         setToolBar(toolbar,getString(R.string.excellent_course));
-        et_hint_search_view.setHint(getString(R.string.search_excellent_course));
+
+//        et_input_search.setHint(getString(R.string.search_excellent_course));
 
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.addItemDecoration(new DividerItemDecoration(SelectableCourseActivity.this,10,10,getResources().getColor(R.color.divide_line_gray)));
@@ -146,15 +147,19 @@ public class SelectableCourseActivity extends SimpleActivity {
     }
 
 
-    @OnClick(R.id.tv_state_tip)
+    @OnClick({R.id.tv_state_tip,R.id.iv_search})
     public void retry(View view){
+        inputSearchContent = et_input_search.getText().toString();
         loadData();
     }
 
     private void loadData() {
         stateLoading();
         page = 1;
-        addSubscribe(dataManager.getCourseList(page+"",pageSize+"")
+        if (null == inputSearchContent){
+            inputSearchContent = "";
+        }
+        addSubscribe(dataManager.getCourseList(page+"",pageSize+"",inputSearchContent)
             .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseList>() {
                     @Override
@@ -183,7 +188,10 @@ public class SelectableCourseActivity extends SimpleActivity {
 
     private void refreshData() {
         page = 1;
-        addSubscribe(dataManager.getCourseList(page+"",pageSize+"")
+        if (null == inputSearchContent){
+            inputSearchContent = "";
+        }
+        addSubscribe(dataManager.getCourseList(page+"",pageSize+"",inputSearchContent)
                 .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseList>() {
                     @Override
@@ -212,7 +220,10 @@ public class SelectableCourseActivity extends SimpleActivity {
             ToastUtil.toastShort("暂无更多内容！");
             return;
         }
-        addSubscribe(dataManager.getCourseList((page++)+"",pageSize+"")
+        if (null == inputSearchContent){
+            inputSearchContent = "";
+        }
+        addSubscribe(dataManager.getCourseList((page++)+"",pageSize+"",inputSearchContent)
                 .compose(RxUtil.<ResCourseList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResCourseList>() {
                     @Override

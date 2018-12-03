@@ -12,7 +12,7 @@ public class ResUserInfoBean implements Serializable{
 
 
     /**
-     * data : {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlU5ODEyMDE1Mzc0MzgxNzEiLCJ1c2VyX2lkIjozLCJlbWFpbCI6IiIsImV4cCI6MzEyMDU0MTYxM30.vfM7m0OdCCO_u1SChG230Qx4gg3hWGxq3LksNrEj6Qo","user":{"username":"duzi","province":22,"teaching_courses":"","name":"duzi","district":2213,"province_text":"湖北省","mobile":"13135657378","class":{"name":"","id":""},"city":221,"school":{"name":"","id":1},"email":"123@qq.com","grade":{"name":"","id":""},"role":2,"avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","student_code":"","department":"","city_text":"武汉市","major":{"name":"","id":""},"id":3,"district_text":""}}
+     * data : {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlU5ODEyMDE1Mzc0MzgxNzEiLCJ1c2VyX2lkIjozLCJlbWFpbCI6IiIsImV4cCI6MzEyMDYzNzA3NX0.fU-mPYPGXbbu6JVCJ2acm4FpnhD5O0knhQOYsq0gK5c","user":{"username":"duzi","province":150000,"teaching_courses":"","name":"duzi","district":150502,"province_text":"内蒙古自治区","mobile":"13135657378","class":{"name":"二班","id":2},"city":150500,"school":{"name":"希望小学","id":1},"email":"123@qq.com","grade":{"name":"二年级","id":2},"role":1,"avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","student_code":"205585","department":"yingy","city_text":"通辽市","major":{"name":"环境工程","id":2},"id":3,"district_text":"科尔沁区"}}
      * error_code : 0
      * error_msg : 查询成功
      */
@@ -47,8 +47,8 @@ public class ResUserInfoBean implements Serializable{
 
     public static class DataBean {
         /**
-         * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlU5ODEyMDE1Mzc0MzgxNzEiLCJ1c2VyX2lkIjozLCJlbWFpbCI6IiIsImV4cCI6MzEyMDU0MTYxM30.vfM7m0OdCCO_u1SChG230Qx4gg3hWGxq3LksNrEj6Qo
-         * user : {"username":"duzi","province":22,"teaching_courses":"","name":"duzi","district":2213,"province_text":"湖北省","mobile":"13135657378","class":{"name":"","id":""},"city":221,"school":{"name":"","id":1},"email":"123@qq.com","grade":{"name":"","id":""},"role":2,"avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","student_code":"","department":"","city_text":"武汉市","major":{"name":"","id":""},"id":3,"district_text":""}
+         * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlU5ODEyMDE1Mzc0MzgxNzEiLCJ1c2VyX2lkIjozLCJlbWFpbCI6IiIsImV4cCI6MzEyMDYzNzA3NX0.fU-mPYPGXbbu6JVCJ2acm4FpnhD5O0knhQOYsq0gK5c
+         * user : {"username":"duzi","province":150000,"teaching_courses":"","name":"duzi","district":150502,"province_text":"内蒙古自治区","mobile":"13135657378","class":{"name":"二班","id":2},"city":150500,"school":{"name":"希望小学","id":1},"email":"123@qq.com","grade":{"name":"二年级","id":2},"role":1,"avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","student_code":"205585","department":"yingy","city_text":"通辽市","major":{"name":"环境工程","id":2},"id":3,"district_text":"科尔沁区"}
          */
 
         private String token;
@@ -73,25 +73,25 @@ public class ResUserInfoBean implements Serializable{
         public static class UserBean {
             /**
              * username : duzi
-             * province : 22
+             * province : 150000
              * teaching_courses :
              * name : duzi
-             * district : 2213
-             * province_text : 湖北省
+             * district : 150502
+             * province_text : 内蒙古自治区
              * mobile : 13135657378
-             * class : {"name":"","id":""}
-             * city : 221
-             * school : {"name":"","id":1}
+             * class : {"name":"二班","id":2}
+             * city : 150500
+             * school : {"name":"希望小学","id":1}
              * email : 123@qq.com
-             * grade : {"name":"","id":""}
-             * role : 2
+             * grade : {"name":"二年级","id":2}
+             * role : 1
              * avatar : http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg
-             * student_code :
-             * department :
-             * city_text : 武汉市
-             * major : {"name":"","id":""}
+             * student_code : 205585
+             * department : yingy
+             * city_text : 通辽市
+             * major : {"name":"环境工程","id":2}
              * id : 3
-             * district_text :
+             * district_text : 科尔沁区
              */
 
             private String username;
@@ -278,8 +278,8 @@ public class ResUserInfoBean implements Serializable{
 
             public static class ClassBean {
                 /**
-                 * name :
-                 * id :
+                 * name : 二班
+                 * id : 2
                  */
 
                 private String name;
@@ -304,7 +304,7 @@ public class ResUserInfoBean implements Serializable{
 
             public static class SchoolBean {
                 /**
-                 * name :
+                 * name : 希望小学
                  * id : 1
                  */
 
@@ -330,8 +330,8 @@ public class ResUserInfoBean implements Serializable{
 
             public static class GradeBean {
                 /**
-                 * name :
-                 * id :
+                 * name : 二年级
+                 * id : 2
                  */
 
                 private String name;
@@ -356,8 +356,8 @@ public class ResUserInfoBean implements Serializable{
 
             public static class MajorBean {
                 /**
-                 * name :
-                 * id :
+                 * name : 环境工程
+                 * id : 2
                  */
 
                 private String name;

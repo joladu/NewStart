@@ -234,7 +234,7 @@ public interface MyApis {
     //  *****************  begin course api *****************
 
     @GET("v1/course/")
-    Flowable<ResCourseList> getCourseList(@Query("page") String page,@Query("page_size")String page_size);
+    Flowable<ResCourseList> getCourseList(@Query("page") String page,@Query("page_size")String page_size,@Query("kw") String kw);
 
     @GET("v1/course/recommend/")
     Flowable<ResCourseRecommendBean> getCourseRecommendList(@Query("page") String page, @Query("page_size")String page_size);

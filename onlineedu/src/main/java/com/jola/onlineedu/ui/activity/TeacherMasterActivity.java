@@ -2,6 +2,8 @@ package com.jola.onlineedu.ui.activity;
 
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
@@ -45,27 +47,30 @@ public class TeacherMasterActivity extends SimpleActivity {
     @Inject
     DataManager dataManager;
 
-    @BindView(R.id.iv_back_finish)
-    ImageView iv_back_finish;
-
-    @BindView(R.id.vp_banner_teacher)
-    ViewPager vp_banner_teacher;
 
     @BindView(R.id.srl_test_pool_list)
     SmartRefreshLayout smartRefreshLayout;
     @BindView(R.id.view_main)
     RecyclerView recyclerView;
-    @BindView(R.id.rl_state_info)
-    RelativeLayout relativeLayoutStateInfo;
-    @BindView(R.id.iv_tip_state)
-    ImageView iv_stateImage;
-    @BindView(R.id.tv_state_tip)
-    TextView tv_stateText;
+
+    public static final int Type_SetAdapter = 1030;
 
 
 
-    @BindView(R.id.et_input_search)
-    EditText et_input_search;
+
+    private boolean isBannerDataInited = false;
+    private boolean isBodyDataInited = false;
+
+    Handler mHandler =  new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case Type_SetAdapter:
+                    setAdapter();
+                    break;
+            }
+        }
+    };
 
 
 //    @BindView(R.id.tv_tab_class1)
@@ -77,16 +82,17 @@ public class TeacherMasterActivity extends SimpleActivity {
 //    @BindView(R.id.tv_tab_class4)
 //    TextView tv_tab_class4;
 
-    private int mCurrentIndex = 1;
-    private PopupWindow popupWindow;
+//    private int mCurrentIndex = 1;
+//    private PopupWindow popupWindow;
+
+//    private ListView lv_tabList;
+//    private int mStartIndex = 1;
 
     List<ResTeacherList.ResultsBean> mList = new ArrayList<>();
-    private int mStartIndex = 1;
     private TeacherMasterListAdapter mAdapter;
-    private ListView lv_tabList;
 
-    private VPHomePagerBannerAdapter vpHomePagerBannerAdapter;
-    List<ResTeacherBannerBean.ResultsBean> listTeacherBanner;
+//    private VPHomePagerBannerAdapter vpHomePagerBannerAdapter;
+    List<ResTeacherBannerBean.ResultsBean> mBannerList;
 
     private int page = 1;
     private int page_size = 10;
@@ -94,45 +100,45 @@ public class TeacherMasterActivity extends SimpleActivity {
     String searchContent = "";
 
 
-    private void stateLoading(){
-        showLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.INVISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
-        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
-        tv_stateText.setText(getString(R.string.state_loading_tip));
-    }
+//    private void stateLoading(){
+//        showLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+//        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
+//        tv_stateText.setText(getString(R.string.state_loading_tip));
+//    }
+//
+//    private void stateEmpty(){
+//        hideLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+//        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
+//        tv_stateText.setText(getString(R.string.state_empty_tip));
+//    }
+//
+//    private void stateError(){
+//        hideLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+//        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
+//        tv_stateText.setText(getString(R.string.state_error_server_tip));
+//    }
+//
+//    private void stateMain(){
+//        hideLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.VISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
+//    }
 
-    private void stateEmpty(){
-        hideLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.INVISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
-        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
-        tv_stateText.setText(getString(R.string.state_empty_tip));
-    }
-
-    private void stateError(){
-        hideLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.INVISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
-        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
-        tv_stateText.setText(getString(R.string.state_error_server_tip));
-    }
-
-    private void stateMain(){
-        hideLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.VISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
-    }
-
-    @OnClick(R.id.tv_state_tip)
-    public void retry(View view){
-        loadData();
-    }
+//    @OnClick(R.id.tv_state_tip)
+//    public void retry(View view){
+//        loadData();
+//    }
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_teacher_master;
-//        return R.layout.activity_teacher_master_new;
+//        return R.layout.activity_teacher_master;
+        return R.layout.activity_teacher_master_new;
     }
 
     @Override
@@ -141,15 +147,13 @@ public class TeacherMasterActivity extends SimpleActivity {
         changeFullScreen();
 
         getActivityComponent().inject(this);
-//        et_hint_search_view.setHint(getString(R.string.hint_search_teacher_master));
-
 
         loadBannerData();
-
+        loadData();
 
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+//        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(this));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
 //        mAdapter = new TeacherMasterListAdapter(this, mList);
 //        recyclerView.setAdapter(mAdapter);
@@ -166,9 +170,7 @@ public class TeacherMasterActivity extends SimpleActivity {
             }
         });
 
-        loadData();
 
-        iv_back_finish.bringToFront();
 
     }
 
@@ -191,13 +193,10 @@ public class TeacherMasterActivity extends SimpleActivity {
                 .subscribe(new Consumer<ResTeacherBannerBean>() {
                     @Override
                     public void accept(ResTeacherBannerBean resTeacherBannerBean) throws Exception {
-                        if (resTeacherBannerBean.getCount() > 0){
-                            listTeacherBanner = resTeacherBannerBean.getResults();
-                            vpHomePagerBannerAdapter = new VPHomePagerBannerAdapter(TeacherMasterActivity.this, listTeacherBanner);
-                            vp_banner_teacher.setAdapter(vpHomePagerBannerAdapter);
-                        }else{
-                            vp_banner_teacher.setVisibility(View.GONE);
-                        }
+
+                        mBannerList = resTeacherBannerBean.getResults();
+                        isBannerDataInited = true;
+                        mHandler.sendEmptyMessage(Type_SetAdapter);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -210,31 +209,28 @@ public class TeacherMasterActivity extends SimpleActivity {
 
 
     private void loadData(){
-        stateLoading();
+//        stateLoading();
+        showLoadingDialog();
         page = 1;
         if (searchContent == null){
             searchContent = "";
         }
+        mList.clear();
         addSubscribe(dataManager.getTeacherList(searchContent,page+"",page_size+"")
             .compose(RxUtil.<ResTeacherList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResTeacherList>() {
                     @Override
                     public void accept(ResTeacherList resTeacherList) throws Exception {
+                        hideLoadingDialog();
                         smartRefreshLayout.finishRefresh();
-                        if (resTeacherList.getCount() > 0){
-                            stateMain();
-                            mList = resTeacherList.getResults();
-                            mAdapter = new TeacherMasterListAdapter(TeacherMasterActivity.this,mList);
-                            recyclerView.setAdapter(mAdapter);
-                        }else{
-                            stateEmpty();
-                        }
+                        mList.addAll(resTeacherList.getResults());
+                        isBodyDataInited = true;
+                        mHandler.sendEmptyMessage(Type_SetAdapter);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         smartRefreshLayout.finishRefresh();
-                        stateError();
                     }
                 })
         );
@@ -245,11 +241,13 @@ public class TeacherMasterActivity extends SimpleActivity {
         if (null == searchContent){
             searchContent = "";
         }
+        showLoadingDialog();
         addSubscribe(dataManager.getTeacherList(searchContent,page+"",page_size+"")
                 .compose(RxUtil.<ResTeacherList>rxSchedulerHelper())
                 .subscribe(new Consumer<ResTeacherList>() {
                     @Override
                     public void accept(ResTeacherList resTeacherList) throws Exception {
+                        hideLoadingDialog();
                         smartRefreshLayout.finishLoadMore();
                         if (resTeacherList.getCount() > 0){
                             mList.addAll(resTeacherList.getResults());
@@ -267,28 +265,30 @@ public class TeacherMasterActivity extends SimpleActivity {
         );
     }
 
-
-    @OnClick({
-            R.id.iv_search,
-            R.id.iv_back_finish,
-    })
-    public void clickEvent(View view){
-        switch (view.getId()){
-            case R.id.iv_search:
-                searchContent = et_input_search.getText().toString();
-                if (TextUtils.isEmpty(searchContent)){
-                    ToastUtil.toastShort("请输入搜索内容后，再试！");
-                    return;
-                }
-                loadData();
-                break;
-            case R.id.iv_back_finish:
-                this.finish();
-                break;
+    private void setAdapter() {
+        if (!isBannerDataInited || !isBodyDataInited) {
+            return;
         }
+        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+
+        mAdapter = new TeacherMasterListAdapter(TeacherMasterActivity.this, mList, mBannerList, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.iv_search:
+                        searchContent = mAdapter.getInputSearchContent();
+                        ToastUtil.toastShort(searchContent);
+                        loadData();
+                        break;
+                    case R.id.iv_back_finish:
+                        TeacherMasterActivity.this.finish();
+                        break;
+                }
+            }
+        });
+        recyclerView.setAdapter(mAdapter);
     }
-
-
 
 
 
