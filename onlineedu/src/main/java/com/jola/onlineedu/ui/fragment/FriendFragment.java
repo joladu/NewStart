@@ -156,7 +156,7 @@ public class FriendFragment extends SimpleFragment {
     private void initFriendAdapter(List<ResFriendListBean.DataBean.FriendsBean> friends) {
         list = new ArrayList<>();
         for (ResFriendListBean.DataBean.FriendsBean temp : friends){
-            list.add(new User(temp.getName(),temp));
+            list.add(new User(temp.getUsername(),temp));
         }
         Collections.sort(list); // 对list进行排序，需要让User实现Comparable接口重写compareTo方法
         SortAdapter adapter = new SortAdapter(getContext(), list);

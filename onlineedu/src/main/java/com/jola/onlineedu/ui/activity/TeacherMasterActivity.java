@@ -96,7 +96,7 @@ public class TeacherMasterActivity extends SimpleActivity {
 
     private void stateLoading(){
         showLoadingDialog();
-        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        smartRefreshLayout.setVisibility(View.INVISIBLE);
         relativeLayoutStateInfo.setVisibility(View.VISIBLE);
         iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
         tv_stateText.setText(getString(R.string.state_loading_tip));
@@ -104,7 +104,7 @@ public class TeacherMasterActivity extends SimpleActivity {
 
     private void stateEmpty(){
         hideLoadingDialog();
-        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        smartRefreshLayout.setVisibility(View.INVISIBLE);
         relativeLayoutStateInfo.setVisibility(View.VISIBLE);
         iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
         tv_stateText.setText(getString(R.string.state_empty_tip));
@@ -112,7 +112,7 @@ public class TeacherMasterActivity extends SimpleActivity {
 
     private void stateError(){
         hideLoadingDialog();
-        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        smartRefreshLayout.setVisibility(View.INVISIBLE);
         relativeLayoutStateInfo.setVisibility(View.VISIBLE);
         iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
         tv_stateText.setText(getString(R.string.state_error_server_tip));
@@ -120,7 +120,7 @@ public class TeacherMasterActivity extends SimpleActivity {
 
     private void stateMain(){
         hideLoadingDialog();
-        smartRefreshLayout.setVisibility(View.VISIBLE);
+//        smartRefreshLayout.setVisibility(View.VISIBLE);
         relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
     }
 
@@ -132,6 +132,7 @@ public class TeacherMasterActivity extends SimpleActivity {
     @Override
     protected int getLayout() {
         return R.layout.activity_teacher_master;
+//        return R.layout.activity_teacher_master_new;
     }
 
     @Override
@@ -223,21 +224,6 @@ public class TeacherMasterActivity extends SimpleActivity {
                         if (resTeacherList.getCount() > 0){
                             stateMain();
                             mList = resTeacherList.getResults();
-
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            for testing
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-//                            mList.addAll(resTeacherList.getResults());
-
                             mAdapter = new TeacherMasterListAdapter(TeacherMasterActivity.this,mList);
                             recyclerView.setAdapter(mAdapter);
                         }else{

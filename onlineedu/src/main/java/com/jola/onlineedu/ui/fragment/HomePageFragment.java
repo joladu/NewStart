@@ -1,6 +1,8 @@
 package com.jola.onlineedu.ui.fragment;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,97 +53,91 @@ public class HomePageFragment extends SimpleFragment {
     @Inject
     DataManager dataManager;
 
-    @BindView(R.id.et_hint_search_view)
-    EditText et_hint_search_view;
-
-    @BindView(R.id.vp_banner_home_page)
-    BannerViewPager vp_banner_home_page;
-    @BindView(R.id.iv_holder_banner)
-    ImageView iv_holder_banner;
-
 
     @BindView(R.id.view_main)
     RecyclerView recyclerView;
     @BindView(R.id.srl_home_page)
     SmartRefreshLayout smartRefreshLayout;
-    @BindView(R.id.rl_state_info)
-    RelativeLayout relativeLayoutStateInfo;
-    @BindView(R.id.iv_tip_state)
-    ImageView iv_stateImage;
-    @BindView(R.id.tv_state_tip)
-    TextView tv_stateText;
+
+    public static final int Type_SetAdapter = 1020;
+
+    private boolean isBannerDataInited = false;
+    private boolean isBodyDataInited = false;
+
+    Handler mHandler =  new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case Type_SetAdapter:
+                    setAdapter();
+                    break;
+            }
+        }
+    };
 
 
-    private BannerPagerAdapter vpHomePagerBannerAdapter;
-
+    private List<ResBannerHomepage> mBannerList;
     private List<ResCourseRecommendBean.ResultsBean> mList = new ArrayList<>();
     private RVRecommendCourseAdapter rvRecommendCourseAdapter;
+
+
 
     private int page = 1;
     private int page_size = 10;
 //    private String mNextUrlCourse;
 
-    private void stateLoading(){
-        showLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.INVISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
-        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
-        tv_stateText.setText(getString(R.string.state_loading_tip));
-    }
+//    private void stateLoading(){
+//        showLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+//        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_loading));
+//        tv_stateText.setText(getString(R.string.state_loading_tip));
+//    }
 
-    private void stateEmpty(){
-        hideLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.INVISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
-        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
-        tv_stateText.setText(getString(R.string.state_empty_tip));
-    }
+//    private void stateEmpty(){
+//        hideLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+//        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_empty));
+//        tv_stateText.setText(getString(R.string.state_empty_tip));
+//    }
 
-    private void stateError(){
-        hideLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.INVISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
-        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
-        tv_stateText.setText(getString(R.string.state_error_server_tip));
-    }
+//    private void stateError(){
+//        hideLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.INVISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.VISIBLE);
+//        iv_stateImage.setImageDrawable(getResources().getDrawable(R.drawable.state_error_server));
+//        tv_stateText.setText(getString(R.string.state_error_server_tip));
+//    }
 
-    private void stateMain(){
-        hideLoadingDialog();
-//        smartRefreshLayout.setVisibility(View.VISIBLE);
-        relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
-    }
+//    private void stateMain(){
+//        hideLoadingDialog();
+////        smartRefreshLayout.setVisibility(View.VISIBLE);
+//        relativeLayoutStateInfo.setVisibility(View.INVISIBLE);
+//    }
 
 
-    @OnClick(R.id.tv_state_tip)
-    public void retry(View view){
-        loadData();
-    }
+//    @OnClick(R.id.tv_state_tip)
+//    public void retry(View view){
+//        loadData();
+//    }
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_home_page;
+//        return R.layout.fragment_home_page;
 //        return R.layout.fragment_home_page_new;
+        return R.layout.fragment_home_page_recycle;
     }
 
     @Override
     protected void initEventAndData() {
         getFragmentComponent().inject(this);
-        et_hint_search_view.setHint(getString(R.string.tip_hint_input_search));
 
 
         loadBannerData();
-//        testBanner();
-
-
-        rvRecommendCourseAdapter = new RVRecommendCourseAdapter(getContext(), mList);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
-
         loadData();
 
-//        smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -158,28 +154,8 @@ public class HomePageFragment extends SimpleFragment {
 
     }
 
-    private void testBanner() {
-        ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
-        ResBannerHomepage resBannerHomepage = new ResBannerHomepage();
-       resBannerHomepage.setAdvertising_url("https://www.baidu.com/img/bd_logo1.png?where=super");
-        listBanner.add(resBannerHomepage);
-        listBanner.add(resBannerHomepage);
-        listBanner.add(resBannerHomepage);
-        listBanner.add(resBannerHomepage);
-        listBanner.add(resBannerHomepage);
-        vpHomePagerBannerAdapter = new BannerPagerAdapter(getContext(),listBanner);
-        vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter,listBanner.size());
 
-        vpHomePagerBannerAdapter.setOnPageClickListener(new BannerPagerAdapter.OnPageClickListener() {
-            @Override
-            public void onPageClick(View view, int position) {
-                ToastUtil.toastLong("position:"+position);
-            }
-        });
 
-        vp_banner_home_page.setVisibility(View.VISIBLE);
-        iv_holder_banner.setVisibility(View.INVISIBLE);
-    }
 
     private void loadBannerData() {
         addSubscribe(dataManager.getBannerHomepage()
@@ -187,40 +163,21 @@ public class HomePageFragment extends SimpleFragment {
                 .subscribe(new Consumer<List<ResBannerHomepage>>() {
                     @Override
                     public void accept(List<ResBannerHomepage> resBannerHomepage) throws Exception {
-                        if (resBannerHomepage != null){
-//                            Log.e("jola11","bannner  accept(ResBannerHomepage resBannerHomepage");
-//                            ArrayList<ResBannerHomepage> listBanner = new ArrayList<>();
-//                            listBanner.add(resBannerHomepage);
-                            vpHomePagerBannerAdapter = new BannerPagerAdapter(getContext(),resBannerHomepage);
-                            vp_banner_home_page.setAdapter(vpHomePagerBannerAdapter,resBannerHomepage.size());
-
-//                            vpHomePagerBannerAdapter.setOnPageClickListener(new BannerPagerAdapter.OnPageClickListener() {
-//                                @Override
-//                                public void onPageClick(View view, int position) {
-//                                    ToastUtil.toastLong("position:"+position);
-//                                }
-//                            });
-
-                            vp_banner_home_page.setVisibility(View.VISIBLE);
-                            iv_holder_banner.setVisibility(View.INVISIBLE);
-                        }else{
-                            vp_banner_home_page.setVisibility(View.INVISIBLE);
-                            iv_holder_banner.setVisibility(View.VISIBLE);
-                        }
+                        isBannerDataInited = true;
+                        mBannerList = resBannerHomepage;
+                        mHandler.sendEmptyMessage(Type_SetAdapter);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-//                        Log.e("jola11","bannner  throws Exception ");
-                        vp_banner_home_page.setVisibility(View.INVISIBLE);
-                        iv_holder_banner.setVisibility(View.VISIBLE);
+                        ToastUtil.toastShort("网络连接失败");
                     }
                 })
         );
     }
 
     private void loadData() {
-//        stateLoading();
+        showLoadingDialog();
         page = 1;
         mList.clear();
         addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")
@@ -229,46 +186,57 @@ public class HomePageFragment extends SimpleFragment {
                     @Override
                     public void accept(ResCourseRecommendBean resCourseList) throws Exception {
                         smartRefreshLayout.finishRefresh();
+                        isBodyDataInited = true;
                         List<ResCourseRecommendBean.ResultsBean> results = resCourseList.getResults();
-                        if (results.size() > 0){
-
-//                            mList.add(results.get(0));
-
-
-                            mList.addAll(results);
-
-//                            mList.addAll(results);
-//                            mList.addAll(results);
-//                            mList.addAll(results);
-                            if (mList.size() > 0){
-                                stateMain();
-                                recyclerView.setAdapter(rvRecommendCourseAdapter);
-                                rvRecommendCourseAdapter.notifyDataSetChanged();
-//                                mNextUrlCourse = resCourseList.getNext();
-                            }else{
-                                stateEmpty();
-                            }
-                        }else{
-                            stateEmpty();
-                        }
+                        mList.addAll(results);
+                        mHandler.sendEmptyMessage(Type_SetAdapter);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         smartRefreshLayout.finishRefresh();
-                        stateError();
+                       ToastUtil.toastShort("网络连接失败！");
                     }
                 })
         );
     }
 
+    private void setAdapter() {
+
+        if (!isBannerDataInited || !isBodyDataInited){
+            return;
+        }
+
+        rvRecommendCourseAdapter = new RVRecommendCourseAdapter(getContext(), mList, mBannerList, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.iv_excellent_course:
+                        startActivity(new Intent(getContext(), SelectableCourseActivity.class));
+                        break;
+                    case R.id.iv_forum:
+                        startActivity(new Intent(getContext(), ForumListActivity.class));
+                        break;
+                    case R.id.iv_teacher_master:
+                        startActivity(new Intent(getContext(), TeacherMasterActivity.class));
+                        break;
+                    case R.id.iv_test_pool:
+                        startActivity(new Intent(getContext(), TestPoolActivity.class));
+                        break;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView.setLayoutManager(new com.jola.onlineedu.widget.LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(rvRecommendCourseAdapter);
+
+        hideLoadingDialog();
+
+    }
+
 
     private void loadDataMore() {
-//        if (null == mNextUrlCourse || mNextUrlCourse.length() == 0){
-//            smartRefreshLayout.finishLoadMore();
-//            ToastUtil.toastShort("暂无更多内容");
-//            return;
-//        }
         page++;
         addSubscribe(dataManager.getCourseRecommendList(page+"",page_size+"")
                 .compose(RxUtil.<ResCourseRecommendBean> rxSchedulerHelper())
@@ -290,22 +258,5 @@ public class HomePageFragment extends SimpleFragment {
 
 
 
-    @OnClick({R.id.iv_forum,R.id.iv_excellent_course,R.id.iv_test_pool,R.id.iv_teacher_master})
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.iv_excellent_course:
-                startActivity(new Intent(getContext(), SelectableCourseActivity.class));
-                break;
-            case R.id.iv_forum:
-                startActivity(new Intent(getContext(), ForumListActivity.class));
-                break;
-            case R.id.iv_teacher_master:
-                startActivity(new Intent(getContext(), TeacherMasterActivity.class));
-                break;
-            case R.id.iv_test_pool:
-                startActivity(new Intent(getContext(), TestPoolActivity.class));
-                break;
-        }
-    }
 
 }

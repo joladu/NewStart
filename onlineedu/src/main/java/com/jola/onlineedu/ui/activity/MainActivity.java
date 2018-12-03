@@ -201,7 +201,7 @@ public class MainActivity extends SimpleActivity {
 //        mDataManager.setCurMainFragmentTag(showFragmentTag);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void changeFullScreen() {
         if (Build.VERSION.SDK_INT >= 21) {
             int option = View.SYSTEM_UI_FLAG_VISIBLE;
