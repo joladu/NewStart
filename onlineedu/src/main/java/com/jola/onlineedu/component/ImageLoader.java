@@ -28,8 +28,7 @@ public class ImageLoader {
     public static void loadWhitPrefix(Context context, String url, ImageView iv){
         Glide.with(context)
                 .load(MyApis.DOMAIN + url)
-//                .apply(new RequestOptions().error(R.drawable.image_placeholder_fail).placeholder(R.drawable.image_placeholder_loading))
-                .apply(new RequestOptions().error(R.drawable.image_fail).placeholder(R.drawable.image_placeholder))
+                .apply(new RequestOptions().error(R.drawable.image_fail).placeholder(R.drawable.image_placeholder).diskCacheStrategy(DiskCacheStrategy.NONE))
                 .into(iv);
     }
 

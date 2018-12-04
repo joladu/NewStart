@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jola.onlineedu.R;
 import com.jola.onlineedu.base.SimpleActivity;
+import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResGetImageCode;
 import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
@@ -75,6 +76,7 @@ public class ModifyPhoneNoActivity extends SimpleActivity {
     }
 
     private void getKatpchCode() {
+        iv_ImageCode.setImageResource(R.drawable.image_placeholder);
         //        获得图形验证码
         addSubscribe(dataManager.getImageCode()
                         .compose(RxUtil.<ResGetImageCode>rxSchedulerHelper())
@@ -87,7 +89,8 @@ public class ModifyPhoneNoActivity extends SimpleActivity {
 //                                              "captcha_img":"/captcha/image/20d8699afac91bb9bc4fc26f40f564eacbc91b6e/"
 //                            http://yunketang.dev.attackt.com/captcha/image/99d0501dea9230fd9984f41581b7e703a2652dbe/
                                     captcha_key = resGetImageCode.getData().getCaptcha_key();
-                                    Glide.with(ModifyPhoneNoActivity.this).load(MyApis.DOMAIN + captcha_img).into(iv_ImageCode);
+//                                    Glide.with(ModifyPhoneNoActivity.this).load(MyApis.DOMAIN + captcha_img).into(iv_ImageCode);
+                                    ImageLoader.loadWhitPrefix(ModifyPhoneNoActivity.this,captcha_img,iv_ImageCode);
                                 } else {
                                     ToastUtil.toastLong(resGetImageCode.getError_msg());
                                 }

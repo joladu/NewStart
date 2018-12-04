@@ -53,6 +53,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Field;
 
 /**
  * Created by lenovo on 2018/8/14
@@ -99,6 +100,13 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
         return myApis.getUserRegisterInfo(userName,mobileNum,checkCode,captcha_key,captcha,password,passwordConfirm,role);
     }
 
+
+
+    // @Field("mobile") String mobilePhone,
+//    @Field("v_code") String msgCode,
+//    @Field("captcha_key") String imageCodeKey,
+//    @Field("captcha") String imageCode,
+//    @Field("password") String password
     @Override
     public Flowable<ResponseSimpleResult> getUserForgetPasswrod(String mobilePhone, String msgCode, String imageCodeKey, String imageCode, String password) {
         return myApis.getUserForgetPasswrod(mobilePhone,msgCode,imageCodeKey,imageCode,password);
