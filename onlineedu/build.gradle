@@ -8,8 +8,8 @@ android {
         applicationId "com.jola.onlineedu"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -137,5 +137,11 @@ dependencies {
 
 //    address picker
     implementation 'com.github.addappcn:android-pickers:1.0.3'
+
+//    app update
+    implementation 'com.qianwen:update-app:3.3.8'
+    implementation 'com.qianwen:okhttp-utils:3.8.0'
+
+
 
 }

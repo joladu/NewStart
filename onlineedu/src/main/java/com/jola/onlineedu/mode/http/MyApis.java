@@ -1,6 +1,5 @@
 package com.jola.onlineedu.mode.http;
 
-import android.arch.persistence.room.Delete;
 
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResClassListBean;
@@ -75,6 +74,8 @@ public interface MyApis {
     String DOMAIN = "http://yunketang.dev.attackt.com";
     String HOST = DOMAIN + "/api/";
     String TAG_AUTHORIZATION = "authorization";
+
+    String Url_Check_Version = DOMAIN +"/api/v1/version/";
 
 
     // *****************   begin base api     ***************

@@ -73,15 +73,15 @@ public class SplashActivity extends SimpleActivity {
                                 dataManager.setUserPhone(resUserLogin.getData().getUser().getMobile());
                                 dataManager.setUserId(resUserLogin.getData().getUser().getId()+"");
                                 dataManager.setUserToken(resUserLogin.getData().getToken());
-                                startToMain();
+                                splashDelayMiliSecondsToMain(1000);
                             }else{
-                                startToLogin();
+                                splashDelayMiliSecondsToLogin(1000);
                             }
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            startToLogin();
+                            splashDelayMiliSecondsToLogin(1000);
                         }
                     });
         }else{
@@ -119,6 +119,16 @@ public class SplashActivity extends SimpleActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                SplashActivity.this.finish();
+            }
+        },miliseconds);
+    }
+
+    private void splashDelayMiliSecondsToMain(int miliseconds){
+        iv_icon_class.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
                 SplashActivity.this.finish();
             }
         },miliseconds);
