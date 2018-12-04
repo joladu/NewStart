@@ -8,8 +8,9 @@ import java.util.List;
 
 public class ResMyCollectionListBean {
 
+
     /**
-     * data : {"courses":[{"category":null,"name":"数据结构","cover_url":"http://127.0.0.1:8002/media/cover_1537430138.jpeg","author":"杨老师"},{"category":null,"name":"操作系统","cover_url":"http://127.0.0.1:8002/media/cover_1537436636.jpeg","author":"刘老师"}],"page":1,"pageSize":10,"pageCount":1}
+     * data : {"count":1,"courses":[{"author":"李老师","categories":["物理"],"id":1,"cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","name":"高二物理"}],"page":1,"pageSize":10,"pageCount":1}
      * error_code : 0
      * error_msg : success
      */
@@ -44,16 +45,26 @@ public class ResMyCollectionListBean {
 
     public static class DataBean {
         /**
-         * courses : [{"category":null,"name":"数据结构","cover_url":"http://127.0.0.1:8002/media/cover_1537430138.jpeg","author":"杨老师"},{"category":null,"name":"操作系统","cover_url":"http://127.0.0.1:8002/media/cover_1537436636.jpeg","author":"刘老师"}]
+         * count : 1
+         * courses : [{"author":"李老师","categories":["物理"],"id":1,"cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","name":"高二物理"}]
          * page : 1
          * pageSize : 10
          * pageCount : 1
          */
 
+        private int count;
         private int page;
         private int pageSize;
         private int pageCount;
         private List<CoursesBean> courses;
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
 
         public int getPage() {
             return page;
@@ -89,31 +100,33 @@ public class ResMyCollectionListBean {
 
         public static class CoursesBean {
             /**
-             * category : null
-             * name : 数据结构
-             * cover_url : http://127.0.0.1:8002/media/cover_1537430138.jpeg
-             * author : 杨老师
+             * author : 李老师
+             * categories : ["物理"]
+             * id : 1
+             * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
+             * name : 高二物理
              */
 
-            private Object category;
-            private String name;
-            private String cover_url;
             private String author;
+            private int id;
+            private String cover_url;
+            private String name;
+            private List<String> categories;
 
-            public Object getCategory() {
-                return category;
+            public String getAuthor() {
+                return author;
             }
 
-            public void setCategory(Object category) {
-                this.category = category;
+            public void setAuthor(String author) {
+                this.author = author;
             }
 
-            public String getName() {
-                return name;
+            public int getId() {
+                return id;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public void setId(int id) {
+                this.id = id;
             }
 
             public String getCover_url() {
@@ -124,12 +137,20 @@ public class ResMyCollectionListBean {
                 this.cover_url = cover_url;
             }
 
-            public String getAuthor() {
-                return author;
+            public String getName() {
+                return name;
             }
 
-            public void setAuthor(String author) {
-                this.author = author;
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public List<String> getCategories() {
+                return categories;
+            }
+
+            public void setCategories(List<String> categories) {
+                this.categories = categories;
             }
         }
     }

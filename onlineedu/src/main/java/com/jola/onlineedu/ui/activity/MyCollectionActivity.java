@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.jola.onlineedu.component.ImageLoader;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResInteresListBean;
 import com.jola.onlineedu.mode.bean.response.ResMyCollectionListBean;
+import com.jola.onlineedu.mode.bean.response.ResponseSimpleResult;
 import com.jola.onlineedu.mode.http.MyApis;
+import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.ToastUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -37,6 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.functions.Consumer;
 
 public class MyCollectionActivity extends SimpleActivity {
 
@@ -88,29 +92,29 @@ public class MyCollectionActivity extends SimpleActivity {
 
     }
 
-    private void testData() {
-        ResMyCollectionListBean.DataBean.CoursesBean coursesBean = new ResMyCollectionListBean.DataBean.CoursesBean();
-
-//         * category : null
-//                * name : 数据结构
-//                * cover_url : http://127.0.0.1:8002/media/cover_1537430138.jpeg
-//             * author : 杨老师
-        coursesBean.setCover_url("https://www.baidu.com/img/bd_logo1.png?where=super");
-        coursesBean.setAuthor("测试老师");
-        coursesBean.setName("测试名称");
-        coursesBean.setCategory("测试科目");
-        mList.add(coursesBean);
-        mList.add(coursesBean);
-        mList.add(coursesBean);
-        mList.add(coursesBean);
-        mList.add(coursesBean);
-        mList.add(coursesBean);
-        mList.add(coursesBean);
-        mAdapter = new RecycleListAdapter(this);
-        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        rv.setAdapter(mAdapter);
-    }
+//    private void testData() {
+//        ResMyCollectionListBean.DataBean.CoursesBean coursesBean = new ResMyCollectionListBean.DataBean.CoursesBean();
+//
+////         * category : null
+////                * name : 数据结构
+////                * cover_url : http://127.0.0.1:8002/media/cover_1537430138.jpeg
+////             * author : 杨老师
+//        coursesBean.setCover_url("https://www.baidu.com/img/bd_logo1.png?where=super");
+//        coursesBean.setAuthor("测试老师");
+//        coursesBean.setName("测试名称");
+//        coursesBean.setCategory("测试科目");
+//        mList.add(coursesBean);
+//        mList.add(coursesBean);
+//        mList.add(coursesBean);
+//        mList.add(coursesBean);
+//        mList.add(coursesBean);
+//        mList.add(coursesBean);
+//        mList.add(coursesBean);
+//        mAdapter = new RecycleListAdapter(this);
+//        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+//        rv.setAdapter(mAdapter);
+//    }
 
 
 
@@ -150,6 +154,7 @@ public class MyCollectionActivity extends SimpleActivity {
     private void asyncRefresh() {
         showLoadingDialog();
         RequestParams requestParams = new RequestParams();
+        page = 1;
         requestParams.put("page", 1);
         requestParams.put("pageSize", 10);
         App.getmAsyncHttpClient().addHeader(MyApis.TAG_AUTHORIZATION, dataManager.getUserToken());
@@ -158,7 +163,9 @@ public class MyCollectionActivity extends SimpleActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 hideLoadingDialog();
                 smr.finishRefresh();
-                ResMyCollectionListBean resultBean = new Gson().fromJson(new String(responseBody), ResMyCollectionListBean.class);
+                String resultStr = new String(responseBody);
+//                Log.e("jola_collect",resultStr);
+                ResMyCollectionListBean resultBean = new Gson().fromJson(resultStr, ResMyCollectionListBean.class);
                 if (resultBean.getError_code() == 0) {
                     mList = resultBean.getData().getCourses();
                     mAdapter = new RecycleListAdapter(MyCollectionActivity.this);
@@ -222,10 +229,12 @@ public class MyCollectionActivity extends SimpleActivity {
                 smr.finishLoadMore();
                 ResMyCollectionListBean resultBean = new Gson().fromJson(new String(responseBody), ResMyCollectionListBean.class);
                 if (resultBean.getError_code() == 0) {
-                    mList .addAll( resultBean.getData().getCourses());
-                    mAdapter.notifyDataSetChanged();
-                    if (mList.size() == 0) {
-                        ToastUtil.toastLong("暂无数据！");
+                    List<ResMyCollectionListBean.DataBean.CoursesBean> courses = resultBean.getData().getCourses();
+                    if (null != courses && courses.size() > 0){
+                        mList.addAll(courses);
+                        mAdapter.notifyDataSetChanged();
+                    }else{
+                        ToastUtil.toastLong("暂无更多数据！");
                     }
                 } else {
                     ToastUtil.toastLong(resultBean.getError_msg());
@@ -263,15 +272,55 @@ public class MyCollectionActivity extends SimpleActivity {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             ResMyCollectionListBean.DataBean.CoursesBean coursesBean = mList.get(position);
-//              * category : null
-//                * name : 数据结构
-//                * cover_url : http://127.0.0.1:8002/media/cover_1537430138.jpeg
-//             * author : 杨老师
+//           author : 李老师
+//             * categories : ["物理"]
+//             * id : 1
+//                    * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
+//             * name : 高二物理
 
             ImageLoader.load(MyCollectionActivity.this,coursesBean.getCover_url(),holder.iv_course_cover);
             holder.tv_course_name.setText(coursesBean.getName());
+            StringBuilder sb = new StringBuilder();
+            List<String> categories = coursesBean.getCategories();
+            for (String temp : categories){
+                sb.append(" "+temp);
+            }
 //            tools:text="讲师 李老师  课程类别 语文"
-            holder.tv_teacher_category.setText("讲师 "+coursesBean.getAuthor() + "  课程类别"+coursesBean.getCategory());
+            holder.tv_teacher_category.setText("讲师 "+coursesBean.getAuthor() + "  课程类别"+sb.toString());
+
+            final int coursesBeanId = coursesBean.getId();
+            holder.tv_cancel_collection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancelFavoriteCourse(coursesBeanId);
+                }
+            });
+
+        }
+
+        private void cancelFavoriteCourse(final int courseId) {
+            showLoadingDialog();
+            dataManager.cancelFavoriteCourse(dataManager.getUserToken(),courseId)
+                    .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                    .subscribe(new Consumer<ResponseSimpleResult>() {
+                        @Override
+                        public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                            hideLoadingDialog();
+                            if (responseSimpleResult.getError_code() == 0){
+                                ToastUtil.toastShort("取消成功");
+                                refreshData();
+                                dataManager.cacelFavoriteCourse(courseId);
+                            }else{
+                                ToastUtil.toastShort(responseSimpleResult.getError_msg());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            hideLoadingDialog();
+                            tipServerError();
+                        }
+                    });
 
         }
 

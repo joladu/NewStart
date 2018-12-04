@@ -4,6 +4,7 @@
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/window_bg">
 
 
@@ -233,6 +234,15 @@
                 <!--app:layout_constraintTop_toBottomOf="@+id/tv_title_live_item" />-->
 
 
+
+                <ImageView
+                    android:id="@+id/iv_share_course"
+                    android:layout_width="@dimen/qb_px_15"
+                    android:layout_height="@dimen/qb_px_15"
+                    android:src="@drawable/icon_share_x2"
+                    android:layout_marginEnd="@dimen/qb_px_5"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_share_num"
+                    />
                 <!--android:text="200"-->
                 <TextView
                     android:id="@+id/tv_share_num"
@@ -240,11 +250,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/qb_px_10"
                     android:layout_marginTop="@dimen/qb_px_10"
-                    android:drawableLeft="@drawable/icon_share_x2"
-                    android:drawablePadding="5dp"
                     android:textColor="#808288"
                     android:textSize="12sp"
                     app:layout_constraintRight_toRightOf="parent"
+                    tools:text="200"
+                    />
+
+
+
+                <ImageView
+                    android:id="@+id/iv_praise_course"
+                    android:layout_width="@dimen/qb_px_15"
+                    android:layout_height="@dimen/qb_px_15"
+                    android:src="@drawable/icon_praise_x2"
+                    android:layout_marginEnd="@dimen/qb_px_5"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_praise_num"
                     />
 
                 <!--android:text="200"-->
@@ -254,11 +274,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/qb_px_10"
                     android:layout_marginTop="@dimen/qb_px_10"
-                    android:drawableLeft="@drawable/icon_praise_x2"
-                    android:drawablePadding="5dp"
                     android:textColor="#808288"
                     android:textSize="12sp"
-                    app:layout_constraintRight_toLeftOf="@+id/tv_share_num"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_share_course"
+                    tools:text="200"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/iv_heart_course"
+                    android:layout_width="@dimen/qb_px_15"
+                    android:layout_height="@dimen/qb_px_15"
+                    android:src="@drawable/icon_heart_x2"
+                    android:layout_marginEnd="@dimen/qb_px_5"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_heart_num"
                     />
 
                 <!--200-->
@@ -268,12 +297,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/qb_px_10"
                     android:layout_marginTop="@dimen/qb_px_10"
-                    android:drawableLeft="@drawable/icon_heart_x2"
-                    android:drawablePadding="5dp"
-                    android:text=""
                     android:textColor="#808288"
                     android:textSize="12sp"
-                    app:layout_constraintRight_toLeftOf="@+id/tv_praise_num"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_praise_course"
+
+                    tools:text="200"
+
                     />
 
                 <!--android:text="￥120.00"-->

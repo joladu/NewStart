@@ -183,6 +183,7 @@ public class GroupChatActivity extends SimpleActivity {
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
                         hideLoadingDialog();
                         if (responseSimpleResult.getError_code() == 0){
+                            et_input_message.setText("");
                             ToastUtil.toastShort("发送成功！");
                             loadGroupChats();
 

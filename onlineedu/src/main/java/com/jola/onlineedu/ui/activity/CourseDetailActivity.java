@@ -94,8 +94,13 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     TextView tv_content_brief;
     @BindView(R.id.tv_course_author)
     TextView tv_course_author;
+
+    @BindView(R.id.iv_heart_course)
+    ImageView iv_heart_course;
+
     @BindView(R.id.tv_heart_num)
     TextView tv_heart_num;
+
     @BindView(R.id.tv_praise_num)
     TextView tv_praise_num;
     @BindView(R.id.tv_share_num)
@@ -176,27 +181,32 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         loadData();
         loadComments();
-        smartRefreshLayout.setEnableRefresh(false);
-        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadMoreComments();
-            }
-        });
-
-        loadCourseChaptersData();
-
-//        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+//        smartRefreshLayout.setEnableRefresh(false);
+//        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
 //            @Override
 //            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
 //                loadMoreComments();
 //            }
-//
-//            @Override
-//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-//                loadComments();
-//            }
 //        });
+
+        loadCourseChaptersData();
+
+        boolean hasFavoriteCourse = dataManager.hasFavoriteCourse(id);
+        if (hasFavoriteCourse){
+            iv_heart_course.setImageResource(R.drawable.icon_heart_selected_48);
+        }
+
+        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreComments();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                loadComments();
+            }
+        });
     }
 
     @Override
@@ -478,9 +488,22 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
             R.id.tv_brief_title,
             R.id.tv_chapter_title,
             R.id.iv_play_video,
+
+            R.id.iv_heart_course,
+            R.id.iv_share_course,
+            R.id.iv_praise_course,
     })
     public void doClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_heart_course:
+                collectCourse();
+                break;
+            case R.id.iv_share_course:
+               ToastUtil.toastShort("暂无分享链接");
+               break;
+            case R.id.iv_praise_course:
+                ToastUtil.toastShort("暂无点赞接口");
+                break;
             case R.id.iv_play_video:
                 startPlay(0);
                 break;
@@ -512,6 +535,31 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                 }
                 break;
         }
+    }
+
+    private void collectCourse() {
+        showLoadingDialog();
+        dataManager.favoriteCourse(dataManager.getUserToken(),id)
+                .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                .subscribe(new Consumer<ResponseSimpleResult>() {
+                    @Override
+                    public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                        hideLoadingDialog();
+                        if (responseSimpleResult.getError_code() == 0){
+                            iv_heart_course.setImageResource(R.drawable.icon_heart_selected_48);
+                            ToastUtil.toastShort("收藏成功！");
+                            dataManager.favoriteCourse(id);
+                        }else{
+                            ToastUtil.toastShort(responseSimpleResult.getError_msg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        tipServerError();
+                    }
+                });
     }
 
     private void hideVideoView(boolean hideOrNo){
@@ -566,6 +614,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                     public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
                         hideLoadingDialog();
                         if (responseSimpleResult.getError_code() == 0) {
+                            et_input_comment.setText("");
                             ToastUtil.toastShort("评论成功！");
                         } else {
                             ToastUtil.toastLong(responseSimpleResult.getError_msg());

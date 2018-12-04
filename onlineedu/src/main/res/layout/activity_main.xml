@@ -14,15 +14,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/qb_px_8"
         android:background="@color/divide_line_gray" />
+
 
     <LinearLayout
         android:id="@+id/ly_tab_menu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/qb_px_53"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="-6dp"
+        android:layout_marginBottom="-3dp"
         android:orientation="horizontal">
 
 

@@ -1,5 +1,7 @@
 package com.jola.onlineedu.mode.http;
 
+import android.arch.persistence.room.Delete;
+
 import com.jola.onlineedu.mode.bean.response.ResBannerHomepage;
 import com.jola.onlineedu.mode.bean.response.ResClassListBean;
 import com.jola.onlineedu.mode.bean.response.ResCommentListBean;
@@ -49,6 +51,7 @@ import java.util.Map;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -265,6 +268,15 @@ public interface MyApis {
 
     @POST("v1/coursecomment/{id}/praise/")
     Flowable<ResponseSimpleResult> praiseCommentCourse(@Header(TAG_AUTHORIZATION) String token,@Path("id")int id);
+
+    @FormUrlEncoded
+    @POST("v1/uc/record/favoritecourse/add/")
+    Flowable<ResponseSimpleResult> favoriteCourse(@Header(TAG_AUTHORIZATION) String token,@Field("course_id") int course_id);
+
+    @DELETE("v1/uc/record/favoritecourse/{id}/del/")
+    Flowable<ResponseSimpleResult> cancelFavoriteCourse(@Header(TAG_AUTHORIZATION) String token,@Path("id") int course_id);
+
+
 
 
 //  *****************  end  course api *****************

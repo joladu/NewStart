@@ -250,6 +250,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
+    public Flowable<ResponseSimpleResult> favoriteCourse(String token, int course_id) {
+        return myApis.favoriteCourse(token,course_id);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> cancelFavoriteCourse(String token, int course_id) {
+        return myApis.cancelFavoriteCourse(token,course_id);
+    }
+
+    @Override
     public Flowable<ResLiveCourseList> getLiveCourseList(String page, String page_size) {
         return myApis.getLiveCourseList(page,page_size);
     }
@@ -420,6 +430,21 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public void praiseCommentOfCourse(int commentId) {
         mDBHelper.praiseCommentOfCourse(commentId);
+    }
+
+    @Override
+    public void cacelFavoriteCourse(int courseId) {
+        mDBHelper.cacelFavoriteCourse(courseId);
+    }
+
+    @Override
+    public void favoriteCourse(int courseId) {
+        mDBHelper.favoriteCourse(courseId);
+    }
+
+    @Override
+    public boolean hasFavoriteCourse(int courseId) {
+        return mDBHelper.hasFavoriteCourse(courseId);
     }
 
     @Override

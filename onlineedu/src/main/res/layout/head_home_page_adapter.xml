@@ -101,25 +101,64 @@
 
 
     <android.support.constraint.Guideline
-        android:id="@+id/gl_vertical_0.25"
+        android:id="@+id/gl_vertical_0.05"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.05" />
+
 
     <android.support.constraint.Guideline
-        android:id="@+id/gl_vertical_0.5"
+        android:id="@+id/gl_vertical_0.2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/gl_vertical_0.75"
+        android:id="@+id/gl_vertical_0.3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl_vertical_0.45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl_vertical_0.55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.55" />
+
+
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl_vertical_0.7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl_vertical_0.8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl_vertical_0.95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
 
     <ImageView
@@ -127,10 +166,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/qb_px_10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.25"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.05"
+        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.2"
         app:layout_constraintTop_toBottomOf="@+id/vp_banner_home_page"
-        app:srcCompat="@drawable/icon_excellent_course_x2" />
+        app:srcCompat="@drawable/icon_excellent_course_x2"
+
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -139,8 +181,8 @@
         android:text="@string/excellent_course"
         android:textColor="@color/gray_content_forum_text"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.25"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.05"
+        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.2"
         app:layout_constraintTop_toBottomOf="@+id/iv_excellent_course" />
 
 
@@ -149,10 +191,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/qb_px_10"
-        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.25"
-        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.5"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.3"
+        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.45"
         app:layout_constraintTop_toBottomOf="@+id/vp_banner_home_page"
-        app:srcCompat="@drawable/icon_forum_x2" />
+        app:srcCompat="@drawable/icon_forum_x2"
+
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -161,8 +206,8 @@
         android:text="@string/forum"
         android:textColor="@color/gray_content_forum_text"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.25"
-        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.5"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.3"
+        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.45"
         app:layout_constraintTop_toBottomOf="@+id/iv_forum" />
 
 
@@ -171,10 +216,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/qb_px_10"
-        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.5"
-        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.75"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.55"
+        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.7"
         app:layout_constraintTop_toBottomOf="@+id/vp_banner_home_page"
-        app:srcCompat="@drawable/icon_teacher_master_x2" />
+        app:srcCompat="@drawable/icon_teacher_master_x2"
+
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -183,8 +231,8 @@
         android:text="@string/teacher_master"
         android:textColor="@color/gray_content_forum_text"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.5"
-        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.75"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.55"
+        app:layout_constraintRight_toLeftOf="@+id/gl_vertical_0.7"
         app:layout_constraintTop_toBottomOf="@+id/iv_teacher_master" />
 
     <ImageView
@@ -192,10 +240,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/qb_px_10"
-        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.75"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.8"
+        app:layout_constraintRight_toRightOf="@+id/gl_vertical_0.95"
         app:layout_constraintTop_toBottomOf="@+id/vp_banner_home_page"
-        app:srcCompat="@drawable/icon_text_pool_x2" />
+        app:srcCompat="@drawable/icon_text_pool_x2"
+
+
+        />
 
     <TextView
         android:id="@+id/tv_test_pool"
@@ -205,8 +256,8 @@
         android:text="@string/test_pool"
         android:textColor="@color/gray_content_forum_text"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.75"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/gl_vertical_0.8"
+        app:layout_constraintRight_toRightOf="@+id/gl_vertical_0.95"
         app:layout_constraintTop_toBottomOf="@+id/iv_test_pool" />
 
     <View

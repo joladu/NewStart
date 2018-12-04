@@ -106,6 +106,7 @@ public class ForumDetailActivity extends SimpleActivity {
                         public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
                             hideLoadingDialog();
                             if (responseSimpleResult.getError_code() == 0){
+                                et_input_comment.setText("");
                                 ToastUtil.toastShort(getString(R.string.tip_comment_success));
                             }else{
                                 ToastUtil.toastShort(responseSimpleResult.getError_msg());

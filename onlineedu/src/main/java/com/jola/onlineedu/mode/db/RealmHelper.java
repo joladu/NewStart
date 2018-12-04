@@ -1,6 +1,7 @@
 package com.jola.onlineedu.mode.db;
 
 import com.jola.onlineedu.mode.bean.ReadStateBean;
+import com.jola.onlineedu.mode.bean.db.FavoriteCourseStatus;
 import com.jola.onlineedu.mode.bean.db.PraiseCommentOfCourseStatus;
 
 import javax.inject.Inject;
@@ -50,6 +51,37 @@ public class RealmHelper implements DBHelper {
         mRealm.beginTransaction();
         mRealm.copyToRealm(praiseCommentOfCourseStatus);
         mRealm.commitTransaction();
+    }
+
+    @Override
+    public void cacelFavoriteCourse(int courseId) {
+        final FavoriteCourseStatus favoriteCourseStatus = new FavoriteCourseStatus();
+        favoriteCourseStatus.setId(courseId);
+
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                favoriteCourseStatus.deleteFromRealm();
+            }
+        });
+
+    }
+
+    @Override
+    public void favoriteCourse(int courseId) {
+        FavoriteCourseStatus favoriteCourseStatus = new FavoriteCourseStatus();
+        favoriteCourseStatus.setId(courseId);
+        mRealm.beginTransaction();
+        mRealm.copyToRealm(favoriteCourseStatus);
+        mRealm.commitTransaction();
+    }
+
+    @Override
+    public boolean hasFavoriteCourse(int courseId) {
+        FavoriteCourseStatus favoriteCourseStatus = new FavoriteCourseStatus();
+        favoriteCourseStatus.setId(courseId);
+        FavoriteCourseStatus resultBean = mRealm.where(FavoriteCourseStatus.class).equalTo("id", courseId).findFirst();
+        return null != resultBean;
     }
 
 
