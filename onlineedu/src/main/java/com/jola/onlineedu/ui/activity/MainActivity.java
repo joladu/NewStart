@@ -191,7 +191,7 @@ public class MainActivity extends SimpleActivity {
 //        setHomePageFragment();
 
 //        暂未启用
-//        checkVersion();
+        checkVersion();
 
     }
 
@@ -401,9 +401,9 @@ public class MainActivity extends SimpleActivity {
 
 
                         //获得当前版本
-//                        final int versionCode = getVersionCode(MainActivity.this);
+                        final int versionCode = getVersionCode(MainActivity.this);
 
-                        final String versionName = getVersionName(MainActivity.this);
+//                        final String versionName = getVersionName(MainActivity.this);
 
                         UpdateAppBean updateAppBean = new UpdateAppBean();
 
@@ -411,11 +411,13 @@ public class MainActivity extends SimpleActivity {
 
                         VersionUpdateBean.DataBean.VersionBean version = versionUpdateBean.getData().getVersion();
 
+                        int version_num = version.getVersion_num();
                         String version_no = version.getVersion_no();
                         String down_url = version.getDown_url();
                         String content = version.getContent();
 
-                        if (!versionName.equals(version_no)) {
+//                        if (!versionName.equals(version_no)) {
+                        if (version_num > versionCode) {
 
                             updateAppBean
                                     //（必须）是否更新Yes,No

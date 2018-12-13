@@ -8,8 +8,8 @@ android {
         applicationId "com.jola.onlineedu"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.2"
+        versionCode 1
+        versionName "V1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -24,7 +24,7 @@ android {
 
             applicationVariants.all { variant ->
                 variant.outputs.all {
-                    def fileName = "云课堂_V${defaultConfig.versionName}.apk"
+                    def fileName = "云课堂_${defaultConfig.versionName}.apk"
                     outputFileName = fileName
                 }
             }

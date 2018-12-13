@@ -6,8 +6,9 @@ package com.jola.onlineedu.mode.bean;
 
 public class VersionUpdateBean {
 
+
     /**
-     * data : {"version":{"content":"1. aaa\r\n2. bbb","os":"Android","version_no":"v1.0.1","down_url":"http://yunketang.dev.attackt.com/download/xxx.apk","release_time":"2018.12.04","update_version":"是","commit_time":"2018.12.04"}}
+     * data : {"version":{"content":"1. aaa\r\n2. bbb","os":"Android","version_num":1,"version_no":"v1.0.1","down_url":"http://yunketang.dev.attackt.com/download/xxx.apk","release_time":"2018.12.04","update_version":"是","commit_time":"2018.12.04"}}
      * error_code : 0
      * error_msg : 查询成功
      */
@@ -42,7 +43,7 @@ public class VersionUpdateBean {
 
     public static class DataBean {
         /**
-         * version : {"content":"1. aaa\r\n2. bbb","os":"Android","version_no":"v1.0.1","down_url":"http://yunketang.dev.attackt.com/download/xxx.apk","release_time":"2018.12.04","update_version":"是","commit_time":"2018.12.04"}
+         * version : {"content":"1. aaa\r\n2. bbb","os":"Android","version_num":1,"version_no":"v1.0.1","down_url":"http://yunketang.dev.attackt.com/download/xxx.apk","release_time":"2018.12.04","update_version":"是","commit_time":"2018.12.04"}
          */
 
         private VersionBean version;
@@ -60,6 +61,7 @@ public class VersionUpdateBean {
              * content : 1. aaa
              2. bbb
              * os : Android
+             * version_num : 1
              * version_no : v1.0.1
              * down_url : http://yunketang.dev.attackt.com/download/xxx.apk
              * release_time : 2018.12.04
@@ -69,6 +71,7 @@ public class VersionUpdateBean {
 
             private String content;
             private String os;
+            private int version_num;
             private String version_no;
             private String down_url;
             private String release_time;
@@ -89,6 +92,14 @@ public class VersionUpdateBean {
 
             public void setOs(String os) {
                 this.os = os;
+            }
+
+            public int getVersion_num() {
+                return version_num;
+            }
+
+            public void setVersion_num(int version_num) {
+                this.version_num = version_num;
             }
 
             public String getVersion_no() {
