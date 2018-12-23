@@ -10,10 +10,10 @@ public class ResCourseList {
 
 
     /**
-     * count : 2
+     * count : 3
      * next : null
      * previous : null
-     * results : [{"id":1,"user":6,"name":"高二物理","author":"李老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","pay_type":1,"price":23,"see_count":1,"recommend_count":1,"share_count":1,"summary":"物理课。","score":1,"is_recommend":1,"categories":[{"id":2,"name":"物理"}]},{"id":2,"user":6,"name":"数据结构","author":"韩老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1538986737.png","pay_type":0,"price":0,"see_count":1,"recommend_count":1,"share_count":1,"summary":"专业讲授","score":1,"is_recommend":1,"categories":[{"id":3,"name":"计算机"}]}]
+     * results : [{"id":1,"user":6,"name":"高二物理","author":"李老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","pay_type":1,"price":23,"see_count":82,"recommend_count":1,"share_count":4,"summary":"物理课。","score":4,"is_recommend":1,"categories":[{"id":2,"name":"高中"}]},{"id":2,"user":6,"name":"数据结构","author":"韩老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1538986737.png","pay_type":0,"price":0,"see_count":38,"recommend_count":1,"share_count":1,"summary":"专业讲授","score":3.7,"is_recommend":1,"categories":[{"id":3,"name":"中专"}]},{"id":3,"user":28,"name":"历史","author":"木老师","cover_url":"http://yunketang.dev.attackt.com/media/","pay_type":1,"price":45,"see_count":0,"recommend_count":0,"share_count":0,"summary":"大师写的历史。","score":0,"is_recommend":1,"categories":[{"id":1,"name":"中小学"}]}]
      */
 
     private int count;
@@ -62,13 +62,13 @@ public class ResCourseList {
          * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
          * pay_type : 1
          * price : 23
-         * see_count : 1
+         * see_count : 82
          * recommend_count : 1
-         * share_count : 1
+         * share_count : 4
          * summary : 物理课。
-         * score : 1
+         * score : 4.0
          * is_recommend : 1
-         * categories : [{"id":2,"name":"物理"}]
+         * categories : [{"id":2,"name":"高中"}]
          */
 
         private int id;
@@ -82,7 +82,7 @@ public class ResCourseList {
         private int recommend_count;
         private int share_count;
         private String summary;
-        private int score;
+        private double score;
         private int is_recommend;
         private List<CategoriesBean> categories;
 
@@ -174,11 +174,11 @@ public class ResCourseList {
             this.summary = summary;
         }
 
-        public int getScore() {
+        public double getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(double score) {
             this.score = score;
         }
 
@@ -201,7 +201,7 @@ public class ResCourseList {
         public static class CategoriesBean {
             /**
              * id : 2
-             * name : 物理
+             * name : 高中
              */
 
             private int id;

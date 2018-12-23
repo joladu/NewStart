@@ -74,7 +74,7 @@ public class SelectableCourseListAdapter extends RecyclerView.Adapter<Selectable
         holder.tv_title_choosable_course.setText(resultsBean.getSummary());
         holder.tv_persons_watched.setText(resultsBean.getSee_count()+"");
         holder.tv_score_num.setText(resultsBean.getScore()+"");
-        holder.star_bar_score.setStarMark(resultsBean.getScore());
+        holder.star_bar_score.setStarMark((float) resultsBean.getScore());
 
         holder.iv_course_cover.setOnClickListener(new View.OnClickListener() {
             @Override

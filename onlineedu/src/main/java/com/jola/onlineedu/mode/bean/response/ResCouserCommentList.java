@@ -10,15 +10,13 @@ public class ResCouserCommentList {
 
 
     /**
-     * count : 31
-     * next : http://yunketang.dev.attackt.com/api/v1/coursecomment/1/?page=2
-     * previous : null
-     * results : [{"id":15,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"x1","praise_count":1},{"id":16,"user":6,"name":"张三","avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","sex":"1","content":"1112222","praise_count":0},{"id":17,"user":6,"name":"张三","avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","sex":"1","content":"好课程","praise_count":0},{"id":18,"user":2,"name":"哈哈哈","avatar":"http://yunketang.dev.attackt.com/media/avatar/15428701295586.jpg","sex":"1","content":"晚上的评论。","praise_count":0},{"id":19,"user":6,"name":"张三","avatar":"http://yunketang.dev.attackt.com/media/avatar/15393402485717.jpg","sex":"1","content":"这节课非常好","praise_count":0},{"id":20,"user":2,"name":"哈哈哈","avatar":"http://yunketang.dev.attackt.com/media/avatar/15428701295586.jpg","sex":"1","content":"这节课非常好","praise_count":0},{"id":21,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"束带结发快圣诞节疯狂","praise_count":0},{"id":22,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"束带结发快圣诞节疯狂","praise_count":0},{"id":23,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"束带结发快圣诞节疯狂","praise_count":0},{"id":24,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":25,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":26,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":27,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":28,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":29,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":30,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":31,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"asdfasdf","praise_count":0},{"id":32,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"fsadfsadfsadfsad","praise_count":0},{"id":33,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"fsadfsadfsadfsad","praise_count":0},{"id":34,"user":3,"name":"duzi","avatar":"http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg","sex":"1","content":"userid=500000 能发成功？","praise_count":0}]
+     * count : 76
+     * next : http://yunketang.dev.attackt.com/api/v1/coursecomment/1/?page=2&page_size=10
+     * results : [{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15444324358147.jpg","content":"哈哈哈哈哈哈哈哈哈","created":"2018-12-13T15:33:09","id":136,"name":"氢气球12","praise_count":0,"sex":"1","user":2},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"你","created":"2018-12-13T02:13:24","id":135,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"我让我朋友","created":"2018-12-12T11:59:36","id":134,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"我让我朋友","created":"2018-12-12T11:56:46","id":133,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"我让我朋友","created":"2018-12-12T11:56:43","id":132,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"我让我朋友","created":"2018-12-12T11:56:32","id":131,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"我让我朋友","created":"2018-12-12T11:56:31","id":130,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15447579138108.jpg","content":"","created":"2018-12-10T15:34:26","id":125,"name":"杨耀翔","praise_count":0,"sex":"1","user":6},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15444324358147.jpg","content":"我","created":"2018-12-09T14:11:45","id":88,"name":"氢气球12","praise_count":0,"sex":"1","user":2},{"avatar":"http://yunketang.dev.attackt.com/media/avatar/15444324358147.jpg","content":"我","created":"2018-12-09T14:11:40","id":87,"name":"氢气球12","praise_count":0,"sex":"1","user":2}]
      */
 
     private int count;
     private String next;
-    private String previous;
     private List<ResultsBean> results;
 
     public int getCount() {
@@ -37,14 +35,6 @@ public class ResCouserCommentList {
         this.next = next;
     }
 
-    public String getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(String previous) {
-        this.previous = previous;
-    }
-
     public List<ResultsBean> getResults() {
         return results;
     }
@@ -55,46 +45,24 @@ public class ResCouserCommentList {
 
     public static class ResultsBean {
         /**
-         * id : 15
-         * user : 3
-         * name : duzi
-         * avatar : http://yunketang.dev.attackt.com/media/avatar/15431234317790.jpg
+         * avatar : http://yunketang.dev.attackt.com/media/avatar/15444324358147.jpg
+         * content : 哈哈哈哈哈哈哈哈哈
+         * created : 2018-12-13T15:33:09
+         * id : 136
+         * name : 氢气球12
+         * praise_count : 0
          * sex : 1
-         * content : x1
-         * praise_count : 1
+         * user : 2
          */
 
-        private int id;
-        private int user;
-        private String name;
         private String avatar;
-        private String sex;
         private String content;
+        private String created;
+        private int id;
+        private String name;
         private int praise_count;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getUser() {
-            return user;
-        }
-
-        public void setUser(int user) {
-            this.user = user;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+        private String sex;
+        private int user;
 
         public String getAvatar() {
             return avatar;
@@ -102,14 +70,6 @@ public class ResCouserCommentList {
 
         public void setAvatar(String avatar) {
             this.avatar = avatar;
-        }
-
-        public String getSex() {
-            return sex;
-        }
-
-        public void setSex(String sex) {
-            this.sex = sex;
         }
 
         public String getContent() {
@@ -120,12 +80,52 @@ public class ResCouserCommentList {
             this.content = content;
         }
 
+        public String getCreated() {
+            return created;
+        }
+
+        public void setCreated(String created) {
+            this.created = created;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public int getPraise_count() {
             return praise_count;
         }
 
         public void setPraise_count(int praise_count) {
             this.praise_count = praise_count;
+        }
+
+        public String getSex() {
+            return sex;
+        }
+
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
+
+        public int getUser() {
+            return user;
+        }
+
+        public void setUser(int user) {
+            this.user = user;
         }
     }
 }

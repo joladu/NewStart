@@ -119,8 +119,8 @@ public class RVRecommendCourseAdapter extends RecyclerView.Adapter<RecyclerView.
 //            hoderBody.tv_price.setVisibility(View.VISIBLE);
                 hoderBody.tv_type_course.setText("免费");
             }
-            hoderBody.tv_score_num.setText(resultsBean.getScore() + "");
-            hoderBody.star_bar_score.setStarMark(resultsBean.getScore());
+            hoderBody.tv_score_num.setText((float)resultsBean.getScore() + "");
+            hoderBody.star_bar_score.setStarMark((float)resultsBean.getScore());
             hoderBody.tv_course_name.setText(resultsBean.getName());
             hoderBody.tv_author_course.setText("主讲：" + resultsBean.getAuthor());
             hoderBody.tv_persons_watched.setText(resultsBean.getSee_count() + "人看过");

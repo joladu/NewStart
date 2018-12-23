@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +47,9 @@ public class LiveFragment extends SimpleFragment {
     ImageView iv_stateImage;
     @BindView(R.id.tv_state_tip)
     TextView tv_stateText;
+    @BindView(R.id.et_hint_search_view)
+    EditText et_hint_search_view;
+
 
 //    int mStartIndex = 1;
 //    private LiveCourseListAdapter mAdapter;
@@ -102,6 +106,7 @@ public class LiveFragment extends SimpleFragment {
     @Override
     protected void initEventAndData() {
         getFragmentComponent().inject(this);
+        et_hint_search_view.setHint("搜索课程");
 
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));

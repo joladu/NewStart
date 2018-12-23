@@ -186,6 +186,7 @@ public class HomePageFragment extends SimpleFragment {
                 .subscribe(new Consumer<ResCourseRecommendBean>() {
                     @Override
                     public void accept(ResCourseRecommendBean resCourseList) throws Exception {
+                        hideLoadingDialog();
                         smartRefreshLayout.finishRefresh();
                         isBodyDataInited = true;
                         List<ResCourseRecommendBean.ResultsBean> results = resCourseList.getResults();
@@ -195,6 +196,7 @@ public class HomePageFragment extends SimpleFragment {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
                         smartRefreshLayout.finishRefresh();
                        ToastUtil.toastShort("网络连接失败！");
                     }

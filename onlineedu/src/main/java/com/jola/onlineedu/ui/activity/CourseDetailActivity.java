@@ -98,6 +98,9 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     @BindView(R.id.iv_heart_course)
     ImageView iv_heart_course;
 
+    @BindView(R.id.iv_praise_course)
+    ImageView iv_praise_course;
+
     @BindView(R.id.tv_heart_num)
     TextView tv_heart_num;
 
@@ -109,6 +112,8 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     TextView tv_score_num;
     @BindView(R.id.star_bar_score)
     StarBar star_bar_score;
+    @BindView(R.id.tv_commit_score)
+    TextView tv_commit_score;
 //    @BindView(R.id.tv_num_comments)
 //    TextView tv_num_comments;
 
@@ -181,7 +186,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         loadData();
         loadComments();
-//        smartRefreshLayout.setEnableRefresh(false);
+        smartRefreshLayout.setEnableRefresh(false);
 //        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
 //            @Override
 //            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -402,8 +407,18 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                                 tv_share_num.setText(resCourseDetail.getShare_count() + "");
                                 tv_praise_num.setText(resCourseDetail.getPraise_count() + "");
                                 tv_heart_num.setText(resCourseDetail.getCollect_count() + "");
+
+                                if (resCourseDetail.getHas_collected() == 1){
+                                    iv_heart_course.setImageResource(R.drawable.icon_heart_selected_64);
+                                }
+
+                                if (resCourseDetail.getHas_praised() == 1){
+                                    iv_praise_course.setImageResource(R.drawable.icon_praise_yes_64);
+                                }
+
+
                                 tv_score_num.setText(resCourseDetail.getScore() + "");
-                                star_bar_score.setStarMark(resCourseDetail.getScore());
+                                star_bar_score.setStarMark((float) resCourseDetail.getScore());
 
 //                        加载相关课程
                                 List<ResCourseDetail.ReleatedCoursesBean> releated_courses = resCourseDetail.getReleated_courses();
@@ -502,7 +517,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                ToastUtil.toastShort("暂无分享链接");
                break;
             case R.id.iv_praise_course:
-                ToastUtil.toastShort("暂无点赞接口");
+//                ToastUtil.toastShort("暂无点赞接口");
                 break;
             case R.id.iv_play_video:
                 startPlay(0);

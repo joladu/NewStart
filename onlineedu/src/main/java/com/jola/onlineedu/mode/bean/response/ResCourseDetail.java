@@ -8,67 +8,52 @@ import java.util.List;
 
 public class ResCourseDetail {
 
+
     /**
-     * id : 2
-     * user : null
-     * name : 数据结构
-     * author : 韩老师
-     * cover_url : http://yunketang.dev.attackt.com/media/cover_1538986737.png
-     * pay_type : 0
-     * price : 0
-     * see_count : 1
-     * recommend_count : 1
-     * share_count : 1
-     * collect_count : 1
-     * praise_count : 1
-     * score : 1
-     * summary : 专业讲授
+     * author : 李老师
+     * categories : [{"id":2,"name":"高中"}]
+     * collect_count : 0
+     * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
+     * has_collected : 0
+     * has_praised : 0
+     * has_scored : 0
+     * id : 1
      * is_recommend : 1
-     * categories : [{"id":3,"name":"计算机"}]
-     * releated_courses : [{"id":1,"user":null,"name":"高二物理","author":"李老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","pay_type":1,"price":23,"see_count":1,"recommend_count":1,"share_count":1,"summary":"物理课。","score":1,"is_recommend":1,"categories":[{"id":2,"name":"物理"}]}]
+     * name : 高二物理
+     * pay_type : 1
+     * praise_count : 4
+     * price : 23
+     * recommend_count : 1
+     * releated_courses : [{"author":"木老师","categories":[{"id":1,"name":"中小学"}],"cover_url":"http://yunketang.dev.attackt.com/media/","id":3,"is_recommend":1,"name":"历史","pay_type":1,"price":45,"recommend_count":0,"score":0,"see_count":0,"share_count":0,"summary":"大师写的历史。","user":28},{"author":"韩老师","categories":[{"id":3,"name":"中专"}],"cover_url":"http://yunketang.dev.attackt.com/media/cover_1538986737.png","id":2,"is_recommend":1,"name":"数据结构","pay_type":0,"price":0,"recommend_count":1,"score":3.7,"see_count":38,"share_count":1,"summary":"专业讲授","user":6}]
+     * score : 4.0
+     * see_count : 85
+     * share_count : 4
+     * share_url : http://m.baidu.com
+     * summary : 物理课。
+     * user : 6
      */
 
-    private int id;
-    private Object user;
-    private String name;
     private String author;
-    private String cover_url;
-    private int pay_type;
-    private int price;
-    private int see_count;
-    private int recommend_count;
-    private int share_count;
     private int collect_count;
-    private int praise_count;
-    private int score;
-    private String summary;
+    private String cover_url;
+    private int has_collected;
+    private int has_praised;
+    private int has_scored;
+    private int id;
     private int is_recommend;
+    private String name;
+    private int pay_type;
+    private int praise_count;
+    private int price;
+    private int recommend_count;
+    private double score;
+    private int see_count;
+    private int share_count;
+    private String share_url;
+    private String summary;
+    private int user;
     private List<CategoriesBean> categories;
     private List<ReleatedCoursesBean> releated_courses;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Object getUser() {
-        return user;
-    }
-
-    public void setUser(Object user) {
-        this.user = user;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getAuthor() {
         return author;
@@ -76,54 +61,6 @@ public class ResCourseDetail {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getCover_url() {
-        return cover_url;
-    }
-
-    public void setCover_url(String cover_url) {
-        this.cover_url = cover_url;
-    }
-
-    public int getPay_type() {
-        return pay_type;
-    }
-
-    public void setPay_type(int pay_type) {
-        this.pay_type = pay_type;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getSee_count() {
-        return see_count;
-    }
-
-    public void setSee_count(int see_count) {
-        this.see_count = see_count;
-    }
-
-    public int getRecommend_count() {
-        return recommend_count;
-    }
-
-    public void setRecommend_count(int recommend_count) {
-        this.recommend_count = recommend_count;
-    }
-
-    public int getShare_count() {
-        return share_count;
-    }
-
-    public void setShare_count(int share_count) {
-        this.share_count = share_count;
     }
 
     public int getCollect_count() {
@@ -134,6 +71,70 @@ public class ResCourseDetail {
         this.collect_count = collect_count;
     }
 
+    public String getCover_url() {
+        return cover_url;
+    }
+
+    public void setCover_url(String cover_url) {
+        this.cover_url = cover_url;
+    }
+
+    public int getHas_collected() {
+        return has_collected;
+    }
+
+    public void setHas_collected(int has_collected) {
+        this.has_collected = has_collected;
+    }
+
+    public int getHas_praised() {
+        return has_praised;
+    }
+
+    public void setHas_praised(int has_praised) {
+        this.has_praised = has_praised;
+    }
+
+    public int getHas_scored() {
+        return has_scored;
+    }
+
+    public void setHas_scored(int has_scored) {
+        this.has_scored = has_scored;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIs_recommend() {
+        return is_recommend;
+    }
+
+    public void setIs_recommend(int is_recommend) {
+        this.is_recommend = is_recommend;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPay_type() {
+        return pay_type;
+    }
+
+    public void setPay_type(int pay_type) {
+        this.pay_type = pay_type;
+    }
+
     public int getPraise_count() {
         return praise_count;
     }
@@ -142,12 +143,52 @@ public class ResCourseDetail {
         this.praise_count = praise_count;
     }
 
-    public int getScore() {
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getRecommend_count() {
+        return recommend_count;
+    }
+
+    public void setRecommend_count(int recommend_count) {
+        this.recommend_count = recommend_count;
+    }
+
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
+    }
+
+    public int getSee_count() {
+        return see_count;
+    }
+
+    public void setSee_count(int see_count) {
+        this.see_count = see_count;
+    }
+
+    public int getShare_count() {
+        return share_count;
+    }
+
+    public void setShare_count(int share_count) {
+        this.share_count = share_count;
+    }
+
+    public String getShare_url() {
+        return share_url;
+    }
+
+    public void setShare_url(String share_url) {
+        this.share_url = share_url;
     }
 
     public String getSummary() {
@@ -158,12 +199,12 @@ public class ResCourseDetail {
         this.summary = summary;
     }
 
-    public int getIs_recommend() {
-        return is_recommend;
+    public int getUser() {
+        return user;
     }
 
-    public void setIs_recommend(int is_recommend) {
-        this.is_recommend = is_recommend;
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public List<CategoriesBean> getCategories() {
@@ -184,8 +225,8 @@ public class ResCourseDetail {
 
     public static class CategoriesBean {
         /**
-         * id : 3
-         * name : 计算机
+         * id : 2
+         * name : 高中
          */
 
         private int id;
@@ -210,60 +251,36 @@ public class ResCourseDetail {
 
     public static class ReleatedCoursesBean {
         /**
-         * id : 1
-         * user : null
-         * name : 高二物理
-         * author : 李老师
-         * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
-         * pay_type : 1
-         * price : 23
-         * see_count : 1
-         * recommend_count : 1
-         * share_count : 1
-         * summary : 物理课。
-         * score : 1
+         * author : 木老师
+         * categories : [{"id":1,"name":"中小学"}]
+         * cover_url : http://yunketang.dev.attackt.com/media/
+         * id : 3
          * is_recommend : 1
-         * categories : [{"id":2,"name":"物理"}]
+         * name : 历史
+         * pay_type : 1
+         * price : 45
+         * recommend_count : 0
+         * score : 0.0
+         * see_count : 0
+         * share_count : 0
+         * summary : 大师写的历史。
+         * user : 28
          */
 
-        private int id;
-        private Object user;
-        private String name;
         private String author;
         private String cover_url;
+        private int id;
+        private int is_recommend;
+        private String name;
         private int pay_type;
         private int price;
-        private int see_count;
         private int recommend_count;
+        private double score;
+        private int see_count;
         private int share_count;
         private String summary;
-        private int score;
-        private int is_recommend;
+        private int user;
         private List<CategoriesBeanX> categories;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public Object getUser() {
-            return user;
-        }
-
-        public void setUser(Object user) {
-            this.user = user;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
 
         public String getAuthor() {
             return author;
@@ -279,6 +296,30 @@ public class ResCourseDetail {
 
         public void setCover_url(String cover_url) {
             this.cover_url = cover_url;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getIs_recommend() {
+            return is_recommend;
+        }
+
+        public void setIs_recommend(int is_recommend) {
+            this.is_recommend = is_recommend;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public int getPay_type() {
@@ -297,20 +338,28 @@ public class ResCourseDetail {
             this.price = price;
         }
 
-        public int getSee_count() {
-            return see_count;
-        }
-
-        public void setSee_count(int see_count) {
-            this.see_count = see_count;
-        }
-
         public int getRecommend_count() {
             return recommend_count;
         }
 
         public void setRecommend_count(int recommend_count) {
             this.recommend_count = recommend_count;
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
+        }
+
+        public int getSee_count() {
+            return see_count;
+        }
+
+        public void setSee_count(int see_count) {
+            this.see_count = see_count;
         }
 
         public int getShare_count() {
@@ -329,20 +378,12 @@ public class ResCourseDetail {
             this.summary = summary;
         }
 
-        public int getScore() {
-            return score;
+        public int getUser() {
+            return user;
         }
 
-        public void setScore(int score) {
-            this.score = score;
-        }
-
-        public int getIs_recommend() {
-            return is_recommend;
-        }
-
-        public void setIs_recommend(int is_recommend) {
-            this.is_recommend = is_recommend;
+        public void setUser(int user) {
+            this.user = user;
         }
 
         public List<CategoriesBeanX> getCategories() {
@@ -355,8 +396,8 @@ public class ResCourseDetail {
 
         public static class CategoriesBeanX {
             /**
-             * id : 2
-             * name : 物理
+             * id : 1
+             * name : 中小学
              */
 
             private int id;

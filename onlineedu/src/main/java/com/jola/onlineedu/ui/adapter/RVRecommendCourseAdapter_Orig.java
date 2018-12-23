@@ -62,7 +62,7 @@ public class RVRecommendCourseAdapter_Orig extends RecyclerView.Adapter <RVRecom
             holder.tv_type_course.setText("免费");
         }
         holder.tv_score_num.setText(resultsBean.getScore()+"");
-        holder.star_bar_score.setStarMark(resultsBean.getScore());
+        holder.star_bar_score.setStarMark((float) resultsBean.getScore());
         holder.tv_course_name.setText(resultsBean.getName());
         holder.tv_author_course.setText("主讲："+resultsBean.getAuthor());
         holder.tv_persons_watched.setText(resultsBean.getSee_count()+"人看过");
