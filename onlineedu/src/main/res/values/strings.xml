@@ -141,5 +141,7 @@
     <string name="send_message">发送</string>
     <string name="modify_personal_info">确认修改</string>
 
+    <string name="confirm_choose">确认选择</string>
+
 
 </resources>

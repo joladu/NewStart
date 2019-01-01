@@ -8,52 +8,75 @@ import java.util.List;
 
 public class ResCourseDetail {
 
-
     /**
-     * author : 李老师
-     * categories : [{"id":2,"name":"高中"}]
-     * collect_count : 0
-     * cover_url : http://yunketang.dev.attackt.com/media/cover_1537345153.png
+     * id : 3
+     * user : 28
+     * name : 历史
+     * author : 木老师
+     * cover_url : http://yunketang.dev.attackt.com/media/
+     * pay_type : 1
+     * price : 45
+     * see_count : 10
+     * recommend_count : 0
+     * share_count : 0
+     * collect_count : 2
+     * praise_count : 2
+     * score : 0.0
+     * summary : 大师写的历史。
+     * is_recommend : 1
+     * categories : [{"id":1,"name":"中小学"}]
+     * releated_courses : [{"id":2,"user":6,"name":"数据结构","author":"韩老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1538986737.png","pay_type":0,"price":0,"see_count":43,"recommend_count":1,"share_count":1,"summary":"专业讲授","score":3.7,"is_recommend":1,"categories":[{"id":3,"name":"中专"}]},{"id":1,"user":6,"name":"高二物理","author":"李老师","cover_url":"http://yunketang.dev.attackt.com/media/cover_1537345153.png","pay_type":1,"price":23,"see_count":99,"recommend_count":1,"share_count":4,"summary":"物理课。","score":4,"is_recommend":1,"categories":[{"id":2,"name":"高中"}]}]
      * has_collected : 0
      * has_praised : 0
      * has_scored : 0
-     * id : 1
-     * is_recommend : 1
-     * name : 高二物理
-     * pay_type : 1
-     * praise_count : 4
-     * price : 23
-     * recommend_count : 1
-     * releated_courses : [{"author":"木老师","categories":[{"id":1,"name":"中小学"}],"cover_url":"http://yunketang.dev.attackt.com/media/","id":3,"is_recommend":1,"name":"历史","pay_type":1,"price":45,"recommend_count":0,"score":0,"see_count":0,"share_count":0,"summary":"大师写的历史。","user":28},{"author":"韩老师","categories":[{"id":3,"name":"中专"}],"cover_url":"http://yunketang.dev.attackt.com/media/cover_1538986737.png","id":2,"is_recommend":1,"name":"数据结构","pay_type":0,"price":0,"recommend_count":1,"score":3.7,"see_count":38,"share_count":1,"summary":"专业讲授","user":6}]
-     * score : 4.0
-     * see_count : 85
-     * share_count : 4
      * share_url : http://m.baidu.com
-     * summary : 物理课。
-     * user : 6
      */
 
+    private int id;
+    private int user;
+    private String name;
     private String author;
-    private int collect_count;
     private String cover_url;
+    private int pay_type;
+    private int price;
+    private int see_count;
+    private int recommend_count;
+    private int share_count;
+    private int collect_count;
+    private int praise_count;
+    private double score;
+    private String summary;
+    private int is_recommend;
     private int has_collected;
     private int has_praised;
     private int has_scored;
-    private int id;
-    private int is_recommend;
-    private String name;
-    private int pay_type;
-    private int praise_count;
-    private int price;
-    private int recommend_count;
-    private double score;
-    private int see_count;
-    private int share_count;
     private String share_url;
-    private String summary;
-    private int user;
     private List<CategoriesBean> categories;
     private List<ReleatedCoursesBean> releated_courses;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getAuthor() {
         return author;
@@ -61,6 +84,54 @@ public class ResCourseDetail {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getCover_url() {
+        return cover_url;
+    }
+
+    public void setCover_url(String cover_url) {
+        this.cover_url = cover_url;
+    }
+
+    public int getPay_type() {
+        return pay_type;
+    }
+
+    public void setPay_type(int pay_type) {
+        this.pay_type = pay_type;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getSee_count() {
+        return see_count;
+    }
+
+    public void setSee_count(int see_count) {
+        this.see_count = see_count;
+    }
+
+    public int getRecommend_count() {
+        return recommend_count;
+    }
+
+    public void setRecommend_count(int recommend_count) {
+        this.recommend_count = recommend_count;
+    }
+
+    public int getShare_count() {
+        return share_count;
+    }
+
+    public void setShare_count(int share_count) {
+        this.share_count = share_count;
     }
 
     public int getCollect_count() {
@@ -71,12 +142,36 @@ public class ResCourseDetail {
         this.collect_count = collect_count;
     }
 
-    public String getCover_url() {
-        return cover_url;
+    public int getPraise_count() {
+        return praise_count;
     }
 
-    public void setCover_url(String cover_url) {
-        this.cover_url = cover_url;
+    public void setPraise_count(int praise_count) {
+        this.praise_count = praise_count;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public int getIs_recommend() {
+        return is_recommend;
+    }
+
+    public void setIs_recommend(int is_recommend) {
+        this.is_recommend = is_recommend;
     }
 
     public int getHas_collected() {
@@ -103,108 +198,12 @@ public class ResCourseDetail {
         this.has_scored = has_scored;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIs_recommend() {
-        return is_recommend;
-    }
-
-    public void setIs_recommend(int is_recommend) {
-        this.is_recommend = is_recommend;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPay_type() {
-        return pay_type;
-    }
-
-    public void setPay_type(int pay_type) {
-        this.pay_type = pay_type;
-    }
-
-    public int getPraise_count() {
-        return praise_count;
-    }
-
-    public void setPraise_count(int praise_count) {
-        this.praise_count = praise_count;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getRecommend_count() {
-        return recommend_count;
-    }
-
-    public void setRecommend_count(int recommend_count) {
-        this.recommend_count = recommend_count;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public int getSee_count() {
-        return see_count;
-    }
-
-    public void setSee_count(int see_count) {
-        this.see_count = see_count;
-    }
-
-    public int getShare_count() {
-        return share_count;
-    }
-
-    public void setShare_count(int share_count) {
-        this.share_count = share_count;
-    }
-
     public String getShare_url() {
         return share_url;
     }
 
     public void setShare_url(String share_url) {
         this.share_url = share_url;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
     }
 
     public List<CategoriesBean> getCategories() {
@@ -225,8 +224,8 @@ public class ResCourseDetail {
 
     public static class CategoriesBean {
         /**
-         * id : 2
-         * name : 高中
+         * id : 1
+         * name : 中小学
          */
 
         private int id;
@@ -251,36 +250,60 @@ public class ResCourseDetail {
 
     public static class ReleatedCoursesBean {
         /**
-         * author : 木老师
-         * categories : [{"id":1,"name":"中小学"}]
-         * cover_url : http://yunketang.dev.attackt.com/media/
-         * id : 3
+         * id : 2
+         * user : 6
+         * name : 数据结构
+         * author : 韩老师
+         * cover_url : http://yunketang.dev.attackt.com/media/cover_1538986737.png
+         * pay_type : 0
+         * price : 0
+         * see_count : 43
+         * recommend_count : 1
+         * share_count : 1
+         * summary : 专业讲授
+         * score : 3.7
          * is_recommend : 1
-         * name : 历史
-         * pay_type : 1
-         * price : 45
-         * recommend_count : 0
-         * score : 0.0
-         * see_count : 0
-         * share_count : 0
-         * summary : 大师写的历史。
-         * user : 28
+         * categories : [{"id":3,"name":"中专"}]
          */
 
+        private int id;
+        private int user;
+        private String name;
         private String author;
         private String cover_url;
-        private int id;
-        private int is_recommend;
-        private String name;
         private int pay_type;
         private int price;
-        private int recommend_count;
-        private double score;
         private int see_count;
+        private int recommend_count;
         private int share_count;
         private String summary;
-        private int user;
+        private double score;
+        private int is_recommend;
         private List<CategoriesBeanX> categories;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getUser() {
+            return user;
+        }
+
+        public void setUser(int user) {
+            this.user = user;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
 
         public String getAuthor() {
             return author;
@@ -296,30 +319,6 @@ public class ResCourseDetail {
 
         public void setCover_url(String cover_url) {
             this.cover_url = cover_url;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getIs_recommend() {
-            return is_recommend;
-        }
-
-        public void setIs_recommend(int is_recommend) {
-            this.is_recommend = is_recommend;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public int getPay_type() {
@@ -338,28 +337,20 @@ public class ResCourseDetail {
             this.price = price;
         }
 
-        public int getRecommend_count() {
-            return recommend_count;
-        }
-
-        public void setRecommend_count(int recommend_count) {
-            this.recommend_count = recommend_count;
-        }
-
-        public double getScore() {
-            return score;
-        }
-
-        public void setScore(double score) {
-            this.score = score;
-        }
-
         public int getSee_count() {
             return see_count;
         }
 
         public void setSee_count(int see_count) {
             this.see_count = see_count;
+        }
+
+        public int getRecommend_count() {
+            return recommend_count;
+        }
+
+        public void setRecommend_count(int recommend_count) {
+            this.recommend_count = recommend_count;
         }
 
         public int getShare_count() {
@@ -378,12 +369,20 @@ public class ResCourseDetail {
             this.summary = summary;
         }
 
-        public int getUser() {
-            return user;
+        public double getScore() {
+            return score;
         }
 
-        public void setUser(int user) {
-            this.user = user;
+        public void setScore(double score) {
+            this.score = score;
+        }
+
+        public int getIs_recommend() {
+            return is_recommend;
+        }
+
+        public void setIs_recommend(int is_recommend) {
+            this.is_recommend = is_recommend;
         }
 
         public List<CategoriesBeanX> getCategories() {
@@ -396,8 +395,8 @@ public class ResCourseDetail {
 
         public static class CategoriesBeanX {
             /**
-             * id : 1
-             * name : 中小学
+             * id : 3
+             * name : 中专
              */
 
             private int id;

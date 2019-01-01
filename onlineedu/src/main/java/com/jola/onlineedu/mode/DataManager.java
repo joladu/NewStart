@@ -26,6 +26,7 @@ import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
 import com.jola.onlineedu.mode.bean.response.ResMajorListBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
+import com.jola.onlineedu.mode.bean.response.ResPlatformBean;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResSchoolListBean;
 import com.jola.onlineedu.mode.bean.response.ResSelectionListBean;
@@ -215,8 +216,8 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<ResCourseDetail> getCourseDetail(String id) {
-        return myApis.getCourseDetail(id);
+    public Flowable<ResCourseDetail> getCourseDetail(String token,String id) {
+        return myApis.getCourseDetail(token,id);
     }
 
     @Override
@@ -257,6 +258,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResponseSimpleResult> cancelFavoriteCourse(String token, int course_id) {
         return myApis.cancelFavoriteCourse(token,course_id);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> scoreCourse(String token, int course_id, int score) {
+        return myApis.scoreCourse(token,course_id,score);
     }
 
     @Override
@@ -409,6 +415,11 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
     @Override
     public Flowable<ResMajorListBean> getMajorList(String token, int page, int pagesize) {
         return myApis.getMajorList(token,page,pagesize);
+    }
+
+    @Override
+    public Flowable<ResPlatformBean> getPlatforms(int page, int pageSize, String kewWord) {
+        return myApis.getPlatforms(page,pageSize,kewWord);
     }
 
     @Override

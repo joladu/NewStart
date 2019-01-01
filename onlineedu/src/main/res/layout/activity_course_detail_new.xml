@@ -192,11 +192,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/qb_px_10"
                     android:layout_marginTop="@dimen/qb_px_10"
-                    android:clickable="false"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_course_author"
                     ratingbar:starCount="5"
-                    ratingbar:starDistance="0dp"
+                    ratingbar:starDistance="4dp"
                     ratingbar:starEmpty="@drawable/star_no_x2"
                     ratingbar:starFill="@drawable/star_yes_x2"
                     ratingbar:starSize="11dp" />
@@ -224,18 +223,18 @@
 
                     android:layout_marginTop="@dimen/qb_px_6"
 
-                    android:paddingLeft="3dp"
+                    android:paddingLeft="0dp"
                     android:textColor="@color/gray_star_score"
                     android:textSize="13sp"
+
                     app:layout_constraintLeft_toRightOf="@+id/tv_score_num"
-
-
                     app:layout_constraintTop_toBottomOf="@+id/tv_course_author"
 
                     android:background="@drawable/shape_bg_score"
                     android:gravity="center"
+                    android:visibility="visible"
 
-                    tools:text="评分"
+                    tools:text="  评分"
 
                     />
 

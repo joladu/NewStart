@@ -27,6 +27,7 @@ import com.jola.onlineedu.mode.bean.response.ResLiveCourseList;
 import com.jola.onlineedu.mode.bean.response.ResMajorListBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageDetailBean;
 import com.jola.onlineedu.mode.bean.response.ResMessageListBean;
+import com.jola.onlineedu.mode.bean.response.ResPlatformBean;
 import com.jola.onlineedu.mode.bean.response.ResQuestionTypeBean;
 import com.jola.onlineedu.mode.bean.response.ResSchoolListBean;
 import com.jola.onlineedu.mode.bean.response.ResSelectionListBean;
@@ -244,7 +245,7 @@ public interface MyApis {
     Flowable<ResCourseRecommendBean> getCourseRecommendList(@Query("page") String page, @Query("page_size")String page_size);
 
     @GET("v1/course/{id}/detail/")
-    Flowable<ResCourseDetail> getCourseDetail(@Path("id") String id);
+    Flowable<ResCourseDetail> getCourseDetail(@Header(TAG_AUTHORIZATION) String token,@Path("id") String id);
 
     @GET("v1/coursechapter/{course_id}/")
     Flowable<ResCourseCapterList> getCourseCapterList(@Path("course_id")String course_id,@Query("page")String page,@Query("page_size")String page_size);
@@ -276,6 +277,10 @@ public interface MyApis {
 
     @DELETE("v1/uc/record/favoritecourse/{id}/del/")
     Flowable<ResponseSimpleResult> cancelFavoriteCourse(@Header(TAG_AUTHORIZATION) String token,@Path("id") int course_id);
+
+    @FormUrlEncoded
+    @POST("v1/course/{id}/score/")
+    Flowable<ResponseSimpleResult> scoreCourse(@Header(TAG_AUTHORIZATION) String token,@Path("id") int course_id,@Field("score") int score);
 
 
 
@@ -541,6 +546,9 @@ public interface MyApis {
             @Header(TAG_AUTHORIZATION) String token,
             @Query("page") int page,
             @Query("pagesize")int pagesize);
+
+    @GET("/v1/organ/")
+    Flowable<ResPlatformBean> getPlatforms(@Query("page") int page, @Query("pageSize") int pageSize, @Query("kw")String kewWord);
 
     @POST("v1/uc/chat/add/")
     @FormUrlEncoded

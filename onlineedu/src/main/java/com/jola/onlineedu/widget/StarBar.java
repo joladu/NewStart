@@ -32,8 +32,11 @@ public class StarBar extends View {
     private boolean mClickable = true;
 
 
+
     public void setStarBarClickable(Boolean barClickable){
+        changeable = barClickable;
         this.mClickable = barClickable;
+        integerMark = barClickable;
     }
 
     public StarBar(Context context, AttributeSet attrs) {

@@ -159,6 +159,8 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
     private int mLastPlayingIndex  = 0;
     private List<ResCourseCapterList.ResultsBean> mChapterList;
     private CourseChapterListAdapter mCourseChapterListAdapter;
+    private int has_scored;
+    private double scoreNum;
 
 
     @Override
@@ -210,6 +212,16 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 loadComments();
+            }
+        });
+
+        star_bar_score.setOnStarChangeListener(new StarBar.OnStarChangeListener() {
+            @Override
+            public void onStarChange(float mark) {
+                int score = (int)mark;
+//                ToastUtil.toastShort("score:"+score);
+                tv_score_num.setText(""+score);
+
             }
         });
     }
@@ -391,7 +403,7 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
 
     private void loadData() {
         showLoadingDialog();
-        addSubscribe(dataManager.getCourseDetail(id + "")
+        addSubscribe(dataManager.getCourseDetail(dataManager.getUserToken(),id + "")
                         .compose(RxUtil.<ResCourseDetail>rxSchedulerHelper())
                         .subscribe(new Consumer<ResCourseDetail>() {
                             @Override
@@ -417,8 +429,18 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                                 }
 
 
-                                tv_score_num.setText(resCourseDetail.getScore() + "");
+                                scoreNum = resCourseDetail.getScore();
+                                tv_score_num.setText( scoreNum+ "");
                                 star_bar_score.setStarMark((float) resCourseDetail.getScore());
+
+                                has_scored = resCourseDetail.getHas_scored();
+                                if (has_scored  == 1){
+                                    tv_commit_score.setVisibility(View.INVISIBLE);
+                                    star_bar_score.setClickable(false);
+                                }else{
+                                    tv_commit_score.setText("  评分");
+                                    tv_commit_score.setVisibility(View.VISIBLE);
+                                }
 
 //                        加载相关课程
                                 List<ResCourseDetail.ReleatedCoursesBean> releated_courses = resCourseDetail.getReleated_courses();
@@ -507,9 +529,14 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
             R.id.iv_heart_course,
             R.id.iv_share_course,
             R.id.iv_praise_course,
+
+            R.id.tv_commit_score
     })
     public void doClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_commit_score:
+                scoreCourse();
+                break;
             case R.id.iv_heart_course:
                 collectCourse();
                 break;
@@ -550,6 +577,70 @@ public class CourseDetailActivity extends SimpleActivity implements OnPlayerEven
                 }
                 break;
         }
+    }
+
+    boolean isStartScore = false;
+
+
+
+    private void scoreCourse() {
+
+        if (has_scored == 1){
+            ToastUtil.toastShort("您已经评过分了！");
+            star_bar_score.setClickable(false);
+            return;
+        }
+
+        if (isStartScore){
+
+            int starMark = (int) star_bar_score.getStarMark();
+            showLoadingDialog();
+            dataManager.scoreCourse(dataManager.getUserToken(),id,starMark)
+                    .compose(RxUtil.<ResponseSimpleResult>rxSchedulerHelper())
+                    .subscribe(new Consumer<ResponseSimpleResult>() {
+                        @Override
+                        public void accept(ResponseSimpleResult responseSimpleResult) throws Exception {
+                            hideLoadingDialog();
+                            if (responseSimpleResult.getError_code() == 0){
+                                ToastUtil.toastShort("评分成功！");
+                                tv_commit_score.setVisibility(View.INVISIBLE);
+
+//                                恢复原来评分
+                                star_bar_score.setStarMark((float) scoreNum);
+                                star_bar_score.setStarBarClickable(false);
+                                star_bar_score.setClickable(false);
+//                                tv_commit_score.setVisibility(View.INVISIBLE);
+
+                                has_scored = 1;
+                                isStartScore = false;
+
+//                            dataManager.favoriteCourse(id);
+                            }else{
+                                ToastUtil.toastShort(responseSimpleResult.getError_msg());
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            hideLoadingDialog();
+                            tipServerError();
+                        }
+                    });
+
+
+        }else{
+            star_bar_score.setStarMark(0);
+            star_bar_score.setClickable(true);
+            star_bar_score.setStarBarClickable(true);
+            tv_commit_score.setText("  提交");
+
+            isStartScore = true;
+
+        }
+
+
+//        float starMark = star_bar_score.getStarMark();
+
     }
 
     private void collectCourse() {
