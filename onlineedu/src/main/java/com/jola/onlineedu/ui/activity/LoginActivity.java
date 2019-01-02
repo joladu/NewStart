@@ -1,28 +1,45 @@
 package com.jola.onlineedu.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.jola.onlineedu.R;
+import com.jola.onlineedu.app.App;
+import com.jola.onlineedu.app.Constants;
 import com.jola.onlineedu.base.SimpleActivity;
 import com.jola.onlineedu.mode.DataManager;
 import com.jola.onlineedu.mode.bean.response.ResUserLogin;
+import com.jola.onlineedu.mode.http.MyApis;
 import com.jola.onlineedu.util.RxUtil;
 import com.jola.onlineedu.util.StatusBarUtil;
 import com.jola.onlineedu.util.SystemUtil;
 import com.jola.onlineedu.util.ToastUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
 
@@ -38,6 +55,14 @@ public class LoginActivity extends SimpleActivity {
     EditText et_password;
     @BindView(R.id.cb_remember_password)
     CheckBox cb_remember_password;
+
+    private IWXAPI iwxapi;
+
+    private Tencent mTencent;
+    BaseUiListener baseUiListener;
+
+
+
 
 
     @Override
@@ -57,6 +82,112 @@ public class LoginActivity extends SimpleActivity {
         if (!TextUtils.isEmpty(userPassword)){
             et_password.setText(userPassword);
         }
+        registerToWeChat();
+        registerToQq();
+    }
+
+
+    /**
+     * qq 登录、快速支付登录、应用分享、应用邀请等接口
+     */
+    private class BaseUiListener implements IUiListener {
+
+        //            {
+//                "ret":0,
+//                    "pay_token":"xxxxxxxxxxxxxxxx",
+//                    "pf":"openmobile_android",
+//                    "expires_in":"7776000",
+//                    "openid":"xxxxxxxxxxxxxxxxxxx",
+//                    "pfkey":"xxxxxxxxxxxxxxxxxxx",
+//                    "msg":"sucess",
+//                    "access_token":"xxxxxxxxxxxxxxxxxxxxx"
+//            }
+        @Override
+        public void onComplete(Object o) {
+            try {
+                JSONObject jo = (JSONObject) o;
+                int ret = jo.getInt("ret");
+                if (ret == 0) {
+                    String openID = jo.getString("openid");
+                    Log.e("jola","qq_openId"+openID);
+                    doQQLogin(openID);
+//                    String accessToken = jo.getString("access_token");
+//                    String expires = jo.getString("expires_in");
+//                    mTencent.setOpenId(openID);
+//                    mTencent.setAccessToken(accessToken, expires);
+                }
+            } catch (Exception e) {
+//                Util.showToast(LoginActivity.this,"qq 登陆失败！",false);
+                ToastUtil.toastShort("qq 登陆失败！");
+               hideLoadingDialog();
+            }
+        }
+
+        @Override
+
+        public void onError(UiError e) {
+
+            hideLoadingDialog();
+//            Util.showToast(LoginActivity.this,e.errorMessage+":"+e.errorDetail,false);
+            ToastUtil.toastShort(e.errorMessage+":"+e.errorDetail);
+
+        }
+
+        @Override
+
+        public void onCancel() {
+//            Util.showToast(LoginActivity.this,"cancel",false);
+            ToastUtil.toastShort("您取消qq登录");
+        }
+
+    }
+
+    private void registerToQq() {
+        baseUiListener = new BaseUiListener();
+        mTencent = Tencent.createInstance(Constants.Qq_app_id, this.getApplicationContext());
+    }
+
+    private void doQQLogin(final String qqOpenId) {
+       showLoadingDialog();
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("file", "login");
+        requestParams.put("action", "login");
+        requestParams.put("openid", qqOpenId);
+        App.getmAsyncHttpClient().post(MyApis.HOST, requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                LoginResultBean loginResultBean = new Gson().fromJson(new String(responseBody), LoginResultBean.class);
+//                if (null != mLoadingDialog){
+//                    mLoadingDialog.dismiss();
+//                }
+//                int code = loginResultBean.getCode();
+//                if (code == 1) {
+//                    SharedPreferences.Editor edit = SPUtil.getAppSPEdit();
+//                    edit.putInt(SPUtil.UserIdTag, loginResultBean.getUserid());
+//                    edit.putString(SPUtil.TelephoneTag, loginResultBean.getTelephone());
+//                    edit.putString(SPUtil.UserNameTag, loginResultBean.getUsername());
+//                    edit.apply();
+////                          进入主界面=====
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                    Util.showToast(LoginActivity.this, "qq登录成功！", false);
+//                    LoginActivity.this.finish();
+//                } else if (code == 2){
+//                    Intent intent = new Intent(LoginActivity.this, BindingActivity.class);
+//                    intent.putExtra("type",1);
+//                    intent.putExtra("openId",qqOpenId);
+//                    startActivity(intent);
+//                    Util.showToast(LoginActivity.this, "该qq号还没有绑定乐购账号，请绑定乐购账号！", true);
+//                }else{
+//                    Util.showToast(LoginActivity.this, loginResultBean.getMsg(), true);
+//                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+              hideLoadingDialog();
+
+            }
+        });
     }
 
     @OnClick(R.id.tv_login)
@@ -122,10 +253,26 @@ public class LoginActivity extends SimpleActivity {
 ////        startActivity(new Intent(LoginActivity.this, ForumListActivity.class));
 //    }
 
+    private void registerToWeChat() {
+        iwxapi = WXAPIFactory.createWXAPI(this.getApplicationContext(),Https.WeChat_App_Id,true);
+        iwxapi.registerApp(Https.WeChat_App_Id);
+    }
+
     @OnClick(R.id.iv_qq_login)
     public void qqLogin(View view){
-//        startActivity(new Intent(LoginActivity.this, TestPoolActivity.class));
+      showLoadingDialog();
+
+        if (!mTencent.isSessionValid())
+        {
+            mTencent.login(this, "all",baseUiListener);
+        }else{
+         hideLoadingDialog();
+            ToastUtil.toastShort("未检测到QQ客户端，无法完成QQ登录");
+        }
     }
+
+
+
 
     @OnClick(R.id.iv_weibo_login)
     public void weiboLogin(View view){
@@ -134,6 +281,17 @@ public class LoginActivity extends SimpleActivity {
 
     @OnClick(R.id.iv_wechat_login)
     public void wechatLogin(View view){
+       showLoadingDialog();
+        if (!iwxapi.isWXAppInstalled()){
+            ToastUtil.toastShort("未检测到微信客户端，无法完成微信登录");
+          hideLoadingDialog();
+            return;
+        }
+
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "onlineedu_wechat_login";
+        iwxapi.sendReq(req);
 
     }
 
