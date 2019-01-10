@@ -254,8 +254,8 @@ public class LoginActivity extends SimpleActivity {
 //    }
 
     private void registerToWeChat() {
-        iwxapi = WXAPIFactory.createWXAPI(this.getApplicationContext(),Https.WeChat_App_Id,true);
-        iwxapi.registerApp(Https.WeChat_App_Id);
+        iwxapi = WXAPIFactory.createWXAPI(this.getApplicationContext(),Constants.Wx_app_id,true);
+        iwxapi.registerApp(Constants.Wx_app_id);
     }
 
     @OnClick(R.id.iv_qq_login)
