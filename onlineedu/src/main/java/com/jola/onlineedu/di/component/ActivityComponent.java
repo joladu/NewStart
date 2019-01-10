@@ -37,6 +37,7 @@ import com.jola.onlineedu.ui.activity.TeacherMasterActivity;
 import com.jola.onlineedu.ui.activity.TeacherMasterDetailActivity;
 import com.jola.onlineedu.ui.activity.TestPoolActivity;
 import com.jola.onlineedu.ui.activity.UserDetailActivity;
+import com.jola.onlineedu.wxapi.WXEntryActivity;
 
 import dagger.Component;
 
@@ -82,4 +83,5 @@ public interface ActivityComponent {
     void inject(MessageSendActivity messageSendActivity);
     void inject(FriendFromApplyDetailActivity friendFromApplyDetailActivity);
     void inject(SplashActivity splashActivity);
+//    void inject(WXEntryActivity wxEntryActivity);
 }

@@ -107,7 +107,7 @@
         <activity android:name=".ui.activity.FriendListFromApplyActivity" />
         <activity android:name=".ui.activity.UserDetailActivity" />
         <activity android:name=".ui.activity.GroupChatActivity" />
-        <activity android:name=".ui.activity.ChooseSchoolActivity"></activity>
+        <activity android:name=".ui.activity.ChooseSchoolActivity"/>
         <activity android:name=".ui.activity.FriendFromApplyDetailActivity" />
     </application>
 

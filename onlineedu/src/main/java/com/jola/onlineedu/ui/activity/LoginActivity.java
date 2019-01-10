@@ -35,6 +35,9 @@ import com.tencent.tauth.UiError;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -86,6 +89,11 @@ public class LoginActivity extends SimpleActivity {
         registerToQq();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideLoadingDialog();
+    }
 
     /**
      * qq 登录、快速支付登录、应用分享、应用邀请等接口
@@ -148,47 +156,29 @@ public class LoginActivity extends SimpleActivity {
     }
 
     private void doQQLogin(final String qqOpenId) {
-       showLoadingDialog();
-        RequestParams requestParams = new RequestParams();
-        requestParams.put("file", "login");
-        requestParams.put("action", "login");
-        requestParams.put("openid", qqOpenId);
-        App.getmAsyncHttpClient().post(MyApis.HOST, requestParams, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                LoginResultBean loginResultBean = new Gson().fromJson(new String(responseBody), LoginResultBean.class);
-//                if (null != mLoadingDialog){
-//                    mLoadingDialog.dismiss();
-//                }
-//                int code = loginResultBean.getCode();
-//                if (code == 1) {
-//                    SharedPreferences.Editor edit = SPUtil.getAppSPEdit();
-//                    edit.putInt(SPUtil.UserIdTag, loginResultBean.getUserid());
-//                    edit.putString(SPUtil.TelephoneTag, loginResultBean.getTelephone());
-//                    edit.putString(SPUtil.UserNameTag, loginResultBean.getUsername());
-//                    edit.apply();
-////                          进入主界面=====
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    Util.showToast(LoginActivity.this, "qq登录成功！", false);
-//                    LoginActivity.this.finish();
-//                } else if (code == 2){
-//                    Intent intent = new Intent(LoginActivity.this, BindingActivity.class);
-//                    intent.putExtra("type",1);
-//                    intent.putExtra("openId",qqOpenId);
-//                    startActivity(intent);
-//                    Util.showToast(LoginActivity.this, "该qq号还没有绑定乐购账号，请绑定乐购账号！", true);
-//                }else{
-//                    Util.showToast(LoginActivity.this, loginResultBean.getMsg(), true);
-//                }
-            }
+        showLoadingDialog();
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-              hideLoadingDialog();
-
-            }
-        });
+        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("name", null);
+//        map.put("avatar", null);
+        map.put("qq_uid", qqOpenId);
+        mDataManager.thirdpartLogin(map)
+                .compose(RxUtil.<String>rxSchedulerHelper())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        System.out.print(s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        hideLoadingDialog();
+                        tipServerError();
+                    }
+                });
     }
+
+
 
     @OnClick(R.id.tv_login)
     public void login(View view){
@@ -284,7 +274,7 @@ public class LoginActivity extends SimpleActivity {
        showLoadingDialog();
         if (!iwxapi.isWXAppInstalled()){
             ToastUtil.toastShort("未检测到微信客户端，无法完成微信登录");
-          hideLoadingDialog();
+            hideLoadingDialog();
             return;
         }
 

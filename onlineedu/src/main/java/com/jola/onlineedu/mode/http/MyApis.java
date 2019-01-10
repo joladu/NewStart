@@ -53,6 +53,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -555,6 +556,22 @@ public interface MyApis {
     Flowable<ResponseSimpleResult> sendGroupMsg(@Header(TAG_AUTHORIZATION)String token,
                                                 @Field("content")String content
                                                 );
+
+    @POST("v1/user/thirdsignup/")
+    @FormUrlEncoded
+    Flowable<String> thirdpartLogin(@FieldMap Map<String,Object> map
+    );
+
+    @POST("v1/user/thirdprofile/supplement/")
+    @FormUrlEncoded
+    Flowable<ResponseSimpleResult> thirdpartLoginImprove(
+            @Header(TAG_AUTHORIZATION)String token,
+            @Field("name")String name,
+            @Field("mobile")String mobile,
+            @Field("role")int role
+    );
+
+
 
 
 //  *****************  end  user api *****************

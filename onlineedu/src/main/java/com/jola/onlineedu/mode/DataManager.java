@@ -427,6 +427,16 @@ public class DataManager implements MyApis ,DBHelper,PreferencesHelper{
         return myApis.sendGroupMsg(token,content);
     }
 
+    @Override
+    public Flowable<String> thirdpartLogin(Map<String, Object> map) {
+        return myApis.thirdpartLogin(map);
+    }
+
+    @Override
+    public Flowable<ResponseSimpleResult> thirdpartLoginImprove(String token,String name, String mobile, int role) {
+        return myApis.thirdpartLoginImprove(token,name,mobile,role);
+    }
+
 
     @Override
     public void insertNewsId(int id) {

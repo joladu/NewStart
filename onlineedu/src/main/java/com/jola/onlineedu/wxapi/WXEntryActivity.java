@@ -1,12 +1,17 @@
 package com.jola.onlineedu.wxapi;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.jola.onlineedu.app.App;
 import com.jola.onlineedu.app.Constants;
+import com.jola.onlineedu.mode.bean.response.ResThirdpartLoginBean;
 import com.jola.onlineedu.mode.http.MyApis;
+import com.jola.onlineedu.ui.activity.MainActivity;
 import com.jola.onlineedu.ui.activity.PersonInfoImproveActivity;
 import com.jola.onlineedu.util.ToastUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,14 +28,8 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-//
-//import com.shengfan.jola.killsaver.activity.BindingActivity;
-//import com.shengfan.jola.killsaver.activity.MainActivity;
-//import com.shengfan.jola.killsaver.activity.MyApplication;
-//import com.shengfan.jola.killsaver.beans.LoginResultBean;
-//import com.shengfan.jola.killsaver.constants.Https;
-//import com.shengfan.jola.killsaver.utils.SPUtil;
-//import com.shengfan.jola.killsaver.utils.Util;
+import static com.jola.onlineedu.mode.prefs.PreferencesHelperImpl.SHAREDPREFERENCES_NAME;
+import static com.jola.onlineedu.mode.prefs.PreferencesHelperImpl.TAG_USER_TOKEN;
 
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -39,9 +38,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 //    private static final int RETURN_MSG_TYPE_LOGIN = 1;
 //    private static final int RETURN_MSG_TYPE_SHARE = 2;
 
-//	private Button gotoBtn, regBtn, launchBtn, checkBtn, payBtn, favButton;
 
     private IWXAPI api;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,45 +120,34 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private void doWeChatLogin(final String openId) {
         RequestParams requestParams = new RequestParams();
-        requestParams.put("file", "login");
-        long curSeconds = System.currentTimeMillis() / 1000;
-        App.getmAsyncHttpClient().post(MyApis.HOST, requestParams, new AsyncHttpResponseHandler() {
+        requestParams.put("wx_unionid",openId);
+        App.getmAsyncHttpClient().post(MyApis.HOST+"v1/user/thirdsignup/", requestParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                LoginResultBean loginResultBean = new Gson().fromJson(new String(responseBody), LoginResultBean.class);
-//                int code = loginResultBean.getCode();
-//                if (code == 1) {
-//                    Util.showToast(WXEntryActivity.this, "微信登录成功！", false);
-//                    SharedPreferences.Editor edit = SPUtil.getAppSPEdit();
-//                    edit.putInt(SPUtil.UserIdTag, loginResultBean.getUserid());
-//                    edit.putString(SPUtil.TelephoneTag, loginResultBean.getTelephone());
-//                    edit.putString(SPUtil.UserNameTag, loginResultBean.getUsername());
-//                    edit.apply();
-//                          进入主界面=====
-//                    startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
-//                    WXEntryActivity.this.finish();
-//                } else if (code == 2) {
-//                    Util.showToast(WXEntryActivity.this, "该微信账号还未绑定乐购账号,请绑定乐购账号！！", true);
-//                    Intent intent = new Intent(WXEntryActivity.this, BindingActivity.class);
-//                    intent.putExtra("type", 2);
-//                    intent.putExtra("openId", openId);
-//                    startActivity(intent);
-//                    WXEntryActivity.this.finish();
-//                } else {
-//                    Util.showToast(WXEntryActivity.this, loginResultBean.getMsg(), true);
-//                    WXEntryActivity.this.finish();
-//                }
+                String resultString = new String(responseBody);
+                Log.e("jola",resultString);
+                ResThirdpartLoginBean loginResultBean = new Gson().fromJson(new String(responseBody), ResThirdpartLoginBean.class);
+                int code = loginResultBean.getError_code();
+                if (code == 0) {
+                    ToastUtil.toastShort("微信登录成功！");
 
-                startActivity(new Intent(WXEntryActivity.this, PersonInfoImproveActivity.class));
+                    String token = loginResultBean.getData().getToken();
+//                    dataManager.setUserToken(loginResultBean.getData().getToken());
+                    App.getInstance().getSharedPreferences(SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE)
+                            .edit().putString(TAG_USER_TOKEN,token).apply();
 
-
-
+                    startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
+                    WXEntryActivity.this.finish();
+                } else  {
+                    ToastUtil.toastShort("该微信账号还未绑定乐购账号,请绑定乐购账号！");
+                    startActivity(new Intent(WXEntryActivity.this, PersonInfoImproveActivity.class));
+                    WXEntryActivity.this.finish();
+                }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //                Util.showToast(WXEntryActivity.this, "网络连接失败或服务器异常！", true);
-
                 WXEntryActivity.this.finish();
                 ToastUtil.toastShort("网络连接失败或服务器异常！");
             }
